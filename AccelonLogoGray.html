@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>AccelonLogo</title>
+    <base target="_blank">
+    <style>
+         ::selection {
+            background: indigo;
+            color: yellow;
+        }
+        
+         ::-moz-selection {
+            background: indigo;
+            color: yellow;
+        }
+        
+        #Lum1 {
+            margin: 0px 140px;
+            width: 200px;
+            height: 200px;
+            border: 15px solid orange;
+            /*box-shadow: 5px 5px 8px brown;*/
+            border-radius: 50%;
+            background: radial-gradient(circle, lightcoral 0%, #fff 60%, darkred 90%);
+            animation-name: Lum;
+            animation-duration: 8s;
+            animation-timing-function: linear;
+            animation-delay: 0;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+            animation-play-state: running;
+            /* Safari and Chrome: paused*/
+            -webkit-animation-name: Lum;
+            -webkit-animation-duration: 8s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-delay: 0;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: normal;
+            -webkit-animation-play-state: running;
+            /* Firefox: */
+            -moz-animation-name: Lum;
+            -moz-animation-duration: 8s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-delay: 0;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: normal;
+            -moz-animation-play-state: running;
+            /* Opera: */
+            -o-animation-name: Lum;
+            -o-animation-duration: 8s;
+            -o-animation-timing-function: linear;
+            -o-animation-delay: 0;
+            -o-animation-iteration-count: infinite;
+            -o-animation-direction: normal;
+            -o-animation-play-state: running;
+        }
+        
+        @keyframes Lum {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @-webkit-keyframes Lum {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        
+        @-moz-keyframes Lum {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+            to {
+                -moz-transform: rotate(360deg);
+            }
+        }
+        
+        @-o-keyframes Lum {
+            from {
+                -o-transform: rotate(0deg);
+            }
+            to {
+                -o-transform: rotate(360deg);
+            }
+        }
+        
+        .OutFu {
+            /*box-shadow: -2px -2px 4px mistyrose;*/
+            border-radius: 50%;
+            background: -webkit-linear-gradient(bottom, orange, gold);
+            background: linear-gradient(bottom, orange, gold);
+        }
+        
+        .BigFu {
+            background: -webkit-linear-gradient(bottom, tomato 20%, brown 40%, peru 80%);
+            background: linear-gradient(bottom, tomato 20%, brown 40%, peru 80%);
+        }
+        
+        #Co2 {
+            position: relative;
+            margin: 70px auto;
+            width: 60px;
+            height: 60px;
+            /*background:tomato;*/
+            border-radius: 50%;
+            background: radial-gradient(circle, coral 0%, brown 90%);
+        }
+        
+        #Lumout {
+            /*transform: scale(0.6,0.6);*/
+            width: 660px;
+            height: 260px;
+            border: 3px solid #aaa;
+            box-shadow: 5px 5px 5px peru, 8px 8px 5px saddlebrown, 10px 10px 2px #533, 10px 15px 18px #555, 15px 10px 18px #555;
+            border-radius: 25px;
+            background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);
+            background: linear-gradient(top, #ffe 0%, #ffb 15%, #ffa 85%, #ff4 100%);
+        }
+        
+        #Lum {
+            position: absolute;
+            margin: -40px 10px;
+            width: 320px;
+            height: 290px;
+            /*內置矩形 inset( 上右下左的邊距 round 上右下左圓角 )*/
+            -webkit-clip-path: inset(50px 0px 0px 0px round 10% 10% 10% 10%);
+            clip-path: inset(50px 0px 0px 0px round 10% 10% 10% 10%);
+        }
+        
+        #word {
+            position: absolute;
+            /*float: left;*/
+            margin: 0px 340px;
+            width: 300px;
+            height: 240px;
+        }
+        
+        p {
+            color: black;
+            text-align: center;
+            line-height: 2px;
+        }
+        
+        #w1 {
+            position: absolute;
+            font-size: 22pt;
+            margin: 45px 220px;
+            font-style: italic;
+        }
+        
+        #w2 {
+            font-size: 60pt;
+            /*font-weight:bold;*/
+        }
+        
+        #w3 {
+            font-size: 24pt;
+        }
+        
+        #w4 {
+            font-size: 30pt;
+        }
+        
+        h2 {
+            color: teal;
+        }
+        
+        .OutA {
+            border-radius: 30%;
+            background: -webkit-linear-gradient(left, #446 40%, cyan 50%, #446 60%);
+            background: linear-gradient(left, #446 30%, cyan 50%, #446 70%);
+        }
+        
+        #CoA {
+            position: relative;
+            /*margin: 20px auto;*/
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 35%, cyan 80%);
+        }
+        
+        #LumA {
+            position: absolute;
+            z-index: -1;
+            margin: -80px 20px;
+            width: 80px;
+            height: 80px;
+            border: 20px solid #446;
+            /*box-shadow: 3px 3px 3px #555;*/
+            border-radius: 50%;
+            animation-name: loading;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-delay: 0;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+            animation-play-state: running;
+            /* Safari and Chrome: paused*/
+            -webkit-animation-name: loading;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-delay: 0;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: normal;
+            -webkit-animation-play-state: running;
+            /* Firefox: */
+            -moz-animation-name: loading;
+            -moz-animation-duration: 3s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-delay: 0;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: normal;
+            -moz-animation-play-state: running;
+            /* Opera: */
+            -o-animation-name: loading;
+            -o-animation-duration: 3s;
+            -o-animation-timing-function: linear;
+            -o-animation-delay: 0;
+            -o-animation-iteration-count: infinite;
+            -o-animation-direction: normal;
+            -o-animation-play-state: running;
+        }
+        
+        @keyframes loading {
+            from {
+                transform: rotate(360deg);
+            }
+            to {
+                transform: rotate(0deg);
+            }
+        }
+        
+        @-webkit-keyframes loading {
+            from {
+                -webkit-transform: rotate(360deg);
+            }
+            to {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+        
+        @-moz-keyframes loading {
+            from {
+                -moz-transform: rotate(360deg);
+            }
+            to {
+                -moz-transform: rotate(0deg);
+            }
+        }
+        
+        @-o-keyframes loading {
+            from {
+                -o-transform: rotate(360deg);
+            }
+            to {
+                -o-transform: rotate(0deg);
+            }
+        }
+    </style>
+    <script>
+        function css3(obj, attrObj) {
+            // 插入多種css語法，取代原來網頁的語法
+            for (var i in attrObj) {
+                var j = i
+                if (j.indexOf('-') > 0) {
+                    var num = j.indexOf('-')
+                    j = j.replace(j.substr(num, 2), j.substr(num + 1, 1).toUpperCase())
+                }
+                obj.style[j] = attrObj[i]
+                j = j.replace(j.charAt(0), j.charAt(0).toUpperCase())
+                obj.style['-webkit-' + j] = attrObj[i]
+                obj.style['-moz-' + j] = attrObj[i]
+                obj.style['-o-' + j] = attrObj[i]
+                obj.style['-ms-' + j] = attrObj[i]
+            }
+        }
+        function addCarFu(obj, num, bignum, smailwidth, smailheight, bigWidth, bigHeight, Otop, Oleft, color, OclassName) {
+            // 產生半徑的軸，自動設定座標位置，產生大小不同的軸
+            for (var i = 0; i < num; i++) {
+                var widthA = smailwidth
+                var heightA = smailheight
+                if (i % (num / bignum) == 0) {
+                    widthA = bigWidth
+                    heightA = bigHeight
+                }
+                var addBig = document.createElement('div')
+                addBig.style.cssText = 'width:' + widthA + 'px;height:' + heightA + 'px;background:' + color + ';position:absolute;top:' + Otop + ';left:' + Oleft + ';'
+                addBig.className = OclassName
+                css3(addBig, { transform: 'rotate(' + i * (360 / num) + 'deg)', 'transform-origin': Otop + ' ' + Oleft })
+                obj.appendChild(addBig)
+            }
+        }
+        function addCarFuLong(obj, num, smailwidth, smailheight, Otop, Oleft, color, OclassName, itop, ileft) {
+            // 產生直徑的軸，並且自行設定座標位置
+            for (var i = 0; i < num; i++) {
+                var widthA = smailwidth
+                var heightA = smailheight
+                var addBig = document.createElement('div')
+                addBig.style.cssText = 'width:' + widthA + 'px;height:' + heightA + 'px;background:' + color + ';position:absolute;top:' + Otop + ';left:' + Oleft + ';'
+                addBig.className = OclassName
+                css3(addBig, { transform: 'rotate(' + i * (180 / num) + 'deg)', 'transform-origin': ileft + ' ' + itop })
+                obj.appendChild(addBig)
+            }
+        }
+        function addDiv(Obj, Odiv, Oid, OclassName) {
+            var addDiv = document.createElement(Odiv)
+            addDiv.id = Oid
+            addDiv.className = OclassName
+            Obj.appendChild(addDiv)
+        }
+        function CarLum() {
+            addDiv(Lumout, 'div', 'Lum')
+            addDiv(Lum, 'div', 'Lum1')
+            // addDiv(Lum1,'div','Co')
+            // addDiv(Co,'div','Co1')
+            addCarFu(Lum1, 8, 0, 10, 100, 10, 100, '0px', '100px', '', 'BigFu')
+            addCarFu(Lum1, 8, 0, 28, 28, 28, 28, '-28px', '128px', '', 'OutFu')
+            // addCarFu(Co1,8,4,2,45,3,45,'0px','45px','hotpink','InsideFu')
+            addDiv(Lum1, 'div', 'Co2')
+        }
+        function cLum() {
+            addDiv(Lum, 'div', 'LumA')
+            addCarFuLong(LumA, 3, 40, 160, '-40px', '20px', '', 'OutA', '50%', '50%')
+            addDiv(LumA, 'div', 'CoA')
+        }
+        function Word() {
+            addDiv(Lumout, 'div', 'word')
+            addDiv(word, 'p', 'w1')
+            addDiv(word, 'p', 'w2')
+            addDiv(word, 'p', 'w3')
+            addDiv(word, 'p', 'w4')
+            w1.innerHTML = '2017'
+            w2.innerHTML = 'Accelon'
+            w3.innerHTML = 'ksanaforge.github.io'
+            w4.innerHTML = '剎那工坊'
+        }
+    </script>
+</head>
+
+<body id="body" onload="CarLum(),cLum(),Word()">
+    <a href='http://ksanaforge.github.io' target="_blank">
+        <div id="Lumout">
+        </div>
+    </a>
+    <br/>
+    <h2>剛學CSS語法，將Accelon圖標當作練習題，製作雙輪圖案，尚無法顧及相容性，等日後學會jQuery再說！
+        <br/><a href="http://ksanaforge.github.io" target="_blank">http://ksanaforge.github.io</a>
+        <br/><a href="https://github.com/accelon" target="_blank">https://github.com/accelon</a>
+        <br/><a href="https://github.com/ksanaforge" target="_blank">https://github.com/ksanaforge</a>
+        <br/>下面是原始圖標
+        <br/><img src=".\Acceon3商標.png" />
+    </h2>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+body {background:#000; line-height:120%; color:#fff; font-size:330%;}
+span.SearchWord1 {color:#ffc; background: #ffff66;}
+span.SearchWord2 {color:#ffc; background: #a0ffff;}
+span.SearchWord3 {color:#ffc; background: #99ff99;}
+span.SearchWord4 {color:#ffc; background: #ff9999;}
+span.SearchWord5 {color:#ffc; background: #ff66ff;}
+a.hover	{color:cyan;}
+a:visited 	{color:cyan;}
+a:link		{color:red;}
+a:active	{color:yellow;}
+span.juannum {color:lime; font-size:100%;}
+span.juanname {color:cyan; font-size:120%;font-weight: bold; }
+span.xu {color:#ffa; font-size:100%;}
+span.w {color:pink; font-size:100%;}
+span.byline {color:#bf9; font-size:100%;font-weight: bold;}
+span.headname {color:#f99; font-size:100%;font-weight: bold; }
+span.linehead {color:gold; font-size:100%;}
+span.lg {color:#dfd; font-size:100%;}
+span.corr {color:#fcc; }
+span.gaiji { font-family:SimSun, Arial Unicode MS, �s�ө���;}
+span.note {color:#f8f; font-size:90%;}
+

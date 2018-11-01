@@ -1,0 +1,115 @@
+﻿<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>整月回向文</title>
+    <style>
+        #div1 div {
+            display: inline-block;
+            border: 1px solid blue;
+            /*配合A4紙大小*/
+            width: 85mm;
+            height: 5cm;
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            font-size: 16pt;
+            padding: 5px 15px 5px 5px;
+            color: blue;
+        }
+        
+        #txt1 {
+            width: 50vw;
+            height: 20vh;
+        }
+        
+        #btn1 {
+            background: yellow;
+            height: 35px;
+        }
+    </style>
+    <script>
+        function delTab(a) {
+            var oObj = document.getElementById(a)
+            while (oObj.firstChild) {
+                oObj.removeChild(oObj.firstChild)
+            }
+        }
+        // 今日日期
+        var d = new Date
+        var M = d.getMonth() + 1
+        var D = d.getDate()
+        // 文字作成變量，減少重複程式碼
+        var sz = '<br/><br/>業障病障悉消除<br/>身心得安樂健康<br/>'
+        var wz = '<br/><br/>往生極樂國<br/>圓成菩提道<br/>'
+        function Date30(a, b) {
+            // 加入今日日期，並判斷跨月的日期
+            // 本月之內
+            if ((D + 2 + a) < 31) {
+                return txt1.value + b + M + '月' + (D + a) + '~' + (D + 2 + a) + '日'
+            } else if ((D + a) == 29) {
+                // 跨月
+                return txt1.value + b + M + '月' + (D + a) + '~' + (M + 1) + '月1日'
+            } else if ((D + a) == 30) {
+                return txt1.value + b + M + '月' + (D + a) + '~' + (M + 1) + '月2日'
+            } else if ((D + a) > 30) {
+                // 超過本月
+                return txt1.value + b + (M + 1) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
+            }
+        }
+        function addTD(c) {
+            // 循環：三日一份
+            for (var i = 0; i < 30; i += 3) {
+                var aDiv = document.createElement('div')
+                // 日期+回向文變量
+                aDiv.innerHTML = Date30(i, c)
+                div1.appendChild(aDiv)
+            }
+        }
+        window.onload = function () {
+            // 輸入完，立刻呈現
+            txt1.onkeyup = function () {
+                // 先刪除舊的，不然會一直增加
+                delTab('div1')
+                addTD(sz)
+            }
+            btn1.onclick = function () {
+                delTab('div1')
+                addTD(wz)
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <input type="button" id="btn1" value="往生表單" /><br/>
+    <textarea id="txt1" placeholder="在此輸入要迴向消災的信徒名單，
+輸入完畢後，鍵盤一停止，
+就會呈現出消災表單！
+日期會自動填入。
+若要往生表單：輸入完畢後，請按「往生表單」按鈕！
+
+彭新松 
+薛清梅<br>
+鈕先鉞 
+張佩華<br>
+彭俊陽 
+鈕則謙<br>
+">
+張文勝(迴向怨親債主，祈求癱瘓好轉)<br><br>
+釋安喜(祈求脊椎恢復)<br>
+藍茂峰
+蔡清吉<br>
+張金鐘
+</textarea>
+<br/>
+在此輸入要迴向消災的信徒名單，
+輸入完畢後，鍵盤一停止，
+就會呈現出消災表單！
+日期會自動填入。
+若要往生表單：輸入完畢後，請按「往生表單」按鈕！
+</body>
+
+</html>

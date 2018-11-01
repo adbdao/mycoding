@@ -1,0 +1,1557 @@
+<!DOCTYPE HTML>
+<html>
+    <meta charset="utf-8">
+    <head>
+    <title>排班(表格抽籤)</title>
+<style>
+*{border-radius: 8px;padding: 3px;}
+::selection{background: olive;color:yellow}
+::-moz-selection{background: olive;color:yellow}
+td::selection,textarea::selection{background: darkred;color:yellow}
+td::-moz-selection,textarea::-moz-selection{background: darkred;color:yellow}
+input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
+table{border: 3px solid darkgoldenrod;}
+td{border: 1px solid indigo;}
+#txt1{width:18vw;height:25vh;}
+#txt2{width:40vw;height:20vh;}
+#txt3{width:20vw;height:25vh;}
+
+input {height: 30px;}
+#div0 {background:#ccc;}
+#div1 {background:#ebe;}
+#div1 input {background:#fec;}
+#div2 input {background:#aea;}
+#div3 input {background:#ff8;}
+#div4 input {background:#f99;}
+.name {background:tan;color: crimson;}
+
+#nbr {width: 150px; height: 30px;background: lightcyan}
+#btng1 {width: 70px; height: 55px;background: tomato}
+#btng2 {width: 70px; height: 45px;background: gold}
+#btng3 {width: 55px; height: 55px;background: skyblue}
+#btng4 {width: 66px; height: 75px;background: greenyellow}
+#btng5 {width: 100px; height: 45px;background: tan}
+#btng6 {width: 100px; height: 45px;background: khaki}
+#reload {width: 75px; height: 40px;background: yellowgreen}
+</style>
+<script>
+var nanArr=['圓振',
+'宗興',
+'果明',
+'本因',
+'悟曜',
+'心定',
+'道中',
+'悟廣',
+'淨才',
+'智倫',
+'本瑞',
+'淨本',
+'成道',
+'清會',
+'成恩',
+'宏顯',
+'宏度',
+'成明',
+'湛南',
+'印量',
+'本光',
+'常品',
+'本平',
+'融慧',
+'成本',
+'成義',
+'成勇',
+'圓觀',
+'天授',
+'振同',
+'振文',
+
+
+'振修',
+'印璽',
+'智廣',
+'法光'
+
+]
+var nanArr1=['悟曜',
+'心定',
+'智倫',
+'宏顯',
+'宏度',
+'成明',
+'湛南',
+'印量',
+'常品',
+'本平',
+'成義',
+'成勇',
+'圓觀',
+'天授',
+
+'振同',
+'振文',
+
+'振修',
+'印璽',
+'智廣',
+'法光'
+
+
+
+]
+var nanArr2=["圓振","宗興","果明","悟曜","心定","道中","悟廣","慈信","淨才","智倫","祥因","本瑞","淨本","界貴","成道","清會","見分","成恩","心寶","常定","宏顯","宏度","成明","湛南","印量","本光","常嶺","成真","慶慧","常引","常品","智梵","本平","達虔","融慧","振慈","長合","惟禮","成本","智源","圓普","見照","成義","成勇","慈定","圓觀","寬恒","天授","天祥","振禪","振文","振同","振修","印璽","成孝","蘇哲祥"]
+function overCopy(){
+    // 結束時選取並複製文本框中的內容
+    document.getElementById('txt2').select()
+    document.execCommand('Copy')
+}
+function addNum(){
+    var arr=[]
+    for(var i=0;i<99;i++){
+        arr[i]=(i+1)<10?'0'+(i+1):''+(i+1)
+    }
+    txt1.value=arr.join('\n')
+    nbr.value='3'
+}
+function toDon(n){
+    if(n<10)
+        {
+            return '0'+n
+        }
+        else
+        {
+            return ''+n
+        }
+}
+function addDate(){
+    var oDate=new Date()
+    var htr=toDon(oDate.getHours())+':'+toDon(oDate.getMinutes())+':'+toDon(oDate.getSeconds())
+    var dtr=oDate.getFullYear()+'/'+toDon((oDate.getMonth()+1))+'/'+toDon(oDate.getDate())
+
+    var oUl=document.getElementById('ul1')
+    while (oUl.firstChild){
+        oUl.removeChild(oUl.firstChild)
+    }
+    var oLi=document.createElement('li')
+    oLi.innerHTML='製表日期： '+dtr+'_'+htr
+    oUl.appendChild(oLi)
+}
+function MM(){
+    var oTab=document.getElementById('tab1')
+    var oldColor=''
+    // 舊式的滑鼠反白，現在可用css代替了
+    oTab.innerHTML=oTab.innerHTML.replace(/undefined/g,'')
+
+    for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+    {
+        oTab.tBodies[0].rows[i].onmouseover=function()
+        {
+            oldColor=this.style.background
+            this.style.background='#9ff'
+        }
+        oTab.tBodies[0].rows[i].onmouseout=function()
+        {
+            this.style.background=oldColor
+        }
+        if(i%2)
+        {
+            oTab.tBodies[0].rows[i].style.background=''
+        }
+        else
+        {
+            oTab.tBodies[0].rows[i].style.background='#cfc'
+        }
+    }
+    addDate()
+}
+function TdOnmousedown(){
+    var oTab=document.getElementById('tab1')
+    var oR=oTab.tBodies[0].rows
+    for(var j=2;j<8;j++){
+        for(var i=1;i<oR.length;i++){
+            oR[i].cells[j].onmousedown=function(){
+                if(this.style.background!='red'){
+                    this.style.background='red'
+                    this.innerHTML='V'
+                    // this.getElementsByTagName('input')[0].checked=true
+                }else{
+                    this.style.background=''
+                    this.innerHTML=''
+                    // this.getElementsByTagName('input')[0].checked=false
+                }
+            }
+        }
+    }
+}
+function delTab(){
+    var oTtb=document.getElementById('tab1').tBodies[0]
+    while (oTtb.firstChild){
+    oTtb.removeChild(oTtb.firstChild)
+    }
+}
+function reAB(a,b){
+    var oT1=document.getElementById('txt1')
+    var ntr=oT1.value
+    ntr=ntr.replace(/釋|法師|師/g,'')
+    var ntr1=ntr.split('\n')
+    for(var i=0;i<ntr1.length;i++)
+    {
+        ntr1[i]=a+ntr1[i]+b
+    }
+    oT1.value=ntr1.join('\n')
+}
+window.onload=function()
+{
+    var oDiv=document.getElementById('div0')
+    var oTab=document.getElementById('tab1')
+    var oUl=document.getElementById('ul1')
+    var oT1=document.getElementById('txt1')
+    var oT2=document.getElementById('txt2')
+    var oT3=document.getElementById('txt3')
+    var oB0=document.getElementById('btn0')
+    var oB1=document.getElementById('btn1')
+    var oB2=document.getElementById('btn2')
+    var oB3=document.getElementById('btn3')
+    var oB4=document.getElementById('btn4')
+    var oB5=document.getElementById('btn5')
+    var oB6=document.getElementById('btn6')
+    var oB7=document.getElementById('btn7')
+    var oB8=document.getElementById('btn8')
+    var oB9=document.getElementById('btn9')
+    var oB10=document.getElementById('btn10')
+    var oB11=document.getElementById('btn11')
+    var oB12=document.getElementById('btn12')
+    var oB13=document.getElementById('btn13')
+    var oB14=document.getElementById('btn14')
+    var oB15=document.getElementById('btn15')
+    var oB16=document.getElementById('btn16')
+    var oB17=document.getElementById('btn17')
+    var oB18=document.getElementById('btn18')
+    var oB19=document.getElementById('btn19')
+    var oB20=document.getElementById('btn20')
+    oB1.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i+=6)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB2.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i+=8)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(7+i)+')'+str[6+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(8+i)+')'+str[7+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB3.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='5)'+str[4]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='3)'+str[2]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='1)'+str[0]
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='2)'+str[1]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='4)'+str[3]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='6)'+str[5]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        for(var i=6;i<str.length;i+=8)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(7+i)+')'+str[6+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(8+i)+')'+str[7+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB4.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i+=6)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB5.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i+=8)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(7+i)+')'+str[6+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(8+i)+')'+str[7+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB6.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+        var oTd=document.createElement('td')
+        oTd.innerHTML='維那'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='木魚'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='維那'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='鈴鼓'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='38)'+str[37]
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<3;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+        var oTd=document.createElement('td')
+        oTd.innerHTML='木魚'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='維那'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='19)'+str[18]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='39)'+str[38]
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        for(var i=0;i<str.length;i+=2)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(20+i)+')'+str[19+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(21+i)+')'+str[20+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(40+(i/2))+')'+str[39+(i/2)]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+
+            if(i==14){
+                break
+            }
+        }
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<3;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+        var oTd=document.createElement('td')
+        oTd.innerHTML='香燈'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='17)'+str[16]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='36)'+str[35]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='48)'+str[47]
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+        var oTd=document.createElement('td')
+        oTd.innerHTML='知客'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='香燈'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='18)'+str[17]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='37)'+str[36]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='49)'+str[48]
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        MM()
+    }
+    oB7.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='9)'+str[8]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='10)'+str[9]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='11)'+str[10]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='12)'+str[11]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='13)'+str[12]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='14)'+str[13]
+        oTr.appendChild(oTd)
+         for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='1)'+str[0]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='2)'+str[1]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='3)'+str[2]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='4)'+str[3]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='5)'+str[4]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='6)'+str[5]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='7)'+str[6]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='8)'+str[7]
+        oTr.appendChild(oTd)
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='供桌'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='聖僧'
+        oTr.appendChild(oTd)
+        oTab.tBodies[0].appendChild(oTr)
+
+        for(var i=14;i<str.length;i+=8)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(7+i)+')'+str[6+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(8+i)+')'+str[7+i]
+            oTr.appendChild(oTd)
+            for(var k=0;k<2;k++){var oTd=document.createElement('td')
+            oTr.appendChild(oTd)}
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB8.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='9)'+str[8]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='10)'+str[9]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='11)'+str[10]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='12)'+str[11]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='13)'+str[12]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='14)'+str[13]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='15)'+str[14]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+
+        oTab.tBodies[0].appendChild(oTr)
+
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML=id++
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='1)'+str[0]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='2)'+str[1]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='3)'+str[2]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='4)'+str[3]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='5)'+str[4]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='6)'+str[5]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='7)'+str[6]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='8)'+str[7]
+        oTr.appendChild(oTd)
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='供桌'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='聖僧'
+        oTr.appendChild(oTd)
+        oTab.tBodies[0].appendChild(oTr)
+
+        for(var i=15;i<str.length;i+=10)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(1+i)+')'+str[0+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(2+i)+')'+str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(3+i)+')'+str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(4+i)+')'+str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(5+i)+')'+str[4+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(6+i)+')'+str[5+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(7+i)+')'+str[6+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(8+i)+')'+str[7+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(9+i)+')'+str[8+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=(10+i)+')'+str[9+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        MM()
+    }
+    oB9.onclick=function()
+    {
+        delTab()
+        var str=[]
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i++)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id+i
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[i]
+            oTr.appendChild(oTd)
+            for(var k=0;k<2;k++){var oTd=document.createElement('td')
+            oTr.appendChild(oTd)}
+
+            var oTd=document.createElement('td')
+            // if(str[Math.ceil(str.length/2)+i]=='')
+            // {
+            //     oTd.innerHTML=''
+            // }
+            // else
+            // {
+            oTd.innerHTML=Math.ceil(str.length/2)+1+i
+            // }
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[Math.ceil(str.length/2)+i]
+            oTr.appendChild(oTd)
+            for(var k=0;k<2;k++){var oTd=document.createElement('td')
+            oTr.appendChild(oTd)}
+
+            oTab.tBodies[0].appendChild(oTr)
+            if(i>=str.length/2-1)
+            {
+                break
+            }
+        }
+        var Arr=[]
+        var s
+        for(var i=0,j=0;i<(Math.ceil(str.length/2));i++){
+            if(str[i]){
+                j++
+                Arr[i]=j+','+str[i]+',,,'
+            }else{
+                Arr[i]=',,,,'
+            }
+            s=j
+        }
+        for(var i=0,j=0;i<(Math.ceil(str.length/2));i++){
+            if(str[(Math.ceil(str.length/2)+i)]){
+                j++
+                Arr[i]=Arr[i]+(s+j)+','+str[(Math.ceil(str.length/2)+i)]+',,,'
+            }else{
+                Arr[i]=Arr[i]+',,,,'
+            }
+        }
+        txt2.value=Arr.join('\n').replace(/,|undefined/g,'\t')
+        MM()
+        overCopy()
+    }
+    btn9old.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=0;i<str.length;i++)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id+i
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[i]
+            oTr.appendChild(oTd)
+            for(var k=0;k<2;k++){var oTd=document.createElement('td')
+            oTr.appendChild(oTd)}
+
+            var oTd=document.createElement('td')
+            // if(str[Math.ceil(str.length/2)+i]=='')
+            // {
+            //     oTd.innerHTML=''
+            // }
+            // else
+            // {
+            oTd.innerHTML=Math.ceil(str.length/2)+1+i
+            // }
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[Math.ceil(str.length/2)+i]
+            oTr.appendChild(oTd)
+            for(var k=0;k<2;k++){var oTd=document.createElement('td')
+            oTr.appendChild(oTd)}
+
+            oTab.tBodies[0].appendChild(oTr)
+            if(i>=str.length/2-1)
+            {
+                break
+            }
+        }
+        var Arr=[]
+        for(var i=0;i<(Math.ceil(str.length/2));i++){
+            Arr[i]=(i+1)+','+str[i]+',,,'+(Math.ceil(str.length/2)+1+i)+','+str[(Math.ceil(str.length/2)+i)]+',,,'
+        }
+        txt2.value=Arr.join('\n').replace(/,|undefined/g,'\t')
+        MM()
+        overCopy()
+    }
+
+    oB10.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=2;i<str.length;i+=4)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='5'
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<5;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='班長'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML=str[0]
+        oTr.appendChild(oTd)
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='9'
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<4;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='攝影'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML=str[1]
+        oTr.appendChild(oTd)
+        for(var k=0;k<3;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        MM()
+    }
+    oB11.onclick=function()
+    {
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+        var str1=""
+        var str1=oT2.value.split('\n')
+
+        var id=oTab.tBodies[0].rows.length+1
+
+        for(var i=2;i<(str.length*2);i+=4)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str1[-8+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[2+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str1[-10+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[0+i]
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[1+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str1[-9+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[3+i]
+            oTr.appendChild(oTd)
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str1[-7+i]
+            oTr.appendChild(oTd)
+
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='5'
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<5;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='班長'
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML=str[0]
+        oTr.appendChild(oTd)
+        for(var k=0;k<2;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='9'
+        oTr.appendChild(oTd)
+
+        for(var k=0;k<4;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML='攝影'
+        oTr.appendChild(oTd)
+
+        var oTd=document.createElement('td')
+        oTd.innerHTML=str[1]
+        oTr.appendChild(oTd)
+        for(var k=0;k<3;k++){var oTd=document.createElement('td')
+        oTr.appendChild(oTd)}
+
+        oTab.tBodies[0].appendChild(oTr)
+
+        MM()
+    }
+    // oB12.onclick=function()
+    // {
+    //     var arr=[]
+    //     for(var i=0;i<99;i++)
+    //     {
+    //         arr[i]=toDon(i+1)
+    //     }
+    //     oT1.value=arr.join('\n')
+    //     oBgr.value='3'
+    //     addDate()
+    // }
+    oB13.onclick=function(){reAB('釋','')}
+    oB14.onclick=function(){reAB('','法師')}
+    oB15.onclick=function(){reAB('釋','法師')}
+    oB16.onclick=function(){reAB('','')}
+    oB17.onclick=function(){
+        delTab()
+        var str=""
+        var str=oT1.value.split('\n')
+        var id=oTab.tBodies[0].rows.length+1
+
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='法名'
+        oTr.appendChild(oTd)
+
+        for(var j=0;j<6;j++){
+            var oTd=document.createElement('td')
+            oTd.innerHTML='第'+(j+1)+'組'
+            // '<input type="checkbox"/>'+
+            oTr.appendChild(oTd)
+        }
+        oTab.tBodies[0].appendChild(oTr)
+
+        for(var i=0;i<str.length;i++)
+        {
+            var oTr=document.createElement('tr')
+            var oTd=document.createElement('td')
+            oTd.innerHTML=id++
+            oTr.appendChild(oTd)
+
+            var oTd=document.createElement('td')
+            oTd.innerHTML=str[i]
+            oTr.appendChild(oTd)
+
+            for(var j=0;j<6;j++){
+                var oTd=document.createElement('td')
+                oTd.innerHTML='<input type="checkbox"/>'
+                oTr.appendChild(oTd)
+            }
+            oTab.tBodies[0].appendChild(oTr)
+        }
+        MM()
+        TdOnmousedown()
+    }
+    oB18.onclick=function(){
+        // delDiv()
+        addDate()
+        var arr2=[]
+        var arr3=[]
+        var oR=oTab.tBodies[0].rows
+        for(var j=0;j<6;j++)
+        {
+            arr2[j]=[]
+            for(var i=0;i<oR.length;i++)
+            {
+                // if(oR[i].cells[2+j].getElementsByTagName('input')[0].checked==true || oR[i].cells[2+j].style.background=='red'){
+                    // 取出打勾的
+                if(oR[i].cells[2+j].style.background=='red' || oR[i].cells[2+j].innerHTML=='V'){
+                    arr2[j][i]=oR[i].cells[1].innerHTML
+                }
+            }
+            var oLi=document.createElement('li')
+            oLi.innerHTML='第'+(j+1)+'組'+'\t'+arr2[j].join('\t')
+            oUl.appendChild(oLi)
+
+            arr3[j]='第'+(j+1)+'組'+arr2[j].join('\t')
+            // var oDi=document.createElement('div')
+            // oDi.innerHTML='第'+(j+1)+'組'+'\t'+arr2[j].join('\t')
+            // oDiv.appendChild(oDi)
+        }
+        oT2.value=arr3.join('\n')
+        oT2.value=oT2.value.replace(/\t+/g,'\t')
+        oT3.value=oT2.value.replace(/\t/g,'\n')
+        overCopy()
+    }
+    oB19.onclick=function(){
+        oT1.value=nanArr.join('\n')
+        oBgr.value='3'
+    }
+    oB20.onclick=function(){
+        oT1.value=nanArr1.join('\n')
+        oBgr.value='3'
+    }
+    btn21.onclick=function(){
+        oT1.value=nanArr2.join('\n')
+        oBgr.value='5'
+    }
+
+    var oBg1=document.getElementById('btng1')
+    var oBg2=document.getElementById('btng2')
+    var oBg3=document.getElementById('btng3')
+    var oBg4=document.getElementById('btng4')
+    var oBg5=document.getElementById('btng5')
+    var oBg6=document.getElementById('btng6')
+    var oBgr=document.getElementById('nbr')
+    var reload=document.getElementById('reload')
+    var xy=[]
+    var yx=[]
+
+    oBg1.onclick=function(){
+        // 判斷有輸入正確內容，否則會當機
+        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            var y=[]
+            // 少於2組的，直接定義為2組
+            var r=oBgr.value<2?2:oBgr.value
+            var num=Math.floor(str.length/r)+1
+            for(var i=0;i<num;i++){
+                // 按戒臘排序，先排出幾組，再從中抽出組別
+                str1[i]=str.splice(0,r)
+                str2[i]=''
+                for(var j=0;j<r;j++){
+                    // 抽出一位，即從陣列中刪除它，不會重複抽到同一位
+                    str2[i]+=str1[i].splice(Math.floor(Math.random()*(r-j)),1)+'\t'
+                    str3[j]='第'+(j+1)+'組'
+                }
+                y[i]=str2[i].split('\t')
+            }
+            // 從前插入組別號碼
+            y.unshift(str3)
+            yx=[]
+            // 橫書轉直書
+            for(var i=0;i<y[0].length;i++){
+                yx[i]=[]
+                for(var j=0;j<y.length;j++){
+                    yx[i][j]=y[j][i]
+                }
+            }
+            oT2.value=xy=str3.join('\t')+'\n'+str2.join('\n')
+            oT3.value=yx=yx.join('\n').replace(/\,/g,' ')
+        }
+        else{
+            // 回報錯誤訊息
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+        }
+        overCopy()
+    }
+    oBg2.onclick=function(){
+        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var r=oBgr.value<1?1:oBgr.value
+            var num=str.length
+            yx=[]
+            for(var i=0;i<r;i++){
+                // 抽出一位，即從陣列中刪除它，不會重複抽到同一位
+                str1[i]=str.splice((Math.floor(Math.random()*(num-i))),1)
+            }
+            oT2.value=xy=str1.join('\n')
+            oT3.value=yx=str1.join(' ')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+        }
+        overCopy()
+    }
+    // oBg3.onclick=function(){
+    //     var arr=[]
+    //     for(var i=0;i<99;i++){
+    //         arr[i]=(i+1)<10?'0'+(i+1):''+(i+1)
+    //     }
+    //     oT1.value=arr.join('\n')
+    //     oBgr.value='3'
+    // }
+    oBg4.onclick=function(){
+        // 橫書轉直書互相切換
+        if(oT2.value==xy){
+            oT2.value=yx
+        }else{
+            oT2.value=xy
+        }
+        overCopy()
+    }
+    oBg5.onclick=function(){
+        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            str3[0]='誦戒排班表'
+            var r=oBgr.value
+            var num=Math.floor(str.length/(r*2))+1
+            for(var i=0;i<num;i++){
+                // 切出幾位，即從陣列中刪除它
+                str1=str.splice(0,r)
+                str2=str.splice(0,r)
+                // 倒轉str1
+                str3[i+1]=['第'+(i+1)+'排',str1.reverse(),'',str2]
+            }
+            oT2.value=xy=str3.join('\n').replace(/\,/g,'\t')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+        }
+        overCopy()
+    }
+    oBg6.onclick=function(){
+        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            str3[0]='課誦排班表'
+            var r=oBgr.value
+            var num=Math.floor(str.length/(r*2))+1
+            for(var i=0;i<num;i++){
+                for(var j=0;j<r;j++){
+                    // 一位一位切出，切出幾位，即從陣列中刪除它
+                    str1.push(str.splice(0,1))
+                    str2.push(str.splice(0,1))
+                }
+                // 倒轉str1
+                str3[i+1]=['第'+(i+1)+'排',str1.reverse(),'',str2]
+                str1=[]
+                str2=[]
+            }
+            oT2.value=xy=str3.join('\n').replace(/\,/g,'\t')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+        }
+        overCopy()
+    }
+
+}
+</script>
+    </head>
+    <body>
+※我的第2個js程式<br/>
+請閱讀「※↓」的步驟說明，來使用此程式。請用Google的Chrome瀏覽器開啟，不然「分組選單」的勾選，會不靈光。<br/>
+把人眾名單，複製到上面的文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！<br/>
+並且，滑鼠移至每行時，會變色提示！<br/>
+若要手動刪除表格，請按「F5」或「重整頁面」！<br/>
+<hr/>
+    <textarea id="txt1" rows="10" cols="16" placeholder="第1文本框
+
+把人眾名單，複製到此文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！"></textarea>
+    <textarea id="txt2" rows="9" cols="30" placeholder="第2文本框
+
+「法堂座位(安居)」才用，放旁聽生名單"></textarea>
+    <textarea id="txt3" rows="12" cols="15" placeholder="第3文本框
+
+呈現直排名單"></textarea>
+    <br/><hr/>
+    ※↓第1步：下方按鈕功能：「數列」：為測試用。「顯示住眾」：直接顯示在第一文本框中，人數可在原始檔中修改(以純文字編輯器，開啟此html檔，即可修改，但記得存檔)
+<div id="div1">修飾法名
+    <input id="btn12" type="button" class="name" value="建立數列01-99" onclick="addNum();addDate()"/>
+    <input id="btn19" type="button" class="name" value="顯示住眾"/>
+    <input id="btn20" type="button" class="name" value="顯示輪組住眾"/>
+    <input id="btn21" type="button" class="name" value="顯示安居住眾"/>
+    <br/>
+    ※↓第2步：人名前後加上：釋、法師(只呈現在第1文本框中)
+    <br/>
+    <input id="btn13" type="button" value="釋+名"/>
+    <input id="btn14" type="button" value="名+法師"/>
+    <input id="btn15" type="button" value="釋+名+法師"/>
+    <input id="btn16" type="button" value="名-釋-法師"/>
+</div>
+    ※↓第3步：先按：「顯示住眾」。再按各種「佛堂排班」按鈕。(只呈現在下方網頁中，需手動複製到word檔中修飾)
+    <br/>
+    <input id="btn1" type="button" value="佛堂排班 3排"/>
+    <input id="btn2" type="button" value="佛堂排班 4排"/>
+    <input id="btn3" type="button" value="佛堂排班 首3餘4排"/>
+    <input id="btn4" type="button" value="佛堂誦戒 3排"/>
+    <input id="btn5" type="button" value="佛堂誦戒 4排"/>
+<div id="div3">
+    <input id="btn6" type="button" value="講堂誦經座位"/>
+    <input id="btn7" type="button" value="齋堂座位(平時)"/>
+    <input id="btn8" type="button" value="齋堂座位(安居)"/>
+</div>
+<div id="div2">
+    ※↓第3步：在第1文本框中，貼上學生名單。預設排序：第一位是班長、第二位是攝影、第三位以後才按照學生順序排列。(只呈現在下方網頁中，需手動複製到excel檔中修飾)。安居時，在第2文本框中，貼上旁聽生名單，會交叉排序在學生座位中
+    <br/>
+    <input id="btn10" type="button" value="法堂座位(平時)"/>
+    <input id="btn11" type="button" value="法堂座位(安居)"/>
+    <br/>
+    ※↓第3步：先按：「顯示住眾」。再按各種「住眾名單」按鈕。(新版呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化，舊版呈現在下方網頁中，需手動複製)
+    <br/>
+    <input id="btn9" type="button" value="住眾名單(新版功能)"/>
+    <input id="btn9old" type="button" value="住眾名單(缺名補號)(舊版功能)"/>
+</div>
+<div id="div4">
+    ※↓第3步：先按：「顯示輪組住眾」。再按「分組選單」。選單會呈現在下方網頁，請手動勾選後，再按「列分組表」：呈現分組結果：(橫排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。直排呈現在第3文本框中，需手動複製。舊版橫排，呈現在下方網頁中，需手動複製)
+    <br/>
+    <input id="btn17" type="button" value="分組選單"/>
+    <!--<input id="btn17-1" type="button" value="增廣滑鼠擊區(可不用)"/ onclick="TdOnmousedown()">-->
+    <input id="btn18" type="button" value="列分組表(也列在第二第三文本框)"/>
+</div>
+<div id="div5">
+    ※↓第3步：開學時的分組抽籤(以亂數隨機抽取)。先按：「顯示輪組住眾」、或「顯示安居住眾」。再下方空白框中鍵入欲分幾組的數字！。再按「分組抽籤」(※可多按幾次！)。隨機抽取結果：直排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。橫排呈現在第3文本框中，需手動複製。)
+    <br/>
+    ※↓：個數抽籤：只抽出：空白框中數字限定的人數
+    <br/>
+    ※↓：直書橫書：抽籤的結果，第2文本框中的橫排，改為直排
+    <br/>
+    ※↓：測試：列出數列，99個，並在下方空白框中鍵入3
+    <br/>
+    <input id="nbr" type="text"  placeholder='想抽出幾組？或幾個人？' list="how"/>
+    <datalist id="how">
+        <option value="1"/>
+        <option value="2"/>
+        <option value="3"/>
+        <option value="4"/>
+        <option value="5"/>
+        <option value="6"/>
+        <option value="7"/>
+        <option value="8"/>
+        <option value="9"/>
+    </datalist>
+    <input id="btng1" type="button" value="分組抽籤"/>
+    <input id="btng2" type="button" value="個數抽籤"/>
+    <input id="btng4" type="button" value="直書橫書"/>
+    <input id="btng3" type="button" value="測試" onclick="addNum()"/>
+    <br/>
+    ※↓第3步：以下為新版佛堂課誦、誦戒…排班。先按：「顯示住眾」。再按「順序、奇偶」：(新版呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化)
+    <br/>
+    <input id="btng5" type="button" value="左右順序排班"/>
+    <input id="btng6" type="button" value="左右奇偶排班"/>
+</div>
+<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
+<hr/>
+<!--<div id="div0"></div><hr/>-->
+<ul id="ul1"></ul>
+<table id="tab1">
+    <thead>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>供桌</td>
+        <td>供桌</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+    </body>
+</html>
