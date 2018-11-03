@@ -3,8 +3,16 @@
 授權方式：<br/>
 https://creativecommons.org/licenses/by-nc-sa/3.0/tw/<br/>
 <br/>
-三大部轉換：<br/>
-第一版，測試：從以前的accelon3的xml原檔中，轉換成html，並加上css樣式，及一點點js動態功能<br/>
+這一版：<br/>
+為了將所有網頁程式，轉為手機上的APP，<br/>
+所以略為修改：<br/>
+１加上「回首頁」功能<br/>
+２首頁index.html，清單，改為ol的列表式呈現<br/>
+<br/>
+但後來轉換沒成功，<br/>
+現在學會了github，<br/>
+只是保留此一版本，<br/>
+當作記念！<br/>
 <br/>
 $ git remote rm origin<br/>
 <br/>
