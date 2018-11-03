@@ -842,7 +842,6 @@ var cld;
 var LE;
 function drawCld(SY,SM) {
    var i,sD,s,size,mylD,myBr,myBr1,w,e,r;
-  //  循環6個月
    for(k=0;k<6;k++) {
   if((SM+k)>11){cld = new calendar(SY+1,SM+(k-12));}
   else{
@@ -1379,6 +1378,7 @@ td:hover{border: 1px solid fuchsia;box-shadow: 3px 3px 20px darkorchid}
 <META name=GENERATOR content="MSHTML 9.00.8112.16520"></HEAD>
 <BODY style="Z-INDEX: 0; POSITION: relative" onload=initialize() 
 onmousemove=mEvn(event) onunload=terminate()>
+<input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
 <SCRIPT language=Javascript>
 // <!--我修改
 var agent = navigator.userAgent;
@@ -1447,7 +1447,6 @@ id=detail></DIV>
         </tr>
         <SCRIPT language=JavaScript>
         // <!--我修改
-        // 循環6個月
         for(k=0;k<6;k++) {
         document.write('<TR><TD id="mySD'+k+'" align=middle bgColor="gold" colSpan=7></TD></TR>')
 

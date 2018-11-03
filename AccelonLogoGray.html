@@ -269,7 +269,6 @@
     </style>
     <script>
         function css3(obj, attrObj) {
-            // 插入多種css語法，取代原來網頁的語法
             for (var i in attrObj) {
                 var j = i
                 if (j.indexOf('-') > 0) {
@@ -285,7 +284,6 @@
             }
         }
         function addCarFu(obj, num, bignum, smailwidth, smailheight, bigWidth, bigHeight, Otop, Oleft, color, OclassName) {
-            // 產生半徑的軸，自動設定座標位置，產生大小不同的軸
             for (var i = 0; i < num; i++) {
                 var widthA = smailwidth
                 var heightA = smailheight
@@ -301,7 +299,6 @@
             }
         }
         function addCarFuLong(obj, num, smailwidth, smailheight, Otop, Oleft, color, OclassName, itop, ileft) {
-            // 產生直徑的軸，並且自行設定座標位置
             for (var i = 0; i < num; i++) {
                 var widthA = smailwidth
                 var heightA = smailheight
@@ -348,6 +345,7 @@
 </head>
 
 <body id="body" onload="CarLum(),cLum(),Word()">
+<input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
     <a href='http://ksanaforge.github.io' target="_blank">
         <div id="Lumout">
         </div>

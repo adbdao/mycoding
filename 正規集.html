@@ -197,7 +197,7 @@ window.onload=function(){
             Arr1[i]=Arr1[i].replace(/\s+$/,'')
             // 行首條件
             if(Arr1[i].charAt(0)!='\t' && Arr1[i].charAt(1)!='.' && Arr1[i]!='' && Arr1[i].charAt(0)!='　'){
-                Arr1[i]=m+'. '+Arr1[i]
+                Arr1[i]=m+'◣'+Arr1[i]
                 m++
             }
         }
@@ -236,7 +236,7 @@ window.onload=function(){
             Arr1[i]=Arr1[i].replace(/\s+$/,'')
             // 行首條件
             if(Arr1[i].substr(0,4)!='    ' && Arr1[i].charAt(1)!='.' && Arr1[i]!='' && Arr1[i].charAt(0)!='　' && Arr1[i].charAt(0)!='\t'){
-                Arr1[i]=m+'. '+Arr1[i]
+                Arr1[i]=m+'◣'+Arr1[i]
                 m++
             }
         }
@@ -656,7 +656,7 @@ function toZhDigit(digit) {
 }
 </script>
     </head>
-    <body>
+    <body><input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
         <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 請返回您要的檔案、或程式中，再直接按「貼上」即可！'></textarea><br/>

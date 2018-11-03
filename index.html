@@ -3,483 +3,68 @@
     <meta charset="utf-8">
     <head>
     <title>自己程式的目錄</title>
-    <base target="_blank">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <base target="_blank">
+
 <style>
-    
-/**{border-radius: 8px;padding: 3px;}*/
+*{border-radius: 8px;padding: 3px;}
+html{background: black;color:gray;}
+::selection{background: darkred;color:yellow;}
+::-moz-selection{background: darkred;color:yellow;}
+a:hover,input:hover,textarea:hover{border-color: lime green green lime;border-width:2px;border-style:solid;background: #ff8;color:red;}
+a:active,input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;background: plum;color:red;}
+li {margin: 5px 5px;color:gray;font-weight: bold;height: 25px;font-size: 16pt;}
+ol{margin: 0 40px;}
+a {border-color:orange peru peru orange;border-width:2px;border-style:solid;background: sienna;color:#ddd;}
+input {height: 30px;}
+#div0 {background:#ccc;}
+#div1 {background:#ebe;}
+#div1 input {background:#fec;}
+#div2 input {background:#aea;}
+#div3 input {background:#ff8;}
+#div4 input {background:#f99;}
+.name {background:tan;color: crimson;}
 
-::selection{background: indigo;color:yellow}
-::-moz-selection{background: indigo;color:yellow}
-td::selection,textarea::selection{background: darkred;color:yellow}
-td::-moz-selection,textarea::-moz-selection{background: darkred;color:yellow}
+#txt1{width: 80vw;height: 30vh;}
+#ch1911,#ch1911x,.g {background: gold}
+#myValue {width: 80vw;background: #aca}
+#myValue2 {width: 80vw;background: snow}
+#reValue,.t {background: tomato}
+#reUp,.r {background: red}
+.sb {background: skyblue}
+.ky {background: khaki}
+.pink {background: pink}
+.y {background: yellow}
+.o {background: orange}
+.yg {background: yellowgreen}
+.b {background: lightblue}
+.p {background: mediumpurple}
 
-.OutFu{
-    box-shadow: -2px -2px 4px brown;
-    border-radius: 50%;
-}
-.OutFu1{
-    box-shadow: -2px -2px 4px mistyrose;
-    border-radius: 50%;
-}
-/*#Lumout{
-    margin:0 auto;
-    width: 80vw;height: 318px;
-    perspective: 300;
-    -webkit-perspective: 300;
-    background: repeating-radial-gradient(white, lightgoldenrodyellow 10%, lightyellow 15%);
-    transition: 1s all ease-in;
-    border-radius: 50px;
-}
-#Lumout:hover{
-    transform-origin: bottom;
-    transform: rotateX(80deg) rotateZ(-30deg);
-    transform: translateZ(-800px);
-}*/
-#Lum{
-    transform: scale(0.8,0.8);
-    margin:-120px -100px;
-    width: 300px;height: 250px;
-    /*transform-style: preserve-3d;
-    transform: translateZ(-50px) rotateY(-25deg) rotateX(5deg);
-    -webkit-transform-style: preserve-3d;
-    -webkit-transform-origin:left;
-    -webkit-transform: rotateY(-25deg) rotateX(5deg);
-    -webkit-box-reflect: below -20px -webkit-linear-gradient( rgba(0,0,0,0.1), rgba(0,0,0,0.6));
-    transition: 2s all ease;*/
-    
-    animation-name:LumY;
-    animation-duration:8s;
-    animation-timing-function:linear;
-    animation-delay:0;
-    animation-iteration-count:infinite;
-    animation-direction:normal;
-    animation-play-state:running;
-    /* Safari and Chrome: paused*/
-    -webkit-animation-name:LumY;
-    -webkit-animation-duration:8s;
-    -webkit-animation-timing-function:linear;
-    -webkit-animation-delay:0;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:normal;
-    -webkit-animation-play-state:running;
-    /* Firefox: */
-    -moz-animation-name:LumY;
-    -moz-animation-duration:8s;
-    -moz-animation-timing-function:linear;
-    -moz-animation-delay:0;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-direction:normal;
-    -moz-animation-play-state:running;
-    /* Opera: */
-    -o-animation-name:LumY;
-    -o-animation-duration:8s;
-    -o-animation-timing-function:linear;
-    -o-animation-delay:0;
-    -o-animation-iteration-count:infinite;
-    -o-animation-direction:normal;
-    -o-animation-play-state:running;
-}
-/*@keyframes LumY {
-from {transform: rotateY(0deg);}
-to {transform: rotateY(360deg);}}
-@-webkit-keyframes Lum {
-from {-webkit-transform: rotateY(0deg);}
-to {-webkit-transform: rotateY(360deg);}}
-@-moz-keyframes Lum {
-from {-moz-transform: rotateY(0deg);}
-to {-moz-transform: rotateY(360deg);}}
-@-o-keyframes Lum {
-from {-o-transform: rotateY(0deg);}
-to {-o-transform: rotateY(360deg);}}*/
-
-
-#Lum1{
-    margin:30px auto;
-    width: 200px;height: 200px;
-    border: 10px solid gold;
-    box-shadow: 5px 5px 8px brown;
-    border-radius: 50%;
-
-    background:radial-gradient(circle, white, indianred);
-
-    animation-name:Lum;
-    animation-duration:8s;
-    animation-timing-function:linear;
-    animation-delay:0;
-    animation-iteration-count:infinite;
-    animation-direction:normal;
-    animation-play-state:running;
-    /* Safari and Chrome: paused*/
-    -webkit-animation-name:Lum;
-    -webkit-animation-duration:8s;
-    -webkit-animation-timing-function:linear;
-    -webkit-animation-delay:0;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:normal;
-    -webkit-animation-play-state:running;
-    /* Firefox: */
-    -moz-animation-name:Lum;
-    -moz-animation-duration:8s;
-    -moz-animation-timing-function:linear;
-    -moz-animation-delay:0;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-direction:normal;
-    -moz-animation-play-state:running;
-    /* Opera: */
-    -o-animation-name:Lum;
-    -o-animation-duration:8s;
-    -o-animation-timing-function:linear;
-    -o-animation-delay:0;
-    -o-animation-iteration-count:infinite;
-    -o-animation-direction:normal;
-    -o-animation-play-state:running;
-
-}
-@keyframes Lum {
-from {transform: rotate(0deg);}
-to {transform: rotate(360deg);}}
-@-webkit-keyframes Lum {
-from {-webkit-transform: rotate(0deg);}
-to {-webkit-transform: rotate(360deg);}}
-@-moz-keyframes Lum {
-from {-moz-transform: rotate(0deg);}
-to {-moz-transform: rotate(360deg);}}
-@-o-keyframes Lum {
-from {-o-transform: rotate(0deg);}
-to {-o-transform: rotate(360deg);}}
-
-#Co2{
-    position:relative;
-    margin:33px auto;
-    width: 20px;height: 20px;
-    background:pink;
-    border: 2px solid red;
-    box-shadow: 1px 1px 1px lightyellow;
-    border-radius: 50%;
-}
-#Co1{
-    position:relative;
-    margin:25% auto;
-    width: 90px;height: 90px;
-    border: 5px solid yellow;
-    box-shadow: 5px 5px 4px peru;
-    border-radius: 50%;
-
-    background:radial-gradient(circle, white, orchid);
-
-    animation-name:loading;
-    animation-duration:3s;
-    animation-timing-function:linear;
-    animation-delay:0;
-    animation-iteration-count:infinite;
-    animation-direction:normal;
-    animation-play-state:running;
-    /* Safari and Chrome: paused*/
-    -webkit-animation-name:loading;
-    -webkit-animation-duration:3s;
-    -webkit-animation-timing-function:linear;
-    -webkit-animation-delay:0;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:normal;
-    -webkit-animation-play-state:running;
-    /* Firefox: */
-    -moz-animation-name:loading;
-    -moz-animation-duration:3s;
-    -moz-animation-timing-function:linear;
-    -moz-animation-delay:0;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-direction:normal;
-    -moz-animation-play-state:running;
-    /* Opera: */
-    -o-animation-name:loading;
-    -o-animation-duration:3s;
-    -o-animation-timing-function:linear;
-    -o-animation-delay:0;
-    -o-animation-iteration-count:infinite;
-    -o-animation-direction:normal;
-    -o-animation-play-state:running;
-}
-@keyframes loading {
-from {transform: rotate(360deg);}
-to {transform: rotate(0deg);}}
-@-webkit-keyframes loading {
-from {-webkit-transform: rotate(360deg);}
-to {-webkit-transform: rotate(0deg);}}
-@-moz-keyframes loading {
-from {-moz-transform: rotate(360deg);}
-to {-moz-transform: rotate(0deg);}}
-@-o-keyframes loading {
-from {-o-transform: rotate(360deg);}
-to {-o-transform: rotate(0deg);}}
-
-
-html {background: -webkit-linear-gradient(left, olive 0.00%, olivedrab 90.00%);
-background: linear-gradient(left, olive 0.00%, olivedrab 90.00%);
-/*background-size: 100vw 200vh;
-background-repeat: no-repeat;*/
-
-    /*-webkit-filter:invert(1);
-    filter:invert(1);*/
-
-}
-#menu{
-margin: 100px 0;
-list-style: none;
-border-radius:15px 15px 20px 20px;
-font-weight: bold;
-} 
-.item{
-display: inline-block;
-background:transparent;
-width: 100px;
-height: 50px;
-/*overflow: hidden;*/
-line-height: 50px!important;
-/*-webkit-transition:all .3s ease-out;
-transition: all .3s ease-out;*/
-
-font-size: 14pt;
-position: relative;
-text-align: center;
-}
-.item:hover,.item.active,textarea:hover{
-position: relative;
-display: inline-block;
-text-align: center;
-
-background: -webkit-linear-gradient(top, #CC7244 0.00%, #FD7F44 32.86%, #F58246 68.93%, #BE6E48 100.00%);
-background: linear-gradient(top, #CC7244 0.00%, #FD7F44 32.86%, #F58246 68.93%, #BE6E48 100.00%);
-z-index: 2;
-width: 120px;
-top: -8px;
-border-radius:10px 10px 50% 50%;
-border-top: 1px solid #f7a273;
-border-left: none;
-border-right: none;
-text-align: center;
-box-shadow:0 2px 1px 0 #963004, 0 4px 1px -1px #852A03, 0 6px 1px -2px #812802, 0 8px 1px -3px #7D2803, 0 10px 1px -4px #661F01, 0 12px 1px -5px #521A02, 0 14px 1px -6px #401601, 0 16px 1px -7px #3C1501, 0 18px 1px -8px #2D1001, 0 20px 1px -9px #110500, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.75), 0 20px 4px -6px rgba(0, 0, 0, 0.9), 0 45px 5px -5px rgba(0, 0, 0, 0.05), 0 35px 10px -5px rgba(0, 0, 0, 0.1), 0 25px 55px 5px rgba(0, 0, 0, 0.15);
-z-index:0;
-/*-webkit-transition:background border-radius 0.5s ease;
-transition: background border-radius 0.5s ease;
--webkit-transition:box-shadow 0.3s ease;
-transition: box-shadow 0.3s ease;*/
-}
-.item>a{
-text-align: center;
-color: cyan;
-font-size: 14pt;
-text-decoration:none;
-text-shadow: 1px 2px 2px blue;
-}
-.item:hover>a,.item.active>a{
-display: block;
-text-align: center;
-color: white;
-z-index: 10;
-font-weight: bold;
-text-shadow: 1px 2px 2px black;
-width: 120px;
-}
-
-.item>ul{
-display: none;
-/*float: left;*/
-position: absolute;
-list-style: none;
-margin: 0 -400px;
-width: 80vw;
-background: -webkit-linear-gradient(top, silver 0.00%, #EFEFEF 32.86%, #bbb 68.93%, #aaa 100.00%);
-background: linear-gradient(top, silver 0.00%, #EFEFEF 32.86%, #bbb 68.93%, #aaa 100.00%);
-border-radius:25px 35px 35px 35px;
-/*box-shadow:0 2px 1px 0 #BEBEBE, 0 4px 1px -1px #B8B8B8, 0 6px 1px -2px #B3B3B3, 0 8px 1px -3px #ADADAD, 0 10px 1px -4px #AAAAAA, 0 12px 1px -5px #A7A7A7, 0 14px 1px -6px #9C9C9C, 0 16px 1px -7px #939393, 0 18px 1px -8px #8B8B8B, 0 20px 1px -9px #666666, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 20px 4px -6px rgba(0, 0, 0, 0.9), 0 45px 5px -5px rgba(0, 0, 0, 0.05), 0 35px 10px -5px rgba(0, 0, 0, 0.1), 0 25px 55px 5px rgba(0, 0, 0, 0.15);*/
--webkit-filter:brightness(.7);
-filter:brightness(.7);
-/*opacity: 0.8;*/
-}
-.item:hover>ul,.item>ul:hover{
-display: inline-block;
-}
-.myli{
-display: inline-block;
-margin: 0;
-padding: 10px;
-width: 200px;
-/*height:50px; */
-font-size: 16pt;
-font-family: '標楷體';
-color:black;
-}
-.myli:hover{
-display: inline-block;
-color: snow;
-background: linear-gradient(top,#0d0 0%,#0a0 20%,#080 80%,#050 100%);
-background: -webkit-linear-gradient(top,#0d0 0%,#0a0 20%,#080 80%,#050 100%);
-
-margin-top: -8px;
-border-radius: 15% 25% 50% 50%;
-box-shadow: 0 4px 1px -1px #0b5, 0 6px 1px -2px #0a0, 0 10px 1px -4px #090, 0 12px 1px -5px #095, 0 14px 1px -6px #070, 0 16px 1px -7px #077, 0 18px 1px -8px #050, 0 20px 1px -9px #030, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.75), 0 20px 4px -6px rgba(0, 0, 0, 0.9), 0 45px 5px -5px rgba(0, 0, 0, 0.05), 0 35px 10px -5px rgba(0, 0, 0, 0.1), 0 25px 55px 5px rgba(0, 0, 0, 0.15);
-/*-webkit-transition:background border-radius 0.5s ease;
-transition: background border-radius 0.5s ease;
--webkit-transition:box-shadow 0.3s ease;
-transition: box-shadow 0.3s ease;*/
-}
-
-input:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
-input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
-#txt1{margin:1px;width:80%;height:40px;border-radius: 8px;padding: 3px;}
-
-#dhout{
-/*position: relative;*/
-position: absolute;
-float:right;
-/*margin: 0 ;*/
-right:10vw;
-width: 60vw;
-height: 60vh;
-border-radius: 20px;
-background: white;
-opacity: 0.5;
-padding-top: 10px;
-padding-left: 20px;
-}
-iframe{
-width:95%;
-height:90%;
-/*marginwidth:20px;
-marginheight:10px;*/
-}
+#nbr {background: lightcyan}
+#btng2 {background: gold}
+#btng4,.gy {background: greenyellow}
+#btng5,.tan {background: tan}
+#reload {height: 40px;background: yellowgreen}
 </style>
-<script>
-var ArrLi=[
-'襌堂日行規矩1-1.html','齋天年齡轉換.html','整月回向文1.html','誦戒前懺悔1.html','農曆台灣月曆-佛誕v.html','農曆台灣月曆-手機4六個月的月曆.html','農曆台灣月曆-手機3.html','資料庫的連結點ol.html','資料庫的連結點moble.html','排班(表格抽籤)2.html','個人月曆.html','正規集.html','Lum1.html','index.html','cbreaderFontMiddle.css','cbreaderFontBig.css','bookmarks_2018_2_7.html','Acceon3商標.png','AccelonLogoGray.html','0樣本.html','!三大部下載 - 捷徑.lnk'
-]
-var ArrLi1=[
-'整月回向文.html','誦戒前懺悔.html','農曆台灣月曆-手機4六個月的月曆.html.bak','農曆台灣月曆-手機3.html.bak','農曆台灣月曆-手機2.html','農曆台灣月曆-手機1.html','農曆台灣月曆-手機.html','農曆日期批次換算-2.html','農曆日期批次換算-1.html','農曆日期1-v.html.bak','農曆日期1-v.html','農曆日期1-2.html.bak','農曆日期1-2.html','農曆日期1-1.html','資料庫的連結點.html','排班3-2.html','排班3-1.html','排班(表格抽籤)1.html.bak','排班(表格抽籤)1.html','排班(表格抽籤).html','排班(表格)3.html','抽籤-排班.html','抽籤1.html','抽籤.html','Lum.html','AccelonLogo.html'
-]
-function css3(obj,attrObj){
-    // 插入多種css語法，取代原來網頁的語法
-    for (var i in attrObj) {
-        var j=i
-        if(j.indexOf('-')>0){
-            var num=j.indexOf('-')
-            j=j.replace(j.substr(num,2),j.substr(num+1,1).toUpperCase())
-        }
-        obj.style[j]=attrObj[i]
-        j=j.replace(j.charAt(0),j.charAt(0).toUpperCase())
-        obj.style['-webkit-'+j]=attrObj[i]
-        obj.style['-moz-'+j]=attrObj[i]
-        obj.style['-o-'+j]=attrObj[i]
-        obj.style['-ms-'+j]=attrObj[i]
-    }
-}
-function addCarFu(obj,num,bignum,smailwidth,smailheight,bigWidth,bigHeight,Otop,Oleft,color,OclassName){
-    // 產生半徑的軸，自動設定座標位置，產生大小不同的軸
-    for(var i=0;i<num;i++){
-        var widthA=smailwidth
-        var heightA=smailheight
-        if(i%(num/bignum)==0){
-            widthA=bigWidth
-            heightA=bigHeight
-        }
-        var addBig=document.createElement('div')
-        addBig.style.cssText='width:'+widthA+'px;height:'+heightA+'px;background:'+color+';position:absolute;top:'+Otop+';left:'+Oleft+';'
-        addBig.className=OclassName
-        css3(addBig,{transform:'rotate('+i*(360/num)+'deg)','transform-origin':Otop+' '+Oleft})
-        obj.appendChild(addBig)
-    }
-}
-function addDiv(Obj,Odiv,Oid,OclassName){
-    var addDiv=document.createElement(Odiv)
-    addDiv.id=Oid
-    addDiv.className=OclassName
-    Obj.appendChild(addDiv)
-}
-function CarLum(){
-    addDiv(Lumout,'div','Lum')
-    addDiv(Lum,'div','Lum1')
-    addDiv(Lum1,'div','Co')
-    addDiv(Co,'div','Co1')
-    addCarFu(Lum1,16,4,2,50,6,50,'0px','100px','orange','BigFu')
-    addCarFu(Lum1,12,3,16,16,18,18,'-26px','126px','orange','OutFu')
-    addCarFu(Lum1,3,3,10,10,10,10,'-38px','138px','cyan','OutFu1')
-    // addCarFu(Lum1,12,3,8,8,8,8,'-46px','146px','magenta','OutFu1')
-    addCarFu(Co1,8,4,2,45,3,45,'0px','45px','hotpink','InsideFu')
-    addDiv(Co1,'div','Co2')
-    // var addsmail=document.createElement('div')
-    // addsmail.id='Co2'
-    // Co1.appendChild(addsmail)
-    // var time=0
-    // setInterval(function(){
-    //     time+=5
-    //     css3(Lum1,{transform:'rotate('+time+'deg)','transform-origin':'50% 50%'})
-    // },60)
-    // setInterval(function(){
-    //     time+=5
-    //     css3(Co1,{transform:'rotate('+time+'deg)','transform-origin':'50% 50%'})
-    // },60)
-}
-function menuUl(){
-    // var oUl=document.getElementsByClassName('item')[0]
-    var ul1=document.createElement('ul')
-    for(var i=0;i<ArrLi.length;i++){
-        var liia=document.createElement('a')
-        liia.setAttribute("href", './'+ArrLi[i])
-        var lii=document.createElement('li')
-        lii.innerHTML=(i+1)+'.'+ArrLi[i]
-        lii.className='myli'
-        liia.appendChild(lii)
-        ul1.appendChild(liia)
-    }
-    menu.appendChild(ul1)
-}
-function menuUl1(){
-    // var oUl=document.getElementsByClassName('item')[1]
-    var ul1=document.createElement('ul')
-    // 插入超連結+樣式的類名
-    for(var i=0;i<ArrLi1.length;i++){
-        var liia=document.createElement('a')
-        liia.setAttribute("href", './old/'+ArrLi1[i])
-        var lii=document.createElement('li')
-        lii.innerHTML=(i+1)+'.'+ArrLi1[i]
-        lii.className='myli'
-        liia.appendChild(lii)
-        ul1.appendChild(liia)
-    }
-    li1.appendChild(ul1)
-}
 
-// 加入超連結語法
-//    document.getElementById('your-div').addEventListener('click', function() {
-//     location.href = 'http://your-url.com'
-// }, false);
-// newlink = document.createElement('a');
-// newlink.setAttribute('class', 'signature');
-// newlink.setAttribute('href', 'showSignature(xyz)');
-
-//     var x = document.createElement("BASE");
-//     x.setAttribute("href", "https://www.w3schools.com");
-//     document.head.appendChild(x);
-//     //or  document.body.appendChild(x);
-
-//     document.getElementById("myAnchor").href = "http://www.cnn.com/";
-//     document.getElementById("demo").innerHTML = "The link above now goes to"
-
-
-</script>
     </head>
-    <body id="body" onload="CarLum(),menuUl(),menuUl1()">
-        <div id="Lumout">
-        </div>
-    <!--<div id="dhout"><iframe src="Lum.html" frameborder="0"></iframe></div>-->
-    <ul id="menu">
-        <li class="item"><a href="javascript:window.location.reload()">重整頁面</a></li>
-        <li class="item"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html" target="_blank">資料連結點</a></li>
-        <li class="item"><a href="../">上一層目錄</a></li>
-        <li class="item"><a href="./">本層目錄</a></li>
-        <li class="item" id="li1"><a href="old/">old程式</a></li>
-        <br/>
-        <!--<textarea id="txt1"></textarea>-->
-	</ul>
-    </body>
+<body>
+    <h1>道中自己的網頁程式</h1>
+    <h2>程式的目錄</h2>
+    <ol id="mula">
+        <li><a href="齋天年齡轉換.html">齋天年齡轉換.html</a></li>
+        <li><a href="誦戒前懺悔1.html">誦戒前懺悔1.html</a></li>
+        <li><a href="襌堂日行規矩1-1.html">襌堂日行規矩1-1.html</a></li>
+        <li><a href="演講次序(對初學介紹戒定慧).txt">演講次序(對初學介紹戒定慧).txt</a></li>
+        <li><a href="農曆台灣月曆-手機4六個月的月曆.html">農曆台灣月曆-手機4六個月的月曆.html</a></li>
+        <li><a href="農曆台灣月曆-手機2.html">農曆台灣月曆-手機2.html</a></li>
+        <li><a href="資料庫的連結點ol.html">資料庫的連結點ol.html</a></li>
+        <li><a href="資料庫的連結點moble.html">資料庫的連結點moble.html</a></li>
+        <li><a href="排班(表格抽籤)1.html">排班(表格抽籤)1.html</a></li>
+        <li><a href="抽籤-排班.html">抽籤-排班.html</a></li>
+        <li><a href="正規集.html">正規集.html</a></li>
+        <li><a href="Lum1.html">Lum1.html</a></li>
+        <li><a href="AccelonLogoGray.html">AccelonLogoGray.html</a></li>
+    </ol>
+    <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+</body>
 </html>

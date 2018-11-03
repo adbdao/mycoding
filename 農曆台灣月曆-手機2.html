@@ -29,7 +29,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 <META name=description content="農曆國曆對照表,Gregorian Solar Calendar and Chinese Lunar Calendar">
 <META content="text/html; charset=utf-8" http-equiv=Content-Type>
 <SCRIPT language=Javascript>
-// <!--我修改-->
+<!--
 /*****************************************************************************
                                  個人偏好設定
 *****************************************************************************/
@@ -77,7 +77,7 @@ var monthName = new Array("JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP",
 var sFtv = new Array(
 '0101 元旦',
 '0228 和平紀念日',
-'0405 清明節<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0405 清明節<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0501 勞動節',
 '0928 教師節',
 '1010 國慶日'
@@ -94,37 +94,31 @@ var lFtv = new Array(
 '0109 寒假第一批結束',
 '0110 寒假第二批開始',
 '0115 元宵節',
-'0118 海公忌日<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0118 海公忌日<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0119 寒假第二批結束',
 '0120 寒假第三批開始',
 '0129 寒假結束,18點收假',
 '0130 大掃除',
 '0201 大掃除',
-'0202 佛三<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0202 佛三<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0203 佛三',
 '0204 佛三',
-'0205 開學典禮<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0205 開學典禮<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0206 正式上課',
-'0219 觀音菩薩聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0221 普賢菩薩聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0404 文殊菩薩聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0408 浴佛<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0219 觀音菩薩聖誕<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'0221 普賢菩薩聖誕<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'0404 文殊菩薩聖誕<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'0408 浴佛<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0415 受籌',
-'0416 安居<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0422 廣公忌日<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0416 安居<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'0422 廣公忌日<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0505 端午節',
-'0619 觀音菩薩成道日<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0628 開山和尚忌日<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'0705 <font color="deeppink">課程結束</font>',
-'0706 <font color="tomato">期末考</font>',
-'0707 <font color="tomato">期末考</font>',
-'0708 <font color="tomato">期末考</font>',
-'0709 <font color="tomato">期末考</font>',
-'0710 <font color="tomato">期末考</font>',
+'0619 觀音菩薩成道日<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'0628 開山和尚忌日<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0711 大掃除',
 '0712 大掃除',
 '0713 大掃除',
-'0714 法會<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0714 法會<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0715 自恣',
 '0716 受功德衣,解夏,暑假第一批開始',
 '0725 暑假第一批結束',
@@ -135,14 +129,14 @@ var lFtv = new Array(
 '0815 中秋節',
 '0817 大掃除',
 '0818 大掃除',
-'0819 佛三<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0819 佛三<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0820 佛三',
 '0821 佛三',
-'0822 開學典禮<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0822 開學典禮<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '0823 正式上課',
-'0919 觀音菩薩出家日<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-// '0930 藥師佛聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
-'1117 阿彌陀佛聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>',
+'0919 觀音菩薩出家日<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+// '0930 藥師佛聖誕<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
+'1117 阿彌陀佛聖誕<font color="#1e90ff"'+' '+'size=3><b>午供</b></font>',
 '1215 出功德衣',
 '1208 臘八節'
 // '1226 大掃除',
@@ -830,16 +824,13 @@ function cMon(m){
   if(s=='臘'){s='十二'}
   return s
 }
-function givecolor(thetext,c,b,d){ 
-  return d+'<font style="color:'+c+';background:'+b+';">'+thetext+'</font>'
-}
-function givebrcolor(thetext,thecolor){ 
-  return '<br/>'+thetext.fontcolor(thecolor)
+function givecolor(thetext,thecolor){ 
+  return '<br/>'+thetext.fontcolor(thecolor).bold()
 }
 ///////////////////////////////////////////////////////////////////////////////
 
 var cld;
-var LE;
+
 function drawCld(SY,SM) {
    var i,sD,s,size,mylD,myBr,myBr1,w,e,r;
    cld = new calendar(SY,SM);
@@ -847,10 +838,10 @@ function drawCld(SY,SM) {
    if(SY>1874 && SY<1909) yDisplay = '光緒' + (((SY-1874)==1)?'元':SY-1874);
    if(SY>1908 && SY<1912) yDisplay = '宣統' + (((SY-1908)==1)?'元':SY-1908);
    if(SY>1911) yDisplay = '民國' + (((SY-1911)==1)?'元':SY-1911);
-   
-   document.getElementById("GZ").innerHTML = '當前月曆：'+yDisplay +'年'+(SM+1)+'月'+'歲次' + cyclical(SY-1900+36) + '年【'+Animals[(SY-4)%12]+'】'+"<br/>"+"中國佛曆" + (SY+1028)+ "年 "+"世界佛曆" + (SY+543)+ "年";
 
-  //  document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];//背景年份月份
+   document.getElementById("GZ").innerHTML = yDisplay +'年農曆歲次' + cyclical(SY-1900+36) + '年【'+Animals[(SY-4)%12]+'】';
+
+   document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];
 
 
    for(i=0;i<42;i++) {
@@ -861,81 +852,66 @@ function drawCld(SY,SM) {
 
 
       gObj.className = '';
-      gObj.style.background = '';
+
       sD = i - cld.firstWeek;
 
       if(sD>-1 && sD<cld.length) { //日期內
          sObj.innerHTML = sD+1;
           mylD=cld[sD].lDay
-          
-          // 月份標題
-          document.getElementById('mySD').innerHTML=((cld[sD].sYear-1911) +'年 '+cld[sD].sMonth+' 月').fontcolor('#06e').big()
-          
-         if(cld[sD].isToday) {
-            gObj.className = 'todayColor' //今日顏色
-            LE="今日：民國" + (tY-1911)+ "年" + (tM+1) + "月" + Today.getDate() + "日"+"週"+cld[sD].week+"<br/>農曆"
-            LE+=cyclical(SY-1900+36) + '年【'+Animals[(SY-4)%12]+'】'
-            LE+=cld[sD].lMonth+ '月'+cld[sD].lDay+ '日<br/>'
-            LE+="中國佛曆" + (tY+1028)+ "年"+"(從佛誕生算起)<br/>"
-            LE+="世界佛曆" + (tY+543)+ "年"+"(從佛涅槃算起)"
-         }
+
+         if(cld[sD].isToday) gObj.className = 'todayColor'; //今日顏色
+
          sObj.style.color = cld[sD].color; //國定假日顏色
 
          if(mylD==1) //顯示農曆月
             if(cld[sD].isLeap) //閏月
-              lObj.innerHTML = ('閏'+cld[sD].lMonth+'月' + (leapDays(cld[sD].lYear)==29?'小':'大')+' '+cDay(mylD)).fontcolor('cyan');
+              lObj.innerHTML = ('閏'+cld[sD].lMonth+'月' + (leapDays(cld[sD].lYear)==29?'小':'大')+'<br/>'+cDay(mylD)).fontcolor('green').bold().sup();
             else //非閏月
-              lObj.innerHTML = (cld[sD].lMonth+'月' + (monthDays(cld[sD].lYear,cld[sD].lMonth)==29?'小':'大')+' '+cDay(mylD)).fontcolor('cyan');
+              lObj.innerHTML = (cld[sD].lMonth+'月' + (monthDays(cld[sD].lYear,cld[sD].lMonth)==29?'小':'大')+'<br/>'+cDay(mylD)).fontcolor('green').bold().sup();
          else //顯示農曆日
             lObj.innerHTML = cDay(mylD);
 
-         if(mylD==1){lObj.innerHTML+='<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>';}
-         if(mylD==15){lObj.innerHTML+='<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>';}
+         if(mylD==1){lObj.innerHTML+='<font'+' '+'color="#1e90ff"'+' '+'size=3><b>午供</b></font>';}
+         if(mylD==15){lObj.innerHTML+='<font'+' '+'color="#1e90ff"'+' '+'size=3><b>午供</b></font>';}
 
-        myBr=givecolor('六齋','green','orange','<br/>').big()
-        myBr1=givecolor('六齋','green','orange','<br/>').big()+givebrcolor('誦戒','magenta').big()
+        myBr=givecolor('六齋日','darkorange')
+        myBr1=givecolor('六齋日','darkorange')+givecolor('誦戒','magenta')
          if(mylD==8){lObj.innerHTML+=myBr;}
-         if(mylD==14){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
+         if(mylD==14){lObj.innerHTML+=myBr1;}
          if(mylD==15){lObj.innerHTML+=myBr;}
          if(mylD==23){lObj.innerHTML+=myBr;}
          if(monthDays(cld[sD].lYear,cld[sD].lMonth)==28){
-          if(mylD==27){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
+          if(mylD==27){lObj.innerHTML+=myBr1;}
           if(mylD==28){lObj.innerHTML+=myBr;}
          }
          if(monthDays(cld[sD].lYear,cld[sD].lMonth)==29){
-          if(mylD==28){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
+          if(mylD==28){lObj.innerHTML+=myBr1;}
           if(mylD==29){lObj.innerHTML+=myBr;}
          }
          if(monthDays(cld[sD].lYear,cld[sD].lMonth)==30){
-          if(mylD==29){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
+          if(mylD==29){lObj.innerHTML+=myBr1;}
           if(mylD==30){lObj.innerHTML+=myBr;}
          }
          if(monthDays(cld[sD].lYear,cld[sD].lMonth)==31){
-          if(mylD==30){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
+          if(mylD==30){lObj.innerHTML+=myBr1;}
           if(mylD==31){lObj.innerHTML+=myBr;}
          }
 
             if (12==(cld[sD].lMonth)){    //判斷是否為除夕
-                if (eve==(mylD)){lObj.innerHTML+=givebrcolor('除夕,寒假第一批開始','brown');}
-                if ((eve-1)==(mylD)){lObj.innerHTML+=givebrcolor('普茶,圍爐','brown');}
-                if ((eve-2)==(mylD)){lObj.innerHTML+=givebrcolor('大掃除','brown');}
-                if ((eve-3)==(mylD)){lObj.innerHTML+=givebrcolor('大掃除','brown');}
-                if ((eve-4)==(mylD)){lObj.innerHTML+=givebrcolor('大掃除','brown');}
-                if ((eve-5)==(mylD)){lObj.innerHTML+=givebrcolor('酬謝教師','brown');}
-                if ((eve-6)==(mylD)){lObj.innerHTML+=givebrcolor('期末考','tomato');}
-                if ((eve-7)==(mylD)){lObj.innerHTML+=givebrcolor('期末考','tomato');}
-                if ((eve-8)==(mylD)){lObj.innerHTML+=givebrcolor('期末考','tomato');}
-                if ((eve-9)==(mylD)){lObj.innerHTML+=givebrcolor('期末考','tomato');}
-                if ((eve-10)==(mylD)){lObj.innerHTML+=givebrcolor('期末考','tomato');}
-                if ((eve-11)==(mylD)){lObj.innerHTML+=givebrcolor('課程結束','deeppink');}
+                if (eve==(mylD)){lObj.innerHTML+=givecolor('除夕,寒假第一批開始','brown');}
+                if ((eve-1)==(mylD)){lObj.innerHTML+=givecolor('普茶,圍爐','brown');}
+                if ((eve-2)==(mylD)){lObj.innerHTML+=givecolor('大掃除','brown');}
+                if ((eve-3)==(mylD)){lObj.innerHTML+=givecolor('大掃除','brown');}
+                if ((eve-4)==(mylD)){lObj.innerHTML+=givecolor('大掃除','brown');}
+                if ((eve-5)==(mylD)){lObj.innerHTML+=givecolor('酬謝教師','brown');}
             }
             if (9==(cld[sD].lMonth)){
-                if (ev2==(mylD)){lObj.innerHTML+=givebrcolor('藥師佛聖誕<font'+' '+'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>','brown');}
+                if (ev2==(mylD)){lObj.innerHTML+=givecolor('藥師佛聖誕<font'+' '+'color="#1e90ff"'+' '+'size=3><b>午供</b></font>','brown');}
             }
 
-         s=cld[sD].lunarFestival.fontcolor('brown');
+         s=cld[sD].lunarFestival.fontcolor('brown').bold();
          e=cld[sD].solarFestival.fontcolor('blue');
-         r=cld[sD].solarTerms.fontcolor('limegreen');
+         r=cld[sD].solarTerms.fontcolor('limegreen').bold();
          lObj.innerHTML += '<br/>'+s+' '+e+' '+r;
         //  if(lObj.innerHTML.length<5){lObj.innerHTML+='<br/><br/>'}     //調整表格內文字的高度用
          
@@ -945,7 +921,6 @@ function drawCld(SY,SM) {
          lObj.innerHTML = '';
       }
    }
-   GX.innerHTML=LE
 }
 
 
@@ -1349,10 +1324,7 @@ function terminate() {
 
 <STYLE>
 .todayColor {
-	BORDER-BOTTOM: blue 2px ridge; BORDER-LEFT: blue 2px ridge; BACKGROUND-COLOR: khaki; BORDER-TOP: blue 2px ridge; BORDER-RIGHT: blue 2px ridge
-}
-.my {
-  BACKGROUND-COLOR: pink;
+	BORDER-BOTTOM: blue 2px ridge; BORDER-LEFT: blue 2px ridge; BACKGROUND-COLOR: yellow; BORDER-TOP: blue 2px ridge; BORDER-RIGHT: blue 2px ridge
 }
 .font-blue {
 	font-size: 16px;
@@ -1360,26 +1332,15 @@ function terminate() {
 }
 input{background:#f99;height: 30px;}
 button{FONT-SIZE: 8pt}
-#GX{font-size: 10pt;color:yellow}
 ww{font-size: 10pt;background:#f99;color: #030;}
 m{font-size: 12pt;background: #adf;color: black;}
-    html{background: olive;}
-
-*{border-radius: 8px;}
-input:hover,textarea:hover,button:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
-input:active,textarea:active,button:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
-td:hover{border: 1px solid fuchsia;box-shadow: 3px 3px 20px darkorchid}
-#txt5{width:90vw;height:20vh;}
-@media all and (max-width:500px){
-  #detail{display: none}
-}
 </STYLE>
 
 <META name=GENERATOR content="MSHTML 9.00.8112.16520"></HEAD>
 <BODY style="Z-INDEX: 0; POSITION: relative" onload=initialize() 
 onmousemove=mEvn(event) onunload=terminate()>
-<SCRIPT language=Javascript>
-// <!--我修改
+<input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
+<SCRIPT language=Javascript><!--
 var agent = navigator.userAgent;
 var navVer = 0;
 var navName = '';
@@ -1400,43 +1361,44 @@ if(navVer == 0 || (navName=='IE'&&navVer<4) ) {
  document.write("<h1>你的瀏覽器無法執行此程式。</h1>此程式需在 IE 4.0 或 Firefox 1.0 以後的版本才能執行!!")
  document.close;
 }
-</SCRIPT>
+//--></SCRIPT>
 
 <DIV 
 style="Z-INDEX: 3; POSITION: absolute; FILTER: shadow(color=#333333,direction=135); WIDTH: 140px; HEIGHT: 120px" 
 id=detail></DIV>
-  <FORM onsubmit="return false;" name=CLD>  <!--為了手機版浮動視窗會出現在左上角，會遮按鈕，所以讓按鈕靠右-->
-<!--<TABLE border=0>
+<TABLE border=0>
   <TBODY>
   <TR>
-    <TD align=right>
+        <FORM onsubmit="return false;" name=CLD>
+    <TD align=right>  <!--為了手機版浮動視窗會出現在左上角，會遮按鈕，所以讓按鈕靠右-->
       <DIV style="Z-INDEX: -1; POSITION: absolute; TOP: 90px"><FONT 
       style="FONT-FAMILY: 'Arial Black'; COLOR: #f0f0f0; FONT-SIZE: 100pt" 
       id=YMBG>&nbsp;0000<br/>&nbsp;JUN</FONT> </DIV>
--->
-      <TABLE bordercolor="silver" padding="0" border=3 cellpadding="0" cellspacing="0">
-<tr><td bgColor=darkgreen colSpan=7 align=right><FONT id=GX></FONT><br/></td></tr>
+      <TABLE border=3 cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolor="#acc" bordercolorlight="#EEEEEE">
         <TR>
           <TD bgColor=#540 colSpan=7 align=right><FONT 
             style="FONT-SIZE: 10pt" color=#ffffff size=2>
+<script type="text/javascript">
+var Today=new Date();
+document.write("今年中國佛曆" + (Today.getFullYear()+1028)+ "年"+"(從佛誕生算起)<br/>");
+document.write("今年世界佛曆" + (Today.getFullYear()+543)+ "年"+"(從佛涅槃算起)<br/>");
+</script>
 <input id="reload" type="button" style="height:20px;background:#ff8" value="重新載入" onclick="javascript:window.location.reload()"/>
             西元<SELECT 
             style="FONT-SIZE: 9pt" onchange=changeCld() name=SY> 
-              <SCRIPT language=Javascript>
-              // <!--我修改
+              <SCRIPT language=Javascript><!--
           for(i=1900;i<2101;i++) document.write('<option>'+i)
           //--></SCRIPT>
             </SELECT>年<SELECT style="FONT-SIZE: 9pt" onchange=changeCld() 
             name=SM> 
-              <SCRIPT language=JavaScript>
-              // <!--我修改
+              <SCRIPT language=JavaScript><!--
           for(i=1;i<13;i++) document.write('<option>'+i)
           //--></SCRIPT>
-            </SELECT>月</FONT> <br/><FONT id=GZ color=#ffffff
-            ></FONT><br/></TD></TR>
+            </SELECT>月</FONT> <br/><FONT id=GZ color=#ffffff size=3 
+            face=標楷體></FONT><br/></TD></TR>
 
                     <tr>
-            <TD bgColor=#ab3 colSpan=7 align=right><BUTTON 
+            <TD bgColor=#ab3 colSpan=7 vAlign=top width=40 align=right><BUTTON 
       onclick="pushBtm('YU')">上一年▲</BUTTON><BUTTON 
       onclick="pushBtm('YD')">下一年▼</BUTTON> 
       <BUTTON 
@@ -1445,20 +1407,15 @@ id=detail></DIV>
       <BUTTON onclick="pushBtm('')">今日</BUTTON></td>
         </tr>
         
-        <TR>
-          <TD id="mySD" align=middle bgColor='gold' colSpan=7></TD>
-          </TR>
-
         <TR align=middle bgColor=#e0e0e0>
-          <TD width=85>日</TD>
-          <TD width=85>一</TD>
-          <TD width=85>二</TD>
-          <TD width=85>三</TD>
-          <TD width=85>四</TD>
-          <TD width=85>五</TD>
-          <TD width=85>六</TD></TR>
-        <SCRIPT language=JavaScript>
-        // <!--我修改
+          <TD width=75>日</TD>
+          <TD width=75>一</TD>
+          <TD width=75>二</TD>
+          <TD width=75>三</TD>
+          <TD width=75>四</TD>
+          <TD width=75>五</TD>
+          <TD width=75>六</TD></TR>
+        <SCRIPT language=JavaScript><!--
           var gNum, color1, color2;
 
           // 星期六顏色
@@ -1484,7 +1441,7 @@ id=detail></DIV>
              document.write('<tr align=middle bgColor=#fed>')
              for(j=0;j<7;j++) {
                 gNum = i*7+j
-                document.write('<td id="GD' + gNum +'" onMouseOver="mOvr(' + gNum +')" onMouseOut="mOut()"><font id="SD' + gNum +'" size=5')
+                document.write('<td id="GD' + gNum +'" onMouseOver="mOvr(' + gNum +')" onMouseOut="mOut()"><font id="SD' + gNum +'" size=3 face="Arial Black"')
                 if(j == 3) document.write(' color=#06e')
                 if(j == 2) document.write(' color=#f0a')
                 if(j == 6) {
@@ -1496,7 +1453,7 @@ id=detail></DIV>
              document.write('</tr>')
           }
           //--></SCRIPT>
-        <!--</TBODY></TABLE>--></TABLE></FORM>
+        </FORM></TBODY></TABLE></TABLE>
         
         <TABLE><TBODY>
         <FORM name=WorldClock>
@@ -1536,7 +1493,7 @@ id=detail></DIV>
 再按「批次轉農曆日期」按鈕。<br/>
 結果會呈現在文本框中，以便複製或剪貼<br/>
 按「復原」可恢復原來輸入的日期！<br/>
-<textarea id="txt5" placeholder="1955年5月6日
+<textarea id="txt5" rows="8" cols="111" placeholder="1955年5月6日
 1955,5,7
 1957 5 8
 1957-5-9

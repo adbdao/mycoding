@@ -108,7 +108,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 <HTML>
 
 <HEAD>
-  <TITLE>齋天名冊+年齡轉換+批次轉換農曆日期</TITLE>
+  <TITLE>個人月曆+齋天年齡轉換+批次轉換農曆日期</TITLE>
   <META name=keywords content="農曆國曆對照表,時間;世界時間;時區;農曆;陰曆;陽曆;月曆;曆法;節日;紀念日;時區;節氣;二十四節氣;干支;生肖;world time clock;gregorian solar;Chinese lunar;calendar">
   <META name=robots content=All>
   <META name=description content="農曆國曆對照表,Gregorian Solar Calendar and Chinese Lunar Calendar">
@@ -844,7 +844,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             '中國佛曆' +
             (myS.lYear + 1028) + '年',
             '世界佛曆' +
-            (myS.sMonth > 4 ? (myS.lYear + 544) : (myS.lYear + 543)) + '年',
+            (myS.sMonth>4?(myS.lYear + 544):(myS.lYear + 543)) + '年',
             // (myS.lYear + 543)
             '西元' +
             myS.sYear + '年',
@@ -919,7 +919,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       }
       return (s);
     }
-    function overCopy() {
+    function overCopy(){
       // 結束時選取並複製文本框中的內容
       txt5.select()
       document.execCommand('Copy')
@@ -1071,318 +1071,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         tabName.style.display = 'block'
       }
     }
-
-    function zhDigitToArabic(digit) {
-      const zh = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
-      const unit = ['千', '百', '十'];
-      const quot = ['萬', '億', '兆', '京', '垓', '秭', '穰', '溝', '澗', '正', '載', '極', '恒河沙', '阿僧祗', '那由他', '不可思議', '無量', '大數'];
-      let result = 0, quotFlag;
-
-      for (let i = digit.length - 1; i >= 0; i--) {
-        if (zh.indexOf(digit[i]) > -1) { // 數字
-          if (quotFlag) {
-            result += quotFlag * getNumber(digit[i]);
-          } else {
-            result += getNumber(digit[i]);
-          }
-        } else if (unit.indexOf(digit[i]) > -1) { // 十分位
-          if (quotFlag) {
-            result += quotFlag * getUnit(digit[i]) * getNumber(digit[i - 1]);
-          } else {
-            result += getUnit(digit[i]) * getNumber(digit[i - 1]);
-          }
-          --i;
-        } else if (quot.indexOf(digit[i]) > -1) { // 萬分位
-          if (unit.indexOf(digit[i - 1]) > -1) {
-            if (getNumber(digit[i - 1])) {
-              result += getQuot(digit[i]) * getNumber(digit[i - 1]);
-            } else {
-              result += getQuot(digit[i]) * getUnit(digit[i - 1]) * getNumber(digit[i - 2]);
-              quotFlag = getQuot(digit[i]);
-              --i;
-            }
-          } else {
-            result += getQuot(digit[i]) * getNumber(digit[i - 1]);
-            quotFlag = getQuot(digit[i]);
-          }
-          --i;
-        }
-      }
-      return result;
-
-      // 返回中文大寫數字對應的阿拉伯數字
-      function getNumber(num) {
-        for (let i = 0; i < zh.length; i++) {
-          if (zh[i] == num) {
-            return i;
-          }
-        }
-      }
-      // 取單位
-      function getUnit(num) {
-        for (let i = unit.length; i > 0; i--) {
-          if (num == unit[i - 1]) {
-            return Math.pow(10, 4 - i);
-          }
-        }
-      }
-      // 取分段
-      function getQuot(q) {
-        for (var i = 0; i < quot.length; i++) {
-          if (q == quot[i]) {
-            return Math.pow(10, (i + 1) * 4);
-          }
-        }
-      }
-    }
-
-    function delTab(a) {
-      var oObj = document.getElementById(a)
-      while (oObj.firstChild) {
-        oObj.removeChild(oObj.firstChild)
-      }
-    }
-    function JTNames() {
-      // 先刪除舊表格，不然會一直增加
-      delTab('div1')
-      var Arr1 = []
-      var Arr2 = []
-      var Arr3 = []
-      var Arr4 = []
-      var Arr5 = []
-      var ChineseYear = []
-      var ChineseYear1 = []
-      var ChineseYear2 = []
-      var ChineseYear3 = []
-      var ChineseYear4 = []
-      // 將資料導入陣列
-      Arr1 = txt5.value.split('\n')
-      for (var i = 0; i < Arr1.length; i++) {
-        // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女])/, '♂\t$1')
-        Arr2[i] = []
-        Arr2[i] = Arr1[i].split('\t')
-        for (var j = 0; j < Arr2[i].length; j++) {
-          // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
-          Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
-        }
-      }
-      for (var i = 0; i < Arr1.length; i++) {
-        // 建立DIV
-        var aDiv = document.createElement('div')
-        // 人名開頭才建立
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女') {
-          aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
-          // 區別香港的西元生日，與台灣的民國生日
-          if (Arr2[i][2].length > 3) {
-            aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日　' + Arr2[i][5] + '時生'
-
-            // 取出西元日期，轉為數字
-            ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
-
-          } else {
-            aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日　' + Arr2[i][5] + '時生'
-            // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
-            // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
-            if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
-              ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
-            }
-            // 轉換正統寫法的中文數字
-            // 取出百位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
-              ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
-            }
-            // 取出十位數
-            if (Arr2[i][2].length && Arr2[i][2].match('十')) {
-              // 補上「一」十
-              if (Arr2[i][2].indexOf('十') < 1) {
-                ChineseYear2[i] = 10
-              } else if (Arr2[i][2].indexOf('十') == 1) {
-                ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
-                // 另外幾種寫法
-                // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
-                // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
-              }
-            }
-            // 取出個位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
-              ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
-            }
-            // 空位轉0
-            if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
-            if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
-            if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
-            // 判斷不要覆蓋前面已轉好的年份
-            if (!ChineseYear4[i]) {
-              ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
-            }
-            // 民國轉西元年
-            if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
-          }
-          // 導入日曆函數，並算出生肖
-          var ADObj, ADObj1, ADObj2, ADA, ADS
-          ADObj1 = new calendar(ChineseYear4[i], 5)
-          ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
-          if (!ADS) { ADS = '　吉' }
-          ADA = Animals[(ADObj1[6].lYear - 4) % 12]
-          if (ADObj1[6].lYear < 1901) { ADA = '　吉' }
-
-          aDiv.innerHTML += '<br/>　　　　　　　現年' + ADS + '歲　屬' + ADA
-          aDiv.innerHTML += '<br/>現住：'
-          // 加入地址
-          for (var k = 1; k < Arr1.length; k++) {
-            // 地址若有多行，則繼續加入地址，否則中止循環
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-              aDiv.innerHTML += Arr2[i + k][1]
-              break
-            }
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-              aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
-            }
-          }
-          aDiv.innerHTML += '<br/><font style="font-size:30pt;font-weight: bold;">佛光普照　　本命元辰　　消災福至降吉祥　　解冤釋結<br/>免難消災障　　運限和平　　福壽永康寧</font>'
-
-          div1.appendChild(aDiv)
-        }
-      }
-    }
-
-    function JTNamesBig() {
-      // 先刪除舊表格，不然會一直增加
-      delTab('div2')
-      var Arr1 = []
-      var Arr2 = []
-      var Arr3 = []
-      var Arr4 = []
-      var Arr5 = []
-      var ChineseYear = []
-      var ChineseYear1 = []
-      var ChineseYear2 = []
-      var ChineseYear3 = []
-      var ChineseYear4 = []
-      var addNum = 0
-      // 將資料導入陣列
-      Arr1 = txt5.value.split('\n')
-      for (var i = 0; i < Arr1.length; i++) {
-        // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女])/, '♂\t$1')
-        Arr2[i] = []
-        Arr2[i] = Arr1[i].split('\t')
-        for (var j = 0; j < Arr2[i].length; j++) {
-          // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
-          Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
-        }
-      }
-      // 疏文封面
-      var aDiv = document.createElement('div')
-      aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
-      aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
-      div2.appendChild(aDiv)
-      // 疏文內容
-      for (var i = 0; i < Arr1.length; i++) {
-        // 建立DIV
-        var aDiv = document.createElement('div')
-        // 人名開頭才建立
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女') {
-          aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
-          // 區別香港的西元生日，與台灣的民國生日
-          if (Arr2[i][2].length == 4) {
-            aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-
-            // 取出西元日期，轉為數字
-            ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
-
-          } else {
-            aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-            // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
-            // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
-            if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
-              ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
-            }
-            // 轉換正統寫法的中文數字
-            // 取出百位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
-              ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
-            }
-            // 取出十位數
-            if (Arr2[i][2].length && Arr2[i][2].match('十')) {
-              // 補上「一」十
-              if (Arr2[i][2].indexOf('十') < 1) {
-                ChineseYear2[i] = 10
-              } else if (Arr2[i][2].indexOf('十') == 1) {
-                ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
-                // 另外幾種寫法
-                // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
-                // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
-              }
-            }
-            // 取出個位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
-              ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
-            }
-            // 空位轉0
-            if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
-            if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
-            if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
-            // 判斷不要覆蓋前面已轉好的年份
-            if (!ChineseYear4[i]) {
-              ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
-            }
-            // alert(ChineseYear4)
-            // 民國轉西元年
-            if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
-          }
-          // 導入日曆函數，並算出生肖
-          var ADObj, ADObj1, ADObj2, ADA, ADS
-          ADObj1 = new calendar(ChineseYear4[i], 5)
-          ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
-          if (!ADS) { ADS = '　吉' }
-          ADA = Animals[(ADObj1[6].lYear - 4) % 12]
-          if (ADObj1[6].lYear < 1901) { ADA = '吉' }
-
-          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
-          // 判斷下一行是地址否？加入地址
-          if (Arr2[i + 1][0] == '♂') {
-            // 統計名單中：同一地址有多少人
-            if (addNum > 0) {
-              aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
-              for (var k = 1; k < Arr1.length; k++) {
-                // 地址若有多行，則繼續加入地址，否則中止循環
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                  break
-                }
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                  // 加入行首空格7個，以便排版
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
-                }
-              }
-            } else {
-              aDiv.innerHTML += '<br/>現住：'
-              for (var k = 1; k < Arr1.length; k++) {
-                // 地址若有多行，則繼續加入地址，否則中止循環
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                  break
-                }
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                  // 加入行首空格5個，以便排版
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
-                }
-              }
-            }
-            // 統計名單歸零
-            addNum = 0
-          } else {
-            // 下一行若非地址，統計名單加一
-            addNum++
-          }
-          // 插入DIV
-          div2.appendChild(aDiv)
-        }
-      }
-    }
-
     // 賦予自訂的節日活動顏色
     function givecolor(thetext, c, b, d) {
       return d + '<font style="color:' + c + ';background:' + b + ';">' + thetext + '</font>'
@@ -1402,7 +1090,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       if (SY > 1908 && SY < 1912) yDisplay = '宣統' + (((SY - 1908) == 1) ? '元' : SY - 1908);
       if (SY > 1911) yDisplay = '民國' + (((SY - 1911) == 1) ? '元' : SY - 1911);
 
-      document.getElementById("GZ").innerHTML = '當前月曆：' + yDisplay + '年' + (SM + 1) + '月' + '歲次' + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1028) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年";
+      document.getElementById("GZ").innerHTML = '當前月曆：' + yDisplay + '年' + (SM + 1) + '月' + '歲次' + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1028) + "年 " + "世界佛曆" + (SM>4?(SY + 544):(SY + 543)) + "年";
 
       //  document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];//背景年份月份
 
@@ -1433,14 +1121,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             LE += cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】'
             LE += cld[sD].lMonth + '月' + cld[sD].lDay + '日<br/>'
             LE += "中國佛曆" + (tY + 1028) + "年" + "(從佛誕生算起)<br/>"
-            LE += "世界佛曆" + (tM > 4 ? (tY + 544) : (tY + 543)) + "年" + "(從佛涅槃算起)"
+            LE += "世界佛曆" + (tM>4?(tY + 544):(tY + 543)) + "年" + "(從佛涅槃算起)"
           }
           sObj.style.color = cld[sD].color; //國定假日顏色
 
-          if (mysD == 1) { sObj.innerHTML += givecolor('校準時鐘', '#066', '#ddd', '<br/>').fontsize(1) }
-          if (mysD == 2) { sObj.innerHTML += givecolor('行門表', '#066', '#ddd', '<br/>').fontsize(2) }
-          if (mysD == 3) { sObj.innerHTML += givecolor('保養硬碟+磨刀', '#066', '#ddd', '<br/>').fontsize(1) }
-          if (mysD == 25) { sObj.innerHTML += givecolor('守寫字', '#066', '#ddd', '<br/>').fontsize(1) }
+          if(mysD==1){sObj.innerHTML+=givecolor('校準時鐘','#066','#ddd', '<br/>').fontsize(1)}
+          if(mysD==2){sObj.innerHTML+=givecolor('行門表','#066','#ddd', '<br/>').fontsize(2)}
+          if(mysD==3){sObj.innerHTML+=givecolor('保養硬碟+磨刀','#066','#ddd', '<br/>').fontsize(1)}
+          if(mysD==25){sObj.innerHTML+=givecolor('守寫字','#066','#ddd', '<br/>').fontsize(1)}
 
           if (mylD == 1) //顯示農曆月
             if (cld[sD].isLeap) //閏月
@@ -1449,30 +1137,30 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
               lObj.innerHTML = (cld[sD].lMonth + '月' + (monthDays(cld[sD].lYear, cld[sD].lMonth) == 29 ? '小' : '大') + ' ' + cDay(mylD)).fontcolor('cyan');
           else //顯示農曆日
             lObj.innerHTML = cDay(mylD);
-          // 顯示初一十五
+            // 顯示初一十五
           if (mylD == 1) { lObj.innerHTML += '<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>'; }
           if (mylD == 15) { lObj.innerHTML += '<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>'; }
           // 顯示六齋日
           myBr = givecolor('六齋', 'green', 'orange', '<br/>').big()
           myBr1 = givecolor('六齋', 'green', 'orange', '<br/>').big() + givebrcolor('誦戒', 'magenta').big()
           if (mylD == 8) { lObj.innerHTML += myBr; }
-          if (mylD == 14) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
+          if (mylD == 14) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
           if (mylD == 15) { lObj.innerHTML += myBr; }
           if (mylD == 23) { lObj.innerHTML += myBr; }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 28) {
-            if (mylD == 27) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
+            if (mylD == 27) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
             if (mylD == 28) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 29) {
-            if (mylD == 28) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
+            if (mylD == 28) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
             if (mylD == 29) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 30) {
-            if (mylD == 29) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
+            if (mylD == 29) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
             if (mylD == 30) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 31) {
-            if (mylD == 30) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
+            if (mylD == 30) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
             if (mylD == 31) { lObj.innerHTML += myBr; }
           }
 
@@ -1491,10 +1179,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if ((eve - 11) == (mylD)) { lObj.innerHTML += givebrcolor('課程結束', 'deeppink'); }
           }
           if (9 == (cld[sD].lMonth)) {
-            if (ev2 == (mylD)) {
-              lObj.innerHTML += givebrcolor('藥師佛聖誕<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>', 'brown');
-              lObj.innerHTML += givebrcolor('傳誠師忌日', 'blue');
-            }
+            if (ev2 == (mylD)) { lObj.innerHTML += givebrcolor('藥師佛聖誕<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>', 'brown');
+            lObj.innerHTML += givebrcolor('傳誠師忌日','blue'); }
           }
 
           s = cld[sD].lunarFestival.fontcolor('brown');
@@ -1913,19 +1599,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   </SCRIPT>
 
   <STYLE>
-     ::selection {
-      background: darkred;
-      color: yellow
-    }
-    
-     ::-moz-selection {
-      background: darkred;
-      color: yellow
-    }
-    /*html {
-      background: olive;
-    }*/
-    
+    ::selection{background: darkred;color:yellow}
+    ::-moz-selection{background: darkred;color:yellow}
+    html{background: olive;}
+
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
       BORDER-LEFT: blue 2px ridge;
@@ -1957,22 +1634,18 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       color: yellow
     }
     
-    .b {
+    #showCalendar,
+    #jt {
       font-size: 12pt;
       background: #adf;
       color: #030;
     }
     
-    #tab1,
+    /*#tab1,
     #tab2 {
       display: none;
-    }
-    
-    #p {
-      color: darkred;
-      font-size: 14pt;
-    }
-    
+    }*/
+    #p{color:darkred;}
     * {
       border-radius: 8px;
     }
@@ -2008,51 +1681,13 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         display: none
       }
     }
-    /*#div1 {
-      width: 85mm;
-      height: 1cm;
-      background: yellow;
-    }*/
-    
-    #div1 div {
-      display: inline-block;
-      /*border: 1px solid red;*/
-      /*配合A4紙大小*/
-      width: 87mm;
-      height: 270mm;
-      /*轉直排語法*/
-      -webkit-writing-mode: vertical-rl;
-      writing-mode: vertical-rl;
-      font-size: 28pt;
-      font-family: 標楷體;
-      padding: 5px 5px 5px 5px;
-      color: black;
-    }
-    /*#div2 {
-      -webkit-writing-mode: vertical-rl;
-      writing-mode: vertical-rl;
-    }*/
-    
-    #div2 div {
-      /*display: inline-block;*/
-      /*border: 1px solid red;*/
-      /*配合A4紙大小*/
-      width: 275mm;
-      /*height: 320mm;*/
-      /*轉直排語法*/
-      /*-webkit-writing-mode: vertical-rl;
-      writing-mode: vertical-rl;*/
-      font-size: 22pt;
-      font-family: 標楷體;
-      /*padding: 5px 5px 5px 5px;*/
-      color: black;
-    }
   </STYLE>
 
   <META name=GENERATOR content="MSHTML 9.00.8112.16520">
 </HEAD>
 
 <BODY style="Z-INDEX: 0; POSITION: relative" onload=initialize() onmousemove=mEvn(event) onunload=terminate()>
+<input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
   <SCRIPT language=Javascript>
     // <!--我修改 為了舊的HTML4不能呈現JS才加的空標記
     var agent = navigator.userAgent;
@@ -2076,8 +1711,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       document.close;
     }
   </SCRIPT>
-  <div id="div1"></div>
-  <div id="div2"></div>
+
   <DIV style="Z-INDEX: 3; POSITION: absolute; FILTER: shadow(color=#333333,direction=135); WIDTH: 140px; HEIGHT: 120px" id=detail></DIV>
   <FORM onsubmit="return false;" name=CLD>
     <!--為了手機版浮動視窗會出現在左上角，會遮按鈕，所以讓按鈕靠右-->
@@ -2113,7 +1747,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             </SELECT>月</FONT> <br/>
           <FONT id=GZ color=#ffffff></FONT><br/></TD>
       </TR>
-      <!--
+<!--
       <tr>
         <TD bgColor=#ab3 colSpan=7 align=right>
           <BUTTON onclick="pushBtm('YU')">上一年▲</BUTTON>
@@ -2124,15 +1758,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         </td>
       </tr>
 -->
-      <tr colSpan=7 align=middle width=40 bgcolor="#ff8">
+        <tr colSpan=7 align=middle width=40 bgcolor="#ff8">
         <td style="FONT-SIZE: 9pt">滑鼠<br/>點擊→</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YU')">上一年▲</td>
-        <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YD')">下一年▼</td>
+        <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YD')">下一年▼</td> 
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('MU')">上一月▲</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('MD')">下一月▼</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('')">回今日</td>
         <td style="FONT-SIZE: 9pt" onmousedown="javascript:window.location.reload()">重新載入</td>
-      </tr>
+        </tr>
       <TR>
         <TD id="mySD" align=middle bgColor='gold' colSpan=7></TD>
       </TR>
@@ -2229,19 +1863,17 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/> 將您的日期表，直接複製到下方文本框中。 年份一定要西元4位數字！ 日期的分隔符號，只要是非數字符號即可，如[年 月 日 - * / 空白 tab]， 再按「批次轉農曆日期」按鈕。
   <br/> 結果會呈現在文本框中，以便複製或剪貼
   <br/> 按「復原」可恢復原來輸入的日期！
-  <p id="p">將齋天疏文、或名冊，複製到下方文本框，
-    <br/> 依照「西元及民國」年份，每年自動依系統日期，算出並更正年齡、生肖。
-    <br/>功德主名冊，人名太多直接列印會混亂，所以請複製至Word再列印</p>
+  <p id="p">將齋天疏文，複製到下方文本框，
+  <br/> 依照「西元及民國」年份，直接算出並更正年齡、生肖。如下例：
+  <br/> ※每年自動依系統日期更新。</p>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
   />__<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
   <br/>
   <input id="btn1" type="button" value="批次轉佛曆+西元+農曆日期" onclick="myOB1()" /> __
   <input id="btn" type="button" value="測試" onclick="btntest()" />
   <br/>
-  <input id="jt" class="b" type="button" value="齋天年齡轉換" onclick="changeADYear()" />__
-  <input id="showCalendar" class="b" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />__
-  <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
-  <input class="b" type="button" value="齋天功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
+  <input id="jt" type="button" value="齋天年齡轉換" onclick="changeADYear()" />__
+  <input id="showCalendar" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
@@ -2250,22 +1882,26 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 1957/5/10
 1958+1+2
 2017*8*8">
-女	陳某潔 	一九七三	七	二十七	寅	四十六	牛
-男	Deva Gomatam	一九七三	十	二十三	辰	四十六	牛
-塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia							
-女	伍某	吉	十二	廿九	吉	吉	吉
-香港長沙灣李鄭屋邨和平樓六二０室							
-香港長沙灣李鄭屋邨和平樓777室							
-女	陳某華	一九七三	六	初八	吉	四十六	狗
-香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室							
-男	鄺某柏	一九五五	十一	十二	吉	六十四	羊
-香港新界屯門悅湖山莊某五座５Ｊ室							
-男	黎某華	一九五八	四	廿八	子	六十一	狗
-女	黎某汶	一九八五	九	十三	丑	三十四	牛
-女	黎某欣	一九八八	七	廿九	申	三十一	龍
-女	黎某賢	一九九０	九	廿五	上午七時	二十九	馬
-香港新界粉嶺嘉盛苑嘉輝閣二某一某０室							
-香港新界粉嶺嘉盛苑嘉輝閣199室							
+信男林大頭 　西元一九七０年農曆八月二十日子時生　現年四十九歲　屬羊
+一上二人現住
+信男王曾圓 　西元一九七九年農曆十一月九日子時生　現年十九歲　屬羊
+一上二人現住
+信男了一甚 　西元一九五二年農曆十月十九日子時生　現年二十歲　屬羊
+一上二人現住
+信男歐西現尾 　西元二００四年農曆十一月九日子時生　現年十歲　屬羊
+一上二人現住
+信男黃籲 　民國元年農曆十一月九日子時生　現年十歲　屬羊
+一上二人現住
+信男連將馬 　民國八年農曆十一月九日子時生　現年十一歲　屬羊
+一上二人現住
+信男嚴風清 　民國二十二年農曆十一月九日子時生　現年十歲　屬羊
+一上二人現住
+信男祖小姐 　民國一百零六年農曆十一月九日子時生　現年十歲　屬羊
+一上二人現住
+信男易嚴第 　民國一十六年農曆十二月十九日子時生　現年十歲　屬羊
+一上二人現住
+信男五炊火 　民國七十年農曆五月九日子時生　現年十歲　屬羊
+一上二人現住
 </textarea>
 </BODY>
 

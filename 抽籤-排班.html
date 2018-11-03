@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+    <meta charset="utf-8">
+    <head>
+    <title>抽籤-排班</title>
+<style>
+*{border-radius: 8px;}
+input:hover,textarea:hover{box-shadow: 5px 5px 20px darkorchid;}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
+#nbr {width: 150px; height: 30px;background: lightcyan}
+#btn1 {width: 70px; height: 55px;background: tomato}
+#btn2 {width: 70px; height: 45px;background: gold}
+#btn3 {width: 55px; height: 55px;background: skyblue}
+#btn4 {width: 66px; height: 75px;background: greenyellow}
+#btn5 {width: 100px; height: 45px;background: tan}
+#btn6 {width: 100px; height: 45px;background: khaki}
+#reload {width: 75px; height: 40px;background: yellowgreen}
+textarea{width:80vw;height:30vh;}
+textarea{
+    resize:both;
+    outline: 2px solid greenyellow;
+    outline-offset: 3px;
+}
+</style>
+<script>
+window.onload=function()
+{
+    var oT1=document.getElementById('txt1')
+    var oT2=document.getElementById('txt2')
+    var oB1=document.getElementById('btn1')
+    var oB2=document.getElementById('btn2')
+    var oB3=document.getElementById('btn3')
+    var oB4=document.getElementById('btn4')
+    var oB5=document.getElementById('btn5')
+    var oB6=document.getElementById('btn6')
+    var oBr=document.getElementById('nbr')
+    var reload=document.getElementById('reload')
+    var xy=[]
+    var yx=[]
+
+    oB1.onclick=function(){
+        if(oT1.value && /\D/g.test(oBr.value)==false && /\d/g.test(oBr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            var y=[]
+            var r=oBr.value<2?2:oBr.value
+            var num=Math.floor(str.length/r)+1
+            for(var i=0;i<num;i++){
+                str1[i]=str.splice(0,r)
+                str2[i]=''
+                for(var j=0;j<r;j++){
+                    str2[i]+=str1[i].splice(Math.floor(Math.random()*(r-j)),1)+'\t'
+                    str3[j]='第'+(j+1)+'組'
+                }
+                y[i]=str2[i].split('\t')
+            }
+            y.unshift(str3)
+            yx=[]
+            for(var i=0;i<y[0].length;i++){
+                yx[i]=[]
+                for(var j=0;j<y.length;j++){
+                    yx[i][j]=y[j][i]
+                }
+            }
+            oT2.value=xy=str3.join('\t')+'\n'+str2.join('\n')
+            yx=yx.join('\n').replace(/\,/g,' ')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBr.value)==true || oBr.value==false){alert('請在數字框中輸入數字')}
+        }
+    }
+    oB2.onclick=function(){
+        if(oT1.value && /\D/g.test(oBr.value)==false && /\d/g.test(oBr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var r=oBr.value<1?1:oBr.value
+            var num=str.length
+            yx=[]
+            for(var i=0;i<r;i++){
+                str1[i]=str.splice((Math.floor(Math.random()*(num-i))),1)
+            }
+            oT2.value=xy=str1.join('\n')
+            yx=str1.join(' ')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBr.value)==true || oBr.value==false){alert('請在數字框中輸入數字')}
+        }
+    }
+    oB3.onclick=function(){
+        var arr=[]
+        for(var i=0;i<99;i++){
+            arr[i]=(i+1)<10?'0'+(i+1):''+(i+1)
+        }
+        oT1.value=arr.join('\n')
+        oBr.value='5'
+    }
+    oB4.onclick=function(){
+        if(oT2.value==xy){
+            oT2.value=yx
+        }else{
+            oT2.value=xy
+        }
+    }
+    oB5.onclick=function(){
+        if(oT1.value && /\D/g.test(oBr.value)==false && /\d/g.test(oBr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            // var y1=[]
+            // var y2=[]
+            var r=oBr.value
+            var num=Math.floor(str.length/(r*2))+1
+            for(var i=0;i<num;i++){
+                str1=str.splice(0,r)
+                str2=str.splice(0,r)
+                str3[i]=['第'+(i+1)+'排',str1.reverse(),'',str2]
+            }
+            // yx=[]
+            oT2.value=xy=str3.join('\n').replace(/\,/g,' ')
+            // y1=xy.split('\n')
+            //     alert(y1)
+            // for(var i=0;i<(r*2+1);i++){
+            //     y2[i]=[]
+            //     y2[i]=y1[i].split(' ')
+            // }
+            // for(var i=0;i<(r*2+1);i++){
+            //     yx[i]=[]
+            //     for(var j=0;j<num;j++){
+            //         yx[i][j]=y2[j][i]
+            //     }
+            // alert(yx)
+            // }
+            // yx=yx.join('\n').replace(/\,/g,' ')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBr.value)==true || oBr.value==false){alert('請在數字框中輸入數字')}
+        }
+    }
+    oB6.onclick=function(){
+        if(oT1.value && /\D/g.test(oBr.value)==false && /\d/g.test(oBr.value)==true){
+            var str=oT1.value.split('\n')
+            var str1=[]
+            var str2=[]
+            var str3=[]
+            // var y=[]
+            var r=oBr.value
+            var num=Math.floor(str.length/(r*2))+1
+            for(var i=0;i<num;i++){
+                for(var j=0;j<r;j++){
+                    str1.push(str.splice(0,1))
+                    str2.push(str.splice(0,1))
+                }
+                str3[i]=['第'+(i+1)+'排',str1.reverse(),'',str2]
+                str1=[]
+                str2=[]
+                // y[i]=str2[i].split('\t')
+            }
+            // yx=[]
+            // for(var i=0;i<y[0].length;i++){
+            //     yx[i]=[]
+            //     for(var j=0;j<y.length;j++){
+            //         yx[i][j]=y[j][i]
+            //     }
+            // }
+            oT2.value=xy=str3.join('\n').replace(/\,/g,' ')
+            // yx=yx.join('\n').replace(/\,/g,' ')
+        }
+        else{
+            if(!oT1.value){alert('請在文本框中輸入名單')}
+            if(/\D/g.test(oBr.value)==true || oBr.value==false){alert('請在數字框中輸入數字')}
+        }
+    }
+}
+</script>
+    </head>
+    <body id="body">
+    <input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
+        <textarea id="txt1" rows="8" cols="20"  placeholder='把名單，複製到文本框中，再按「抽籤」按鈕，即可在下方文本框中，形成排班表！'></textarea>
+        <br/>
+        <input id="nbr" type="text"  placeholder='想抽出幾組？或幾個人？' list="how"/>
+    <datalist id="how">
+        <option value="1"/>
+        <option value="2"/>
+        <option value="3"/>
+        <option value="4"/>
+        <option value="5"/>
+        <option value="6"/>
+        <option value="7"/>
+        <option value="8"/>
+    </datalist>
+        <input id="btn1" type="button" value="分組抽籤"/>
+        <input id="btn2" type="button" value="個數抽籤"/>
+        <input id="btn4" type="button" value="直書橫書"/>
+        <input id="btn3" type="button" value="測試"/>
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
+        <br/>
+        <input id="btn5" type="button" value="左右順序排班"/>
+        <input id="btn6" type="button" value="左右奇偶排班"/>
+        <br/>
+        <textarea id="txt2" rows="20" cols="70"></textarea>
+    </body>
+</html>

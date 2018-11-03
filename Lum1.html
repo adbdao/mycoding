@@ -428,13 +428,12 @@ marginheight:10px;*/
 </style>
 <script>
 var ArrLi=[
-'襌堂日行規矩1-1.html','齋天年齡轉換.html','整月回向文1.html','誦戒前懺悔1.html','農曆台灣月曆-佛誕v.html','農曆台灣月曆-手機4六個月的月曆.html','農曆台灣月曆-手機3.html','資料庫的連結點ol.html','資料庫的連結點moble.html','排班(表格抽籤)2.html','個人月曆.html','正規集.html','Lum1.html','index.html','cbreaderFontMiddle.css','cbreaderFontBig.css','bookmarks_2018_2_7.html','Acceon3商標.png','AccelonLogoGray.html','0樣本.html','!三大部下載 - 捷徑.lnk'
+'襌堂日行規矩1-1.html','齋天年齡轉換.html','整月回向文.html','誦戒前懺悔1.html','農曆台灣月曆-佛誕v.html','農曆台灣月曆-手機4六個月的月曆.html','農曆台灣月曆-手機3.html','資料庫的連結點ol.html','資料庫的連結點moble.html','排班(表格抽籤)1.html','正規集.html','Lum1.html','index.html','cbreaderFontMiddle.css','cbreaderFontBig.css','bookmarks_2018_2_7.html','Acceon3商標.png','AccelonLogoGray.html','0樣本.html','!三大部下載 - 捷徑.lnk'
 ]
 var ArrLi1=[
-'整月回向文.html','誦戒前懺悔.html','農曆台灣月曆-手機4六個月的月曆.html.bak','農曆台灣月曆-手機3.html.bak','農曆台灣月曆-手機2.html','農曆台灣月曆-手機1.html','農曆台灣月曆-手機.html','農曆日期批次換算-2.html','農曆日期批次換算-1.html','農曆日期1-v.html.bak','農曆日期1-v.html','農曆日期1-2.html.bak','農曆日期1-2.html','農曆日期1-1.html','資料庫的連結點.html','排班3-2.html','排班3-1.html','排班(表格抽籤)1.html.bak','排班(表格抽籤)1.html','排班(表格抽籤).html','排班(表格)3.html','抽籤-排班.html','抽籤1.html','抽籤.html','Lum.html','AccelonLogo.html'
+'誦戒前懺悔.html','農曆台灣月曆-手機4六個月的月曆.html.bak','農曆台灣月曆-手機3.html.bak','農曆台灣月曆-手機2.html','農曆台灣月曆-手機1.html','農曆台灣月曆-手機.html','農曆日期批次換算-2.html','農曆日期批次換算-1.html','農曆日期1-v.html.bak','農曆日期1-v.html','農曆日期1-2.html.bak','農曆日期1-2.html','農曆日期1-1.html','資料庫的連結點.html','排班3-2.html','排班3-1.html','排班(表格抽籤)1.html.bak','排班(表格抽籤).html','排班(表格)3.html','抽籤-排班.html','抽籤1.html','抽籤.html','Lum.html','AccelonLogo.html'
 ]
 function css3(obj,attrObj){
-    // 插入多種css語法，取代原來網頁的語法
     for (var i in attrObj) {
         var j=i
         if(j.indexOf('-')>0){
@@ -450,7 +449,6 @@ function css3(obj,attrObj){
     }
 }
 function addCarFu(obj,num,bignum,smailwidth,smailheight,bigWidth,bigHeight,Otop,Oleft,color,OclassName){
-    // 產生半徑的軸，自動設定座標位置，產生大小不同的軸
     for(var i=0;i<num;i++){
         var widthA=smailwidth
         var heightA=smailheight
@@ -528,6 +526,7 @@ function menuUl1(){
 </script>
     </head>
     <body id="body" onload="CarLum(),menuUl(),menuUl1()">
+    <input id="BackIndex" type="button" style="background:skyblue;" value="回首頁" onclick="javascript:location.href='index.html'"/>
         <div id="Lumout">滑鼠滑入，法輪有動畫，移開則恢復
             <!--<div id="Lum1">
                 <div id="Co">
@@ -537,7 +536,7 @@ function menuUl1(){
             </div>-->
         </div>
         <!--<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>-->
-    <div id="dhout"><iframe src="個人月曆.html" frameborder="0"></iframe></div>
+    <div id="dhout"><iframe src="齋天年齡轉換.html" frameborder="0"></iframe></div>
     <ul id="menu">
         <li class="item" id="li1"><a href="./" >程式</a></li>
         <li class="item"><a href="old/">old程式</a></li>
