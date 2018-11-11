@@ -844,7 +844,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             '中國佛曆' +
             (myS.lYear + 1028) + '年',
             '世界佛曆' +
-            (myS.sMonth>4?(myS.lYear + 544):(myS.lYear + 543)) + '年',
+            (myS.sMonth > 4 ? (myS.lYear + 544) : (myS.lYear + 543)) + '年',
             // (myS.lYear + 543)
             '西元' +
             myS.sYear + '年',
@@ -880,6 +880,72 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     function btntest() {
       myArr4 = ["1955年5月6日", "1955,5,7", "1957 5 8", "1957-5-9", "1957/5/10", "1958,1,2", "2017*8*8", "2017 11 29"]
       document.getElementById('txt5').value = myArr4.join('\n')
+    }
+    function delTab() {
+      var oTtb = document.getElementById('tab10')
+      while (oTtb.firstChild) {
+        oTtb.removeChild(oTtb.firstChild)
+      }
+    }
+    function hDay() {
+      // 以下計算放假時，輪組間隔日期
+      // 先刪除舊表格
+      delTab()
+      // 檢查輸入正確否
+      if (/\D/.test(txt5.value.charAt(0))) {
+        alert('請輸入數字日期  ' + txt5.value.charAt(0) + ' 是錯誤格式')
+      } else {
+        // 輸入的日期導入陣列
+        var myArr = txt5.value.replace(/[^\n\d]/g, 'A').split('A')
+        var hDay1, hDay2, hDaySet, hDayArr1 = [], hDayArr2 = []
+        // 檢查輸入正確否
+        if (/\D/.test(btn10.value) || /\D/.test(btn11.value)) {
+          alert('請在 日期框 及 間隔框 中輸入數字')
+        } else {
+          // 預設3組，每組10日
+          if (!btn10.value) {
+            hDay1 = 10
+          } else {
+            hDay1 = btn10.value
+          }
+          if (!btn11.value) {
+            hDay2 = 3
+          } else {
+            hDay2 = btn11.value
+          }
+          hDaySet = new Date()
+          // hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2]))
+          for (var i = 0; i < (Number(hDay2) + 1); i++) {
+            // 轉為數字，否則會當作文字
+            // 設定年月日期
+            hDaySet.setFullYear(Number(myArr[0]), Number(myArr[1]) - 1, Number(myArr[2]) + Number((i * hDay1)))
+            // 若直接設定日數，有時月份會有誤差
+            // hDaySet.setDate(Number(myArr[2])+Number((i*hDay1)))
+            var hY = hDaySet.getFullYear()
+            var hM = hDaySet.getMonth()
+            var hD = hDaySet.getDate()
+            // 導入函數運算農曆
+            // 日數要減1，才會正確運算，不知何因？
+            myObj = new calendar(hY, hM)
+            var hML = myObj[hD - 1].lMonth
+            var hDL = myObj[hD - 1].lDay
+            // 存入陣列
+            hDayArr1[i] = (hM + 1) + '/' + hD
+            hDayArr2[i] = hML + '/' + hDL
+          }
+          // 輸出表格
+          for (var i = 0; i < hDay2; i++) {
+            var oTr = document.createElement('tr')
+            var oTd = document.createElement('td')
+            oTd.innerHTML = '農曆<br/>' + hDayArr2[i] + '<br/>至<br/>' + hDayArr2[i + 1]
+            oTr.appendChild(oTd)
+            var oTd = document.createElement('td')
+            oTd.innerHTML = '國曆<br/>' + hDayArr1[i] + '<br/>至<br/>' + hDayArr1[i + 1]
+            oTr.appendChild(oTd)
+            tab10.appendChild(oTr)
+          }
+        }
+      }
     }
     //======================================= 傳回該年的復活節(春分後第一次滿月週後的第一主日)
     function easter(y) {
@@ -919,7 +985,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       }
       return (s);
     }
-    function overCopy(){
+    function overCopy() {
       // 結束時選取並複製文本框中的內容
       txt5.select()
       document.execCommand('Copy')
@@ -1090,7 +1156,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       if (SY > 1908 && SY < 1912) yDisplay = '宣統' + (((SY - 1908) == 1) ? '元' : SY - 1908);
       if (SY > 1911) yDisplay = '民國' + (((SY - 1911) == 1) ? '元' : SY - 1911);
 
-      document.getElementById("GZ").innerHTML = '當前月曆：' + yDisplay + '年' + (SM + 1) + '月' + '歲次' + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1028) + "年 " + "世界佛曆" + (SM>4?(SY + 544):(SY + 543)) + "年";
+      document.getElementById("GZ").innerHTML = '當前月曆：' + yDisplay + '年' + (SM + 1) + '月' + '歲次' + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1028) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年";
 
       //  document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];//背景年份月份
 
@@ -1121,14 +1187,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             LE += cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】'
             LE += cld[sD].lMonth + '月' + cld[sD].lDay + '日<br/>'
             LE += "中國佛曆" + (tY + 1028) + "年" + "(從佛誕生算起)<br/>"
-            LE += "世界佛曆" + (tM>4?(tY + 544):(tY + 543)) + "年" + "(從佛涅槃算起)"
+            LE += "世界佛曆" + (tM > 4 ? (tY + 544) : (tY + 543)) + "年" + "(從佛涅槃算起)"
           }
           sObj.style.color = cld[sD].color; //國定假日顏色
 
-          if(mysD==1){sObj.innerHTML+=givecolor('校準時鐘','#066','#ddd', '<br/>').fontsize(1)}
-          if(mysD==2){sObj.innerHTML+=givecolor('行門表','#066','#ddd', '<br/>').fontsize(2)}
-          if(mysD==3){sObj.innerHTML+=givecolor('保養硬碟+磨刀','#066','#ddd', '<br/>').fontsize(1)}
-          if(mysD==25){sObj.innerHTML+=givecolor('守寫字','#066','#ddd', '<br/>').fontsize(1)}
+          if (mysD == 1) { sObj.innerHTML += givecolor('校準時鐘', '#066', '#ddd', '<br/>').fontsize(1) }
+          if (mysD == 2) { sObj.innerHTML += givecolor('行門表', '#066', '#ddd', '<br/>').fontsize(2) }
+          if (mysD == 3) { sObj.innerHTML += givecolor('保養硬碟+磨刀', '#066', '#ddd', '<br/>').fontsize(1) }
+          if (mysD == 25) { sObj.innerHTML += givecolor('守寫字', '#066', '#ddd', '<br/>').fontsize(1) }
 
           if (mylD == 1) //顯示農曆月
             if (cld[sD].isLeap) //閏月
@@ -1137,30 +1203,30 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
               lObj.innerHTML = (cld[sD].lMonth + '月' + (monthDays(cld[sD].lYear, cld[sD].lMonth) == 29 ? '小' : '大') + ' ' + cDay(mylD)).fontcolor('cyan');
           else //顯示農曆日
             lObj.innerHTML = cDay(mylD);
-            // 顯示初一十五
+          // 顯示初一十五
           if (mylD == 1) { lObj.innerHTML += '<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>'; }
           if (mylD == 15) { lObj.innerHTML += '<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>'; }
           // 顯示六齋日
           myBr = givecolor('六齋', 'green', 'orange', '<br/>').big()
           myBr1 = givecolor('六齋', 'green', 'orange', '<br/>').big() + givebrcolor('誦戒', 'magenta').big()
           if (mylD == 8) { lObj.innerHTML += myBr; }
-          if (mylD == 14) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
+          if (mylD == 14) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
           if (mylD == 15) { lObj.innerHTML += myBr; }
           if (mylD == 23) { lObj.innerHTML += myBr; }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 28) {
-            if (mylD == 27) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
+            if (mylD == 27) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
             if (mylD == 28) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 29) {
-            if (mylD == 28) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
+            if (mylD == 28) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
             if (mylD == 29) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 30) {
-            if (mylD == 29) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
+            if (mylD == 29) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
             if (mylD == 30) { lObj.innerHTML += myBr; }
           }
           if (monthDays(cld[sD].lYear, cld[sD].lMonth) == 31) {
-            if (mylD == 30) { lObj.innerHTML += myBr1;gObj.style.background='pink' }
+            if (mylD == 30) { lObj.innerHTML += myBr1; gObj.style.background = 'pink' }
             if (mylD == 31) { lObj.innerHTML += myBr; }
           }
 
@@ -1179,8 +1245,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if ((eve - 11) == (mylD)) { lObj.innerHTML += givebrcolor('課程結束', 'deeppink'); }
           }
           if (9 == (cld[sD].lMonth)) {
-            if (ev2 == (mylD)) { lObj.innerHTML += givebrcolor('藥師佛聖誕<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>', 'brown');
-            lObj.innerHTML += givebrcolor('傳誠師忌日','blue'); }
+            if (ev2 == (mylD)) {
+              lObj.innerHTML += givebrcolor('藥師佛聖誕<font' + ' ' + 'style="font-size:12pt;background:#adf;color:royalblue;">午供</font>', 'brown');
+              lObj.innerHTML += givebrcolor('傳誠師忌日', 'blue');
+            }
           }
 
           s = cld[sD].lunarFestival.fontcolor('brown');
@@ -1599,10 +1667,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   </SCRIPT>
 
   <STYLE>
-    ::selection{background: darkred;color:yellow}
-    ::-moz-selection{background: darkred;color:yellow}
-    html{background: olive;}
-
+     ::selection {
+      background: darkred;
+      color: yellow
+    }
+    
+     ::-moz-selection {
+      background: darkred;
+      color: yellow
+    }
+    
+    html {
+      background: olive;
+    }
+    
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
       BORDER-LEFT: blue 2px ridge;
@@ -1640,12 +1718,25 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: #adf;
       color: #030;
     }
-    
     /*#tab1,
     #tab2 {
       display: none;
     }*/
-    #p{color:darkred;}
+    
+    #tab10,
+    #tab10 td {
+      border: 1px solid black;
+    }
+    
+    .num {
+      background: lightgreen;
+      height: 30px;
+    }
+    
+    #p {
+      color: darkred;
+    }
+    
     * {
       border-radius: 8px;
     }
@@ -1746,7 +1837,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             </SELECT>月</FONT> <br/>
           <FONT id=GZ color=#ffffff></FONT><br/></TD>
       </TR>
-<!--
+      <!--
       <tr>
         <TD bgColor=#ab3 colSpan=7 align=right>
           <BUTTON onclick="pushBtm('YU')">上一年▲</BUTTON>
@@ -1757,15 +1848,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         </td>
       </tr>
 -->
-        <tr colSpan=7 align=middle width=40 bgcolor="#ff8">
+      <tr colSpan=7 align=middle width=40 bgcolor="#ff8">
         <td style="FONT-SIZE: 9pt">滑鼠<br/>點擊→</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YU')">上一年▲</td>
-        <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YD')">下一年▼</td> 
+        <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('YD')">下一年▼</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('MU')">上一月▲</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('MD')">下一月▼</td>
         <td style="FONT-SIZE: 9pt" onmousedown="pushBtm('')">回今日</td>
         <td style="FONT-SIZE: 9pt" onmousedown="javascript:window.location.reload()">重新載入</td>
-        </tr>
+      </tr>
       <TR>
         <TD id="mySD" align=middle bgColor='gold' colSpan=7></TD>
       </TR>
@@ -1863,8 +1954,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/> 結果會呈現在文本框中，以便複製或剪貼
   <br/> 按「復原」可恢復原來輸入的日期！
   <p id="p">將齋天疏文，複製到下方文本框，
-  <br/> 依照「西元及民國」年份，直接算出並更正年齡、生肖。如下例：
-  <br/> ※每年自動依系統日期更新。</p>
+    <br/> 依照「西元及民國」年份，直接算出並更正年齡、生肖。如下例：
+    <br/> ※每年自動依系統日期更新。</p>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
   />__<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
   <br/>
@@ -1873,8 +1964,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/>
   <input id="jt" type="button" value="齋天年齡轉換" onclick="changeADYear()" />__
   <input id="showCalendar" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />
+  <br/>※↓計算放假時，輪組間隔日期。１先在文本框中，輸入放假的開始日期：例2017/5/10。（年份一定要西元4位數字！日期的分隔符號，只要是非數字符號即可）。２再「間隔日數」：輸入每組要留守的日數。３「重複次數」：輸入幾組輪替，就是重複幾次。按「計算間隔」
   <br/>
-  <textarea id="txt5" placeholder="1955年5月6日
+  <input id="btn10" type="text" class="num" placeholder="間隔日數" />
+  <input id="btn11" type="text" class="num" placeholder="重複次數" />
+  <input id="btn12" type="button" class="num" value="計算間隔" onclick="hDay()" />
+  <br/>
+  <table id="tab10">
+    <thead> </thead>
+  </table><textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
 1957 5 8
 1957-5-9

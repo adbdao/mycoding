@@ -783,44 +783,44 @@ function btntest(){
   myArr4=["1955年5月6日","1955,5,7","1957 5 8","1957-5-9","1957/5/10","1958,1,2","2017*8*8","2017 11 29"]
   document.getElementById('txt5').value=myArr4.join('\n')
 }
-function delTab(){
-    var oTtb=document.getElementById('tab1')
-    while (oTtb.firstChild){
+function delTab() {
+  var oTtb = document.getElementById('tab1')
+  while (oTtb.firstChild) {
     oTtb.removeChild(oTtb.firstChild)
-    }
+  }
 }
-function hDay(){
+function hDay() {
   // 以下計算放假時，輪組間隔日期
   // 先刪除舊表格
   delTab()
   // 檢查輸入正確否
-  if(/\D/.test(txt5.value.charAt(0))){
-    alert('請輸入數字日期  '+txt5.value.charAt(0)+' 是錯誤格式')
-  }else{
+  if (/\D/.test(txt5.value.charAt(0))) {
+    alert('請輸入數字日期  ' + txt5.value.charAt(0) + ' 是錯誤格式')
+  } else {
     // 輸入的日期導入陣列
-    var myArr=txt5.value.replace(/[^\n\d]/g,'A').split('A')
-    var hDay1,hDay2,hDaySet,hDayArr1=[],hDayArr2=[]
+    var myArr = txt5.value.replace(/[^\n\d]/g, 'A').split('A')
+    var hDay1, hDay2, hDaySet, hDayArr1 = [], hDayArr2 = []
     // 檢查輸入正確否
-    if(/\D/.test(btn10.value) || /\D/.test(btn11.value)){
+    if (/\D/.test(btn10.value) || /\D/.test(btn11.value)) {
       alert('請在 日期框 及 間隔框 中輸入數字')
-    }else{
+    } else {
       // 預設3組，每組10日
-      if(!btn10.value){
-        hDay1=10
-      }else{
-        hDay1=btn10.value
+      if (!btn10.value) {
+        hDay1 = 10
+      } else {
+        hDay1 = btn10.value
       }
-      if(!btn11.value){
-        hDay2=3
-      }else{
-        hDay2=btn11.value
+      if (!btn11.value) {
+        hDay2 = 3
+      } else {
+        hDay2 = btn11.value
       }
-      hDaySet=new Date()
-        // hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2]))
-      for(var i=0;i<(Number(hDay2)+1);i++){
+      hDaySet = new Date()
+      // hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2]))
+      for (var i = 0; i < (Number(hDay2) + 1); i++) {
         // 轉為數字，否則會當作文字
         // 設定年月日期
-        hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2])+Number((i*hDay1)))
+        hDaySet.setFullYear(Number(myArr[0]), Number(myArr[1]) - 1, Number(myArr[2]) + Number((i * hDay1)))
         // 若直接設定日數，有時月份會有誤差
         // hDaySet.setDate(Number(myArr[2])+Number((i*hDay1)))
         var hY = hDaySet.getFullYear()
@@ -828,25 +828,25 @@ function hDay(){
         var hD = hDaySet.getDate()
         // 導入函數運算農曆
         // 日數要減1，才會正確運算，不知何因？
-        myObj = new calendar(hY,hM)
-        var hML=myObj[hD-1].lMonth
-        var hDL=myObj[hD-1].lDay
+        myObj = new calendar(hY, hM)
+        var hML = myObj[hD - 1].lMonth
+        var hDL = myObj[hD - 1].lDay
         // 存入陣列
-        hDayArr1[i]=(hM+1)+'/'+hD
-        hDayArr2[i]=hML+'/'+hDL
+        hDayArr1[i] = (hM + 1) + '/' + hD
+        hDayArr2[i] = hML + '/' + hDL
       }
       // 輸出表格
-      for(var i=0;i<hDay2;i++){
-        var oTr=document.createElement('tr')
-        var oTd=document.createElement('td')
-        oTd.innerHTML='農曆<br/>'+hDayArr2[i]+'<br/>至<br/>'+hDayArr2[i+1]
+      for (var i = 0; i < hDay2; i++) {
+        var oTr = document.createElement('tr')
+        var oTd = document.createElement('td')
+        oTd.innerHTML = '農曆<br/>' + hDayArr2[i] + '<br/>至<br/>' + hDayArr2[i + 1]
         oTr.appendChild(oTd)
-        var oTd=document.createElement('td')
-        oTd.innerHTML='國曆<br/>'+hDayArr1[i]+'<br/>至<br/>'+hDayArr1[i+1]
+        var oTd = document.createElement('td')
+        oTd.innerHTML = '國曆<br/>' + hDayArr1[i] + '<br/>至<br/>' + hDayArr1[i + 1]
         oTr.appendChild(oTd)
         tab1.appendChild(oTr)
       }
-      }
+    }
   }
 }
 
