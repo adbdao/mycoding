@@ -783,6 +783,73 @@ function btntest(){
   myArr4=["1955年5月6日","1955,5,7","1957 5 8","1957-5-9","1957/5/10","1958,1,2","2017*8*8","2017 11 29"]
   document.getElementById('txt5').value=myArr4.join('\n')
 }
+function delTab(){
+    var oTtb=document.getElementById('tab1')
+    while (oTtb.firstChild){
+    oTtb.removeChild(oTtb.firstChild)
+    }
+}
+function hDay(){
+  // 以下計算放假時，輪組間隔日期
+  // 先刪除舊表格
+  delTab()
+  // 檢查輸入正確否
+  if(/\D/.test(txt5.value.charAt(0))){
+    alert('請輸入數字日期  '+txt5.value.charAt(0)+' 是錯誤格式')
+  }else{
+    // 輸入的日期導入陣列
+    var myArr=txt5.value.replace(/[^\n\d]/g,'A').split('A')
+    var hDay1,hDay2,hDaySet,hDayArr1=[],hDayArr2=[]
+    // 檢查輸入正確否
+    if(/\D/.test(btn10.value) || /\D/.test(btn11.value)){
+      alert('請在 日期框 及 間隔框 中輸入數字')
+    }else{
+      // 預設3組，每組10日
+      if(!btn10.value){
+        hDay1=10
+      }else{
+        hDay1=btn10.value
+      }
+      if(!btn11.value){
+        hDay2=3
+      }else{
+        hDay2=btn11.value
+      }
+      hDaySet=new Date()
+        // hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2]))
+      for(var i=0;i<(Number(hDay2)+1);i++){
+        // 轉為數字，否則會當作文字
+        // 設定年月日期
+        hDaySet.setFullYear(Number(myArr[0]),Number(myArr[1])-1,Number(myArr[2])+Number((i*hDay1)))
+        // 若直接設定日數，有時月份會有誤差
+        // hDaySet.setDate(Number(myArr[2])+Number((i*hDay1)))
+        var hY = hDaySet.getFullYear()
+        var hM = hDaySet.getMonth()
+        var hD = hDaySet.getDate()
+        // 導入函數運算農曆
+        // 日數要減1，才會正確運算，不知何因？
+        myObj = new calendar(hY,hM)
+        var hML=myObj[hD-1].lMonth
+        var hDL=myObj[hD-1].lDay
+        // 存入陣列
+        hDayArr1[i]=(hM+1)+'/'+hD
+        hDayArr2[i]=hML+'/'+hDL
+      }
+      // 輸出表格
+      for(var i=0;i<hDay2;i++){
+        var oTr=document.createElement('tr')
+        var oTd=document.createElement('td')
+        oTd.innerHTML='農曆<br/>'+hDayArr2[i]+'<br/>至<br/>'+hDayArr2[i+1]
+        oTr.appendChild(oTd)
+        var oTd=document.createElement('td')
+        oTd.innerHTML='國曆<br/>'+hDayArr1[i]+'<br/>至<br/>'+hDayArr1[i+1]
+        oTr.appendChild(oTd)
+        tab1.appendChild(oTr)
+      }
+      }
+  }
+}
+
 //======================================= 傳回該年的復活節(春分後第一次滿月週後的第一主日)
 function easter(y) {
    var term2=sTerm(y,5); //取得春分日期
@@ -1365,12 +1432,14 @@ button{FONT-SIZE: 8pt}
 ww{font-size: 10pt;background:#f99;color: #030;}
 m{font-size: 12pt;background: #adf;color: black;}
 
+#tab1,#tab1 td{border: 1px solid black;}
+.num{background:lightblue;height: 30px;}
 
 *{border-radius: 8px;}
 input:hover,textarea:hover,button:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
 input:active,textarea:active,button:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
 td:hover{border: 1px solid fuchsia;box-shadow: 3px 3px 20px darkorchid}
-#txt5{width:90vw;height:20vh;}
+#txt5{width:70vw;height:10vh;}
 @media all and (max-width:500px){
   #detail{display: none}
 }
@@ -1538,7 +1607,7 @@ id=detail></DIV>
 再按「批次轉農曆日期」按鈕。<br/>
 結果會呈現在文本框中，以便複製或剪貼<br/>
 按「復原」可恢復原來輸入的日期！<br/>
-<textarea id="txt5" style="width:90vw;height:20vh;" placeholder="1955年5月6日
+<table id="tab1"><thead> </thead></table><textarea id="txt5" style="width:90vw;height:20vh;" placeholder="1955年5月6日
 1955,5,7
 1957 5 8
 1957-5-9
@@ -1549,7 +1618,13 @@ id=detail></DIV>
 <br/>
 <input id="btn1" type="button" value="批次轉佛曆+西元+農曆日期" onclick="myOB1()"/>
 __<input id="btn" type="button" value="測試" onclick="btntest()"/>
+<br/>※↓計算放假時，輪組間隔日期。１先在文本框中，輸入放假的開始日期：例2017/5/10。（年份一定要西元4位數字！日期的分隔符號，只要是非數字符號即可）。２再「間隔日數」：輸入每組要留守的日數。３「重複次數」：輸入幾組輪替，就是重複幾次。按「計算間隔」
 <br/>
-
+<input id="btn10" type="text" class="num" placeholder="間隔日數"/>
+<input id="btn11" type="text" class="num" placeholder="重複次數"/>
+<input id="btn12" type="button" class="num" value="計算間隔" onclick="hDay()"/>
+<br/>
+<br/>
+<br/>
 </BODY>
 </HTML>
