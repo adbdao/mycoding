@@ -804,6 +804,8 @@ function hDay() {
     if (/\D/.test(btn10.value) || /\D/.test(btn11.value)) {
       alert('請在 日期框 及 間隔框 中輸入數字')
     } else {
+      // 原始值導入復原功能
+      myObj1 = txt5.value
       // 預設3組，每組10日
       if (!btn10.value) {
         hDay1 = 10
@@ -836,6 +838,8 @@ function hDay() {
         hDayArr2[i] = hML + '/' + hDL
       }
       // 輸出表格
+      // 先把文本框清空
+      txt5.value = ''
       for (var i = 0; i < hDay2; i++) {
         var oTr = document.createElement('tr')
         var oTd = document.createElement('td')
@@ -845,6 +849,12 @@ function hDay() {
         oTd.innerHTML = '國曆<br/>' + hDayArr1[i] + '<br/>至<br/>' + hDayArr1[i + 1]
         oTr.appendChild(oTd)
         tab1.appendChild(oTr)
+        // 輸出至文本框
+        txt5.value += '第' + nStr1[i + 1] + '組：' + hDayArr1[i] + '早齋畢至' + hDayArr1[i + 1] + '早齋畢止   (農曆' + hDayArr2[i] + '至' + hDayArr2[i + 1] + ')\n'
+      }
+      // 復原功能
+      rebtn.onclick = function () {
+        txt5.value = myObj1
       }
     }
   }
