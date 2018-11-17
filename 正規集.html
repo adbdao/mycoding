@@ -28,6 +28,7 @@ input {height: 30px;}
 #ch1911,#ch1911x,.g {background: gold;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
+#myValue3 {width: 60vw;background:lightyellow;}
 #reValue,.t {background: tomato;}
 #reUp,.r {background: red;}
 .sb {background: skyblue;}
@@ -92,6 +93,15 @@ function overArr1Copy(){
 function reAB(a,b){
     // 先刪除所有前後的「釋，法師」
     var ntr=txt1.value.replace(/釋|法師|師/g,'').split('\n')
+    // 加入前後的值
+    for(var i=0;i<ntr.length;i++){
+        ntr[i]=a+ntr[i]+b
+    }
+    txt1.value=ntr.join('\n')
+    Copy()
+}
+function addAB(a,b){
+    var ntr=txt1.value.split('\n')
     // 加入前後的值
     for(var i=0;i<ntr.length;i++){
         ntr[i]=a+ntr[i]+b
@@ -300,7 +310,12 @@ window.onload=function(){
     btn15.onclick=function(){zzUp();reAB('釋','法師')}
     btn16.onclick=function(){zzUp();reAB('','')}
     // 自訂頭尾符號
-    myBA.onclick=function(){zzUp();reAB(myValue.value,myValue2.value)}
+    myBA.onclick=function(){zzUp();addAB(myValue.value,myValue2.value)}
+    tagBA.onclick=function(){
+        zzUp();
+        txt1.value='<'+myValue2.value+' class="'+myValue3.value+'">'+myValue.value+'</'+myValue2.value+' class="'+myValue3.value+'">'
+        Copy()
+    }
 
     toHref.onclick=function(){
         zzUp()
@@ -660,8 +675,9 @@ function toZhDigit(digit) {
         <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 請返回您要的檔案、或程式中，再直接按「貼上」即可！'></textarea><br/>
-        <input id="myValue" type="text" placeholder='值１：輸入要改轉的值'/><br/>
-        <input id="myValue2" type="text" placeholder='值２：輸入要改轉的值2'/><br/>
+        <input id="myValue" type="text" placeholder='值１：輸入要改轉的值 or TagValue'/><br/>
+        <input id="myValue2" type="text" placeholder='值２：輸入要改轉的值2 or TagName'/><br/>
+        <input id="myValue3" type="text" placeholder='值３：輸入要改轉的值3 or ClassName'/><br/>
 
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
         <input id="reValue" type="button" value="回復原始資料"/>
@@ -680,6 +696,7 @@ function toZhDigit(digit) {
             <input id="btn15" type="button" value="釋+名+法師"/>
             <input id="btn16" type="button" value="名-釋-法師"/>
             <input id="myBA" type="button" value="自訂+前(值1)+後(值2)的符號"/>
+            <input id="tagBA" type="button" value="<值2 class=值3>值1"/>
         </div>
 
         <input id="TabToNum" type="button" class="y" value="文章大綱編號(以Tab分層級)"/>
