@@ -12,13 +12,15 @@ td::-moz-selection,textarea::-moz-selection{background: darkred;color:yellow}
 input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
 input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
 td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
-table{border: 3px solid darkgoldenrod;}
+table{border: 3px solid darkgoldenrod;
+/*width: 20cm;height: 28cm;*/
+}
 td{border: 1px solid indigo;}
 #txt1{width:18vw;height:25vh;}
 #txt2{width:40vw;height:20vh;}
 #txt3{width:20vw;height:25vh;}
 
-input {height: 30px;}
+input {height: 27px;}
 #div0 {background:#ccc;}
 #div1 {background:#ebe;}
 #div1 input {background:#fec;}
@@ -69,12 +71,11 @@ var nanArr=['圓振',
 '振同',
 '振文',
 
-
 '振修',
 '印璽',
 '智廣',
-'法光'
-
+'法光',
+'淨光'
 ]
 var nanArr1=['悟曜',
 '心定',
@@ -90,30 +91,34 @@ var nanArr1=['悟曜',
 '成勇',
 '圓觀',
 '天授',
-
 '振同',
 '振文',
 
 '振修',
 '印璽',
 '智廣',
-'法光'
-
+'法光',
+'淨光'
 ]
-var nanArr7=[
+var nanarr6=[
 '心定',
+'道中',
 '成明',
-'常品',
 '成義',
 '天授',
 '智廣',
-'法光'
-
+'淨光'
 ]
 var nanArr2=["圓振","宗興","果明","悟曜","心定","道中","悟廣","慈信","淨才","智倫","祥因","本瑞","淨本","界貴","成道","清會","見分","成恩","心寶","常定","宏顯","宏度","成明","湛南","印量","本光","常嶺","成真","慶慧","常引","常品","智梵","本平","達虔","融慧","振慈","長合","惟禮","成本","智源","圓普","見照","成義","成勇","慈定","圓觀","寬恒","天授","天祥","振禪","振文","振同","振修","印璽","成孝","蘇哲祥"]
+var ps=['大寮',
+'環保',
+'香燈'
+// ,
+// '總務'
+]
 function overCopy(){
     // 結束時選取並複製文本框中的內容
-    document.getElementById('txt2').select()
+    txt2.select()
     document.execCommand('Copy')
 }
 function addNum(){
@@ -1210,7 +1215,7 @@ window.onload=function()
     //         arr[i]=toDon(i+1)
     //     }
     //     oT1.value=arr.join('\n')
-    //     oBgr.value='3'
+    //     nbr.value='3'
     //     addDate()
     // }
     oB13.onclick=function(){reAB('釋','')}
@@ -1292,42 +1297,72 @@ window.onload=function()
     }
     oB19.onclick=function(){
         oT1.value=nanArr.join('\n')
-        oBgr.value='3'
+        nbr.value='3'
     }
     oB20.onclick=function(){
         oT1.value=nanArr1.join('\n')
-        oBgr.value='3'
+        nbr.value='3'
     }
     btn21.onclick=function(){
         oT1.value=nanArr2.join('\n')
-        oBgr.value='5'
+        nbr.value='5'
     }
-    btnarr7.onclick=function(){
-        oT1.value=nanArr7.join('\n')
-        oBgr.value='6'
+    btnarr6.onclick=function(){
+        // 導入小組人名單
+        oT1.value=nanarr6.join('\n')
+        // 預設6人1組，再隨機抽籤
+        nbr.value='6'
+        // 導入組別名
+        oT3.value=ps.join('\n')
+        // 導入今日日期，以便手動修改為輪組日期
+        oT2.value=tY+' '+tM+' '+tD
+    }
+    btnarr6a.onclick=function(){
+        // 輸入的日期導入陣列
+        var Arr=oT2.value.replace(/[^\d\n]/g,'a').split('a')
+        oT2.value=''
+        for(var i=0;i<ps.length;i++){
+            // 設定輪組開始日期
+            p.setFullYear(Number(Arr[0]),Number(Arr[1])-1,Number(Arr[2])+i*7)
+            // 週數本來不需要函數，但為驗算：日期是否正確，所以加上
+            var pDay=(p.getMonth()+1)+'月'+p.getDate()+'日週'+p.getDay()+'到'
+            // 設定輪組結束日期
+            p.setFullYear(Number(Arr[0]),Number(Arr[1])-1,Number(Arr[2])+i*7+6)
+            pDay+=(p.getMonth()+1)+'月'+p.getDate()+'日週'+p.getDay()
+            // 第一次試用foreach函數，運算整個小組人員的陣列
+            // 重新導入修飾過的人名
+            // ps.forEach(function(s){
+            //     oT1.value.split('\n').forEach(function(a){
+            //         oT3.value+=pDay+' '+s+'組\n'+a+'\n'
+            //     })
+            // })
+                oT1.value.split('\n').forEach(function(a){
+                    oT2.value+=pDay+' '+ps[i]+'組\n'+a+'\n'
+                })
+        }
+        overCopy()
     }
 
-    var oBg1=document.getElementById('btng1')
-    var oBg2=document.getElementById('btng2')
-    var oBg3=document.getElementById('btng3')
-    var oBg4=document.getElementById('btng4')
-    var oBg5=document.getElementById('btng5')
-    var oBg6=document.getElementById('btng6')
-    var oBgr=document.getElementById('nbr')
-    var reload=document.getElementById('reload')
+    var p=new Date()
+    var tY,tM,tD,tW
+    tY=p.getFullYear()
+    tM=p.getMonth()+1
+    tD=p.getDate()
+    tW=p.getDay()
+
     var xy=[]
     var yx=[]
 
-    oBg1.onclick=function(){
+    btng1.onclick=function(){
         // 判斷有輸入正確內容，否則會當機
-        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+        if(oT1.value && /\D/g.test(nbr.value)==false && /\d/g.test(nbr.value)==true){
             var str=oT1.value.split('\n')
             var str1=[]
             var str2=[]
             var str3=[]
             var y=[]
             // 少於2組的，直接定義為2組
-            var r=oBgr.value<2?2:oBgr.value
+            var r=nbr.value<2?2:nbr.value
             var num=Math.floor(str.length/r)+1
             for(var i=0;i<num;i++){
                 // 按戒臘排序，先排出幾組，再從中抽出組別
@@ -1356,15 +1391,15 @@ window.onload=function()
         else{
             // 回報錯誤訊息
             if(!oT1.value){alert('請在文本框中輸入名單')}
-            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+            if(/\D/g.test(nbr.value)==true || nbr.value==false){alert('請在數字框中輸入數字')}
         }
         overCopy()
     }
-    oBg2.onclick=function(){
-        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+    btng2.onclick=function(){
+        if(oT1.value && /\D/g.test(nbr.value)==false && /\d/g.test(nbr.value)==true){
             var str=oT1.value.split('\n')
             var str1=[]
-            var r=oBgr.value<1?1:oBgr.value
+            var r=nbr.value<1?1:nbr.value
             var num=str.length
             yx=[]
             for(var i=0;i<r;i++){
@@ -1376,19 +1411,19 @@ window.onload=function()
         }
         else{
             if(!oT1.value){alert('請在文本框中輸入名單')}
-            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+            if(/\D/g.test(nbr.value)==true || nbr.value==false){alert('請在數字框中輸入數字')}
         }
         overCopy()
     }
-    // oBg3.onclick=function(){
+    // btng3.onclick=function(){
     //     var arr=[]
     //     for(var i=0;i<99;i++){
     //         arr[i]=(i+1)<10?'0'+(i+1):''+(i+1)
     //     }
     //     oT1.value=arr.join('\n')
-    //     oBgr.value='3'
+    //     nbr.value='3'
     // }
-    oBg4.onclick=function(){
+    btng4.onclick=function(){
         // 橫書轉直書互相切換
         if(oT2.value==xy){
             oT2.value=yx
@@ -1397,14 +1432,14 @@ window.onload=function()
         }
         overCopy()
     }
-    oBg5.onclick=function(){
-        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+    btng5.onclick=function(){
+        if(oT1.value && /\D/g.test(nbr.value)==false && /\d/g.test(nbr.value)==true){
             var str=oT1.value.split('\n')
             var str1=[]
             var str2=[]
             var str3=[]
             str3[0]='誦戒排班表'
-            var r=oBgr.value
+            var r=nbr.value
             var num=Math.floor(str.length/(r*2))+1
             for(var i=0;i<num;i++){
                 // 切出幾位，即從陣列中刪除它
@@ -1417,18 +1452,18 @@ window.onload=function()
         }
         else{
             if(!oT1.value){alert('請在文本框中輸入名單')}
-            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+            if(/\D/g.test(nbr.value)==true || nbr.value==false){alert('請在數字框中輸入數字')}
         }
         overCopy()
     }
-    oBg6.onclick=function(){
-        if(oT1.value && /\D/g.test(oBgr.value)==false && /\d/g.test(oBgr.value)==true){
+    btng6.onclick=function(){
+        if(oT1.value && /\D/g.test(nbr.value)==false && /\d/g.test(nbr.value)==true){
             var str=oT1.value.split('\n')
             var str1=[]
             var str2=[]
             var str3=[]
             str3[0]='課誦排班表'
-            var r=oBgr.value
+            var r=nbr.value
             var num=Math.floor(str.length/(r*2))+1
             for(var i=0;i<num;i++){
                 for(var j=0;j<r;j++){
@@ -1445,7 +1480,7 @@ window.onload=function()
         }
         else{
             if(!oT1.value){alert('請在文本框中輸入名單')}
-            if(/\D/g.test(oBgr.value)==true || oBgr.value==false){alert('請在數字框中輸入數字')}
+            if(/\D/g.test(nbr.value)==true || nbr.value==false){alert('請在數字框中輸入數字')}
         }
         overCopy()
     }
@@ -1454,11 +1489,29 @@ window.onload=function()
 </script>
     </head>
     <body>
-※我的第2個js程式<br/>
+<table id="tab1">
+    <thead>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>供桌</td>
+        <td>供桌</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+        <ul id="ul1"></ul>
+<hr/>
 請閱讀「※↓」的步驟說明，來使用此程式。請用Google的Chrome瀏覽器開啟，不然「分組選單」的勾選，會不靈光。<br/>
-把人眾名單，複製到上面的文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！<br/>
-並且，滑鼠移至每行時，會變色提示！<br/>
-若要手動刪除表格，請按「F5」或「重整頁面」！<br/>
+把人眾名單，複製到上面的文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！
+並且，滑鼠移至每行時，會變色提示！
+若要手動刪除表格，請按「F5」或「重整頁面」！
+<!--※我的第2個js程式-->
 <hr/>
     <textarea id="txt1" rows="10" cols="16" placeholder="第1文本框
 
@@ -1476,7 +1529,8 @@ window.onload=function()
     <input id="btn19" type="button" class="name" value="顯示住眾"/>
     <input id="btn20" type="button" class="name" value="顯示輪組住眾"/>
     <input id="btn21" type="button" class="name" value="顯示安居住眾"/>
-    <input id="btnarr7" type="button" class="name" value="顯示單組人員"/>
+    <input id="btnarr6" type="button" class="name" value="顯示單組人員"/>
+    <input id="btnarr6a" type="button" class="name" value="輪組工作單在文本框2"/>
     <br/>
     ※↓第2步：人名前後加上：釋、法師(只呈現在第1文本框中)
     <br/>
@@ -1548,23 +1602,5 @@ window.onload=function()
 </div>
 <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
 <hr/>
-<!--<div id="div0"></div><hr/>-->
-<ul id="ul1"></ul>
-<table id="tab1">
-    <thead>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>供桌</td>
-        <td>供桌</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
     </body>
 </html>
