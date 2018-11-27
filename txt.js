@@ -53,3 +53,5 @@ function XmlAddMypb(go) {
 }
 // 啟用函數
 XmlAddMypb('./')
+
+
