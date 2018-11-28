@@ -20,12 +20,17 @@
         }
         
         #txt1 {
-            width: 50vw;
+            width: 80vw;
             height: 20vh;
         }
         
         #btn1 {
             background: yellow;
+            height: 35px;
+        }
+        
+        #btn2 {
+            background: hotpink;
             height: 35px;
         }
     </style>
@@ -69,7 +74,7 @@
         }
         window.onload = function () {
             // 輸入完，立刻呈現
-            txt1.onkeyup = function () {
+            btn2.onclick = txt1.onkeyup = function () {
                 // 先刪除舊的，不然會一直增加
                 delTab('div1')
                 addTD(sz)
@@ -84,7 +89,9 @@
 
 <body>
     <div id="div1"></div>
-    <input type="button" id="btn1" value="往生表單" /><br/>
+    <input type="button" id="btn1" value="往生表單" />
+    <input type="button" id="btn2" value="消災表單" />
+    <br/>
     <textarea id="txt1" placeholder="在此輸入要迴向消災的信徒名單，
 輸入完畢後，鍵盤一停止，
 就會呈現出消災表單！
@@ -104,12 +111,7 @@
 張文勝(迴向怨親債主，祈求癱瘓好轉)<br><br>
 釋安喜(祈求脊椎恢復)<br>
 </textarea>
-<br/>
-在此輸入要迴向消災的信徒名單，
-輸入完畢後，鍵盤一停止，
-就會呈現出消災表單！
-日期會自動填入。
-若要往生表單：輸入完畢後，請按「往生表單」按鈕！
+    <br/> 在此輸入要迴向消災的信徒名單， 輸入完畢後，鍵盤一停止， 就會呈現出消災表單！ 日期會自動填入。 若要往生表單：輸入完畢後，請按「往生表單」按鈕！
 </body>
 
 </html>
