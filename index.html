@@ -224,7 +224,7 @@ background-repeat: no-repeat;*/
 
 }
 #menu{
-margin: 100px 0;
+margin: 100px 0 0 0;
 list-style: none;
 border-radius:15px 15px 20px 20px;
 font-weight: bold;
@@ -330,18 +330,30 @@ input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:
 #txt1{margin:1px;width:80%;height:40px;border-radius: 8px;padding: 3px;}
 
 #dhout{
-/*position: relative;*/
-position: absolute;
-float:right;
-/*margin: 0 ;*/
-right:10vw;
-width: 60vw;
-height: 60vh;
-border-radius: 20px;
+display: block;
+position: relative;
+/*position: absolute;*/
+float:left;
+width: 250px;
+height: 250px;
+/*border-radius: 30%;
 background: white;
 opacity: 0.5;
 padding-top: 10px;
-padding-left: 20px;
+padding-left: 20px;*/
+}
+#dhout1{
+display: block;
+position: relative;
+/*position: absolute;*/
+float:left;
+width: 500px;
+height: 500px;
+/*border-radius: 30%;
+background: white;
+opacity: 0.5;
+padding-top: 10px;
+padding-left: 20px;*/
 }
 iframe{
 width:95%;
@@ -351,7 +363,7 @@ marginheight:10px;*/
 }
 </style>
 <script>
-var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的月曆.html","農曆台灣月曆-手機3.html","農曆台灣月曆-佛誕v.html","資料庫的連結點ol.html","資料庫的連結點moble.html","誦戒前懺悔1.html","正規集.html","整月回向文1.html","排班(表格抽籤)2.html","個人月曆.html","txt.js","README.md","Lum1.html","index.html","dir.js","cbreaderFontMiddle.css","cbreaderFontBig.css","Acceon3商標.png","AccelonLogoGray.html","0樣本.html"]
+var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的月曆.html","農曆台灣月曆-手機3.html","農曆台灣月曆-佛誕v.html","資料庫的連結點ol.html","資料庫的連結點moble.html","誦戒前懺悔1.html","正規集.html","整月回向文1.html","排班(表格抽籤)2.html","個人月曆.html","txt.js","README.md","Lum1.html","index.html","dir.js","CssClockred.html","CssClockmore.html","cbreader Font Middle.css","cbreader Font Big.css","Acceon3商標.png","Accelon LogoGray.html","0樣本.html"]
 var ArrLi1=[
 '整月回向文.html','誦戒前懺悔.html','農曆台灣月曆-手機4六個月的月曆.html.bak','農曆台灣月曆-手機3.html.bak','農曆台灣月曆-手機2.html','農曆台灣月曆-手機1.html','農曆台灣月曆-手機.html','農曆日期批次換算-2.html','農曆日期批次換算-1.html','農曆日期1-v.html.bak','農曆日期1-v.html','農曆日期1-2.html.bak','農曆日期1-2.html','農曆日期1-1.html','資料庫的連結點.html','排班3-2.html','排班3-1.html','排班(表格抽籤)1.html.bak','排班(表格抽籤)1.html','排班(表格抽籤).html','排班(表格)3.html','抽籤-排班.html','抽籤1.html','抽籤.html','Lum.html','AccelonLogo.html'
 ]
@@ -462,8 +474,13 @@ function menuUl1(){
 
 //     document.getElementById("myAnchor").href = "http://www.cnn.com/";
 //     document.getElementById("demo").innerHTML = "The link above now goes to"
-
-
+function showClock(a){
+    if(a.style.display=='block'){
+        a.style.display='none'
+    }else{
+        a.style.display='block'
+    }
+}
 </script>
     </head>
     <body id="body" onload="CarLum(),menuUl(),menuUl1()">
@@ -475,9 +492,12 @@ function menuUl1(){
         <li class="item"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html" target="_blank">資料連結點</a></li>
         <li class="item"><a href="../">上一層目錄</a></li>
         <li class="item"><a href="./">本層目錄</a></li>
+        <li class="item"><a href="javascript:showClock(dhout),showClock(dhout1)">類比時鐘</a></li>
         <!--<li class="item" id="li1"><a href="old/">old程式</a></li>-->
         <br/>
         <!--<textarea id="txt1"></textarea>-->
 	</ul>
+        <div id="dhout"><iframe src="CssClockred.html" frameborder="0"></iframe></div>
+        <div id="dhout1"><iframe src="CssClockmore.html" frameborder="0"></iframe></div>
     </body>
 </html>
