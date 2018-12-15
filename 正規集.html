@@ -83,7 +83,7 @@ function Copy(){
     txt1.select()
     document.execCommand('Copy')
 }
-function overArr1Copy(){
+function overCopy(){
     // 結束時呈現結果
     txt1.value=Arr1.join('\n')
     // 結束時選取並複製文本框中的內容
@@ -126,7 +126,7 @@ window.onload=function(){
         for(var i=0;i<AA;i++){
             Arr1[i]=(i+1)<10?'0'+(i+1):''+(i+1)
         }
-        overArr1Copy()
+        overCopy()
     }
     ch1911.onclick=function(){
         zzUp()
@@ -189,7 +189,7 @@ window.onload=function(){
             // 歸零，下一層才會從1開始
             j=1
         }
-        overArr1Copy()
+        overCopy()
     }
     TabToNumEvery.onclick=function(){
         zzUp()
@@ -228,7 +228,7 @@ window.onload=function(){
             // 歸零，下一層才會從1開始
             j=1
         }
-        overArr1Copy()
+        overCopy()
     }
     SpaceToNumEvery.onclick=function(){
         zzUp()
@@ -267,7 +267,7 @@ window.onload=function(){
             // 歸零，下一層才會從1開始
             j=1
         }
-        overArr1Copy()
+        overCopy()
     }
     TabToAccelon3Tag.onclick=function(){
         zzUp()
@@ -294,7 +294,78 @@ window.onload=function(){
             }
             j=1
         }
-        overArr1Copy()
+        overCopy()
+    }
+
+    NumView.onclick = function () {
+        // 檢查是否有輸入資料
+        if (myValue.value && txt1.value) {
+            // 導入陣列
+            zzUp()
+            // 值1中的字，轉為空白，以便排列。用這方法，就不必用循環
+            var w = myValue.value.replace(/./g,'　')
+            // 刪除末尾的空行。反向循環
+            for(var j=(Arr1.length-1);j>-1;j--){
+                if(!Arr1[j]){
+                    Arr1.pop()
+                }else{break}
+            }
+            // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
+            var q = Arr1.length
+            var q2 = Math.floor(q/2)
+            // 加入圖表
+            for(var i = 0; i < q; i++) {
+                if(Arr1[i]){
+                    if(i==0){
+                        Arr1[i]=w+'┌'+Arr1[i]
+                    }else if(i==(q-1)){
+                        Arr1[i]=w+'└'+Arr1[i]
+                    }else{
+                        Arr1[i]=w+'├'+Arr1[i]
+                    }
+                }else{
+                    // 空行的圖表
+                    Arr1[i]=w+'│'
+                }
+                // 計算大綱的題目位置
+                if(i==(q2-1) && q%2==0){
+                    Arr1[q2-1]=Arr1[q2-1].replace(w,myValue.value).replace(/├/,'┼').replace(/│/,'┤')
+                }
+                if(i==q2 && q%2!=0){
+                    Arr1[q2]=Arr1[q2].replace(w,myValue.value).replace(/├/,'┼').replace(/│/,'┤')
+                    // Arr1[q2]=myValue.value+'┼'+Arr1[q2]
+                }
+            }
+            overCopy()
+            // 無題目的圖表
+        }else if(!myValue.value && txt1.value){
+            zzUp()
+            // 刪除末尾的空行。反向循環
+            for(var j=(Arr1.length-1);j>-1;j--){
+                if(!Arr1[j]){
+                    Arr1.pop()
+                }else{break}
+            }
+            // 重新計算陣列長度，否則會以之前的長度來運算
+            var q = Arr1.length
+            // 加入圖表
+            for(var i = 0; i < q; i++) {
+                if(Arr1[i]){
+                    if(i==0){
+                        Arr1[i]='┌'+Arr1[i]
+                    }else if(i==(q-1)){
+                        Arr1[i]='└'+Arr1[i]
+                    }else{
+                        Arr1[i]='├'+Arr1[i]
+                    }
+                }else{
+                    // 空行的圖表
+                    Arr1[i]='│'
+                }
+            }
+            overCopy()
+            // 跳出警示框
+        }else{ alert('請在 值1 及 文本框 中輸入文字') }
     }
 
     NameToArr.onclick=function(){
@@ -703,6 +774,7 @@ function toZhDigit(digit) {
         <input id="TabToNumEvery" type="button" class="pink" value="文章大綱多層編號(以Tab分層級)"/>
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
+        <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
         <br/>
         <input id="DelTag" type="button" class="tan" value="刪除所有置標符"/>
         <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號"/>
