@@ -59,8 +59,12 @@
             } else if ((D + a) == 30) {
                 return txt1.value + b + M + '月' + (D + a) + '~' + (M + 1) + '月2日'
             } else if ((D + a) > 30) {
-                // 超過本月
-                return txt1.value + b + (M + 1) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
+                // 超過本月要+1，超過12月要-12
+                if ((M + 1) > 12) {
+                    return txt1.value + b + (M + 1 - 12) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
+                } else {
+                    return txt1.value + b + (M + 1) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
+                }
             }
         }
         function addTD(c) {
