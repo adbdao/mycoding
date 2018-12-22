@@ -45,26 +45,24 @@
         var d = new Date
         var M = d.getMonth() + 1
         var D = d.getDate()
+        var nextM = M + 1
         // 文字作成變量，減少重複程式碼
         var sz = '<br/><br/>業障病障悉消除<br/>身心得安樂健康<br/>'
         var wz = '<br/><br/>往生極樂國<br/>圓成菩提道<br/>'
         function Date30(a, b) {
             // 加入今日日期，並判斷跨月的日期
+            // 超過本月要+1，超過12月要-12
+            if (nextM > 12) { nextM = nextM - 12 }
             // 本月之內
             if ((D + 2 + a) < 31) {
                 return txt1.value + b + M + '月' + (D + a) + '~' + (D + 2 + a) + '日'
             } else if ((D + a) == 29) {
                 // 跨月
-                return txt1.value + b + M + '月' + (D + a) + '~' + (M + 1) + '月1日'
+                return txt1.value + b + M + '月' + (D + a) + '~' + nextM + '月1日'
             } else if ((D + a) == 30) {
-                return txt1.value + b + M + '月' + (D + a) + '~' + (M + 1) + '月2日'
+                return txt1.value + b + M + '月' + (D + a) + '~' + nextM + '月2日'
             } else if ((D + a) > 30) {
-                // 超過本月要+1，超過12月要-12
-                if ((M + 1) > 12) {
-                    return txt1.value + b + (M + 1 - 12) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
-                } else {
-                    return txt1.value + b + (M + 1) + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
-                }
+                return txt1.value + b + nextM + '月' + (D + a - 30) + '~' + (D + 2 + a - 30) + '日'
             }
         }
         function addTD(c) {
