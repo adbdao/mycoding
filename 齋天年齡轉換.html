@@ -1170,18 +1170,49 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       for (var i = 0; i < Arr1.length; i++) {
         // 建立DIV
         var aDiv = document.createElement('div')
-        // 人名開頭才建立
+        // 人名開頭才進入運算
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女') {
-          aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+          // 疏文題目
+          aDiv.innerHTML = '<font style="font-size:44pt;font-weight: bold;margin:  0 0;">　供佛齋天消災植福延齡祈安吉祥文疏</font><br/><br/>'
+          // 本來另加一div，但不好用，所以改用判斷地址
+          // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
+          // 加入地址
+          for (var k = 1; k < Arr1.length; k++) {
+            // 地址若有多行，則繼續加入地址，否則中止循環
+            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+              // 判斷國別
+              if (/^..[縣市]/.test(Arr2[i + k][1])) {
+                aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1]
+              } else if (/^香港/.test(Arr2[i + k][1])) {
+                aDiv.innerHTML += '　中國' + Arr2[i + k][1]
+              } else {
+                aDiv.innerHTML += '　' + Arr2[i + k][1]
+              }
+              break
+            }
+            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+              // 判斷國別
+              if (/^..[縣市]/.test(Arr2[i + k][1])) {
+                aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1] + '　以及<br/>'
+              } else if (/^香港/.test(Arr2[i + k][1])) {
+                aDiv.innerHTML += '　中國' + Arr2[i + k][1] + '　以及<br/>'
+              } else {
+                aDiv.innerHTML += '　' + Arr2[i + k][1] + '　以及<br/>'
+              }
+              // aDiv.innerHTML += Arr2[i + k][1] + '<br/><sup>　　　　　　</sup>'
+            }
+          }
+          // 如入男女性別，及人名
+          aDiv.innerHTML += '<br/>　<sup>信' + Arr2[i][0] + '</sup> ' + Arr2[i][1]
           // 區別香港的西元生日，與台灣的民國生日
           if (Arr2[i][2].length > 3) {
-            aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日　' + Arr2[i][5] + '時生'
+            aDiv.innerHTML += ' 西元' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
 
             // 取出西元日期，轉為數字
             ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
 
           } else {
-            aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日　' + Arr2[i][5] + '時生'
+            aDiv.innerHTML += ' 民國' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
             // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
             // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
             if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
@@ -1219,29 +1250,19 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             // 民國轉西元年
             if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
           }
-          // 導入日曆函數，並算出生肖
+          // 導入日曆函數，並算出：年齡及生肖
           var ADObj, ADObj1, ADObj2, ADA, ADS
           ADObj1 = new calendar(ChineseYear4[i], 5)
           ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
+          // 若無生日年份，則用「吉歲」「屬吉」
           if (!ADS) { ADS = '　吉' }
           ADA = Animals[(ADObj1[6].lYear - 4) % 12]
           if (ADObj1[6].lYear < 1901) { ADA = '　吉' }
 
-          aDiv.innerHTML += '<br/>　　　　　　　現年' + ADS + '歲　屬' + ADA
-          aDiv.innerHTML += '<br/>現住：'
-          // 加入地址
-          for (var k = 1; k < Arr1.length; k++) {
-            // 地址若有多行，則繼續加入地址，否則中止循環
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-              aDiv.innerHTML += Arr2[i + k][1]
-              break
-            }
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-              aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
-            }
-          }
-          aDiv.innerHTML += '<br/><font style="font-size:30pt;font-weight: bold;">佛光普照　　本命元辰　　消災福至降吉祥　　解冤釋結<br/>免難消災障　　運限和平　　福壽永康寧</font>'
-
+          aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
+          // 疏文的正文部份
+          aDiv.innerHTML += '<br/><font style="font-size:24pt;">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜' + '　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1] + '<br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+          // 插入div
           div1.appendChild(aDiv)
         }
       }
@@ -2016,17 +2037,22 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     
     #div1 div {
       display: inline-block;
-      /*border: 1px solid red;*/
+      border: 1px solid red;
       /*配合A4紙大小*/
-      width: 87mm;
-      height: 270mm;
+      width: 195mm;
+      height: 277mm;
       /*轉直排語法*/
       -webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;
-      font-size: 28pt;
+      font-size: 20pt;
       font-family: 標楷體;
-      padding: 5px 5px 5px 5px;
-      color: black;
+      padding: 35px 35px 5px 5px;
+      line-height: 32pt;
+      /* 設定文字行距 */
+      /*line-height: 42px;*/
+      /* 設定文字間距 */
+      /*letter-spacing: 3px;*/
+      /*color: black;*/
     }
     /*#div2 {
       -webkit-writing-mode: vertical-rl;
@@ -2045,7 +2071,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       font-size: 22pt;
       font-family: 標楷體;
       /*padding: 5px 5px 5px 5px;*/
-      color: black;
+      /*color: black;*/
     }
   </STYLE>
 
