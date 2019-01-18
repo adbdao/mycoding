@@ -1185,6 +1185,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
               if (/^..[縣市]/.test(Arr2[i + k][1])) {
                 if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i + k][1])) {
                   aDiv.innerHTML += '　中華民國' + Arr2[i + k][1]
+                } else if (/^深圳市/.test(Arr2[i + k][1])) {
+                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1] + '　以及<br/>'
                 } else {
                   aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1]
                 }
@@ -1201,6 +1203,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
               if (/^..[縣市]/.test(Arr2[i + k][1])) {
                 if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i + k][1])) {
                   aDiv.innerHTML += '　中華民國' + Arr2[i + k][1] + '　以及<br/>'
+                } else if (/^深圳市/.test(Arr2[i + k][1])) {
+                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1] + '　以及<br/>'
                 } else {
                   aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1] + '　以及<br/>'
                 }
@@ -2324,12 +2328,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 男	曹某興	四十七	五	廿八	申時	六十一	狗
 高雄市楠梓區樂群路一七0號							
 男 	某宇恩 	一0二	九	初九	申時	六	蛇
-嘉義市芳安路396巷4號							
+深圳市芳安路396巷4號							
 嘉義市芳安路396巷4號							
 男	蕭堂某	四十二	十一	初三	吉	六十六	蛇
 女	黃素某	四十六	六	廿三	吉	六十二	雞
 新北市蘆洲區民族路二六三巷十號九樓							
-新北市蘆洲區民族路二六三巷十號九樓							
+深圳市蘆洲區民族路二六三巷十號九樓							
 </textarea>
 </BODY>
 
