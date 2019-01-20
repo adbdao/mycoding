@@ -1155,11 +1155,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear2 = []
       var ChineseYear3 = []
       var ChineseYear4 = []
+      // 加上疏文流水編號
+      function LittleNum(n) {
+        if (n < 10) {
+          n = '00' + n
+        } else if (n < 100) {
+          n = '0' + n
+        }
+        return '<p style="text-align:right;font-size:14pt;color:#ddd;">' + n + '</p>'
+      }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
       for (var i = 0; i < Arr1.length; i++) {
         // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女])/, '♂\t$1')
+        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
         Arr2[i] = []
         Arr2[i] = Arr1[i].split('\t')
         for (var j = 0; j < Arr2[i].length; j++) {
@@ -1167,14 +1176,16 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
         }
       }
-      for (var i = 0; i < Arr1.length; i++) {
+      for (var i = 0, j = 1; i < Arr1.length; i++) {
         // 建立DIV
         var aDiv = document.createElement('div')
         // 人名開頭才進入運算
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女') {
-          // 疏文題目
+        if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+          // 疏文題目及疏文流水編號
           // text-align:center;line-height: 43mm;
-          aDiv.innerHTML = '<font style="margin: 10mm 0 0 15mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</font><br/><br/><br/>'
+          aDiv.innerHTML = '<font style="margin: 10mm 0 0 15mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</font><br/>' + LittleNum(j)
+          // 流水編號自增，若用i，會跳號
+          j++
           // 本來另加一div，但不好用，所以改用判斷地址
           // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
           // 加入地址
@@ -1186,7 +1197,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
                 if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i + k][1])) {
                   aDiv.innerHTML += '　中華民國' + Arr2[i + k][1]
                 } else if (/^深圳市/.test(Arr2[i + k][1])) {
-                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1] + '　以及<br/>'
+                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1]
                 } else {
                   aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1]
                 }
@@ -1218,7 +1229,11 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             }
           }
           // 如入男女性別，及人名
-          aDiv.innerHTML += '<br/>　<sup>信' + Arr2[i][0] + '</sup> ' + Arr2[i][1]
+          if (Arr2[i][0] == '釋') {
+            aDiv.innerHTML += '<br/>　<sup>沙門</sup> ' + Arr2[i][1]
+          } else {
+            aDiv.innerHTML += '<br/>　<sup>信' + Arr2[i][0] + '</sup> ' + Arr2[i][1]
+          }
           // 區別香港的西元生日，與台灣的民國生日
           if (Arr2[i][2].length > 3) {
             aDiv.innerHTML += ' 西元' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
@@ -1276,7 +1291,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 
           aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
           // 疏文的正文部份
-          aDiv.innerHTML += '<br/><font style="font-size:24pt;">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜' + '　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1] + '<br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+          aDiv.innerHTML += '<br/><font style="font-size:24pt;">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜'
+          // 分段後，要重新設定字型大小
+          if (Arr2[i][0] == '釋') {
+            aDiv.innerHTML += '<font style="font-size:24pt;">　<sup>沙門</sup>　' + Arr2[i][1]
+          } else {
+            aDiv.innerHTML += '<font style="font-size:24pt;">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+          }
+          aDiv.innerHTML += '<font style="font-size:24pt;"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
           // 插入div
           div1.appendChild(aDiv)
         }
@@ -2062,12 +2084,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       font-size: 20pt;
       font-family: 標楷體;
       font-weight: bold;
-      padding: 10mm 7mm 10mm 0mm;
-      line-height: 11mm;
+      padding: 10mm 7mm 0mm 0mm;
       /* 設定文字行距 */
-      /*line-height: 42px;*/
+      line-height: 11mm;
       /* 設定文字間距 */
       /*letter-spacing: 3px;*/
+      /*不必設定黑色，因為護眼高亮度主題時，會看不見*/
       /*color: black;*/
       /*color: red;*/
     }
@@ -2300,7 +2322,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 男	Deva Gomatam	一九七三	十	二十三	辰	四十六	牛
 塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia							
 女	伍某	吉	十二	廿九	吉	吉	吉
-香港長沙灣李鄭屋邨和平樓六二０室							
+香港長沙灣李鄭屋邨和平樓六二二０室							
 香港長沙灣李鄭屋邨和平樓777室							
 女	陳某華	一九七三	六	初八	吉	四十六	狗
 香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室							
@@ -2310,30 +2332,30 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 女	黎某汶	一九八五	九	十三	丑	三十四	牛
 女	黎某欣	一九八八	七	廿九	申	三十一	龍
 女	黎某賢	一九九０	九	廿五	上午七時	二十九	馬
-香港新界粉嶺嘉盛苑嘉輝閣二某一某０室							
+香港新界粉嶺嘉盛苑嘉輝閣二某一二０室							
 香港新界粉嶺嘉盛苑嘉輝閣199室							
 
-男	某士玹	一0六	正	廿九	卯	二	雞
-新竹縣北屯區松竹北路143號							
-新竹縣北屯區松竹北路143號							
+釋	釋士玹	一0六	正	廿九	卯	二	雞
+新竹縣北屯區松竹北路1643號							
+新竹縣北屯區松竹北路1453號							
 男	余某宏	六十三	十	五	吉	四十五	虎
-女	洪某音	六十三	十一	二十二	吉	四十五	虎
-苗栗市西屯區長安路二段108號11樓之3							
-台中市西屯區長安路二段108號11樓之3							
-苗栗縣西屯區長安路二段108號11樓之3							
+釋	釋某音	六十三	十一	二十二	吉	四十五	虎
+苗栗市西屯區長安路二段a1號1樓							
+台中市西屯區長安路二段a1號1樓							
+苗栗縣西屯區長安路二段a1號1樓							
 女	某宛諭	八十八	四	十一	寅	二十	兔
-台南市東區裕忠路50號							
+台南市東區kk路50號							
 男	某國華	四十二	九	初十	晚上十一時五十分	六十六	蛇
-新北市新店區中正路二四七巷四十三號四樓							
+新北市新店區3928巷四十三號四樓							
 男	曹某興	四十七	五	廿八	申時	六十一	狗
-高雄市楠梓區樂群路一七0號							
+高雄市楠梓區樂群路一770號							
 男 	某宇恩 	一0二	九	初九	申時	六	蛇
-深圳市芳安路396巷4號							
-嘉義市芳安路396巷4號							
+深圳市芳安路3f6巷4號							
+嘉義市芳安路3s9巷4號							
 男	蕭堂某	四十二	十一	初三	吉	六十六	蛇
 女	黃素某	四十六	六	廿三	吉	六十二	雞
-新北市蘆洲區民族路二六三巷十號九樓							
-深圳市蘆洲區民族路二六三巷十號九樓							
+新北市蘆洲區民族路二六三巷
+深圳市蘆洲區民族路二六三巷							
 </textarea>
 </BODY>
 
