@@ -1162,6 +1162,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         } else if (n < 100) {
           n = '0' + n
         }
+        // 加上樣式
         return '<p style="text-align:right;font-size:14pt;color:#ddd;">' + n + '</p>'
       }
       // 將資料導入陣列
@@ -1175,6 +1176,19 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
         }
+        // 先把地址加上國別，判斷國別：台灣、香港、深圳…
+        if (/^..[縣市]/.test(Arr2[i][1])) {
+          if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中華民國' + Arr2[i][1]
+          } else if (/^深圳市/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+          } else {
+            Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+          }
+        }
+        if (/^香港/.test(Arr2[i][1])) {
+          Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+        }
       }
       for (var i = 0, j = 1; i < Arr1.length; i++) {
         // 建立DIV
@@ -1182,7 +1196,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         // 人名開頭才進入運算
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
           // 疏文題目及疏文流水編號
-          // text-align:center;line-height: 43mm;
           aDiv.innerHTML = '<font style="margin: 10mm 0 0 15mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</font><br/>' + LittleNum(j)
           // 流水編號自增，若用i，會跳號
           j++
@@ -1192,43 +1205,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           for (var k = 1; k < Arr1.length; k++) {
             // 地址若有多行，則繼續加入地址，否則中止循環
             if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-              // 判斷國別
-              if (/^..[縣市]/.test(Arr2[i + k][1])) {
-                if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i + k][1])) {
-                  aDiv.innerHTML += '　中華民國' + Arr2[i + k][1]
-                } else if (/^深圳市/.test(Arr2[i + k][1])) {
-                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1]
-                } else {
-                  aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1]
-                }
-              } else if (/^香港/.test(Arr2[i + k][1])) {
-                // Arr2[i + k][1] = Arr2[i + k][1].replace(/^香港/, '') 會出錯
-                aDiv.innerHTML += '　中國香港特別行政區' + Arr2[i + k][1].replace(/^香港/, '')
-              } else {
-                aDiv.innerHTML += '　' + Arr2[i + k][1]
-              }
+              aDiv.innerHTML += '　' + Arr2[i + k][1]
               break
             }
             if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-              // 判斷國別
-              if (/^..[縣市]/.test(Arr2[i + k][1])) {
-                if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i + k][1])) {
-                  aDiv.innerHTML += '　中華民國' + Arr2[i + k][1] + '　以及<br/>'
-                } else if (/^深圳市/.test(Arr2[i + k][1])) {
-                  aDiv.innerHTML += '　中國廣東省' + Arr2[i + k][1] + '　以及<br/>'
-                } else {
-                  aDiv.innerHTML += '　中華民國台灣省' + Arr2[i + k][1] + '　以及<br/>'
-                }
-              } else if (/^香港/.test(Arr2[i + k][1])) {
-                // Arr2[i + k][1] = Arr2[i + k][1].replace(/^香港/, '') 會出錯
-                aDiv.innerHTML += '　中國香港特別行政區' + Arr2[i + k][1].replace(/^香港/, '') + '　以及<br/>'
-              } else {
-                aDiv.innerHTML += '　' + Arr2[i + k][1] + '　以及<br/>'
-              }
-              // aDiv.innerHTML += Arr2[i + k][1] + '<br/><sup>　　　　　　</sup>'
+              aDiv.innerHTML += '　' + Arr2[i + k][1] + '　以及<br/>'
             }
           }
-          // 如入男女性別，及人名
+          // 加入男女性別，及人名，出家沙門
           if (Arr2[i][0] == '釋') {
             aDiv.innerHTML += '<br/>　<sup>沙門</sup> ' + Arr2[i][1]
           } else {
@@ -1319,16 +1303,39 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear3 = []
       var ChineseYear4 = []
       var addNum = 0
+      // 加上疏文流水編號
+      function LittleNum(n) {
+        if (n < 10) {
+          n = '00' + n
+        } else if (n < 100) {
+          n = '0' + n
+        }
+        // 加上樣式
+        return '<span style="text-align:right;font-size:10pt;color:#ddd;">　' + n + '</span>'
+      }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
       for (var i = 0; i < Arr1.length; i++) {
         // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女])/, '♂\t$1')
+        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
         Arr2[i] = []
         Arr2[i] = Arr1[i].split('\t')
         for (var j = 0; j < Arr2[i].length; j++) {
           // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
+        }
+        // 先把地址加上國別，判斷國別：台灣、香港、深圳…
+        if (/^..[縣市]/.test(Arr2[i][1])) {
+          if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中華民國' + Arr2[i][1]
+          } else if (/^深圳市/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+          } else {
+            Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+          }
+        }
+        if (/^香港/.test(Arr2[i][1])) {
+          Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
         }
       }
       // 疏文封面
@@ -1337,12 +1344,17 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
       div2.appendChild(aDiv)
       // 疏文內容
-      for (var i = 0; i < Arr1.length; i++) {
+      for (var i = 0, j = 1; i < Arr1.length; i++) {
         // 建立DIV
         var aDiv = document.createElement('div')
         // 人名開頭才建立
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女') {
-          aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+        if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+          // 加入男女性別，及人名，出家沙門
+          if (Arr2[i][0] == '釋') {
+            aDiv.innerHTML = '<sup>沙門</sup>' + Arr2[i][1]
+          } else {
+            aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+          }
           // 區別香港的西元生日，與台灣的民國生日
           if (Arr2[i][2].length == 4) {
             aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
@@ -1398,7 +1410,9 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           ADA = Animals[(ADObj1[6].lYear - 4) % 12]
           if (ADObj1[6].lYear < 1901) { ADA = '吉' }
 
-          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
+          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA + LittleNum(j)
+          // 流水編號自增，若用i，會跳號
+          j++
           // 判斷下一行是地址否？加入地址
           if (Arr2[i + 1][0] == '♂') {
             // 統計名單中：同一地址有多少人
