@@ -1142,6 +1142,17 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         oObj.removeChild(oObj.firstChild)
       }
     }
+    // 顯示隱藏流水號
+    function LittleNumAdd() {
+      var aP = document.getElementsByClassName('LittleNumClass')
+      for (var i in aP) {
+        if (aP[i].style.color == 'white') {
+          aP[i].style.color = 'silver'
+        } else {
+          aP[i].style.color = 'white'
+        }
+      }
+    }
     function JTNames() {
       // 先刪除舊表格，不然會一直增加
       delTab('div1')
@@ -1155,15 +1166,19 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear2 = []
       var ChineseYear3 = []
       var ChineseYear4 = []
-      // 加上疏文流水編號
+      // 加上疏文流水編號，及自訂開始的數字
       function LittleNum(n) {
+        var LN = LittleNumNum.value
+        if (LN) {
+          n = n + Number(LN) - 1
+        }
         if (n < 10) {
           n = '00' + n
         } else if (n < 100) {
           n = '0' + n
         }
         // 加上樣式
-        return '<p style="text-align:right;font-size:14pt;color:#ddd;">' + n + '</p>'
+        return '<p class="LittleNumClass" style="text-align:right;font-size:14pt;color:white;">' + n + '</p>'
       }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
@@ -1264,6 +1279,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             // 民國轉西元年
             if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
           }
+          // 除錯：取代例外的錯字
+          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生')
           // 導入日曆函數，並算出：年齡及生肖
           var ADObj, ADObj1, ADObj2, ADA, ADS
           ADObj1 = new calendar(ChineseYear4[i], 5)
@@ -1303,15 +1320,19 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear3 = []
       var ChineseYear4 = []
       var addNum = 0
-      // 加上疏文流水編號
+      // 加上疏文流水編號，及自訂開始的數字
       function LittleNum(n) {
+        var LN = LittleNumNum.value
+        if (LN) {
+          n = n + Number(LN) - 1
+        }
         if (n < 10) {
           n = '00' + n
         } else if (n < 100) {
           n = '0' + n
         }
         // 加上樣式
-        return '<span style="text-align:right;font-size:10pt;color:#ddd;">　' + n + '</span>'
+        return '<span class="LittleNumClass" style="text-align:right;font-size:10pt;color:white;">　' + n + '</span>'
       }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
@@ -1402,6 +1423,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             // 民國轉西元年
             if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
           }
+          // 除錯：取代例外的錯字
+          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生')
           // 導入日曆函數，並算出生肖
           var ADObj, ADObj1, ADObj2, ADA, ADS
           ADObj1 = new calendar(ChineseYear4[i], 5)
@@ -2034,6 +2057,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: #adf;
       color: #030;
     }
+    /*.LittleNumClass{
+      position: absolute;
+      transform-origin: 0% 100%;
+      transform: rotate(-90deg);
+    }*/
+    
+    .k {
+      background: khaki;
+    }
     
     #tab1,
     #tab2 {
@@ -2324,6 +2356,9 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input id="showCalendar" class="b" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />__
   <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
   <input class="b" type="button" value="齋天功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
+  <br/>
+  <input class="k" type="text" id="LittleNumNum" placeholder="流水號開始號碼" />
+  <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAdd" onclick="LittleNumAdd()" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
