@@ -167,6 +167,31 @@ window.onload=function(){
         txt1.value=ZZ
     }
 
+    toOlLi.onclick=function(){
+        zzUp()
+        for(var i in Arr1){
+            if(!Arr1[i]){
+                continue
+            }
+            Arr1[i]='<li>'+Arr1[i]+'</li>'
+        }
+        for(var i=1;i<Arr1.length;i++){
+            if(Arr1[i-1]){
+                for(var j=4;j<8;j++){
+                    if(Arr1[i-1].charAt(j)!='\t'&&Arr1[i].charAt(j)=='\t'&&Arr1[i-1].substr(0,4)!='<ol>'){
+                        Arr1[i]='<ol>'+Arr1[i]
+                    }
+                    if(Arr1[i].charAt(j)=='\t'&&Arr1[i+1].charAt(j)!='\t'){
+                        Arr1[i]=Arr1[i]+'</ol>'
+                    }
+                }
+            }
+        }
+        Arr1.unshift('<ol>')
+        Arr1.push('</ol>')
+        overCopy()
+    }
+
     TabToNum.onclick=function(){
         zzUp()
         // 號碼的變量
@@ -776,6 +801,7 @@ function toZhDigit(digit) {
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
         <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
+        <input id="toOlLi" type="button" value="加上Ol Li"/>
         <br/>
         <input id="DelTag" type="button" class="tan" value="刪除所有置標符"/>
         <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號"/>
