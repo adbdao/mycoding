@@ -124,7 +124,26 @@ window.onload=function(){
             AA=99
         }
         for(var i=0;i<AA;i++){
-            Arr1[i]=(i+1)<10?'0'+(i+1):''+(i+1)
+            Arr1[i]=i+1
+        }
+        overCopy()
+    }
+    addNumberZero.onclick=function(){
+        zzUp()
+        // 可自訂數量
+        if(myValue.value>0){
+            AA=myValue.value
+        }else{
+            AA=99
+        }
+        BB=String(AA).length
+        for(var i=0;i<AA;i++){
+            Arr1[i]=i+1
+            CC=String(Arr1[i]).length
+            for(var j=0;j<(BB-CC);j++){
+                Arr1[i]='0'+Arr1[i]
+            }
+            // Arr1[i]=(i+1)<10?'0'+(i+1):''+(i+1)
         }
         overCopy()
     }
@@ -169,6 +188,11 @@ window.onload=function(){
 
     toOlLi.onclick=function(){
         zzUp()
+        if(myValue.value>0){
+            AA=myValue.value+4
+        }else{
+            AA=7
+        }
         for(var i in Arr1){
             if(!Arr1[i]){
                 continue
@@ -177,7 +201,7 @@ window.onload=function(){
         }
         for(var i=1;i<Arr1.length;i++){
             if(Arr1[i-1]){
-                for(var j=4;j<8;j++){
+                for(var j=4;j<AA;j++){
                     if(Arr1[i-1].charAt(j)!='\t'&&Arr1[i].charAt(j)=='\t'&&Arr1[i-1].substr(0,4)!='<ol>'){
                         Arr1[i]='<ol>'+Arr1[i]
                     }
@@ -772,7 +796,7 @@ function toZhDigit(digit) {
         <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 請返回您要的檔案、或程式中，再直接按「貼上」即可！'></textarea><br/>
-        <input id="myValue" type="text" placeholder='值１：輸入要改轉的值 or TagValue'/><br/>
+        <input id="myValue" type="text" placeholder='值１：自訂層級數目 or 輸入要改轉的值 or TagValue'/><br/>
         <input id="myValue2" type="text" placeholder='值２：輸入要改轉的值2 or TagName'/><br/>
         <input id="myValue3" type="text" placeholder='值３：輸入要改轉的值3 or ClassName'/><br/>
 
@@ -781,7 +805,8 @@ function toZhDigit(digit) {
         <input id="reUp" type="button" value="回復上一步"/>
         <br/>
 
-        <input id="addNumber" type="button" value="建立數列01-99"/>
+        <input id="addNumber" type="button" value="建立數列1-99"/>
+        <input id="addNumberZero" type="button" value="建立數列01-99補零"/>
         <input id="ch1911" type="button" value="民國→西元年"/>
         <input id="ch1911x" type="button" value="民國←西元年"/>
         <input id="NameToArr" type="button" class="sb" value="檔名轉陣列(橫)"/>
@@ -801,7 +826,7 @@ function toZhDigit(digit) {
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
         <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
-        <input id="toOlLi" type="button" value="加上Ol Li"/>
+        <input id="toOlLi" type="button" value="加上<ol><li>"/>
         <br/>
         <input id="DelTag" type="button" class="tan" value="刪除所有置標符"/>
         <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號"/>

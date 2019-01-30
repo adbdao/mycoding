@@ -50,7 +50,7 @@ height: 270mm;
 writing-mode: vertical-rl;*/
 font-size: 16pt;
 font-family: 標楷體;
-color: black;
+/*color: black;*/
 }
 #print1 div,#print2 div,#print3 div {
 display: inline-block;
@@ -124,13 +124,15 @@ var nanArr1=['悟曜',
 '淨光'
 ]
 var nanarr6=[
-'心定',
-'成明',
-'道中',
-'成義',
-'天授',
-'智廣',
-'淨光'
+// '心定',
+// '成明',
+// '道中',
+// '成義',
+// '天授',
+// '智廣',
+// '淨光'
+
+
 ]
 var work=[
 '煮早齋，<br/>▲飯後收飯菜及洗碗盤',
@@ -1379,7 +1381,8 @@ window.onload=function()
     btnarr6a.onclick=function(){
         // 預設本次輪組開始日期，也可手動輸入
         if(!txt2.value){
-            txt2.value='2018 12 6'
+            // txt2.value='2018 12 6'
+            txt2.value='2019 3 7'
         }
         // 先刪除div內的所有子元素
         delID('print1')
