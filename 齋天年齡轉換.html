@@ -1148,7 +1148,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       // 用for of無法運行
       for (var i in aP) {
         if (aP[i].style.color == 'white') {
-          aP[i].style.color = 'silver'
+          // 若顏色太淺，在紅紙上看不見
+          aP[i].style.color = '#444'
         } else {
           aP[i].style.color = 'white'
         }
@@ -1168,18 +1169,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear3 = []
       var ChineseYear4 = []
       // 加上疏文流水編號，及自訂開始的數字
-      function LittleNum(n) {
+      function LittleNum(m, n) {
+        // 導入自訂數字
         var LN = LittleNumNum.value
         if (LN) {
           n = n + Number(LN) - 1
         }
+        // 補0
         if (n < 10) {
           n = '00' + n
         } else if (n < 100) {
           n = '0' + n
         }
         // 加上樣式
-        return '<p class="LittleNumClass" style="text-align:right;font-size:14pt;color:white;">' + n + '</p>'
+        return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;">' + m + ' ' + n + '</div>'
       }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
@@ -1192,18 +1195,25 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
         }
-        // 先把地址加上國別，判斷國別：台灣、香港、深圳…
+        // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
         if (/^..[縣市]/.test(Arr2[i][1])) {
           if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
             Arr2[i][1] = '中華民國' + Arr2[i][1]
+            Arr5[i] = 'T'
           } else if (/^深圳市/.test(Arr2[i][1])) {
             Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+            Arr5[i] = 'H'
           } else {
             Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+            Arr5[i] = 'T'
           }
         }
         if (/^香港/.test(Arr2[i][1])) {
           Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+          Arr5[i] = 'H'
+        }
+        if (!Arr5[i]) {
+          Arr5[i] = ''
         }
       }
       for (var i = 0, j = 1; i < Arr1.length; i++) {
@@ -1211,8 +1221,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         var aDiv = document.createElement('div')
         // 人名開頭才進入運算
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
-          // 疏文題目及疏文流水編號
-          aDiv.innerHTML = '<font style="margin: 10mm 0 0 15mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</font><br/>' + LittleNum(j)
+          // 疏文題目
+          aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 5mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+          // 加上疏文流水編號
+          for (var k = 1; k < Arr1.length; k++) {
+            if (Arr2[i + k][0] == '♂') {
+              aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+              break
+            }
+          }
           // 流水編號自增，若用i，會跳號
           j++
           // 本來另加一div，但不好用，所以改用判斷地址
@@ -1281,7 +1298,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
           }
           // 除錯：取代例外的錯字
-          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆','西曆').replace('農曆農曆','農曆')
+          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
           // 導入日曆函數，並算出：年齡及生肖
           var ADObj, ADObj1, ADObj2, ADA, ADS
           ADObj1 = new calendar(ChineseYear4[i], 5)
@@ -1293,14 +1310,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 
           aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
           // 疏文的正文部份
-          aDiv.innerHTML += '<br/><font style="font-size:24pt;">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜'
+          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜'
           // 分段後，要重新設定字型大小
           if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML += '<font style="font-size:24pt;">　<sup>沙門</sup>　' + Arr2[i][1]
+            aDiv.innerHTML += '<font class="lastFont">　<sup>沙門</sup>　' + Arr2[i][1]
           } else {
-            aDiv.innerHTML += '<font style="font-size:24pt;">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+            aDiv.innerHTML += '<font class="lastFont">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
           }
-          aDiv.innerHTML += '<font style="font-size:24pt;"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
           // 插入div
           div1.appendChild(aDiv)
         }
@@ -1322,18 +1339,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear4 = []
       var addNum = 0
       // 加上疏文流水編號，及自訂開始的數字
-      function LittleNum(n) {
+      function LittleNum(m, n) {
+        // 導入自訂數字
         var LN = LittleNumNum.value
         if (LN) {
           n = n + Number(LN) - 1
         }
+        // 補0
         if (n < 10) {
           n = '00' + n
         } else if (n < 100) {
           n = '0' + n
         }
         // 加上樣式
-        return '<span class="LittleNumClass" style="text-align:right;font-size:10pt;color:white;">　' + n + '</span>'
+        return '<div class="LittleNumClass" style="position:absolute;font-size:50%;height:5mm;width:10mm;margin:0 0 0 -10mm;padding:0 0 0 0;text-align:left;">' + m + n + '</div>'
       }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
@@ -1346,18 +1365,25 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
         }
-        // 先把地址加上國別，判斷國別：台灣、香港、深圳…
+        // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
         if (/^..[縣市]/.test(Arr2[i][1])) {
           if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
             Arr2[i][1] = '中華民國' + Arr2[i][1]
+            Arr5[i] = 'T'
           } else if (/^深圳市/.test(Arr2[i][1])) {
             Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+            Arr5[i] = 'H'
           } else {
             Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+            Arr5[i] = 'T'
           }
         }
         if (/^香港/.test(Arr2[i][1])) {
           Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+          Arr5[i] = 'H'
+        }
+        if (!Arr5[i]) {
+          Arr5[i] = ''
         }
       }
       // 疏文封面
@@ -1371,11 +1397,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         var aDiv = document.createElement('div')
         // 人名開頭才建立
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+          // 加上人名流水編號
+          for (var k = 1; k < Arr1.length; k++) {
+            if (Arr2[i + k][0] == '♂') {
+              aDiv.innerHTML = LittleNum(Arr5[i + k], j)
+              break
+            }
+          }
+          // 流水編號自增，若用i，會跳號
+          j++
           // 加入男女性別，及人名，出家沙門
           if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML = '<sup>沙門</sup>' + Arr2[i][1]
+            aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
           } else {
-            aDiv.innerHTML = '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+            aDiv.innerHTML += '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
           }
           // 區別香港的西元生日，與台灣的民國生日
           if (Arr2[i][2].length == 4) {
@@ -1425,7 +1460,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
           }
           // 除錯：取代例外的錯字
-          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆','西曆').replace('農曆農曆','農曆')
+          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
           // 導入日曆函數，並算出生肖
           var ADObj, ADObj1, ADObj2, ADA, ADS
           ADObj1 = new calendar(ChineseYear4[i], 5)
@@ -1434,9 +1469,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           ADA = Animals[(ADObj1[6].lYear - 4) % 12]
           if (ADObj1[6].lYear < 1901) { ADA = '吉' }
 
-          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA + LittleNum(j)
-          // 流水編號自增，若用i，會跳號
-          j++
+          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
+
           // 判斷下一行是地址否？加入地址
           if (Arr2[i + 1][0] == '♂') {
             // 統計名單中：同一地址有多少人
@@ -2058,11 +2092,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: #adf;
       color: #030;
     }
-    /*.LittleNumClass{
-      position: absolute;
-      transform-origin: 0% 100%;
-      transform: rotate(-90deg);
-    }*/
     
     .k {
       background: khaki;
@@ -2128,22 +2157,18 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*轉直排語法*/
       -webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;
-      font-size: 20pt;
+      font-size: 22pt;
       font-family: 標楷體;
       font-weight: bold;
-      padding: 10mm 7mm 0mm 0mm;
+      /*padding: 0mm 7mm 0mm 0mm;*/
       /* 設定文字行距 */
       line-height: 11mm;
       /* 設定文字間距 */
-      /*letter-spacing: 3px;*/
+      /*letter-spacing: 1px;*/
       /*不必設定黑色，因為護眼高亮度主題時，會看不見*/
       /*color: black;*/
       /*color: red;*/
     }
-    /*#div2 {
-      -webkit-writing-mode: vertical-rl;
-      writing-mode: vertical-rl;
-    }*/
     
     #div2 div {
       /*display: inline-block;*/
@@ -2154,10 +2179,29 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*轉直排語法*/
       /*-webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;*/
-      font-size: 22pt;
+      font-size: 20pt;
       font-family: 標楷體;
-      /*padding: 5px 5px 5px 5px;*/
+      margin: 0 0 0 5mm;
       /*color: black;*/
+    }
+    
+    .LittleNumClass {
+      /*position: absolute;
+      -webkit-writing-mode: vertical-rl;
+      writing-mode: vertical-rl;
+      transform-origin: 0% 100%;
+      transform: rotate(-90deg);*/
+      transform: rotate(-90deg);
+      text-align: right;
+      /*border: 1px solid red;*/
+    }
+    
+    .lastFont {
+      font-size: 24pt;
+      /* 設定文字行距 */
+      /*line-height: 11mm;*/
+      /* 設定文字間距 */
+      letter-spacing: 1px
     }
   </STYLE>
 
