@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>傳誠手稿字型呈現測試</title>
+    <base target="_blank">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <style>
+*{border-radius: 8px;padding: 3px;}
+html{background: black;color:gray;}
+/*::selection{background: indigo;color:yellow}
+::-moz-selection{background: indigo;color:yellow}*/
+::selection{background: olive;color:yellow;}
+::-moz-selection{background: olive;color:yellow;}
+input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+#tab1{border: 3px solid darkgoldenrod;}
+td{border: 1px solid indigo;}
+input {height: 30px;}
+#div0 {background:#ccc;}
+#div1 {font-size: 76pt;color: #ccb;font-family: c;}
+#div1 input {background:#fec;}
+#div2 input {background:#aea;}
+#div3 input {background:#ff8;}
+#div4 input {background:#f99;}
+.name {background:tan;color: crimson;}
+
+#txt1{width: 30vw;height: 10vh;}
+#ch1911,#ch1911x,.g {background: gold;}
+#myValue {
+    /*width: 80vw;*/
+background: #aca;}
+#myValue2 {width: 80vw;background: snow;}
+#reValue,.t {background: tomato;}
+#reUp,.r {background: red;}
+.sb {background: skyblue;}
+.ky {background: khaki;}
+.pink {background: pink;}
+.y {background: yellow;}
+.o {background: orange;}
+.yg {background: yellowgreen;}
+.b {background: lightblue;}
+.p {background: mediumpurple;}
+
+#nbr {background: lightcyan;}
+#btng2 {background: gold;}
+#btng4,.gy {background: greenyellow;}
+#btng5,.tan {background: tan;}
+#reload {height: 40px;background: yellowgreen;}
+    </style>
+    <script>
+        var oBody = document.getElementsByTagName('body')
+
+        function changeColor(col, bg) {
+            div1.style.color = col
+            div1.style.background = bg
+        }
+        function changeSize(sz) {
+            div1.style.fontSize = sz
+        }
+        window.onload = function () {
+            btn1.onclick = function () {
+                changeColor('black', 'beige')
+            }
+            btn2.onclick = function () {
+                changeColor('#ccb', '#000')
+            }
+            btn3.onclick = function () {
+                changeColor('darkslategray', 'khaki')
+            }
+            btn5.onclick = function () {
+                changeColor('darkblue', 'tan')
+            }
+            btn4.onclick = function () {
+                changeColor('maroon', '#aca')
+            }
+            btn6.onclick = function () {
+                changeSize('76pt')
+            }
+            btn7.onclick = function () {
+                changeSize('20pt')
+            }
+            btn8.onclick = function () {
+                changeSize('1200%')
+            }
+            btn9.onclick = function () {
+                changeSize('48pt')
+            }
+            myValue.onkeyup = function () {
+                changeSize(myValue.value + 'pt')
+            }
+
+            txt1.onkeyup = function () {
+                div1.innerHTML = txt1.value
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+    <input id="btn1" type="button" value="白色系主題">
+    <input id="btn3" type="button" value="黃色系主題">
+    <input id="btn5" type="button" value="茶色系主題">
+    <input id="btn4" type="button" value="綠色系主題">
+    <input id="btn2" type="button" value="黑色系主題">
+
+    <input id="btn7" type="button" value="20號字">
+    <input id="btn9" type="button" value="48號字">
+    <input id="btn6" type="button" value="76號字">
+    <input id="btn8" type="button" value="1200%字">
+    <input id="myValue" type="text" placeholder='輸入數字，立刻變換字體大小' />
+    <br/>
+    <textarea id="txt1" type="text"></textarea>
+    <br/>
+    <div id="div1"></div>
+</body>
+
+</html>
