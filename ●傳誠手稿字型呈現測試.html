@@ -20,7 +20,9 @@ td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
 td{border: 1px solid indigo;}
 input {height: 30px;}
 #div0 {background:#ccc;}
-#div1 {font-size: 76pt;color: #ccb;font-family: c;}
+#div1 {font-size: 76pt;color: #ccb;font-family: c;
+/*margin: 0 0 0 3cm;*/
+}
 #div1 input {background:#fec;}
 #div2 input {background:#aea;}
 #div3 input {background:#ff8;}
@@ -32,7 +34,7 @@ input {height: 30px;}
 #myValue {
     /*width: 80vw;*/
 background: #aca;}
-#myValue2 {width: 80vw;background: snow;}
+#myValue2 {background: snow;}
 #reValue,.t {background: tomato;}
 #reUp,.r {background: red;}
 .sb {background: skyblue;}
@@ -59,6 +61,9 @@ background: #aca;}
         }
         function changeSize(sz) {
             div1.style.fontSize = sz
+        }
+        function changeFamily(ff) {
+            div1.style.fontFamily = ff
         }
         window.onload = function () {
             btn1.onclick = function () {
@@ -91,6 +96,9 @@ background: #aca;}
             myValue.onkeyup = function () {
                 changeSize(myValue.value + 'pt')
             }
+            myValue2.onkeyup = function () {
+                changeFamily(myValue2.value)
+            }
 
             txt1.onkeyup = function () {
                 div1.innerHTML = txt1.value
@@ -112,6 +120,7 @@ background: #aca;}
     <input id="btn6" type="button" value="76號字">
     <input id="btn8" type="button" value="1200%字">
     <input id="myValue" type="text" placeholder='輸入數字，立刻變換字體大小' />
+    <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
     <br/>
     <textarea id="txt1" type="text"></textarea>
     <br/>
