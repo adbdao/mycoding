@@ -60,6 +60,34 @@ width: 90mm;
 /*height: 60mm;*/
 padding: 30px 0px 30px 15px;
 }
+#print4{
+display: none;
+/*配合A4紙大小*/
+width: 190mm;
+/*人數不一定，所以不設長度*/
+/*height: 270mm;*/
+/*轉直排語法*/
+/*-webkit-writing-mode: vertical-rl;
+writing-mode: vertical-rl;*/
+font-size: 42pt;
+font-family: 標楷體;
+}
+#print4 div {    
+display: inline-block;
+/*border-style:dotted solid double dashed; 
+上邊框是點狀
+右邊框是實線
+下邊框是雙線
+左邊框是虛線*/
+border: 1px dotted green;
+/* 垂直置中，設定文字行距 */
+line-height:85mm;
+/*水平置中*/
+margin: 0 auto;
+text-align: center;
+/* 設定文字間距 */
+letter-spacing: 5px;
+}
 </style>
 <script>
 var nanArr=['圓振',
@@ -1475,6 +1503,34 @@ window.onload=function()
     var xy=[]
     var yx=[]
 
+    nameDiv.onclick = function () {
+        // 先刪除div內的所有子元素
+        delID('print4')
+        // 名單導入陣列
+        var arr = txt1.value.split('\n')
+        // 預設長寬為南普陀寺寮房門牌大小，也可在txt2、txt3自訂，單位mm
+        var ww, hh
+        if (txt2.value) {
+            ww = txt2.value + 'mm'
+        } else {
+            ww = '85mm'
+        }
+        if (txt3.value) {
+            hh = txt3.value + 'mm'
+        } else {
+            hh = '85mm'
+        }
+        for (var k of arr) {
+            var aDiv = document.createElement('div')
+            aDiv.innerHTML = k
+            aDiv.setAttribute('style', 'width:' + ww + ';height:' + hh)
+            print4.appendChild(aDiv)
+            print4.style.display = 'block'
+        }
+        // 焦點移至最頂端(x軸,y軸)
+        window.scrollTo(0,0)
+    }
+
     btng1.onclick=function(){
         // 判斷有輸入正確內容，否則會當機
         if(oT1.value && /\D/g.test(nbr.value)==false && /\d/g.test(nbr.value)==true){
@@ -1614,6 +1670,7 @@ window.onload=function()
         <div id="print1"></div>
         <div id="print2"></div>
         <div id="print3"></div>
+        <div id="print4"></div>
 <table id="tab1">
     <thead>
         <td></td>
@@ -1665,6 +1722,7 @@ window.onload=function()
     <input id="btn14" type="button" value="名+法師"/>
     <input id="btn15" type="button" value="釋+名+法師"/>
     <input id="btn16" type="button" value="名-釋-法師"/>
+    <input id="nameDiv" type="button" value="房門口的名牌" style="color:green;"/>
 </div>
     ※↓第3步：先按：「顯示住眾」。再按各種「佛堂排班」按鈕。(只呈現在下方網頁中，需手動複製到word檔中修飾)
     <br/>
