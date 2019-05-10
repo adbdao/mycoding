@@ -279,6 +279,45 @@ window.onload=function(){
         }
         overCopy()
     }
+    TabToNumEvery2.onclick=function(){
+        zzUp()
+        // 號碼的變量
+        var j=1
+        var m=1
+        // 可自訂分層數量
+        if(myValue.value>0){
+            AA=myValue.value
+        }else{
+            AA=6
+        }
+        for(var i=0;i<Arr1.length;i++){
+            // 刪除空行，及行尾空白
+            Arr1[i]=Arr1[i].replace(/\s+$/,'')
+            // 行首條件
+            // if(Arr1[i].charAt(0)!='\t' && Arr1[i].charAt(1)!='.' && Arr1[i]!='' && Arr1[i].charAt(0)!='　'){
+            //     Arr1[i]=m+'. '+Arr1[i]
+            //     m++
+            // }
+        }
+        for(var k=0;k<AA;k++){
+            for(var i=0;i<Arr1.length;i++){
+                // 層級的條件(倒算)
+                if(Arr1[i].charAt(k+1)!='\t' && Arr1[i].charAt(k+1)!='　'){
+                    if(Arr1[i].charAt(k)=='\t'){
+                        Arr1[i]=Arr1[i].replace(Arr1[i].charAt(k+1),j+'. '+Arr1[i].charAt(k+1))
+                        j++
+                    }
+                    // 新行歸零條件
+                    if(Arr1[i].charAt(k)!='\t' && Arr1[i].charAt(k)!=' ' && Arr1[i].charAt(k)!='　' && Arr1[i].charAt(k)!='\n' && Arr1[i].charAt(k)!=''){
+                        j=1
+                    }
+                }
+            }
+            // 歸零，下一層才會從1開始
+            j=1
+        }
+        overCopy()
+    }
     SpaceToNumEvery.onclick=function(){
         zzUp()
         // 號碼的變量
@@ -796,7 +835,7 @@ function toZhDigit(digit) {
         <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 請返回您要的檔案、或程式中，再直接按「貼上」即可！'></textarea><br/>
-        <input id="myValue" type="text" placeholder='值１：自訂層級數目 or 輸入要改轉的值 or TagValue'/><br/>
+        <input id="myValue" type="text" placeholder='值１：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量'/><br/>
         <input id="myValue2" type="text" placeholder='值２：輸入要改轉的值2 or TagName'/><br/>
         <input id="myValue3" type="text" placeholder='值３：輸入要改轉的值3 or ClassName'/><br/>
 
@@ -823,6 +862,7 @@ function toZhDigit(digit) {
 
         <input id="TabToNum" type="button" class="y" value="文章大綱編號(以Tab分層級)"/>
         <input id="TabToNumEvery" type="button" class="pink" value="文章大綱多層編號(以Tab分層級)"/>
+        <input id="TabToNumEvery2" type="button" class="t" value="文章大綱多層編號(首層無)(以Tab分層級)"/>
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
         <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
