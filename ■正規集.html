@@ -294,10 +294,12 @@ window.onload=function(){
             // 刪除空行，及行尾空白
             Arr1[i]=Arr1[i].replace(/\s+$/,'')
             // 行首條件
-            // if(Arr1[i].charAt(0)!='\t' && Arr1[i].charAt(1)!='.' && Arr1[i]!='' && Arr1[i].charAt(0)!='　'){
-            //     Arr1[i]=m+'. '+Arr1[i]
-            //     m++
-            // }
+            if(myValue.value){
+                if(Arr1[i].charAt(0)!='\t' && Arr1[i].charAt(1)!='.' && Arr1[i]!='' && Arr1[i].charAt(0)!='　'){
+                    Arr1[i]=myValue.value+Arr1[i]
+                    // m++
+                }
+            }
         }
         for(var k=0;k<AA;k++){
             for(var i=0;i<Arr1.length;i++){
@@ -835,9 +837,9 @@ function toZhDigit(digit) {
         <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 請返回您要的檔案、或程式中，再直接按「貼上」即可！'></textarea><br/>
-        <input id="myValue" type="text" placeholder='值１：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量'/><br/>
-        <input id="myValue2" type="text" placeholder='值２：輸入要改轉的值2 or TagName'/><br/>
-        <input id="myValue3" type="text" placeholder='值３：輸入要改轉的值3 or ClassName'/><br/>
+        <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量'/><br/>
+        <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName'/><br/>
+        <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName'/><br/>
 
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
         <input id="reValue" type="button" value="回復原始資料"/>
@@ -862,7 +864,7 @@ function toZhDigit(digit) {
 
         <input id="TabToNum" type="button" class="y" value="文章大綱編號(以Tab分層級)"/>
         <input id="TabToNumEvery" type="button" class="pink" value="文章大綱多層編號(以Tab分層級)"/>
-        <input id="TabToNumEvery2" type="button" class="t" value="文章大綱多層編號(首層無)(以Tab分層級)"/>
+        <input id="TabToNumEvery2" type="button" class="t" value="文章大綱多層編號(首層為值1)(以Tab分層級)"/>
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
         <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
@@ -871,21 +873,21 @@ function toZhDigit(digit) {
         <input id="DelTag" type="button" class="tan" value="刪除所有置標符"/>
         <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號"/>
         <br/>
-        <input id="toHref" type="button" class="p" value="整列網址加標記<a href值１自訂連結名稱"/>
-        <input id="toHrefXML" type="button" class="p" value="整列網址加標記<聯 l值１自訂連結名稱"/>
+        <input id="toHref" type="button" class="p" value="整列網址加標記<a href值1自訂連結名稱"/>
+        <input id="toHrefXML" type="button" class="p" value="整列網址加標記<聯 l值1自訂連結名稱"/>
         <input id="alltoHref" type="button" class="o" value="文章內的網址加標記<a href"/>
         <input id="alltoHrefXML" type="button" class="o" value="文章內的網址加標記<聯 l"/>
         <input id="allreHref" type="button" class="tan" value="文章內的網址刪除標記"/>
         <input id="allreHrefXML" type="button" class="tan" value="文章內的網址刪除標記<聯"/>
-        <p class="name">自訂取代正規式：值１中輸入要搜尋的正規式，值２中輸入要取代的值或正規式</p>
+        <p class="name">自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值或正規式</p>
         <input id="myRe" type="button" class="t" value="自訂取代正規式"/>
-        <input id="ReToN" type="button" class="ky" value="值１取代為換行符"/>
-        <input id="ReToT" type="button" class="y" value="值１取代為Tab"/>
+        <input id="ReToN" type="button" class="ky" value="值1取代為換行符"/>
+        <input id="ReToT" type="button" class="y" value="值1取代為Tab"/>
         <input id="ReABCToabc" type="button" class="yg" value="英文大寫轉小寫"/>
         <input id="ReabcToABC" type="button" class="yg" value="英文小寫轉大寫"/>
         <br/>
-        <input id="MathToChinese" type="button" class="b" value="值１的數字轉中文數字"/>
-        <input id="ChineseToMath" type="button" class="b" value="值１的中文數字轉數字(只正確運算16位數)"/>
+        <input id="MathToChinese" type="button" class="b" value="值1的數字轉中文數字"/>
+        <input id="ChineseToMath" type="button" class="b" value="值1的中文數字轉數字(只正確運算16位數)"/>
         <input id="allMathToChinese" type="button" class="lsg" value="文章內的數字轉中文數字，可再加上+前(值1)+後(值2)的符號"/>
     </body>
 </html>
