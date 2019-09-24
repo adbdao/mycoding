@@ -827,54 +827,57 @@ function myCalendar(){
           myObj = new calendar(hY, hM)
           myS = myObj[hD - 1]
           mylD = myObj[hD - 1].lDay
-          // myArr3 = [
-          //   '<tr><td>國曆',
-          //   myS.sMonth + '月',
-          //   myS.sDay + '日</td>'
-          // ]
-          // myArr4 = [
-          //   '<td>農曆',
-          //   myS.isLeap ? '閏' : '',
-          //   myS.lMonth + '月',
-          //   myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
-          // ]
           myArr3 = [
             '<tr><td>國曆',
             myS.sMonth + '月',
-            (myS.sDay - 1) + '~',
             myS.sDay + '日</td>'
           ]
           myArr4 = [
             '<td>農曆',
             myS.isLeap ? '閏' : '',
             myS.lMonth + '月',
-            (myS.lDay - 1) + '~',
-            myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
+            myS.lDay + '日</td>'
           ]
-          // if (mylD == 14) { myArr2 += myArr3; myArr2 += myArr4 }
+          // 不能用以下的：日期-1+1…，會漏很多日期
+          // myArr3 = [
+          //   '<tr><td>國曆',
+          //   myS.sMonth + '月',
+          //   (myS.sDay - 1) + '~',
+          //   myS.sDay + '日</td>'
+          // ]
+          // myArr4 = [
+          //   '<td>農曆',
+          //   myS.isLeap ? '閏' : '',
+          //   myS.lMonth + '月',
+          //   (myS.lDay - 1) + '~',
+          //   myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
+          // ]
+          if (mylD == 14) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
           if (mylD == 15) { myArr2 += myArr3; myArr2 += myArr4 }
           if (monthDays(myS.lYear, myS.lMonth) == 28) {
-            // if (mylD == 27) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 27) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
             if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 29) {
-            // if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
             if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 30) {
-            // if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
             if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 31) {
-            // if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
             if (mylD == 31) { myArr2 += myArr3; myArr2 += myArr4 }
           }
         }
+        // 潤月的月底一日會錯誤，這是《年曆程式》原本運算就有的問題，所以我無法修復
         // 輸出表格
-        tab1.innerHTML = '<tr><td>國曆日期</td><td>農曆日期</td><td>請教誡回教誡人員</td></tr>' + myArr2
+        tab1.innerHTML = '<tr><th>國曆日期</th><th>農曆日期</th><th>請教誡回教誡人員</th></tr>' + myArr2
         tab1.innerHTML = tab1.innerHTML.replace(/,/g, ' ')
         // 輸出至文本框
-        oT5.value = '一年的誦戒日農曆輪值表' + myArr2.replace(/[\<\>trd/　,]/g, '').replace(/國曆/g, '\n國曆').replace(/日/g, '日 ')
+        // 最後一個取代rowspan的r已經被之前的取代了
+        oT5.value = '一年的誦戒日農曆輪值表' + myArr2.replace(/[\<\>trd/　,]/g, '').replace(/國曆/g, '\n國曆').replace(/日/g, '日 ').replace(/owspan="2"/g,'')
       }
       // 復原輸入日期
       oBre.onclick = function () {
@@ -1558,7 +1561,7 @@ button{FONT-SIZE: 8pt}
 ww{font-size: 10pt;background:#f99;color: #030;}
 m{font-size: 12pt;background: #adf;color: black;}
 
-#tab1,#tab1 td{border: 1px solid black;}
+#tab1,#tab1 td,#tab1 th{border: 1px solid black;}
 .num{background:lightblue;height: 30px;}
 
 *{border-radius: 8px;}

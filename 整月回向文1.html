@@ -43,12 +43,25 @@
         }
         // 今日日期
         var d = new Date
+        var Y = d.getFullYear()
         var M = d.getMonth() + 1
         var D = d.getDate()
         var nextM = M + 1
         // 文字作成變量，減少重複程式碼
         var sz = '<br/><br/>業障病障悉消除<br/>身心得安樂健康<br/>'
         var wz = '<br/><br/>往生極樂國<br/>圓成菩提道<br/>'
+
+        function Date31(a, b) {
+            // 用日期函數運算：設定開始及結束，各累加3日的日期
+            d.setFullYear(Y, M, D + a)
+            // 上面月份有+1，所以不必再加
+            var hM = d.getMonth()
+            var hD = d.getDate()
+            d.setFullYear(Y, M, D + a + 2)
+            var hD2 = d.getDate()
+            return txt1.value + b + hM + '月' + hD + '~' + hD2 + '日'
+        }
+
         function Date30(a, b) {
             // 加入今日日期，並判斷跨月的日期
             // 超過本月要+1，超過12月要-12
@@ -70,7 +83,7 @@
             for (var i = 0; i < 30; i += 3) {
                 var aDiv = document.createElement('div')
                 // 日期+回向文變量
-                aDiv.innerHTML = Date30(i, c)
+                aDiv.innerHTML = Date31(i, c)
                 div1.appendChild(aDiv)
             }
         }
