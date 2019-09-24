@@ -777,6 +777,111 @@ function myCalendar(){
   }
   }
 }
+    function SJDay() {
+      // 誦戒日農曆輪值表
+      var oB1 = document.getElementById('btn1')
+      var oB2 = document.getElementById('btn2')
+      var oBre = document.getElementById('rebtn')
+      var oUl = document.getElementById('ul1')
+      var oT5 = document.getElementById('txt5')
+      // 先刪除舊表格
+      delTab()
+      // 輸入今日日期
+      if (txt5.value) {
+        myObj1 = txt5.value
+      } else {
+        myObj1 = txt5.value = tY + "年" + (tM + 1) + "月" + Today.getDate() + "日"
+      }
+      // 除錯
+      if (/\D/.test(myObj1.charAt(0))) {
+        alert('請輸入數字日期  ' + myObj1.charAt(0) + ' 是錯誤格式')
+      } else {
+        var myArr = txt5.value.replace(/[^\n\d]/g, 'A').split('\n')
+        var myArr1 = []
+        var myArr2 = []
+        var myArr3 = []
+        var myArr4 = []
+        // 先預設365日
+        var myS, mylD, DNum = 365
+        var hDay1, hDay2, hDaySet, hDayArr1 = [], hDayArr2 = []
+        for (var j = 0; j < DNum; j++) {
+          // 允許輸入多個日期，或多行文字(可能文本框中有舊資料)，但為防止：輸入多個日期，程式無法辨試！所以只取陣列中的第一個日期
+          myArr1 = myArr[0].split('A')
+          // 除錯
+          if (myArr1.length < 3) {
+            alert(myArr1 + '  輸入格式不正確  請重新檢查')
+            break
+          }
+
+          // 導入時間函數，才能循環計算一年中的每一日
+          hDaySet = new Date()
+          // 轉為數字，否則會當作文字
+          // 導入輪組開始日期
+          hDaySet.setFullYear(Number(myArr1[0]), Number(myArr1[1]) - 1, Number(myArr1[2]) + j)
+          // 若直接設定日數，有時月份會有誤差
+          var hY = hDaySet.getFullYear()
+          var hM = hDaySet.getMonth()
+          var hD = hDaySet.getDate()
+
+          // 導入函數運算農曆
+          myObj = new calendar(hY, hM)
+          myS = myObj[hD - 1]
+          mylD = myObj[hD - 1].lDay
+          // myArr3 = [
+          //   '<tr><td>國曆',
+          //   myS.sMonth + '月',
+          //   myS.sDay + '日</td>'
+          // ]
+          // myArr4 = [
+          //   '<td>農曆',
+          //   myS.isLeap ? '閏' : '',
+          //   myS.lMonth + '月',
+          //   myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
+          // ]
+          myArr3 = [
+            '<tr><td>國曆',
+            myS.sMonth + '月',
+            (myS.sDay - 1) + '~',
+            myS.sDay + '日</td>'
+          ]
+          myArr4 = [
+            '<td>農曆',
+            myS.isLeap ? '閏' : '',
+            myS.lMonth + '月',
+            (myS.lDay - 1) + '~',
+            myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
+          ]
+          // if (mylD == 14) { myArr2 += myArr3; myArr2 += myArr4 }
+          if (mylD == 15) { myArr2 += myArr3; myArr2 += myArr4 }
+          if (monthDays(myS.lYear, myS.lMonth) == 28) {
+            // if (mylD == 27) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 }
+          }
+          if (monthDays(myS.lYear, myS.lMonth) == 29) {
+            // if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 }
+          }
+          if (monthDays(myS.lYear, myS.lMonth) == 30) {
+            // if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 }
+          }
+          if (monthDays(myS.lYear, myS.lMonth) == 31) {
+            // if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 }
+            if (mylD == 31) { myArr2 += myArr3; myArr2 += myArr4 }
+          }
+        }
+        // 輸出表格
+        tab1.innerHTML = '<tr><td>國曆日期</td><td>農曆日期</td><td>請教誡回教誡人員</td></tr>' + myArr2
+        tab1.innerHTML = tab1.innerHTML.replace(/,/g, ' ')
+        // 輸出至文本框
+        oT5.value = '一年的誦戒日農曆輪值表' + myArr2.replace(/[\<\>trd/　,]/g, '').replace(/國曆/g, '\n國曆').replace(/日/g, '日 ')
+      }
+      // 復原輸入日期
+      oBre.onclick = function () {
+        oT5.value = myObj1
+      }
+    }
+
 function myOB1(){
   myCalendar()
   document.getElementById('txt5').value=myObj2
@@ -1639,6 +1744,7 @@ id=detail></DIV>
 <br/>
 <input id="btn1" type="button" value="批次轉佛曆+西元+農曆日期" onclick="myOB1()"/>
 __<input id="btn" type="button" value="測試" onclick="btntest()"/>
+__<input id="btn13" type="button" class="todayColor" value="誦戒日農曆輪值表" onclick="SJDay()"/>
 <br/>※↓計算放假時，輪組間隔日期。１先在文本框中，輸入放假的開始日期：例2017/5/10。（年份一定要西元4位數字！日期的分隔符號，只要是非數字符號即可）。２再「間隔日數」：輸入每組要留守的日數。３「重複次數」：輸入幾組輪替，就是重複幾次。按「計算間隔」
 <br/>
 <input id="btn10" type="text" class="num" placeholder="間隔日數"/>
