@@ -4,7 +4,7 @@
     <head>
     <title>自己程式的目錄</title>
     <base target="_blank">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 <style>
     
 /**{border-radius: 8px;padding: 3px;}*/
@@ -271,7 +271,7 @@ transition: background border-radius 0.5s ease;
 -webkit-transition:box-shadow 0.3s ease;
 transition: box-shadow 0.3s ease;*/
 }
-.item>a{
+.item>a,input{
 text-align: center;
 color: cyan;
 font-size: 14pt;
@@ -494,16 +494,18 @@ function showClock(a){
         </div>
     <!--<div id="dhout"><iframe src="Lum.html" frameborder="0"></iframe></div>-->
     <ul id="menu">
-        <li class="item"><a href="javascript:window.location.reload()">重整頁面</a></li>
+        <!--<li class="item"><a href="javascript:window.location.reload()">重整頁面</a></li>-->
+        <input id="btn2" class="item" type="button" onclick="window.location.reload()" value="重整頁面">
         <li class="item"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html" target="_blank">資料連結點</a></li>
         <li class="item"><a href="../">上一層目錄</a></li>
         <li class="item"><a href="./">本層目錄</a></li>
-        <li class="item"><a href="javascript:showClock(dhout),showClock(dhout1)">類比時鐘</a></li>
+        <!--<li class="item"><a href="javascript:showClock(dhout),showClock(dhout1)">類比時鐘</a></li>-->
+        <!--<input id="btn1" class="item" type="button" onclick="showClock(dhout),showClock(dhout1)" value="類比時鐘">-->
         <!--<li class="item" id="li1"><a href="old/">old程式</a></li>-->
         <br/>
         <!--<textarea id="txt1"></textarea>-->
 	</ul>
-        <div id="dhout"><iframe src="CssClockred.html" frameborder="0"></iframe></div>
-        <div id="dhout1"><iframe src="CssClockmore.html" frameborder="0"></iframe></div>
+        <!--<div id="dhout"><iframe src="CssClockred.html" frameborder="0"></iframe></div>
+        <div id="dhout1"><iframe src="CssClockmore.html" frameborder="0"></iframe></div>-->
     </body>
 </html>
