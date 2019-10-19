@@ -18,6 +18,7 @@ git commit -am "first commit"
 git commit --amend --no-edit
 合并上一次提交（用于反复修改）
 git commit --amend -m 'xxx'
+
 ***
 > #### Git基本起始指令
 echo "# mycoding" >> README.md
