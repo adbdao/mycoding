@@ -38,13 +38,13 @@ input {height: 27px;}
 #btng6 {width: 100px; height: 45px;background: khaki}
 #reload {width: 75px; height: 40px;background: yellowgreen}
 
-#print1,#print2,#print3 {
+.print{
 /*display: inline-block;*/
 display: none;
 /*border: 1px solid red;*/
-/*配合A4紙大小*/
+/*配合A4紙大小，有時Chrome列印的邊界會不準*/
 width: 190mm;
-height: 270mm;
+height: 280mm;
 /*轉直排語法*/
 /*-webkit-writing-mode: vertical-rl;
 writing-mode: vertical-rl;*/
@@ -52,7 +52,7 @@ font-size: 16pt;
 font-family: 標楷體;
 /*color: black;*/
 }
-#print1 div,#print2 div,#print3 div {
+.print div{
 display: inline-block;
 border: 1px solid blue;
 /*配合A4紙大小*/
@@ -60,7 +60,7 @@ width: 90mm;
 /*height: 60mm;*/
 padding: 30px 0px 30px 15px;
 }
-#print4{
+#printNameDiv{
 display: none;
 /*配合A4紙大小*/
 width: 190mm;
@@ -69,10 +69,11 @@ width: 190mm;
 /*轉直排語法*/
 /*-webkit-writing-mode: vertical-rl;
 writing-mode: vertical-rl;*/
-font-size: 56pt;
-font-family: 標楷體;
 }
-#print4 div {    
+#printNameDiv div {    
+/*轉直排語法*/
+/*-webkit-writing-mode: vertical-rl;
+writing-mode: vertical-rl;*/
 display: inline-block;
 width: 85mm;
 height: 85mm;
@@ -82,6 +83,8 @@ height: 85mm;
 下邊框是雙線
 左邊框是虛線*/
 border: 1px dotted green;
+font-size: 56pt;
+font-family: 標楷體;
 /* 垂直置中，設定文字行距 */
 line-height:85mm;
 /*水平置中*/
@@ -155,76 +158,103 @@ var nanArr1=['悟曜',
 '法光',
 '淨光'
 ]
-// 分組的組員人名
+// 分組的組員人名，新人加到陣列的首位
 var nanarr6=[
 '道中',
-'融善',
+'融慧',
 '成義',
-'成明',
-'智廣',
-'融慧'
+'融東',
+'智廣'
 ]
+var ps=['大寮',
+'環保',
+'總務',
+'香燈'
+// ,'圊頭'
+]
+// 分組的開始日期
+var ppDate='2019 8 29'
 // 分組的工作內容
-var work=[
-// '煮早齋，<br/>▲飯後收飯菜及洗碗盤',
-// '助手︰洗菜、切菜、排缽、打菜。<br/>▲飯後擦桌子、拖地',
-// '切水果。<br/>▲飯後擦桌子、拖地',
-// '煮午齋。<br/>▲飯後擦桌子、拖地',
-// '煮粥、飯、湯。<br/>▲飯後洗碗盤',
-// '排缽、打菜、上香、擦佛桌。<br/>▲飯後收飯菜及洗碗盤',
-// '助手︰洗菜、切菜、打雲板。<br/>▲飯後掃洗缽臺',
+var work7=[
+'煮早齋。<br/>▲飯後收飯菜及洗碗盤',
+'助手︰洗菜、切菜、排缽、打菜。<br/>▲飯後擦桌子、拖地',
+'切水果。<br/>▲飯後擦桌子、拖地',
+'煮午齋。<br/>▲飯後擦桌子、拖地',
+'煮粥、飯、湯。<br/>▲飯後洗碗盤',
+'排缽、打菜、上香、擦佛桌。<br/>▲飯後收飯菜及洗碗盤',
+'助手︰洗菜、切菜、打雲板。<br/>▲飯後掃洗缽臺',
 
-// '大寮早齋垃圾及學院2,3,4,5樓垃圾收集清倒。<br/>▲注意學院廁所垃圾：2樓(前後2處、淨地1處)、3樓(前後2處、門口1處)、4樓(西側1處、醫療室1處)、5樓(師長廁所、本密法師房內、淨地、客廳共4處)',
-// '打掃廁所(補充衛生紙)：學院大樓4樓(佛堂西側廁所1處)、5樓(師長廁所及浴室1處)',
-// '打掃廁所(補充衛生紙)：常住大樓1樓(客堂後1處)、2樓(東西側2處)',
-// '大寮午齋垃圾及常住大樓1～5樓垃圾收集清倒。<br/>▲注意常住廁所垃圾：1樓(如意寮後1處)、2樓(東西側2處、淨地2處)、3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
-// '1樓客堂桌椅及拖地，<br/>常住大樓各樓走道及樓梯打掃',
-// '打掃廁所(補充衛生紙)：學院大樓2樓(前後2處)、3樓(前後2處，含甘露門)',
-// '打掃廁所(補充衛生紙)：常住大樓3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
+'大寮早齋垃圾及學院2～5樓垃圾收集清倒。<br/>▲注意學院廁所垃圾：2樓(前後2處、淨地1處)、3樓(前後2處、門口1處)、4樓(西側1處、醫療室1處)、5樓(師長廁所、本密法師房內、淨地、客廳共4處)',
+'打掃廁所(補充衛生紙)：學院大樓4樓(佛堂西側廁所1處)、5樓(師長廁所及浴室1處)',
+'打掃廁所(補充衛生紙)：常住大樓1樓(客堂後1處)、2樓(東西側2處)',
+'大寮午齋垃圾及常住大樓1～5樓垃圾收集清倒。<br/>▲注意常住廁所垃圾：1樓(如意寮後1處)、2樓(東西側2處、淨地2處)、3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
+'1樓客堂桌椅及拖地，<br/>常住大樓各樓走道及樓梯打掃',
+'打掃廁所(補充衛生紙)：學院大樓2樓(前後2處)、3樓(前後2處，含甘露門)',
+'打掃廁所(補充衛生紙)：常住大樓3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
 
-// '學院佛堂香燈：(早晚課上香、開燈、出食的米…)。<br/>▲清掃：佛像、佛桌、法器、兩側禪座(矮櫃)、拖地。<br/>▲週二洗毛巾，折毛巾',
-// '學院4樓：佛堂四周磁磚拖地。<br/>▲及後方洗衣機間拖地',
-// '早鼓、晚鐘',
-// // '學院4樓：佛堂內︰拖地(若有空再擦窗戶及櫃子)。<br/>▲會議室拖地及擦桌子。<br/>▲醫療室及淨地：拖地、擦桌子、櫃子、醫療床',
-// '學院4樓：會議室拖地及擦桌子。<br/>▲及醫療室及淨地：拖地、擦桌子、櫃子、醫療床',
-// '學院2,3樓(樓梯、地板、走道、淨地)掃地、拖地',
-// '學院4樓：法堂內：桌面、抽屜、講桌、白板、拖地(若有空再擦窗戶及櫃子)',
-// '早鐘、晚鼓'
-
-'煮早齋，<br/>▲飯後收飯菜及洗碗盤',
+'學院4樓：佛堂香燈：(早晚課上香、開燈、出食的米…)。<br/>▲清掃：佛像、佛桌、法器、兩側禪座(矮櫃)、拖地。<br/>▲週二洗毛巾，折毛巾',
+'學院4樓：佛堂四周磁磚拖地。<br/>▲及後方洗衣機間拖地',
+'早鼓、晚鐘',
+// '學院4樓：佛堂內︰拖地(若有空再擦窗戶及櫃子)。<br/>▲會議室拖地及擦桌子。<br/>▲醫療室及淨地：拖地、擦桌子、櫃子、醫療床',
+'學院4樓：會議室拖地及擦桌子。<br/>▲及醫療室及淨地：拖地、擦桌子、櫃子、醫療床',
+'學院2,3樓(樓梯、地板、走道、淨地)掃地、拖地',
+'學院4樓：法堂內：桌面、抽屜、講桌、白板、拖地(若有空再擦窗戶及櫃子)',
+'早鐘、晚鼓'
+]
+var work6=[
+'煮早齋。<br/>▲飯後收飯菜及洗碗盤',
 '切水果、打雲板。<br/>▲飯後擦桌子、拖地',
 '煮午齋。<br/>▲飯後收飯菜及洗碗盤',
 '煮粥、飯、湯。<br/>▲飯後擦桌子、拖地',
 '排缽、打菜、上香、擦佛桌。<br/>▲飯後收飯菜及洗碗盤',
 '助手︰洗菜、切菜、排缽、打菜。<br/>▲飯後掃洗缽臺',
 
-'大寮早齋垃圾及學院2,3,4,5樓垃圾收集清倒。<br/>▲注意學院廁所位置：2樓(前後2處、淨地1處)、3樓(前後2處、門口1處)、4樓(西側1處、醫療室1處)、5樓(師長廁所、本密法師房內、淨地、客廳共4處)',
+'大寮早齋垃圾及學院2～5樓垃圾收集清倒。<br/>▲注意學院廁所位置：2樓(前後2處、淨地1處)、3樓(前後2處、門口1處)、4樓(西側1處、醫療室1處)、5樓(師長廁所、本密法師房內、淨地、客廳共4處)',
 '打掃廁所(記得補充衛生紙)：學院大樓4樓(佛堂西側廁所1處)、5樓(師長廁所及浴室1處)。<br/>▲及1樓客堂桌椅及拖地',
 '打掃廁所(記得補充衛生紙)：常住大樓1樓(客堂後1處)、2樓(東西側2處)',
 '大寮午齋垃圾及常住大樓1～5樓垃圾收集清倒。<br/>▲注意常住廁所位置：1樓(如意寮後1處)、2樓(東西側2處、淨地2處)、3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
 '打掃廁所(記得補充衛生紙)：學院大樓2樓(前後2處)、3樓(前後2處，含甘露門)',
 '打掃廁所(記得補充衛生紙)：常住大樓3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)。<br/>▲及常住大樓各樓走道及樓梯打掃',
 
-'學院佛堂香燈：(早晚課上香、開燈、出食的米…)。<br/>▲清掃：佛像、佛桌、法器、兩側禪座(矮櫃)、拖地。<br/>▲週二洗毛巾，折毛巾',
+'學院4樓：佛堂香燈：(早晚課上香、開燈、出食的米…)。<br/>▲清掃：佛像、佛桌、法器、兩側禪座(矮櫃)、拖地。<br/>▲週二洗毛巾，折毛巾',
 '學院4樓：佛堂四周磁磚拖地。<br/>▲及醫療室及淨地：拖地、擦桌子、櫃子、醫療床。<br/>▲及後方洗衣機間拖地',
 '早鼓、晚鐘',
 '學院2,3樓(樓梯、地板、走道、淨地)掃地、拖地',
 '學院4樓：法堂內：桌面、抽屜、講桌、白板、拖地(若有空再擦窗戶及櫃子)。<br/>▲及會議室拖地及擦桌子',
 '早鐘、晚鼓'
 ]
-var nanArr2=["圓振","宗興","果明","悟曜","心定","道中","悟廣","慈信","淨才","智倫","祥因","本瑞","淨本","界貴","成道","清會","見分","成恩","心寶","常定","宏顯","宏度","成明","湛南","印量","本光","常嶺","成真","慶慧","常引","常品","智梵","本平","達虔","融慧","振慈","長合","惟禮","成本","智源","圓普","見照","成義","成勇","慈定","圓觀","寬恒","天授","天祥","振禪","振文","振同","振修","印璽","成孝","蘇哲祥"]
-var ps=['大寮',
-'環保',
-// '總務',
-'香燈'
-// ,'圊頭'
+var work5=[
+'煮早齋。<br/>▲飯後：收飯菜及洗碗盤',
+'切水果。幫忙洗菜、切菜。<br/>▲飯後：擦桌子、拖地',
+'煮午齋。<br/>▲飯後：收飯菜及洗碗盤',
+'煮粥、飯、湯。幫忙洗菜、切菜<br/>▲飯後：擦桌子、拖地',
+'排缽、打菜、上香、擦佛桌、打雲板。<br/>▲飯後：掃洗缽臺',
+
+'大寮早齋垃圾及學院2～5樓垃圾收集清倒。<br/>▲注意學院廁所位置：2樓(前後2處、淨地1處)、3樓(前後2處、門口1處)、4樓(西側1處、醫療室1處)、5樓(師長廁所、本密法師房內、淨地、客廳共4處)',
+'打掃廁所(記得補充衛生紙)：學院大樓4樓(佛堂西側廁所1處)、5樓(師長廁所及浴室1處)。<br/>▲及常住大樓1樓(如意寮後1處)',
+'大寮午齋垃圾及常住大樓1～5樓垃圾收集清倒。<br/>▲注意常住廁所位置：1樓(如意寮後1處)、2樓(東西側2處、淨地2處)、3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)',
+'打掃廁所(記得補充衛生紙)：常住大樓2樓(東西側2處)、3樓(西側1處)、4樓(西側1處)、5樓(曬衣場後方廁所1處)。',
+'打掃廁所(記得補充衛生紙)：學院大樓2樓(前後2處)、3樓(前後2處，含甘露門)',
+
+// '常住大樓各樓（1樓 ～5樓）走道及樓梯打掃。<br/>▲及5樓平台：含臥佛殿樓上及圖書館樓上平台打掃',
+'學院2樓(樓梯、地板、走道、淨地)掃地、拖地',
+'學院4樓：會議室：擦桌子、拖地(若有空再擦窗戶及櫃子)',
+'學院3樓(樓梯、地板、走道、淨地)掃地、拖地',
+'學院4樓：醫療室及淨地：拖地、擦桌子、櫃子、醫療床。<br/>▲及後方洗衣機間拖地',
+'學院4樓：法堂：桌面、抽屜、講桌、白板、拖地(若有空再擦窗戶及櫃子)',
+
+// '常住3樓三聖殿香燈及打掃。',
+// '全寺草坪與樹栽澆水。（含5樓關房前打掃及澆水）。'
+'學院4樓：佛堂香燈：(早晚課上香、開燈、出食的米…)。<br/>▲清掃：佛像、佛桌、法器(請每日清潔)、兩側禪座(矮櫃)。★不必掃地！<br/>▲週二洗毛巾，折毛巾',
+'學院4樓：佛堂四周磁磚拖地、擦桌子。<br/>▲含佛堂西側廁所玄關(即鞋櫃處：拖地、擦櫃子)',
+'早鼓、晚鐘',
+'學院4樓：佛堂內拖地、拜墊清潔(可用吸塵器)',
+'早鐘、晚鼓'
 ]
-// 分組的組員人數
-var pp67=6
-// 分組的開始日期
-var ppDate='2019 8 29'
+var nanArr2=["圓振","宗興","果明","悟曜","心定","道中","悟廣","慈信","淨才","智倫","祥因","本瑞","淨本","界貴","成道","清會","見分","成恩","心寶","常定","宏顯","宏度","成明","湛南","印量","本光","常嶺","成真","慶慧","常引","常品","智梵","本平","達虔","融慧","振慈","長合","惟禮","成本","智源","圓普","見照","成義","成勇","慈定","圓觀","寬恒","天授","天祥","振禪","振文","振同","振修","印璽","成孝","蘇哲祥"]
+
 function overCopy(){
-    // 結束時選取並複製文本框中的內容
+    // 結束時選取並複製文本框中的內容，無法複製div
     txt2.select()
     document.execCommand('Copy')
     // 焦點移至最頂端(x軸,y軸)
@@ -322,6 +352,15 @@ function delID(a) {
     var oObj = document.getElementById(a)
     while (oObj.firstChild) {
         oObj.removeChild(oObj.firstChild)
+    }
+}
+function delClass(a) {
+    // 刪除Class下的所有子元素
+    var c = document.getElementsByClassName(a)
+    for(var k of c){
+        while (k.firstChild) {
+            k.removeChild(k.firstChild)
+        }
     }
 }
 function reAB(a,b){
@@ -1440,27 +1479,31 @@ window.onload=function()
         // 導入今日日期，以便手動修改為輪組日期
         oT2.value=tY+' '+tM+' '+tD
     }
-    btnarr6a.onclick=function(){
+
+    // 預設陣列儲存工作表單
+    var Arr1 = []
+    btnarr6a.onclick = function () {
         // 預設本次輪組開始日期，也可手動輸入
-        if(!txt2.value){
+        if (!txt2.value) {
             // txt2.value='2018 12 6'
-            txt2.value=ppDate
+            txt2.value = ppDate + '(本次開始日)'
         }
-        // 先刪除div內的所有子元素
-        delID('print1')
-        delID('print2')
-        delID('print3')
+        // 先刪除Class下的所有子元素
+        delClass('print')
         // 輸入的日期導入陣列
-        var Arr=oT2.value.replace(/[^\d\n]/g,'a').split('a')
-        // oT2.value=''
-        for(var i=0;i<ps.length;i++){
+        var Arr = txt2.value.replace(/[^\d\n]/g, 'a').split('a')
+        for (var i = 0; i < ps.length; i++) {
+            // 先刪除div下的所有子元素
+            // 後來改用delClass()
+            // delID('print' + (i + 1))
+
             // 導入輪組開始日期
-            p.setFullYear(Number(Arr[0]),Number(Arr[1])-1,Number(Arr[2])+i*7)
+            p.setFullYear(Number(Arr[0]), Number(Arr[1]) - 1, Number(Arr[2]) + i * 7)
             // 本來不需要呈現星期數，但為驗算(輪組開始日)是否正確，所以加上
-            var pDay=(p.getMonth()+1)+'月'+p.getDate()+'日週'+p.getDay()+' 到 '
+            var pDay = (p.getMonth() + 1) + '月' + p.getDate() + '日週' + p.getDay() + ' 到 '
             // 導入輪組結束日期
-            p.setFullYear(Number(Arr[0]),Number(Arr[1])-1,Number(Arr[2])+i*7+6)
-            pDay+=(p.getMonth()+1)+'月'+p.getDate()+'日週'+p.getDay()
+            p.setFullYear(Number(Arr[0]), Number(Arr[1]) - 1, Number(Arr[2]) + i * 7 + 6)
+            pDay += (p.getMonth() + 1) + '月' + p.getDate() + '日週' + p.getDay()
 
             // 第一次試用foreach函數，運算整個小組人員的陣列
             // 重新導入修飾過的人名
@@ -1469,32 +1512,59 @@ window.onload=function()
             //         oT3.value+=pDay+' '+s+'組\n'+a+'\n'
             //     })
             // })
-                // nanarr6.forEach(function(a){
-                //     oT2.value+=a+'師   '+pDay+' '+ps[i]+'組'+'\n\n\n'
-                // })
+            // nanarr6.forEach(function(a){
+            //     oT2.value+=a+'師   '+pDay+' '+ps[i]+'組'+'\n\n\n'
+            // })
 
             // 整合：人名+運算出的日期+組名+工作表
-            for(var j=0;j<nanarr6.length;j++){
+            for (var j = 0; j < nanarr6.length; j++) {
                 var aDiv = document.createElement('div')
-                aDiv.innerHTML = nanarr6[j]+'師<br/>'+pDay+'<br/>【'+ps[i]+'組】<br/>'+work[i*pp67+j]
-                document.getElementById('print'+(i+1)).appendChild(aDiv)
-                document.getElementById('print'+(i+1)).style.display='block'
+                if (nanarr6.length == 5 && ps.length == 4) {
+                    // 附加陣列儲存工作表單
+                    Arr1[i * nanarr6.length + j] = aDiv.innerHTML = nanarr6[j] + '師<br/>' + pDay + '<br/>【' + ps[i] + '組】<br/>' + work5[i * nanarr6.length + j]
+                } else if (nanarr6.length == 6 && ps.length == 3) {
+                    Arr1[i * nanarr6.length + j] = aDiv.innerHTML = nanarr6[j] + '師<br/>' + pDay + '<br/>【' + ps[i] + '組】<br/>' + work6[i * nanarr6.length + j]
+                } else if (nanarr6.length == 7 && ps.length == 3) {
+                    Arr1[i * nanarr6.length + j] = aDiv.innerHTML = nanarr6[j] + '師<br/>' + pDay + '<br/>【' + ps[i] + '組】<br/>' + work7[i * nanarr6.length + j]
+                } else {
+                    txt2.value = '不反應！\n就是 人數 或 組別 有誤！'
+                    break
+                }
+                document.getElementById('print' + (i + 1)).appendChild(aDiv)
+                document.getElementById('print' + (i + 1)).style.display = 'block'
             }
             // 下一輪替開始日
-            if(i==ps.length-1){
-                p.setFullYear(Number(Arr[0]),Number(Arr[1])-1,Number(Arr[2])+i*7+7)
-                var p1=p.getFullYear()+'年'+(p.getMonth()+1)+'月'+p.getDate()+'日(下一輪替開始日)'
+            if (i == ps.length - 1) {
+                p.setFullYear(Number(Arr[0]), Number(Arr[1]) - 1, Number(Arr[2]) + i * 7 + 7)
+                var p1 = p.getFullYear() + '年' + (p.getMonth() + 1) + '月' + p.getDate() + '日'
             }
         }
+        // 無法複製div
         // overCopy()
-        // 焦點移至最頂端(x軸,y軸)，無法複製div
+        // 焦點移至最頂端(x軸,y軸)
         // window.scrollTo(0,0)
         // 最後一人，調至最前，以便下一輪的工作輪替更新
         nanarr6.unshift(nanarr6.pop())
         // 保留「輪替開始日」，在第3文本框
-        txt3.value+='\n'+txt2.value
+        txt3.value += '\n' + txt2.value.replace('(下一輪替開始日)', '(本次開始日)')
         // 更新下一輪替開始日
-        txt2.value=p1
+        txt2.value = p1 + '(下一輪替開始日)'
+    }
+    btnarr6b.onclick = function () {
+        // 需先執行btnarr6a按鈕
+        // 利用前函數中，保留在陣列的成果，重新排成輪組的「個人」工作單
+        
+        // 先刪除Class下的所有子元素        
+        delClass('print')
+        for (var i = 0; i < nanarr6.length; i++) {
+            // 先刪除div下的所有子元素
+            // 後來改用delClass()
+            // delID('print' + (i + 1))
+            for (var j = 0; j < ps.length; j++) {
+                document.getElementById('print' + (i + 1)).innerHTML += '<p><br/>' + Arr1[j * nanarr6.length + i] + '</p><hr/>'
+                document.getElementById('print' + (i + 1)).style.display = 'block'
+            }
+        }
     }
 
     var p=new Date()
@@ -1507,13 +1577,13 @@ window.onload=function()
     var xy=[]
     var yx=[]
 
-    nameDiv.onclick = function () {
-        // 先刪除div內的所有子元素
-        delID('print4')
+    NameDiv.onclick = function () {
+        // 先刪除div下的所有子元素
+        delID('printNameDiv')
         // 名單導入陣列
         var arr = txt1.value.split('\n')
         // 預設長寬為南普陀寺寮房門牌大小，也可在txt2、txt3自訂，單位mm
-        var ww, hh
+        var ww, hh,zz
         if (txt2.value) {
             ww = txt2.value + 'mm'
         } else {
@@ -1524,12 +1594,17 @@ window.onload=function()
         } else {
             hh = '85mm'
         }
+        if (nbr.value && Number(nbr.value)>9) {
+            zz = nbr.value
+        } else {
+            zz = '56'
+        }
         for (var k of arr) {
             var aDiv = document.createElement('div')
             aDiv.innerHTML = k
-            aDiv.setAttribute('style', 'width:' + ww + ';height:' + hh)
-            print4.appendChild(aDiv)
-            print4.style.display = 'block'
+            aDiv.setAttribute('style', 'width:' + ww + ';height:' + hh +';font-size:'+zz+'pt;line-height:'+hh)
+            printNameDiv.appendChild(aDiv)
+            printNameDiv.style.display = 'block'
         }
         // 焦點移至最頂端(x軸,y軸)
         window.scrollTo(0,0)
@@ -1671,10 +1746,14 @@ window.onload=function()
 </script>
     </head>
     <body>
-        <div id="print1"></div>
-        <div id="print2"></div>
-        <div id="print3"></div>
-        <div id="print4"></div>
+        <div id="print1" class="print"></div>
+        <div id="print2" class="print"></div>
+        <div id="print3" class="print"></div>
+        <div id="print4" class="print"></div>
+        <div id="print5" class="print"></div>
+        <div id="print6" class="print"></div>
+        <div id="print7" class="print"></div>
+        <div id="printNameDiv"></div>
 <table id="tab1">
     <thead>
         <td></td>
@@ -1694,14 +1773,14 @@ window.onload=function()
         <ul id="ul1"></ul>
 <hr/>
 請閱讀「※↓」的步驟說明，來使用此程式。請用Google的Chrome瀏覽器開啟，不然「分組選單」的勾選，會不靈光。<br/>
-把人眾名單，複製到上面的文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！
+把人眾名單，複製到上面的文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在上方網頁中形成排班表格！
 並且，滑鼠移至每行時，會變色提示！
 若要手動刪除表格，請按「F5」或「重整頁面」！
 <!--※我的第2個js程式-->
 <hr/>
     <textarea id="txt1" rows="10" cols="16" placeholder="第1文本框
 
-把人眾名單，複製到此文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在下方網頁中形成排班表格！"></textarea>
+把人眾名單，複製到此文本框中(可直接在文本框中編輯)，再按各種功能按鈕，即可在上方網頁中形成排班表格！"></textarea>
     <textarea id="txt2" rows="9" cols="30" placeholder="第2文本框
 
 「法堂座位(安居)」才用，放旁聽生名單
@@ -1717,8 +1796,9 @@ window.onload=function()
     <input id="btn19" type="button" class="name" value="顯示住眾"/>
     <input id="btn20" type="button" class="name" value="顯示輪組住眾"/>
     <input id="btn21" type="button" class="name" value="顯示安居住眾"/>
-    <input id="btnarr6" type="button" class="name" value="顯示單組人員及今日日期"/>
-    <input id="btnarr6a" type="button" class="name" value="列輪組工作單，先在文本框2輸入日期，重複按即更新下一輪替"/>
+    <input id="btnarr6" type="button" class="name" value="顯示單組人員及今日日期" style="display:none;"/>
+    <input id="btnarr6a" type="button" class="name" value="輪組工作單，文本框2輸入日期，再按即下一輪" style="color:slateblue;"/>
+    <input id="btnarr6b" type="button" class="name" value="個人工作單(先按前按鈕)" style="color:slateblue;"/>
     <br/>
     ※↓第2步：人名前後加上：釋、法師(只呈現在第1文本框中)
     <br/>
@@ -1726,9 +1806,9 @@ window.onload=function()
     <input id="btn14" type="button" value="名+法師"/>
     <input id="btn15" type="button" value="釋+名+法師"/>
     <input id="btn16" type="button" value="名-釋-法師"/>
-    <input id="nameDiv" type="button" value="房門口的名牌" style="color:green;"/>
+    <input id="NameDiv" type="button" value="房門口的名牌，可自訂大小" style="color:green;font-weight:bold;"/>
 </div>
-    ※↓第3步：先按：「顯示住眾」。再按各種「佛堂排班」按鈕。(只呈現在下方網頁中，需手動複製到word檔中修飾)
+    ※↓第3步：先按：「顯示住眾」。再按各種「佛堂排班」按鈕。(只呈現在上方網頁中，需手動複製到word檔中修飾)
     <br/>
     <input id="btn1" type="button" value="佛堂排班 3排"/>
     <input id="btn2" type="button" value="佛堂排班 4排"/>
@@ -1741,18 +1821,18 @@ window.onload=function()
     <input id="btn8" type="button" value="齋堂座位(安居)"/>
 </div>
 <div id="div2">
-    ※↓第3步：在第1文本框中，貼上學生名單。預設排序：第一位是班長、第二位是攝影、第三位以後才按照學生順序排列。(只呈現在下方網頁中，需手動複製到excel檔中修飾)。安居時，在第2文本框中，貼上旁聽生名單，會交叉排序在學生座位中
+    ※↓第3步：在第1文本框中，貼上學生名單。預設排序：第一位是班長、第二位是攝影、第三位以後才按照學生順序排列。(只呈現在上方網頁中，需手動複製到excel檔中修飾)。安居時，在第2文本框中，貼上旁聽生名單，會交叉排序在學生座位中
     <br/>
     <input id="btn10" type="button" value="法堂座位(平時)"/>
     <input id="btn11" type="button" value="法堂座位(安居)"/>
     <br/>
-    ※↓第3步：先按：「顯示住眾」。再按各種「住眾名單」按鈕。(新版呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化，舊版呈現在下方網頁中，需手動複製)
+    ※↓第3步：先按：「顯示住眾」。再按各種「住眾名單」按鈕。(新版呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化，舊版呈現在上方網頁中，需手動複製)
     <br/>
     <input id="btn9" type="button" value="住眾名單(新版功能)"/>
     <input id="btn9old" type="button" value="住眾名單(缺名補號)(舊版功能)"/>
 </div>
 <div id="div4">
-    ※↓第3步：先按：「顯示輪組住眾」。再按「分組選單」。選單會呈現在下方網頁，請手動勾選後，再按「列分組表」：呈現分組結果：(橫排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。直排呈現在第3文本框中，需手動複製。舊版橫排，呈現在下方網頁中，需手動複製)
+    ※↓第3步：先按：「顯示輪組住眾」。再按「分組選單」。選單會呈現在上方網頁，請手動勾選後，再按「列分組表」：呈現分組結果：(橫排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。直排呈現在第3文本框中，需手動複製。舊版橫排，呈現在上方網頁中，需手動複製)
     <br/>
     <input id="btn17" type="button" value="分組選單"/>
     <!--<input id="btn17-1" type="button" value="增廣滑鼠擊區(可不用)"/ onclick="TdOnmousedown()">-->
