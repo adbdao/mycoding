@@ -52,6 +52,20 @@ fs.writeFileSync('Lum1.html', L.join('\n'), 'utf8')
 // 完成時返回通知
 console.log('Lum1.html is OK')
 
+// 讀取Lum2.html
+var Lum2 = fs.readFileSync('Lum2.html', 'utf8')
+// 在陣列中找出「檔名陣列」
+var L = Lum2.split('\n')
+for (var i = 0; i < L.length; i++) {
+    if (/var ArrLi\s?\=/.test(L[i])) {
+        L[i] = 'var ArrLi = ["' + d.join('","') + '"]'
+    }
+}
+// 用相對路徑寫入檔案
+fs.writeFileSync('Lum2.html', L.join('\n'), 'utf8')
+// 完成時返回通知
+console.log('Lum2.html is OK')
+
 // 'test'名字要和time()中的名字保持一致
 console.timeEnd('共耗費了')
 // 本來只寫入另一檔案DirName.txt，還要人工複製，後來可以直接寫入index.html
