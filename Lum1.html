@@ -251,7 +251,7 @@ z-index:0;
 }
 #menu:after{content: "";
 }
-#menu>li{
+#menu>li,input{
 background:transparent;
 padding: 0px;
 width: 100px;
@@ -263,7 +263,7 @@ line-height: 50px!important;
 transition: all .3s ease-out;
 }
 /* hover statut */
-#menu>li:hover,#menu>li.active,textarea:hover{
+#menu>li:hover,#menu>li.active,textarea:hover,input:hover{
 background: -webkit-linear-gradient(top, #CC7244 0.00%, #FD7F44 32.86%, #F58246 68.93%, #BE6E48 100.00%);
 background: linear-gradient(top, #CC7244 0.00%, #FD7F44 32.86%, #F58246 68.93%, #BE6E48 100.00%);
 z-index: 2;
@@ -328,7 +328,7 @@ content: "";
 display: none;
 }
 /* lien */
-.item>a{
+.item>a,input{
 text-align: center;
 color: #555;
 font-size: 14pt;
@@ -401,7 +401,7 @@ transition: background border-radius 0.5s ease;
 transition: box-shadow 0.3s ease;
 }
 
-input:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
+/*input:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}*/
 input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
 #txt1{margin:1px;width:80%;height:40px;border-radius: 8px;padding: 3px;}
 
@@ -540,9 +540,11 @@ function menuUl1(){
         <li class="item" id="li1"><a href="./" >程式</a></li>
         <li class="item"><a href="old/">old程式</a></li>
         <li class="item"><a href="../">上一層目錄</a></li>
-        <li class="item"><a href="http://adbdao.blogspot.tw/2015/06/blog-post.html" target="_blank">資料連結點</a></li>
+        <li class="item"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html" target="_blank">資料連結點</a></li>
+        <!--<li class="item"><a href="http://adbdao.blogspot.tw/2015/06/blog-post.html" target="_blank">資料連結點</a></li>-->
         <li class="item" id="btn1" onclick="nameArr()">檔名轉陣列</li>
-        <li class="item"><a href="javascript:window.location.reload()">重整頁面</a></li>
+        <input id="btn2" class="item" type="button" onclick="window.location.reload()" value="重整頁面">
+        <!--<li class="item"><a href="javascript:window.location.reload()">重整頁面</a></li>-->
         <br/>
         <textarea id="txt1"></textarea>
 	</ul>
