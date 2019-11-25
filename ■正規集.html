@@ -393,70 +393,137 @@ window.onload=function(){
             // 導入陣列
             zzUp()
             // 值1中的字，轉為空白，以便排列。用這方法，就不必用循環
-            var w = myValue.value.replace(/./g,'　')
+            var w = myValue.value.replace(/./g, '　')
+            // 刪除行首空行，會出問題，不知何因？
+            // for(var k of Arr1){
+            //     if(!k){
+            //         Arr1.shift()
+            //     }else{break}
+            // }
             // 刪除末尾的空行。反向循環
-            for(var j=(Arr1.length-1);j>-1;j--){
-                if(!Arr1[j]){
+            for (var j = (Arr1.length - 1); j > -1; j--) {
+                if (!Arr1[j]) {
                     Arr1.pop()
-                }else{break}
+                } else { break }
             }
             // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
             var q = Arr1.length
-            var q2 = Math.floor(q/2)
+            var q2 = Math.floor(q / 2)
+            // 為了前幾行若有空白，作運算時用
+            var r = 0
             // 加入圖表
-            for(var i = 0; i < q; i++) {
-                if(Arr1[i] && !/^　/.test(Arr1[i])){
-                    // alert(Arr1[i])
-                    if(i==0){
-                        Arr1[i]=w+'┌'+Arr1[i]
-                    }else if(i==(q-1)){
-                        Arr1[i]=w+'└'+Arr1[i]
-                    }else{
-                        Arr1[i]=w+'├'+Arr1[i]
+            for (var i = 0; i < q; i++) {
+                // 文字行，而且行首是文字
+                if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                    // 如果只有1行
+                    if (q == 1) {
+                        Arr1[0] = myValue.value + '─' + Arr1[0]
+                        break
+                        // 如果只有2行
+                    } else if (q == 2) {
+                        Arr1[0] = myValue.value + '┬' + Arr1[0]
+                        Arr1[1] = w + '└' + Arr1[1]
+                        break
+                        // 如果多行
+                    } else {
+                        // 行首
+                        if (i == 0 && r == 0) {
+                            Arr1[i] = w + '┌' + Arr1[i]
+                            r = 1
+                            // 行末
+                        } else if (i == (q - 1)) {
+                            Arr1[i] = w + '└' + Arr1[i]
+                        } else {
+                            // 前有空行的行首
+                            if (r == 0) {
+                                Arr1[i] = w + '┌' + Arr1[i]
+                                r = 1
+                            } else {
+                                // 中間行
+                                Arr1[i] = w + '├' + Arr1[i]
+                            }
+                        }
                     }
-                }else if(!Arr1[i] || /^　/.test(Arr1[i])){
                     // 空行的圖表
-                    Arr1[i]=w+'│'+Arr1[i]
+                } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                    // 前面都是空行的空行
+                    if (/[^　]/.test(Arr1[i]) && r == 0) {
+                        Arr1[i] = w + '　' + Arr1[i]
+                        // 前面有文字行的空行
+                    } else if (r == 1) {
+                        Arr1[i] = w + '│' + Arr1[i]
+                    }
                 }
-                // 計算大綱的題目位置
-                if(i==(q2-1) && q%2==0){
-                    Arr1[q2-1]=Arr1[q2-1].replace(w,myValue.value).replace(/├/,'┼').replace(/│/,'┤')
+                // 計算大綱的題目位置，並修正符號
+                // 偶數行
+                if (i == (q2 - 1) && q % 2 == 0) {
+                    Arr1[q2 - 1] = Arr1[q2 - 1].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
                 }
-                if(i==q2 && q%2!=0){
-                    Arr1[q2]=Arr1[q2].replace(w,myValue.value).replace(/├/,'┼').replace(/│/,'┤')
-                    // Arr1[q2]=myValue.value+'┼'+Arr1[q2]
+                // 奇數行
+                if (i == q2 && q % 2 != 0) {
+                    Arr1[q2] = Arr1[q2].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
                 }
             }
             overCopy()
             // 無題目的圖表
-        }else if(!myValue.value && txt1.value){
+        } else if (!myValue.value && txt1.value) {
             zzUp()
             // 刪除末尾的空行。反向循環
-            for(var j=(Arr1.length-1);j>-1;j--){
-                if(!Arr1[j]){
+            for (var j = (Arr1.length - 1); j > -1; j--) {
+                if (!Arr1[j]) {
                     Arr1.pop()
-                }else{break}
+                } else { break }
             }
             // 重新計算陣列長度，否則會以之前的長度來運算
             var q = Arr1.length
+            // 為了前幾行若有空白，作運算時用
+            var t = 0
             // 加入圖表
-            for(var i = 0; i < q; i++) {
-                if(Arr1[i] && !/^　/.test(Arr1[i])){
-                    if(i==0){
-                        Arr1[i]='┌'+Arr1[i]
-                    }else if(i==(q-1)){
-                        Arr1[i]='└'+Arr1[i]
-                    }else{
-                        Arr1[i]='├'+Arr1[i]
+            for (var i = 0; i < q; i++) {
+                // 文字行，而且行首是文字
+                if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                    // 如果只有1行
+                    if (q == 1) {
+                        break
+                        // 如果只有2行
+                    } else if (q == 2) {
+                        Arr1[0] = '┌' + Arr1[0]
+                        Arr1[1] = '└' + Arr1[1]
+                        break
+                        // 如果多行
+                    } else {
+                        // 行首
+                        if (i == 0 && t == 0) {
+                            Arr1[i] = '┌' + Arr1[i]
+                            t = 1
+                            // 行末
+                        } else if (i == (q - 1)) {
+                            Arr1[i] = '└' + Arr1[i]
+                        } else {
+                            // 前有空行的行首
+                            if (t == 0) {
+                                Arr1[i] = '┌' + Arr1[i]
+                                t = 1
+                            } else {
+                                // 中間行
+                                Arr1[i] = '├' + Arr1[i]
+                            }
+                        }
                     }
-                }else if(!Arr1[i] || /^　/.test(Arr1[i])){
                     // 空行的圖表
-                    Arr1[i]='│'+Arr1[i]
+                } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                    // 前面都是空行的空行
+                    if (/[^　]/.test(Arr1[i]) && t == 0) {
+                        Arr1[i] = '　' + Arr1[i]
+                        // 前面有文字行的空行
+                    } else if (t == 1) {
+                        Arr1[i] = '│' + Arr1[i]
+                    }
                 }
             }
             overCopy()
             // 跳出警示框
-        }else{ alert('請在 值1 及 文本框 中輸入文字') }
+        } else { alert('請在 值1 及 文本框 中輸入文字') }
     }
 
     NameToArr.onclick=function(){
