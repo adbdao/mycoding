@@ -44,6 +44,8 @@
         // 今日日期
         var d = new Date
         var Y = d.getFullYear()
+        // 月份在此+1，Date31()會出問題，不加，Date30()又會出問題，只好分成2個變量
+        var M1 = d.getMonth()
         var M = d.getMonth() + 1
         var D = d.getDate()
         var nextM = M + 1
@@ -53,11 +55,11 @@
 
         function Date31(a, b) {
             // 用日期函數運算：設定開始及結束，各累加3日的日期
-            d.setFullYear(Y, M, D + a)
-            // 上面月份有+1，所以不必再加
-            var hM = d.getMonth()
+            d.setFullYear(Y, M1, D + a)
+            // 月份在此+1，才不會出問題
+            var hM = d.getMonth() + 1
             var hD = d.getDate()
-            d.setFullYear(Y, M, D + a + 2)
+            d.setFullYear(Y, M1, D + a + 2)
             var hD2 = d.getDate()
             return txt1.value + b + hM + '月' + hD + '~' + hD2 + '日'
         }
