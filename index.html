@@ -7,27 +7,53 @@
     <base target="_blank">
     <style>
         /**{border-radius: 22px;}*/
-        
+
         body {
             background: black;
         }
-        
+
          ::selection {
             background: darkred;
             color: yellow;
         }
-        
+
          ::-moz-selection {
             background: darkred;
             color: yellow;
         }
-        
+
+.name {background:tan;color: crimson;}
+
+#txt1{width: 80vw;height: 30vh;}
+#ch1911,#ch1911x,.g {font-weight: bold;color: gold;}
+#myValue {width: 80vw;font-weight: bold;color: #aca;}
+#myValue2 {width: 80vw;font-weight: bold;color: snow;}
+#reValue,.t {font-weight: bold;color: tomato;}
+#reUp,.r {font-weight: bold;color: red;}
+.sb {font-weight: bold;color: skyblue;}
+.cy {font-weight: bold;color: cyan;}
+.ky {font-weight: bold;background: khaki;}
+.pink {font-weight: bold;color: pink;}
+.y {font-weight: bold;background: yellow;}
+.o {font-weight: bold;color: darkorange;}
+.yg {font-weight: bold;color: green;}
+.dc {font-weight: bold;color: darkcyan;}
+.dg {font-weight: bold;color: salmon;}
+.b {font-weight: bold;color: blue;}
+.p {font-weight: bold;color: slateblue;}
+.m {font-weight: bold;color: magenta;font-size: 110%;}
+.dv {font-weight: bold;color: darkviolet;}
+.lg {font-weight: bold;color: limegreen;}
+.lsg {font-weight: bold;color: lightseagreen;}
+.da {font-weight: bold;color: darkred;}
+.bt {font-weight: bold;}
+
         #mula {
             width: 80vw;
             margin: 0 10vw;
         }
         /*暗色主題*/
-        
+
         .big {
             background: darkslategray;
             color: tomato;
@@ -35,13 +61,13 @@
             font-family: '標楷體';
             line-height: 36pt;
         }
-        
+
         a {
             color: yellow;
             font-size: 14pt;
             text-decoration: none;
         }
-        
+
         .small {
             line-height: 30pt;
             border: 2px solid black;
@@ -56,27 +82,27 @@
             font-family: '標楷體';
             line-height: 36pt;
         }
-        
+
         a {
             color: black;
             font-size: 14pt;
             text-decoration: none;
         }
-        
+
         .small {
             line-height: 30pt;
             border: 2px solid #000;
             background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);
             background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);
         }*/
-        
+
         .small:hover {
             border-color: green lime lime green;
             border-width: 2px;
             border-style: solid;
             background: darkgreen;
         }
-        
+
         .small:active {
             border-color: indigo #f3f #f6f indigo;
             border-width: 3px;
@@ -96,6 +122,9 @@ var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的�
                 // 加入超連結
                 aA.setAttribute('href', './' + k)
                 aA.innerHTML = '　' + j + '.　' + k
+                // 加入顏色樣式，比較好找檔案
+                if(/排班|正規/.test(k)){aA.className = 'r'}
+                if(/nk|個人/.test(k)){aA.className = 'cy'}
                 g.className = 'small'
                 g.appendChild(aA)
                 mula.appendChild(g)
