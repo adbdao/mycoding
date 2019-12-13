@@ -5,6 +5,7 @@
     <title>排班(表格抽籤)</title>
 <style>
 *{border-radius: 8px;padding: 3px;}
+html{background: silver;color:black;}
 ::selection{background: olive;color:yellow}
 ::-moz-selection{background: olive;color:yellow}
 td::selection,textarea::selection{background: darkred;color:yellow}
@@ -20,7 +21,7 @@ td{border: 1px solid indigo;}
 #txt2{width:40vw;height:20vh;}
 #txt3{width:20vw;height:25vh;}
 
-input {height: 27px;}
+input {height: 30px;background:pink;color: navy;}
 #div0 {background:#ccc;}
 #div1 {background:#ebe;}
 #div1 input {background:#fec;}
@@ -28,8 +29,23 @@ input {height: 27px;}
 #div3 input {background:#ff8;}
 #div4 input {background:#f99;}
 .name {background:tan;color: crimson;}
-
-#nbr {width: 150px; height: 30px;background: lightcyan}
+.g {background: gold;}
+.t {background: tomato;}
+.r {background: red;}
+.sb {background: skyblue;}
+.ky {background: khaki;}
+.pink {background: pink;}
+.y {background: yellow;}
+.o {background: orange;}
+.yg {background: yellowgreen;}
+.b {background: lightblue;}
+.p {background: mediumpurple;}
+.lg {background: limegreen;}
+.lsg {background: lightseagreen;}
+.lc {background: lightcyan;}
+.gy {background: greenyellow;}
+.tan {background: tan;}
+#nbr {width: 200px; height: 30px;background: lightcyan}
 #btng1 {width: 70px; height: 55px;background: tomato}
 #btng2 {width: 70px; height: 45px;background: gold}
 #btng3 {width: 55px; height: 55px;background: skyblue}
@@ -1504,6 +1520,7 @@ window.onload=function()
             // 導入輪組結束日期
             p.setFullYear(Number(Arr[0]), Number(Arr[1]) - 1, Number(Arr[2]) + i * 7 + 6)
             pDay += (p.getMonth() + 1) + '月' + p.getDate() + '日週' + p.getDay()
+            pDay = pDay.replace(/週0/g,'週日')
 
             // 第一次試用foreach函數，運算整個小組人員的陣列
             // 重新導入修飾過的人名
@@ -1797,8 +1814,8 @@ window.onload=function()
     <input id="btn20" type="button" class="name" value="顯示輪組住眾"/>
     <input id="btn21" type="button" class="name" value="顯示安居住眾"/>
     <input id="btnarr6" type="button" class="name" value="顯示單組人員及今日日期" style="display:none;"/>
-    <input id="btnarr6a" type="button" class="name" value="輪組工作單，文本框2輸入日期，再按即下一輪" style="color:slateblue;"/>
-    <input id="btnarr6b" type="button" class="name" value="個人工作單(先按前按鈕)" style="color:slateblue;"/>
+    <input id="btnarr6a" type="button" class="t" value="輪組工作單，文本框2輸入日期，再按即下一輪"/>
+    <input id="btnarr6b" type="button" class="p" value="個人工作單(先按前按鈕)"/>
     <br/>
     ※↓第2步：人名前後加上：釋、法師(只呈現在第1文本框中)
     <br/>

@@ -15,22 +15,22 @@ input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:
 td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
 #tab1{border: 3px solid darkgoldenrod;}
 td{border: 1px solid indigo;}
-input {height: 30px;}
+input {height: 30px;color: black;}
 #div0 {background:#ccc;}
-#div1 {background:#ebe;}
+#div1 {background:#ebe;color: blue;}
 #div1 input {background:#fec;}
 #div2 input {background:#aea;}
 #div3 input {background:#ff8;}
 #div4 input {background:#f99;}
-.name {background:tan;color: crimson;}
+.name {background:tan;color: darkred;}
 
 #txt1{width: 60vw;height: 30vh;}
-#ch1911,#ch1911x,.g {background: gold;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
 #myValue3 {width: 60vw;background:lightyellow;}
-#reValue,.t {background: tomato;}
-#reUp,.r {background: red;}
+.g {background: gold;}
+.t {background: tomato;}
+.r {background: red;}
 .sb {background: skyblue;}
 .ky {background: khaki;}
 .pink {background: pink;}
@@ -41,11 +41,9 @@ input {height: 30px;}
 .p {background: mediumpurple;}
 .lg {background: limegreen;}
 .lsg {background: lightseagreen;}
-
-#nbr {background: lightcyan;}
-#btng2 {background: gold;}
-#btng4,.gy {background: greenyellow;}
-#btng5,.tan {background: tan;}
+.lc {background: lightcyan;}
+.gy {background: greenyellow;}
+.tan {background: tan;}
 #reload {height: 40px;background: yellowgreen;}
 
 @media all and (max-width:700px) {
@@ -909,14 +907,14 @@ function toZhDigit(digit) {
         <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName'/><br/>
 
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
-        <input id="reValue" type="button" value="回復原始資料"/>
-        <input id="reUp" type="button" value="回復上一步"/>
+        <input id="reValue" type="button" class="t" value="回復原始資料"/>
+        <input id="reUp" type="button" class="r" value="回復上一步"/>
         <br/>
 
-        <input id="addNumber" type="button" value="建立數列1-99"/>
-        <input id="addNumberZero" type="button" value="建立數列01-99補零"/>
-        <input id="ch1911" type="button" value="民國→西元年"/>
-        <input id="ch1911x" type="button" value="民國←西元年"/>
+        <input id="addNumber" type="button" class="p" value="建立數列1-99"/>
+        <input id="addNumberZero" type="button" class="p" value="建立數列01-99補零"/>
+        <input id="ch1911" type="button" class="g" value="民國→西元年"/>
+        <input id="ch1911x" type="button" class="g" value="民國←西元年"/>
         <input id="NameToArr" type="button" class="sb" value="檔名轉陣列(橫)"/>
         <input id="NameToArr2" type="button" class="sb" value="檔名轉陣列(直)"/>
 
@@ -935,7 +933,7 @@ function toZhDigit(digit) {
         <input id="SpaceToNumEvery" type="button" class="pink" value="文章大綱多層編號(以四個空白分層級)"/>
         <input id="TabToAccelon3Tag" type="button" class="g" value="文章轉Accelon3Tag(以Tab分層級)"/>
         <input id="NumView" type="button" class="b" value="值1與文章轉大綱圖表"/>
-        <input id="toOlLi" type="button" value="加上<ol><li>"/>
+        <input id="toOlLi" type="button" class="lg" value="加上<ol><li>"/>
         <br/>
         <input id="DelTag" type="button" class="tan" value="刪除所有置標符"/>
         <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號"/>

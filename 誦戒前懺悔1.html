@@ -4,14 +4,15 @@
     <head>
     <title>誦戒前懺悔</title>
 <style>
-*{border-radius: 8px;}
+/**{border-radius: 8px;}*/
 input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
 input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
 td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
-table{border: 3px solid darkgoldenrod;}
+table{border: 3px solid darkgoldenrod;color: black;}
 td{border: 1px solid indigo;}
-input{height: 30px;}
+input {height: 30px;background:lightgrey;color: navy;}
 #btn9 {background:#f99;}
+li {color: black;}
 </style>
 <script type="text/javascript">
 /*!
@@ -138,7 +139,7 @@ function MM(a){
         oTab.tBodies[0].rows[i].onmouseover=function()
         {
             oldColor=this.style.background
-            this.style.background='#ff0'
+            this.style.background='lightyellow'
         }
         oTab.tBodies[0].rows[i].onmouseout=function()
         {
@@ -146,11 +147,11 @@ function MM(a){
         }
         if(i%2)
         {
-            oTab.tBodies[0].rows[i].style.background=''
+            oTab.tBodies[0].rows[i].style.background='lightblue'
         }
         else
         {
-            oTab.tBodies[0].rows[i].style.background='#cfc'
+            oTab.tBodies[0].rows[i].style.background='lightgreen'
         }
     }
     addDate()
@@ -163,7 +164,7 @@ function ML(a){
         oUL[i].onmouseover=function()
         {
             oldColor=this.style.background
-            this.style.background='#ff0'
+            this.style.background='lightyellow'
         }
         oUL[i].onmouseout=function()
         {
@@ -171,11 +172,11 @@ function ML(a){
         }
         if(i%2)
         {
-            oUL[i].style.background=''
+            oUL[i].style.background='thistle'
         }
         else
         {
-            oUL[i].style.background='#cfc'
+            oUL[i].style.background='wheat'
         }
     }
     addDate()

@@ -1147,11 +1147,11 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var aP = document.getElementsByClassName('LittleNumClass')
       // 用for of無法運行
       for (var i in aP) {
-        if (aP[i].style.color == 'white') {
-          // 若顏色太淺，在紅紙上看不見
-          aP[i].style.color = '#444'
+        if (aP[i].style.display == 'none') {
+          // 若顏色太淺，在紅紙上看不見。改為呈現與否，不用白色灰色轉換
+          aP[i].style.display = 'block'
         } else {
-          aP[i].style.color = 'white'
+          aP[i].style.display = 'none'
         }
       }
     }
@@ -2052,9 +2052,9 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: darkred;
       color: yellow
     }
-    /*html {
-      background: olive;
-    }*/
+    html {
+      background: gray;
+    }
     
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
@@ -2073,9 +2073,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       color: #0000FF;
     }
     
+    td {
+        color: black;
+    }
+    
     input {
-      background: #f99;
-      height: 30px;
+        height: 30px;
+        background: pink;
+        color: navy;
     }
     
     button {
@@ -2194,6 +2199,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       transform: rotate(-90deg);
       text-align: right;
       /*border: 1px solid red;*/
+      /*color: #444;*/
+      display:block;
     }
     
     .lastFont {
@@ -2373,8 +2380,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             </TABLE>
 
             <br/>
-            <SELECT style="BACKGROUND-COLOR: #e0e0ff; WIDTH: 240px; FONT: 9pt '細明體'" onchange=chContinent() name=continentMenu></SELECT><br/>
-            <SELECT style="BACKGROUND-COLOR: #e0e0ff; WIDTH: 240px; FONT: 9pt '細明體'" onchange=chCountry() name=countryMenu></SELECT>
+            <SELECT style="WIDTH: 240px; FONT: 9pt '細明體'" onchange=chContinent() name=continentMenu></SELECT><br/>
+            <SELECT style="WIDTH: 240px; FONT: 9pt '細明體'" onchange=chCountry() name=countryMenu></SELECT>
           </P>
         </TD>
       </FORM>

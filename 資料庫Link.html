@@ -93,6 +93,8 @@
                 if (!Arr1[i + 1]) {
                     var h = document.createElement('div')
                     h.innerHTML = Arr1[i]
+                    // 加入data*名稱，才可動態查詢，有了這個屬性，可以用 CSS 來獲取
+                    h.setAttribute('data-title', Arr1[i].toLowerCase())
                     h.className = 'big'
                     mula.appendChild(h)
                 } else {
@@ -101,6 +103,8 @@
                     // 加入超連結
                     aA.setAttribute('href', Arr1[i + 1])
                     aA.innerHTML = '　' + j + '.　' + Arr1[i]
+                    // 加入data*名稱，才可動態查詢，有了這個屬性，可以用 CSS 來獲取
+                    g.setAttribute('data-title', Arr1[i].toLowerCase())
                     g.className = 'small'
                     g.appendChild(aA)
                     mula.appendChild(g)
@@ -108,11 +112,26 @@
                 }
             }
         }
+        function dt() {
+            // 查詢，並動態呈現
+            // 把輸入值轉小寫，就可以大小寫通查，因為在data-title已轉小寫
+            var x = search.value.toLowerCase()
+            if (!x) {
+                // 當沒有數值的時候，清空style，避免清空的時候無法還原所有的清單
+                search_style.innerHTML = ''
+            } else {
+                // style 裡面動態寫入寫入下方的 CSS，如此一來，data-title 裡面只要有吻合的字串，就會顯示，沒有就會被加入display:none的屬性
+                search_style.innerHTML = '#mula div:not([data-title*="' + x + '"]) {display: none;}'
+            }
+        }
     </script>
+    <style id="search_style"></style>
 </head>
 
 <body>
-    <div id="mula"></div>
+    <div id="mula">
+        <input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢" onkeyup="dt()">
+    </div>
 </body>
 
 </html>
