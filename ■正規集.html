@@ -5,7 +5,6 @@
 <head>
     <title>正規集 按鈕集</title>
     <base target="_blank">
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 <style>
 *{border-radius: 8px;padding: 3px;}
 html{background: black;}
@@ -25,10 +24,10 @@ input {height: 30px;color: black;}
 #div4 input {background:#f99;}
 .name {background:tan;color: darkred;}
 
-#txt1{width: 60vw;height: 30vh;background: bisque;}
+#txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
-#myValue3 {width: 60vw;background:silver;}
+#myValue3 {width: 60vw;background:bisque;}
 .g {background: gold;}
 .t {background: tomato;}
 .r {background: red;}
@@ -48,7 +47,7 @@ input {height: 30px;color: black;}
 #reload {height: 40px;background: yellowgreen;}
 
 @media all and (max-width:700px) {
-    #txt1,#myValue,#myValue2 {
+    #txt1,#myValue,#myValue2,#myValue3 {
     width: 90vw;
     }
 }
@@ -1078,27 +1077,27 @@ input {height: 30px;color: black;}
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="reValue" type="button" class="r" value="回復原始資料" />
         <input id="reUp" type="button" class="r" value="回復上一步" />
-        <input id="DelTag" type="button" class="tan" value="刪除<>置標符" />
-        <input id="DelTabToNum" type="button" class="gy" value="刪除大綱編號" />
-        <input id="DelEnter" type="button" class="gy" value="刪除空行" />
+        <input id="DelTag" type="button" class="tan" value="刪<>置標符" />
+        <input id="DelTabToNum" type="button" class="gy" value="刪大綱編號" />
+        <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
-        <input id="NumView" type="button" class="b" value="大綱圖表(值1為題目)" />
-        <input id="NumViewEnd" type="button" class="b" value="大綱圖表末尾(值1為末)" />
+        <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
+        <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />
         <input id="ReToN" type="button" class="y" value="值1取代為換行符" />
         <input id="ReToT" type="button" class="y" value="值1取代為Tab" />
-        <input id="ReABCToabc" type="button" class="yg" value="英文大寫轉小寫" />
-        <input id="ReabcToABC" type="button" class="yg" value="英文小寫轉大寫" /> 自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
+        <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
+        <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" /> 自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
     </div>
     <div>
-        <input id="addNumber" type="button" class="p" value="建立數列1-99" />
-        <input id="addNumberZero" type="button" class="p" value="建立數列補零001" />
+        <input id="addNumber" type="button" class="p" value="數列1-99" />
+        <input id="addNumberZero" type="button" class="p" value="數列補零001" />
         <input id="ch1911" type="button" class="g" value="民國→西元年" />
         <input id="ch1911x" type="button" class="g" value="民國←西元年" />
-        <input id="NameToArr" type="button" class="sb" value="檔名轉陣列(橫)" />
-        <input id="NameToArr2" type="button" class="sb" value="檔名轉陣列(直)" />
+        <input id="NameToArr" type="button" class="sb" value="轉陣列(橫)" />
+        <input id="NameToArr2" type="button" class="sb" value="轉陣列(直)" />
     </div>
     <div id="div1">修飾法名
         <input id="btn13" type="button" value="釋+名" />
@@ -1110,9 +1109,9 @@ input {height: 30px;color: black;}
     </div>
     <div>
         <input id="TabToNum" type="button" class="y" value="大綱編號(首層無)(以Tab分層級)" />
-        <input id="TabToNumEvery" type="button" class="pink" value="大綱多層編號(以Tab分層級)" />
-        <input id="TabToNumEvery2" type="button" class="y" value="大綱多層編號(首層為值1)(以Tab分層級)" />
-        <input id="SpaceToNumEvery" type="button" class="pink" value="大綱多層編號(以四個空白分層級)" />
+        <input id="TabToNumEvery" type="button" class="pink" value="大綱編號多層(以Tab分層級)" />
+        <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
+        <input id="SpaceToNumEvery" type="button" class="pink" value="大綱編號多層(以四個空白分層級)" />
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
         <input id="toOlLi" type="button" class="lg" value="加上<ol><li>" />
     </div>
@@ -1121,8 +1120,8 @@ input {height: 30px;color: black;}
         <input id="toHrefXML" type="button" class="p" value="整列網址加標記<聯>值1自訂連結名稱" />
         <input id="alltoHref" type="button" class="o" value="網址加標記<a>" />
         <input id="alltoHrefXML" type="button" class="o" value="網址加標記<聯>" />
-        <input id="DelHref" type="button" class="tan" value="刪除標記<a>" />
-        <input id="DelHrefXML" type="button" class="tan" value="刪除標記<聯>" />
+        <input id="DelHref" type="button" class="tan" value="刪標記<a>" />
+        <input id="DelHrefXML" type="button" class="tan" value="刪標記<聯>" />
     </div>
     <div>
         <input id="MathToChinese" type="button" class="lc" value="值1的數字轉中文數字" />
