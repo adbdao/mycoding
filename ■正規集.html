@@ -548,7 +548,7 @@ input {height: 30px;color: black;}
                         if (w < Arr2[i])
                             w = Arr2[i]
                     }
-                    // 加入圖表┘┐┝┥┴
+                    // 加入圖表
                     for (var i = 0; i < q; i++) {
                         // 循環增加末尾空白
                         var v = String(Arr1[i]).length
@@ -556,7 +556,7 @@ input {height: 30px;color: black;}
                             Arr1[i] = Arr1[i] + '　'
                         }
                         // 文字行，而且行首是文字
-                        if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                        if (Arr1[i] && !/^[　\s]+$/.test(Arr1[i])) {
                             // 如果只有1行
                             if (q == 1) {
                                 Arr1[0] = Arr1[0] + '─' + myValue.value
@@ -582,15 +582,15 @@ input {height: 30px;color: black;}
                                         r = 1
                                     } else {
                                         // 中間行
-                                        Arr1[i] = Arr1[i] + '┥'
+                                        Arr1[i] = Arr1[i] + '┤'
                                     }
                                 }
                             }
                             // 空行的圖表
-                        } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                        } else if (!Arr1[i] || /^[　\s]+$/.test(Arr1[i])) {
                             // 前面都是空行的空行
                             if (/[^　]/.test(Arr1[i]) && r == 0) {
-                                Arr1[i] = Arr1[i] + '　'
+                                Arr1[i] = Arr1[i] + '│'
                                 // 前面有文字行的空行
                             } else if (r == 1) {
                                 Arr1[i] = Arr1[i] + '│'
@@ -599,7 +599,7 @@ input {height: 30px;color: black;}
                     }
                     // 計算大綱的題目位置，並修正符號，記得跳出循環
                     // 偶數行奇數行位置都一樣，因為視覺上題目在末尾，最好低一行
-                    Arr1[q2] = Arr1[q2].replace(/┥/, '┼').replace(/│/, '├').replace(/┘/, '┴') + myValue.value
+                    Arr1[q2] = Arr1[q2].replace(/┤/, '┼').replace(/│/, '├').replace(/┘/, '┴') + myValue.value
                     overCopy()
                     // 無題目的圖表
                 } else if (!myValue.value && txt1.value) {
@@ -625,12 +625,13 @@ input {height: 30px;color: black;}
                     }
                     // 加入圖表
                     for (var i = 0; i < q; i++) {
+                        // 循環增加末尾空白
                         var v = String(Arr1[i]).length
                         for (var j = 0; j < (w - v); j++) {
                             Arr1[i] = Arr1[i] + '　'
                         }
                         // 文字行，而且行首是文字
-                        if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                        if (Arr1[i] && !/^[　\s]+$/.test(Arr1[i])) {
                             // 如果只有1行
                             if (q == 1) {
                                 break
@@ -655,15 +656,15 @@ input {height: 30px;color: black;}
                                         t = 1
                                     } else {
                                         // 中間行
-                                        Arr1[i] = Arr1[i] + '┥'
+                                        Arr1[i] = Arr1[i] + '┤'
                                     }
                                 }
                             }
                             // 空行的圖表
-                        } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                        } else if (!Arr1[i] || /^[　\s]+$/.test(Arr1[i])) {
                             // 前面都是空行的空行
                             if (/[^　]/.test(Arr1[i]) && t == 0) {
-                                Arr1[i] = Arr1[i] + '　'
+                                Arr1[i] = Arr1[i] + '│'
                                 // 前面有文字行的空行
                             } else if (t == 1) {
                                 Arr1[i] = Arr1[i] + '│'
