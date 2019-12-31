@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>佛七時間表</title>
+<style>
+/**{border-radius: 8px;padding: 3px;}*/
+html{background: silver;color:black;}
+::selection{background: olive;color:yellow}
+::-moz-selection{background: olive;color:yellow}
+
+.print{
+/*border: 1px solid red;*/
+/*配合A4紙大小，有時Chrome列印的邊界會不準*/
+width: 190mm;
+height: 265mm;
+font-size: 16pt;
+font-family: 標楷體;
+color: black;
+-moz-column-count:2; /* Firefox */
+-webkit-column-count:2; /* Safari and Chrome */
+column-count:2;
+letter-spacing: 3px;
+}
+#printNameDiv{
+/*配合A4紙大小*/
+width: 190mm;
+height: 15mm;
+/*轉直排語法*/
+/*-webkit-writing-mode: vertical-rl;
+writing-mode: vertical-rl;*/
+border-bottom: 5px double green;
+font-size: 30pt;
+font-family: 標楷體;
+/* 垂直置中，設定文字行距 */
+/*line-height:85mm;*/
+/*水平置中*/
+text-align: center;
+/* 設定文字間距 */
+letter-spacing: 3px;
+}
+#printNameDiv span {    
+ font-size:12pt;
+ font-family:新細明體;
+ letter-spacing: 0px;
+}
+</style>
+    <script>
+        function overCopy() {
+            // 結束時選取並複製文本框中的內容，無法複製div
+            txt2.select()
+            document.execCommand('Copy')
+            // 焦點移至最頂端(x軸,y軸)
+            window.scrollTo(0, 0)
+            addDate()
+        }
+        function addNum() {
+            var arr = []
+            for (var i = 0; i < 99; i++) {
+                arr[i] = (i + 1) < 10 ? '0' + (i + 1) : '' + (i + 1)
+            }
+            txt1.value = arr.join('\n')
+            nbr.value = '3'
+        }
+        function toDon(n) {
+            if (n < 10) {
+                return '0' + n
+            } else {
+                return '' + n }
+        }
+        function addDate() {
+            var oDate = new Date()
+            var htr = toDon(oDate.getHours()) + ':' + toDon(oDate.getMinutes()) + ':' + toDon(oDate.getSeconds())
+            var dtr = oDate.getFullYear() + '/' + toDon((oDate.getMonth() + 1)) + '/' + toDon(oDate.getDate())
+
+            return '製表日期： ' + dtr
+            //  + '_' + htr
+            // 焦點移至最頂端(x軸,y軸)
+            window.scrollTo(0, 0)
+        }
+        var s = {
+            // 設定：各支香的時間
+            '早課': 60,
+            '晚課': 30,
+            '繞佛': 15,
+            '念佛': 15,
+            '止靜': 15,
+            '迴向': 5,
+            '早齋': 50,
+            '午齋': 50,
+            '拜佛': 30,
+            '大迴向': 60,
+            '出坡': 60,
+            '休息': 60
+        }
+        var p = [
+            // 設定：作息順序。時間加減：在前一行加上數字，可用負數
+            '早課',
+            '繞佛',
+            '念佛',
+            '止靜',
+            '-5',
+            '念佛',
+            '迴向',
+            '早齋',
+            '10',
+            '出坡',
+            '',
+            '拜佛',
+            '繞佛',
+            '念佛',
+            '止靜',
+            '念佛',
+            '',
+            '拜佛',
+            '繞佛',
+            '註：第一天午供',
+            '-5',
+            '念佛',
+            '-5',
+            '止靜',
+            '-5',
+            '念佛',
+            '迴向',
+            '午齋',
+            '80',
+            '休息',
+            '',
+            '5',
+            '繞佛',
+            '念佛',
+            '止靜',
+            '-5',
+            '念佛',
+            '',
+            '-5',
+            '拜佛',
+            '念佛',
+            '5',
+            '止靜',
+            '',
+            '繞佛',
+            '念佛',
+            '止靜',
+            '-5',
+            '念佛',
+            '迴向',
+            '60',
+            '休息',
+            '',
+            '晚課',
+            '念佛',
+            '止靜',
+            '註：第七天大迴向',
+            '大迴向'
+        ]
+        function b7() {
+            var a, b, c, d, e, f
+            var d = new Date()
+            // 設定作息開始時間：早上4點
+            d.setHours(4, 0)
+            // 取出時、分
+            var t = d.getHours()
+            var m = d.getMinutes()
+            // print1.innerHTML = '<span style="font-size:150%;">　　佛七作息表</span><hr/>'
+            print1.innerHTML = toDon(t) + ':' + toDon(m) + '　　' + '起板' + '<br/>'
+            // 保留前一支香的時、分
+            a = t
+            b = m + 30
+            // 預設增加的分鐘數
+            e = 0
+            for (var k of p) {
+                // 空行
+                if (!k) {
+                    print1.innerHTML += '<hr/>'
+                }
+                // 註解行
+                if (/^註/.test(k)) {
+                    print1.innerHTML += k + '<br/>'
+                }
+                // 增加的分鐘數
+                if (/\-?\d+/.test(k)) {
+                    e = Number(k)
+                }
+                // 循環每支香的時間
+                if (s[k]) {
+                    d.setHours(t, m + Number(s[k]) + e)
+                    t = d.getHours()
+                    m = d.getMinutes()
+                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　　' + k + '<br/>'
+                    // 保留前一支香的時、分
+                    a = t
+                    b = m
+                    // 增加的分鐘數歸零
+                    e = 0
+                }
+            }
+            print1.innerHTML += toDon(t) + ':' + toDon(m) + '　　' + '念佛出班，安板' + '<hr/>'
+            // 行距
+            print1.style.lineHeight = Math.floor((280 / (p.length)) * 2 + 2) + 'mm'
+            // 製表日期
+            printNameDiv.innerHTML += '<span>' + addDate()
+        }
+    </script>
+</head>
+
+<body onload="b7()">
+    <div id="printNameDiv">　　佛七作息表　</div>
+    <div id="print1" class="print"></div>
+</body>
+
+</html>

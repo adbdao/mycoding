@@ -387,22 +387,24 @@ input {height: 30px;color: black;}
             NumView.onclick = function () {
                 // 檢查是否有輸入資料
                 if (myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
                     // 導入陣列
                     zzUp()
                     // 值1中的字，轉為空白，以便排列。用這方法，就不必用循環
                     var w = myValue.value.replace(/./g, '　')
-                    // 刪除行首空行，會出問題，不知何因？
+                    // 刪除行首空行，會出問題，不知何因？。後來用正規式，就不必用陣列了
                     // for(var k of Arr1){
                     //     if(!k){
                     //         Arr1.shift()
                     //     }else{break}
                     // }
-                    // 刪除末尾的空行。反向循環
-                    for (var j = (Arr1.length - 1); j > -1; j--) {
-                        if (!Arr1[j]) {
-                            Arr1.pop()
-                        } else { break }
-                    }
+                    // 刪除末尾的空行。反向循環。後來用正規式，就不必用陣列了
+                    // for (var j = (Arr1.length - 1); j > -1; j--) {
+                    //     if (!Arr1[j]) {
+                    //         Arr1.pop()
+                    //     } else { break }
+                    // }
                     // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
                     var q = Arr1.length
                     var q2 = Math.floor(q / 2)
@@ -464,13 +466,9 @@ input {height: 30px;color: black;}
                     overCopy()
                     // 無題目的圖表
                 } else if (!myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
                     zzUp()
-                    // 刪除末尾的空行。反向循環
-                    for (var j = (Arr1.length - 1); j > -1; j--) {
-                        if (!Arr1[j]) {
-                            Arr1.pop()
-                        } else { break }
-                    }
                     // 重新計算陣列長度，否則會以之前的長度來運算
                     var q = Arr1.length
                     // 為了前幾行若有空白，作運算時用
@@ -525,14 +523,10 @@ input {height: 30px;color: black;}
             NumViewEnd.onclick = function () {
                 // 檢查是否有輸入資料
                 if (myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
                     // 導入陣列
                     zzUp()
-                    // 刪除末尾的空行。反向循環
-                    for (var j = (Arr1.length - 1); j > -1; j--) {
-                        if (!Arr1[j]) {
-                            Arr1.pop()
-                        } else { break }
-                    }
                     // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
                     var q = Arr1.length
                     var q2 = Math.floor(q / 2)
@@ -602,13 +596,9 @@ input {height: 30px;color: black;}
                     overCopy()
                     // 無題目的圖表
                 } else if (!myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
                     zzUp()
-                    // 刪除末尾的空行。反向循環
-                    for (var j = (Arr1.length - 1); j > -1; j--) {
-                        if (!Arr1[j]) {
-                            Arr1.pop()
-                        } else { break }
-                    }
                     // 重新計算陣列長度，否則會以之前的長度來運算
                     var q = Arr1.length
                     // 為了前幾行若有空白，作運算時用

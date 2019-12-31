@@ -1,3 +1,6 @@
+/*每行排序：暫時依2016的css排序*/
+
+/*主要文件 */
 body {background:#000; line-height:120%; color:yellow; font-size:200%;}
 .SearchWord1 {color:#ffc; background: #ffff66;}
 .SearchWord2 {color:#ffc; background: #a0ffff;}
@@ -8,57 +11,39 @@ a.hover	{color:cyan;}
 a:visited 	{color:cyan;}
 a:link		{color:red; font-size:80%;}
 a:active	{color:purple;}
+/*經號 */
 .juannum {color:lime; font-size:100%;}
+/*卷標題*/
 .juanname {color:cyan; font-size:120%;font-weight: bold; }
+/*序*/
 .xu {color:#ffa; font-size:100%;}
+/*附文*/
 .w {color:pink; font-size:100%;}
+/*作譯者*/
 .byline {color:#bf9; font-size:100%;font-weight: bold;}
+/*一般標題*/
 .headname {color:#f99; font-size:100%;font-weight: bold; }
+/*行首編號*/
 .linehead {color:pink; font-size:100%;}
+/*偈頌*/
 .lg {color:limegreen; font-size:100%;}
 .corr {color:#fcc; }
 .gaiji {color: magenta; font-family:SimSun, Arial Unicode MS, �s�ө���;}
+/*小字註解*/
 .note {color:#f8f; font-size:90%;}
 
+/*預先格式化文件, 即 <pre> 標記文件 */
 .preformat {color: orange; font-size:1em;}
+/*外文*/
 .preformat .foreign {color: red; font-size:0.83em;}
+/*一般標題*/
 .headname {color:#f99; font-size:100%;font-weight: bold; }
 .headname2 {color: darkkhaki; font-size:1.2em;}
 .headname3 {color: yellowgreen; font-size:1.2em;}
 .headname4 {color: lightcyan; font-size:1.2em;}
+/*段首編號*/
 .parahead {color:lightblue; font-size:90%;}
+/*漢譯南傳大藏經中的 pts 編號*/
 .pts_head {color:tomato; font-size:90%;}
-
+/*滑鼠反白顏色*/
 ::selection {background: darkred;color: yellow;}
-
-/* 來自CBETA的說明
- 主要文件 
-body { font-size:16px; line-height:140%; }
- 預先格式化文件, 即 <pre> 標記文件 
-.preformat {font-size:1em;}
- 經號 
-.juannum {font-size:1em;}
- 序 
-.xu {font-size:1em;}
- 附文 
-.w {font-size:1em;}
- 作譯者 
-.byline {font-size:1em;}
- 偈頌 
-.lg {font-size:1em;}
- 外文 
-.preformat .foreign {font-size:0.83em;}
- 卷標題與一般標題 
-.juanname {font-size:1.2em;}
-.headname {font-size:1.2em;}
-.headname2 {font-size:1.2em;}
-.headname3 {font-size:1.2em;}
-.headname4 {font-size:1.2em;}
- 行首編號 
-.linehead {font-size:16px;}
- 段首編號 
-.parahead {font-size:0.85em;}
- 漢譯南傳大藏經中的 pts 編號 
-.pts_head {font-size:0.85em;}
- 小字註解 
-.note {font-size:0.85em;}*/
