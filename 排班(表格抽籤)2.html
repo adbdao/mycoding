@@ -12,11 +12,14 @@ td::selection,textarea::selection{background: darkred;color:yellow}
 td::-moz-selection,textarea::-moz-selection{background: darkred;color:yellow}
 input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
 input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid}
-td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
 table{border: 3px solid darkgoldenrod;
 /*width: 20cm;height: 28cm;*/
 }
 td{border: 1px solid indigo;}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid}
+tr:nth-of-type(odd){ background: lightgreen; }
+tr:nth-of-type(even){ background: lightblue; }
+tr:hover{background: wheat;}
 #txt1{width:18vw;height:25vh;}
 #txt2{width:40vw;height:20vh;}
 #txt3{width:20vw;height:25vh;}
@@ -27,7 +30,7 @@ input {height: 30px;background:pink;color: navy;}
 #div1 input {background:#fec;}
 #div2 input {background:#aea;}
 #div3 input {background:#ff8;}
-#div4 input {background:#f99;}
+/*#div4 input {background:#f99;}*/
 .name {background:tan;color: crimson;}
 .g {background: gold;}
 .t {background: tomato;}
@@ -143,7 +146,10 @@ var nanArr=['圓振',
 '天授',
 '振同',
 '振文',
-
+'如提',
+'如恩',
+'演松',
+'融善',
 '振修',
 '印璽',
 '智廣',
@@ -267,6 +273,7 @@ var work5=[
 '學院4樓：佛堂內拖地、拜墊清潔(可用吸塵器)',
 '早鐘、晚鼓'
 ]
+var workHj=['一樓大殿與三樓三聖殿香燈','值星','巡查 回教誡','傳八關齋戒','誦戒(比丘戒菩薩戒)','誦戒維那','大寮倒垃圾','大寮切水果','大寮午齋煮菜切菜','大寮打板','大寮助手','大寮排缽、副食品','大寮早齋煮菜切菜','大寮洗缽台','大寮飯、湯','大寮過堂出食','大寮飯後掃地','大寮飯後擦桌','大寮飯後洗碗','學院垃圾','常住垃圾','全寺澆水','早午齋維那','早課維那','早課木魚','早課鈴鼓','早鐘晚鼓','早鼓晚鐘','晚課維那','晚課木魚','晚課鈴鼓','晚課出食','午供出食','午供木魚','午供維那','午供鈴鼓']
 var nanArr2=["圓振","宗興","果明","悟曜","心定","道中","悟廣","慈信","淨才","智倫","祥因","本瑞","淨本","界貴","成道","清會","見分","成恩","心寶","常定","宏顯","宏度","成明","湛南","印量","本光","常嶺","成真","慶慧","常引","常品","智梵","本平","達虔","融慧","振慈","長合","惟禮","成本","智源","圓普","見照","成義","成勇","慈定","圓觀","寬恒","天授","天祥","振禪","振文","振同","振修","印璽","成孝","蘇哲祥"]
 
 function overCopy(){
@@ -316,32 +323,33 @@ function MM(){
     // 舊式的滑鼠反白，現在可用css代替了
     oTab.innerHTML=oTab.innerHTML.replace(/undefined/g,'')
 
-    for(var i=0;i<oTab.tBodies[0].rows.length;i++)
-    {
-        oTab.tBodies[0].rows[i].onmouseover=function()
-        {
-            oldColor=this.style.background
-            this.style.background='#9ff'
-        }
-        oTab.tBodies[0].rows[i].onmouseout=function()
-        {
-            this.style.background=oldColor
-        }
-        if(i%2)
-        {
-            oTab.tBodies[0].rows[i].style.background=''
-        }
-        else
-        {
-            oTab.tBodies[0].rows[i].style.background='#cfc'
-        }
-    }
+    // for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+    // {
+    //     oTab.tBodies[0].rows[i].onmouseover=function()
+    //     {
+    //         oldColor=this.style.background
+    //         this.style.background='#9ff'
+    //     }
+    //     oTab.tBodies[0].rows[i].onmouseout=function()
+    //     {
+    //         this.style.background=oldColor
+    //     }
+    //     if(i%2)
+    //     {
+    //         oTab.tBodies[0].rows[i].style.background=''
+    //     }
+    //     else
+    //     {
+    //         oTab.tBodies[0].rows[i].style.background='#cfc'
+    //     }
+    // }
     addDate()
 }
 function TdOnmousedown(){
     var oTab=document.getElementById('tab1')
     var oR=oTab.tBodies[0].rows
-    for(var j=2;j<8;j++){
+    var oRC=oTab.tBodies[0].rows[0].cells
+    for(var j=2;j<oRC.length;j++){
         for(var i=1;i<oR.length;i++){
             oR[i].cells[j].onmousedown=function(){
                 if(this.style.background!='red'){
@@ -1403,6 +1411,7 @@ window.onload=function()
         var id=oTab.tBodies[0].rows.length+1
 
         var oTr=document.createElement('tr')
+        // 第一行首的空格
         var oTd=document.createElement('td')
         oTr.appendChild(oTd)
         var oTd=document.createElement('td')
@@ -1496,6 +1505,16 @@ window.onload=function()
         oT2.value=tY+' '+tM+' '+tD
     }
 
+    var p=new Date()
+    var tY,tM,tD,tW
+    tY=p.getFullYear()
+    tM=p.getMonth()+1
+    tD=p.getDate()
+    tW=p.getDay()
+
+    var xy=[]
+    var yx=[]
+
     // 預設陣列儲存工作表單
     var Arr1 = []
     btnarr6a.onclick = function () {
@@ -1583,16 +1602,103 @@ window.onload=function()
             }
         }
     }
+    hj.onclick = function () {
+        delTab()
+        var r, w
+        // 全寺人員數
+        if (txt1.value) {
+            r = txt1.value.split('\n')
+        } else {
+            r = nanArr
+        }
+        // 工作項目數
+        w = workHj
+        // 左側行數數列
+        var id = oTab.tBodies[0].rows.length + 1
 
-    var p=new Date()
-    var tY,tM,tD,tW
-    tY=p.getFullYear()
-    tM=p.getMonth()+1
-    tD=p.getDate()
-    tW=p.getDay()
+        var oTr = document.createElement('tr')
+        // 第一行首的空格
+        var oTd = document.createElement('td')
+        oTr.appendChild(oTd)
+        var oTd = document.createElement('td')
+        oTd.innerHTML = '法名'
+        oTr.appendChild(oTd)
+        // 工作表行
+        for (var j of r) {
+            var oTd = document.createElement('td')
+            oTd.innerHTML = j
+            oTr.appendChild(oTd)
+        }
+        oTab.tBodies[0].appendChild(oTr)
 
-    var xy=[]
-    var yx=[]
+        // 人員列表
+        for (var i of w) {
+            var oTr = document.createElement('tr')
+            var oTd = document.createElement('td')
+            // 左側行數數列
+            oTd.innerHTML = id++
+            oTr.appendChild(oTd)
+
+            var oTd = document.createElement('td')
+            oTd.innerHTML = i
+            oTr.appendChild(oTd)
+
+            for (var j of r) {
+                var oTd = document.createElement('td')
+                oTd.innerHTML = '<input type="checkbox"/>'
+                oTr.appendChild(oTd)
+            }
+            oTab.tBodies[0].appendChild(oTr)
+        }
+        MM()
+        TdOnmousedown()
+    }
+    hjj.onclick = function () {
+        var r, w
+        // 全寺人員數
+        if (txt1.value) {
+            r = txt1.value.split('\n')
+        } else {
+            r = nanArr
+        }
+        // 工作項目數
+        w = workHj
+        // 無法在w.length+1，所以只好加一個元素
+        w.push('a')
+
+        // 先刪除Class下的所有子元素        
+        delClass('print')
+        // 頁首
+        print1.innerHTML = '<p style="text-align: center;">第2組留守工作表 2/3--2/13<br/>若要送菜出去，由值星白眾，請大家發心搬菜 製表日期：' + tY + '/' + tM + '/' + tD + '</p>'
+
+        addDate()
+        var arr2 = []
+        var arr3 = []
+        var oR = oTab.tBodies[0].rows
+        var k = 0
+        for (var j = 0; j < r.length; j++) {
+            arr2[j] = []
+            for (var i = 0; i < w.length; i++) {
+                // 取出打勾的
+                if (oR[i].cells[2 + j].style.background == 'red' || oR[i].cells[2 + j].innerHTML == 'V') {
+                    arr2[j][i] = oR[i].cells[1].innerHTML
+                }
+            }
+            // 選出有工作的人
+            if (/[^\s]/.test(arr2[j])) {
+                arr3[k] = r[j] + arr2[j].join('\t')
+                var aDiv = document.createElement('div')
+                aDiv.innerHTML = r[j] + '師<hr/>' + arr2[j].join('\t')
+                print1.appendChild(aDiv)
+                print1.style.display = 'block'
+                k++
+            }
+        }
+        // 還原陣列，不然第2次運算，就會出錯
+        w.pop()
+        txt2.value = arr3.join('\n').replace(/\t+/g, '\t')
+        overCopy()
+    }
 
     NameDiv.onclick = function () {
         // 先刪除div下的所有子元素
@@ -1851,9 +1957,11 @@ window.onload=function()
 <div id="div4">
     ※↓第3步：先按：「顯示輪組住眾」。再按「分組選單」。選單會呈現在上方網頁，請手動勾選後，再按「列分組表」：呈現分組結果：(橫排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。直排呈現在第3文本框中，需手動複製。舊版橫排，呈現在上方網頁中，需手動複製)
     <br/>
-    <input id="btn17" type="button" value="分組選單"/>
+    <input id="btn17" type="button" class="lsg" value="分組選單"/>
     <!--<input id="btn17-1" type="button" value="增廣滑鼠擊區(可不用)"/ onclick="TdOnmousedown()">-->
-    <input id="btn18" type="button" value="列分組表(也列在第二第三文本框)"/>
+    <input id="btn18" type="button" class="lsg" value="列分組表(也列在第二第三文本框)"/>
+    <input id="hj" type="button" class="lg" value="寒暑假留守工作"/>
+    <input id="hjj" type="button" class="lg" value="寒暑假總結列表"/>
 </div>
 <div id="div5">
     ※↓第3步：開學時的分組抽籤(以亂數隨機抽取)。先按：「顯示輪組住眾」、或「顯示安居住眾」。再下方空白框中鍵入欲分幾組的數字！。再按「分組抽籤」(※可多按幾次！)。隨機抽取結果：直排呈現在第2文本框中，並自動複製完畢，可直接在word中，按貼上，再編輯美化。橫排呈現在第3文本框中，需手動複製。)

@@ -23,6 +23,11 @@ color: black;
 column-count:2;
 letter-spacing: 3px;
 }
+.print span {
+ font-size:10pt;
+ font-family:新細明體;
+ letter-spacing: 0px;
+}
 #printNameDiv{
 /*配合A4紙大小*/
 width: 190mm;
@@ -81,7 +86,7 @@ letter-spacing: 3px;
         }
         var s = {
             // 設定：各支香的時間
-            '早課': 60,
+            '早課': 30,
             '晚課': 30,
             '繞佛': 15,
             '念佛': 15,
@@ -158,16 +163,18 @@ letter-spacing: 3px;
         function b7() {
             var a, b, c, d, e, f
             var d = new Date()
-            // 設定作息開始時間：早上4點
+            // 設定作息開始時間：早上4點，首行文字
             d.setHours(4, 0)
             // 取出時、分
             var t = d.getHours()
             var m = d.getMinutes()
+            // 首行文字
             // print1.innerHTML = '<span style="font-size:150%;">　　佛七作息表</span><hr/>'
             print1.innerHTML = toDon(t) + ':' + toDon(m) + '　　' + '起板' + '<br/>'
             // 保留前一支香的時、分
             a = t
-            b = m + 30
+            // 早課晚30分開始
+            b = m = m + 30
             // 預設增加的分鐘數
             e = 0
             for (var k of p) {
@@ -185,10 +192,12 @@ letter-spacing: 3px;
                 }
                 // 循環每支香的時間
                 if (s[k]) {
+                    // 一支香的總共分鐘數
+                    f = Number(s[k]) + e
                     d.setHours(t, m + Number(s[k]) + e)
                     t = d.getHours()
                     m = d.getMinutes()
-                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　　' + k + '<br/>'
+                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　' + k +' <span>共'+f+ '分</span><br/>'
                     // 保留前一支香的時、分
                     a = t
                     b = m
@@ -196,9 +205,10 @@ letter-spacing: 3px;
                     e = 0
                 }
             }
+            // 最末行
             print1.innerHTML += toDon(t) + ':' + toDon(m) + '　　' + '念佛出班，安板' + '<hr/>'
             // 行距
-            print1.style.lineHeight = Math.floor((280 / (p.length)) * 2 + 2) + 'mm'
+            print1.style.lineHeight = Math.floor((280 / (p.length)) * 2 + 1) + 'mm'
             // 製表日期
             printNameDiv.innerHTML += '<span>' + addDate()
         }
