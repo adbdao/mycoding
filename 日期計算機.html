@@ -15,13 +15,14 @@ color:black;
 ::-moz-selection{background: olive;color:yellow;}
 input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
 input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;}
-input {height: 25px; width: 110px;background:pink;color: navy;}
+input {height: 35px; width: 120px;background:pink;color: navy;}
 .name {background:tan;color: crimson;}
 
 p {width:650px;}
 #txt1 {width: 320px;height: 45px;font-size: 22pt;}
 #div1 {background:#ccc;width: 320px;height: 45px;}
-/*#div2 input{width:50px;background: pink;}
+/*#div0 input{height: 25px; width: 110px;}
+#div2 input{width:50px;background: pink;}
 #div3 input{width:120px;background:bisque;}*/
 .g {background: gold;}
 .t {background: tomato;}
@@ -50,36 +51,42 @@ p {width:650px;}
         window.onload = function () {
             // 今日日期
             var d = new Date
-            var Y = d.getFullYear()
-            var M = d.getMonth()
-            var D = d.getDate()
             // 輸入框中加上今日日期
-            setY.value = Y
-            setM.value = M + 1
-            setD.value = D
+            setY.value = d.getFullYear()
+            setM.value = d.getMonth() + 1
+            setD.value = d.getDate()
+            // 無法這樣設定今日日期
+            // setH.value = Y + '-' + M + '-' + D
+
             // 預備高鐵買票增加每週日期
             var AA = 0
-            // 反應太快，輸入會有障礙
+
+            // 若立刻運算，反應太快，輸入會有障礙
             // addM.onkeyup = addD.onkeyup = 
             function dateAdd() {
                 // 取輸入的值
                 var sY = setY.value
                 var sM = setM.value - 1
                 var sD = setD.value
-                var vY = addY.value
-                var vM = addM.value
-                var vD = addD.value
+                var aY = addY.value
+                var aM = addM.value
+                var aD = addD.value
+
                 // 在input設定type="number"，就不必驗證是否為數字
-                // if (/\D/g.test(vM) || /\D/g.test(vD)) {
-                //     alert('請輸入數字日期  ' + vM + '  ' + vD + ' 是錯誤格式')
+                // if (/\D/g.test(aM) || /\D/g.test(aD)) {
+                //     alert('請輸入數字日期  ' + aM + '  ' + aD + ' 是錯誤格式')
 
                 // 用日期函數運算：設定開始及增加，一定要轉為數字Number()，否則出錯
-                d.setFullYear(Number(sY) + Number(vY), Number(sM) + Number(vM), Number(sD) + Number(vD))
-                var hY = d.getFullYear()
+                if (setH.value) {
+                    // 先運算HTML標準日期框中的日期
+                    var sH = []
+                    sH = setH.value.split('-')
+                    d.setFullYear(Number(sH[0]) + Number(aY), Number(sH[1] - 1) + Number(aM), Number(sH[2]) + Number(aD))
+                } else {
+                    d.setFullYear(Number(sY) + Number(aY), Number(sM) + Number(aM), Number(sD) + Number(aD))
+                }
                 // 月份在此+1，才不會出問題
-                var hM = d.getMonth() + 1
-                var hD = d.getDate()
-                div1.innerHTML = txt1.value = '結果：' + hY + '年' + hM + '月' + hD + '日'
+                div1.innerHTML = txt1.value = '結果：' + d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日'
 
                 // 結束時選取並複製文本框中的內容，無法複製div
                 txt1.select()
@@ -93,10 +100,15 @@ p {width:650px;}
             }
             GT.onclick = function () {
                 // 高鐵買票運算結果
+                // 預設出發日期
+                setH.value = '2020-3-3'
                 setM.value = 3
                 setD.value = 3
-                //  提前28日，有「早鳥優惠」
-                addD.value = -28 + AA
+                // 設定0，防止誤算
+                addY.value = 0
+                addM.value = 0
+                //  提前27日，有「早鳥優惠」
+                addD.value = -27 + AA
                 dateAdd()
                 //  每週增加7日
                 AA += 7
@@ -107,27 +119,32 @@ p {width:650px;}
 
 <body>
     <p class="yg">
-        <span class="t" style="font-size:120%">日期計算機</span>
+        <span class="t" style="font-size:150%">日期計算機</span>
         <br/> 先設定開始日期，若不設定，即用今日日期
-        <br/> 再設定要增加的年月日日期<span class="o">，可用負數，來表示減少的日期</span>
+        <br/> 再設定要增加的年月日日期，<span class="o">可用負數，來表示減少的日期</span>
         <br/> 再按「計算」，結果呈現在文本框中
     </p>
     <div id="div2">
+        <span class="g">快速設定日期</span>
+        <input id="setH" type="date" />
+        <br/>
         <span class="g">自訂日期</span>
         <input id="setY" type="number" placeholder='設定年' />
         <input id="setM" type="number" placeholder='設定月' />
         <input id="setD" type="number" placeholder='設定日' />
     </div>
     <div id="div3">
-        <span class="g">增加日期</span>
+        <span class="lg">增加日期</span>
         <input id="addY" type="number" placeholder='增年(可用負數)' />
         <input id="addM" type="number" placeholder='增月(可用負數)' />
         <input id="addD" type="number" placeholder='增日(可用負數)' />
     </div>
     <hr/>
-    <input id="OK" type="buttom" class="sb" value='計算' />
-    <input id="GT" type="buttom" class="tan" value='高鐵買票' />
-    <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+    <div id="div0">
+        <input id="OK" type="button" class="sb" value='計算' />
+        <input id="GT" type="button" class="tan" value='高鐵早鳥' />
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+    </div>
     <div id="div1"></div>
     <textarea id="txt1" placeholder=""></textarea>
 </body>
