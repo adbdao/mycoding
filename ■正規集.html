@@ -775,14 +775,26 @@ input {height: 30px;color: black;}
                     Copy()
                 }
             }
+            ReToN2.onclick = function () {
+                zzUp()
+                // 文章轉換行符
+                txt1.value = txt1.value.replace(/。/g, '。\n')
+                Copy()
+            }
+            ReToN1.onclick = function () {
+                zzUp()
+                // 文章轉換行符
+                txt1.value = txt1.value.replace(/。/g, '\n')
+                Copy()
+            }
             ReToN.onclick = function () {
                 zzUp()
                 // 文章轉換行符
                 if (myValue.value) {
                     Arr1 = txt1.value.split(myValue.value)
                     txt1.value = Arr1.join(myValue.value + '\n')
-                    // var vv = new RegExp(myValue.value, 'gi')
-                    // txt1.value = txt1.value.replace(vv, myValue.value + '\n')
+                    // var AA = new RegExp(myValue.value, 'gi')
+                    // txt1.value = txt1.value.replace(AA, myValue.value + '\n')
                     Copy()
                 }
             }
@@ -1067,12 +1079,14 @@ input {height: 30px;color: black;}
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="reValue" type="button" class="r" value="回復原始資料" />
         <input id="reUp" type="button" class="r" value="回復上一步" />
+        <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
+        <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
         <input id="DelTag" type="button" class="tan" value="刪<>置標符" />
         <input id="DelTabToNum" type="button" class="gy" value="刪大綱編號" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
+        <input id="ReToN1" type="button" class="y" value="。號換行刪。" />
+        <input id="ReToN2" type="button" class="o" value="。號換行" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
-        <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
-        <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />
@@ -1100,8 +1114,8 @@ input {height: 30px;color: black;}
     <div>
         <input id="TabToNum" type="button" class="y" value="大綱編號(首層無)(以Tab分層級)" />
         <input id="TabToNumEvery" type="button" class="pink" value="大綱編號多層(以Tab分層級)" />
-        <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
         <input id="SpaceToNumEvery" type="button" class="pink" value="大綱編號多層(以四個空白分層級)" />
+        <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
         <input id="toOlLi" type="button" class="lg" value="加上<ol><li>" />
     </div>

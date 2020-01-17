@@ -947,22 +947,22 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           //   (myS.lDay - 1) + '~',
           //   myS.lDay + '日</td><td>　　　　　　　　</td></tr>'
           // ]
-          if (mylD == 14) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
+          if (mylD == 14) { myArr2 += myArr3; myArr2 += myArr4; myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>' }
           if (mylD == 15) { myArr2 += myArr3; myArr2 += myArr4 }
           if (monthDays(myS.lYear, myS.lMonth) == 28) {
-            if (mylD == 27) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
+            if (mylD == 27) { myArr2 += myArr3; myArr2 += myArr4; myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>' }
             if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 29) {
-            if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
+            if (mylD == 28) { myArr2 += myArr3; myArr2 += myArr4; myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>' }
             if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 30) {
-            if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
+            if (mylD == 29) { myArr2 += myArr3; myArr2 += myArr4; myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>' }
             if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 }
           }
           if (monthDays(myS.lYear, myS.lMonth) == 31) {
-            if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4 ;myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>'}
+            if (mylD == 30) { myArr2 += myArr3; myArr2 += myArr4; myArr2 += '<td rowspan="2">　　　　　　　　</td></tr>' }
             if (mylD == 31) { myArr2 += myArr3; myArr2 += myArr4 }
           }
         }
@@ -972,7 +972,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         tab10.innerHTML = tab10.innerHTML.replace(/,/g, ' ')
         // 輸出至文本框
         // 最後一個取代rowspan的r已經被之前的取代了
-        oT5.value = '一年的誦戒日農曆輪值表' + myArr2.replace(/[\<\>trd/　,]/g, '').replace(/國曆/g, '\n國曆').replace(/日/g, '日 ').replace(/owspan="2"/g,'')
+        oT5.value = '一年的誦戒日農曆輪值表' + myArr2.replace(/[\<\>trd/　,]/g, '').replace(/國曆/g, '\n國曆').replace(/日/g, '日 ').replace(/owspan="2"/g, '')
       }
       // 復原輸入日期
       oBre.onclick = function () {
@@ -1819,13 +1819,13 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     td {
-        color: black;
+      color: black;
     }
     
     input {
-        height: 30px;
-        background: pink;
-        color: navy;
+      height: 30px;
+      background: pink;
+      color: navy;
     }
     
     button {
@@ -1889,7 +1889,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     #txt5 {
-      width: 90vw;
+      width: 600px;
       height: 35vh;
     }
     
@@ -2095,7 +2095,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input id="btn10" type="text" class="num" placeholder="間隔日數" />
   <input id="btn11" type="text" class="num" placeholder="重複次數" />
   <input id="btn12" type="button" class="num" value="計算間隔日期" onclick="hDay()" />
-  <input id="btn13" type="button" class="todayColor" value="誦戒日農曆輪值表" onclick="SJDay()"/>
+  <input id="btn13" type="button" class="todayColor" value="誦戒日農曆輪值表" onclick="SJDay()" />
   <br/>
   <table id="tab10">
     <thead> </thead>
