@@ -1310,14 +1310,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 
           aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
           // 疏文的正文部份
-          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/>南無第一威德成就眾事大功德天　大慈大悲恩賜'
+          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
           // 分段後，要重新設定字型大小
           if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML += '<font class="lastFont">　<sup>沙門</sup>　' + Arr2[i][1]
+            aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
           } else {
-            aDiv.innerHTML += '<font class="lastFont">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+            aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
           }
-          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<sup>　</sup><br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
           // 插入div
           div1.appendChild(aDiv)
         }
@@ -2205,6 +2205,24 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     .lastFont {
+      font-size: 24pt;
+      /* 設定文字行距 */
+      /*line-height: 11mm;*/
+      /* 設定文字間距 */
+      letter-spacing: 1px
+    }
+    .lastFontRight {
+      position: absolute;
+      margin:0 -1mm 0 0 ;
+      font-size: 24pt;
+      /* 設定文字行距 */
+      /*line-height: 11mm;*/
+      /* 設定文字間距 */
+      letter-spacing: 1px
+    }
+    .lastFontRightBack {
+      position: absolute;
+      margin:180mm -4mm 0 0 ;
       font-size: 24pt;
       /* 設定文字行距 */
       /*line-height: 11mm;*/
