@@ -30,37 +30,37 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 您要的行事曆即是：
 「農曆台灣月曆-手機4六個月的月曆.html」
 檔案，以Google 的Chrome瀏覽器打開，才可見到最佳效果！
- 
+
 我是複製到excel中再美化一翻！
- 
+
 可自己編輯，方法如下：
 在
 「農曆台灣月曆-手機4六個月的月曆.html」上按右鑑，以純文字軟體打開：
 筆記本、MadEdit.exe、我是用Visual Studio Code…
 https://imagine.microsoft.com/zh-tw/Catalog/Product/104
- 
+
 至第76行，
 '0101 元旦',
 '0228 和平紀念日',
 前四位數字，即可自行修改你要的「國曆日期」，後面修改為你要的事項！但中間要是一空隔號！
- 
+
 第93行，
 '0109 寒假第一批結束',
 '0110 寒假第二批開始',
 前四位數字，即可自行修改你要的「農曆日期」，後面修改為你要的事項！但中間要是一空隔號！
- 
+
 但！最後一行，不要末尾的(英文)逗號！！
 '0928 教師節',
 '1010 國慶日'
 或
 '1215 出功德衣',
 '1208 臘八節'
- 
+
 第843行以後，是可以程式碼編的日期！
 比較複雜！
 <font color="royalblue"'+' '+'size=3>午供</font>
 "royalblue"是顏色，可自行修改，改為英文的顏色：red , yellow都可以
- 
+
 第898行
         myBr=givecolor('六齋','cyan')
         myBr1=givecolor('六齋','cyan')+givebrcolor('誦戒','magenta').big()
@@ -70,13 +70,13 @@ https://imagine.microsoft.com/zh-tw/Catalog/Product/104
 'cyan'是青色，可改為英文的顏色：red , yellow都可以
 也可用#00ff00等#+紅+綠+藍
 的html語法
- 
+
 第904行
 if(monthDays(cld[sD].lYear,cld[sD].lMonth)==28){
          if(monthDays(cld[sD].lYear,cld[sD].lMonth)==31){
 這語法表示：如果月底是28天…31天…
 可自行修改…
- 
+
 第921行
             if (12==(cld[sD].lMonth)){    //判斷是否為除夕
 這語法表示：12月的月底！
@@ -85,11 +85,11 @@ if(monthDays(cld[sD].lYear,cld[sD].lMonth)==28){
                 if ((eve-2)==(mylD)){lObj.innerHTML+=givebrcolor('大掃除','brown');}
 「eve-1 」「eve-2」表示除夕前一天，前二天…
 可以加入「普茶,圍爐」或自行改為需要的事情事項！
- 
+
 Javascript教學影片：
 https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGmw6v
 我看2月即可編寫！
- 
+
 舊行事曆如附
 若你們在excel編輯新行事曆，
 不必急著調整行距或儲存格的大小以符合A4大小，
@@ -102,7 +102,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 這個程式語言是Javascript
 
 阿彌陀佛！
-祝 法安 
+祝 法安
 南普陀寺教務助理 道中 謹上
 -->
 <HTML>
@@ -662,16 +662,16 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     //============================== 傳回月曆物件 (y年,m+1月)
     /*
     功能說明: 傳回整個月的日期資料物件
-    
+
     使用方式: OBJ = new calendar(年,零起算月);
-    
+
     OBJ.length      傳回當月最大日
     OBJ.firstWeek   傳回當月一日星期
-    
+
     由 OBJ[日期].屬性名稱 即可取得各項值
-    
+
     OBJ[日期].isToday  傳回是否為今日 true 或 false
-    
+
     其他 OBJ[日期] 屬性參見 calElement() 中的註解
     */
     var eve = 0;
@@ -963,7 +963,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       //   n = MathNum[s.charAt(0)] + '十' + MathNum[s.charAt(1)]
       // } else if (10 > d && d > -1) {
       //   s=String(d)
-      //   n = MathNum[s.charAt(0)] 
+      //   n = MathNum[s.charAt(0)]
       // }
       return n
     }
@@ -1222,7 +1222,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         // 人名開頭才進入運算
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
           // 疏文題目
-          aDiv.innerHTML = '<p style="margin: 10mm 9mm 0 7mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+          aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 5mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
           // 加上疏文流水編號
           for (var k = 1; k < Arr1.length; k++) {
             if (Arr2[i + k][0] == '♂') {
@@ -1234,6 +1234,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           j++
           // 本來另加一div，但不好用，所以改用判斷地址
           // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
+          // 增加一空行，調整位置
+          aDiv.innerHTML += '<font style="font-size:30%;">　</font><br/>'
           // 加入地址
           for (var k = 1; k < Arr1.length; k++) {
             // 地址若有多行，則繼續加入地址，否則中止循環
@@ -1310,14 +1312,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 
           aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
           // 疏文的正文部份
-          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
+          // 增加一<sup>，調整位置
+          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup>　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
           // 分段後，要重新設定字型大小
           if (Arr2[i][0] == '釋') {
             aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
           } else {
             aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
           }
-          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<sup>　</sup><br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
           // 插入div
           div1.appendChild(aDiv)
         }
@@ -1338,22 +1341,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       var ChineseYear3 = []
       var ChineseYear4 = []
       var addNum = 0
-      // 加上疏文流水編號，及自訂開始的數字
-      function LittleNum(m, n) {
-        // 導入自訂數字
-        var LN = LittleNumNum.value
-        if (LN) {
-          n = n + Number(LN) - 1
-        }
-        // 補0
-        if (n < 10) {
-          n = '00' + n
-        } else if (n < 100) {
-          n = '0' + n
-        }
-        // 加上樣式
-        return '<div class="LittleNumClass" style="position:absolute;font-size:50%;height:5mm;width:10mm;margin:0 0 0 -10mm;padding:0 0 0 0;text-align:left;">' + m + n + '</div>'
-      }
+
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
       for (var i = 0; i < Arr1.length; i++) {
@@ -1397,15 +1385,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         var aDiv = document.createElement('div')
         // 人名開頭才建立
         if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
-          // 加上人名流水編號
-          for (var k = 1; k < Arr1.length; k++) {
-            if (Arr2[i + k][0] == '♂') {
-              aDiv.innerHTML = LittleNum(Arr5[i + k], j)
-              break
-            }
-          }
-          // 流水編號自增，若用i，會跳號
-          j++
           // 加入男女性別，及人名，出家沙門
           if (Arr2[i][0] == '釋') {
             aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
@@ -1470,6 +1449,32 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           if (ADObj1[6].lYear < 1901) { ADA = '吉' }
 
           aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
+
+          // 加上疏文流水編號，及自訂開始的數字
+          function LittleNum(m, n) {
+            // 導入自訂數字
+            var LN = LittleNumNum.value
+            if (LN) {
+              n = n + Number(LN) - 1
+            }
+            // 補0
+            if (n < 10) {
+              n = '00' + n
+            } else if (n < 100) {
+              n = '0' + n
+            }
+            // 加上樣式，不轉90度，這樣複製到word才不會跑位
+            return '<span style="font-size:50%;">　　' + m + n + '</span>'
+          }
+          // 加上人名流水編號
+          for (var k = 1; k < Arr1.length; k++) {
+            if (Arr2[i + k][0] == '♂') {
+              aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+              break
+            }
+          }
+          // 流水編號自增，若用i，會跳號
+          j++
 
           // 判斷下一行是地址否？加入地址
           if (Arr2[i + 1][0] == '♂') {
@@ -2047,16 +2052,16 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: darkred;
       color: yellow
     }
-    
+
      ::-moz-selection {
       background: darkred;
       color: yellow
     }
-    
+
     html {
       background: gray;
     }
-    
+
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
       BORDER-LEFT: blue 2px ridge;
@@ -2064,66 +2069,66 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       BORDER-TOP: blue 2px ridge;
       BORDER-RIGHT: blue 2px ridge
     }
-    
+
     .my {
       BACKGROUND-COLOR: pink;
     }
-    
+
     .font-blue {
       font-size: 16px;
       color: #0000FF;
     }
-    
+
     td {
       color: black;
     }
-    
+
     input {
       height: 30px;
       background: pink;
       color: navy;
     }
-    
+
     button {
       FONT-SIZE: 8pt
     }
-    
+
     #GX {
       font-size: 10pt;
       color: yellow
     }
-    
+
     .b {
       font-size: 12pt;
       background: #adf;
       color: #030;
     }
-    
+
     .k {
       background: khaki;
     }
-    
+
     #tab1,
     #tab2 {
       display: none;
     }
-    
+
     #p {
       color: darkred;
       font-size: 14pt;
     }
-    
+
     * {
       border-radius: 8px;
     }
-    
+
     input:hover,
     textarea:hover,
     button:hover {
       border: 2px solid fuchsia;
       box-shadow: 5px 5px 20px darkorchid
     }
-    
+
     input:active,
     textarea:active,
     button:active {
@@ -2132,17 +2137,17 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       border-style: solid;
       box-shadow: 5px -5px 20px darkorchid
     }
-    
+
     td:hover {
       border: 1px solid fuchsia;
       box-shadow: 3px 3px 20px darkorchid
     }
-    
+
     #txt5 {
       width: 600px;
       height: 45vh;
     }
-    
+
     @media all and (max-width:500px) {
       #detail {
         display: none
@@ -2153,7 +2158,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       height: 1cm;
       background: yellow;
     }*/
-    
+
     #div1 div {
       display: inline-block;
       /*border: 1px solid red;*/
@@ -2164,8 +2169,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       -webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;
       font-size: 22pt;
-      font-family: 標楷體;
-      font-weight: bold;
+      font-family: 華康楷書體W7;
+      /*font-weight: bold;*/
       /*padding: 0mm 7mm 0mm 0mm;*/
       /* 設定文字行距 */
       line-height: 11mm;
@@ -2175,7 +2180,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*color: black;*/
       /*color: red;*/
     }
-    
+
     #div2 div {
       /*display: inline-block;*/
       /*border: 1px solid red;*/
@@ -2186,11 +2191,11 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*-webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;*/
       font-size: 20pt;
-      font-family: 標楷體;
+      font-family: 華康楷書體W7;
       margin: 0 0 0 5mm;
       /*color: black;*/
     }
-    
+
     .LittleNumClass {
       /*position: absolute;
       -webkit-writing-mode: vertical-rl;
@@ -2203,7 +2208,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*color: #444;*/
       display: block;
     }
-    
+
     .lastFont {
       font-size: 24pt;
       /* 設定文字行距 */
@@ -2211,18 +2216,20 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /* 設定文字間距 */
       letter-spacing: 1px
     }
+
     .lastFontRight {
       position: absolute;
-      margin:0 -1mm 0 0 ;
+      margin: 0 -1mm 0 0;
       font-size: 24pt;
       /* 設定文字行距 */
       /*line-height: 11mm;*/
       /* 設定文字間距 */
       letter-spacing: 1px
     }
+
     .lastFontRightBack {
       position: absolute;
-      margin:180mm -4mm 0 0 ;
+      margin: 180mm -4mm 0 0;
       font-size: 24pt;
       /* 設定文字行距 */
       /*line-height: 11mm;*/
@@ -2267,8 +2274,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <TBODY>
   <TR>
     <TD align=right>
-      <DIV style="Z-INDEX: -1; POSITION: absolute; TOP: 90px"><FONT 
-      style="FONT-FAMILY: 'Arial Black'; COLOR: #f0f0f0; FONT-SIZE: 100pt" 
+      <DIV style="Z-INDEX: -1; POSITION: absolute; TOP: 90px"><FONT
+      style="FONT-FAMILY: 'Arial Black'; COLOR: #f0f0f0; FONT-SIZE: 100pt"
       id=YMBG>&nbsp;0000<br/>&nbsp;JUN</FONT> </DIV>
 -->
     <TABLE bordercolor="silver" padding="0" border=3 cellpadding="0" cellspacing="0" id="tab1">
@@ -2281,13 +2288,13 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           <FONT style="FONT-SIZE: 10pt" color=#ffffff size=2>
             <input id="reload" type="button" style="height:20px;background:#ff8" value="重新載入" onclick="javascript:window.location.reload()"
             /> 西元
-            <SELECT style="FONT-SIZE: 9pt" onchange=changeCld() name=SY> 
+            <SELECT style="FONT-SIZE: 9pt" onchange=changeCld() name=SY>
               <SCRIPT language=Javascript>
                 // <!--我修改
                 for (i = 1900; i < 2101; i++) document.write('<option>' + i)
           //--></SCRIPT>
             </SELECT>年
-            <SELECT style="FONT-SIZE: 9pt" onchange=changeCld() name=SM> 
+            <SELECT style="FONT-SIZE: 9pt" onchange=changeCld() name=SM>
               <SCRIPT language=JavaScript>
                 // <!--我修改
                 for (i = 1; i < 13; i++) document.write('<option>' + i)
@@ -2440,42 +2447,42 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 2017*8*8">
 女	陳某潔 	一九七三	七	二十七	寅	四十六	牛
 男	Deva Gomatam	一九七三	十	二十三	辰	四十六	牛
-塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia							
+塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia
 女	伍某	吉	十二	廿九	吉	吉	吉
-香港長沙灣李鄭屋邨和平樓六二二０室							
-香港長沙灣李鄭屋邨和平樓777室							
+香港長沙灣李鄭屋邨和平樓六二二０室
+香港長沙灣李鄭屋邨和平樓777室
 女	陳某華	一九七三	六	初八	吉	四十六	狗
-香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室							
+香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室
 男	鄺某柏	一九五五	十一	十二	吉	六十四	羊
-香港新界屯門悅湖山莊某五座５Ｊ室							
+香港新界屯門悅湖山莊某五座５Ｊ室
 男	黎某華	一九五八	四	廿八	子	六十一	狗
 女	黎某汶	一九八五	九	十三	丑	三十四	牛
 女	黎某欣	一九八八	七	廿九	申	三十一	龍
 女	黎某賢	一九九０	九	廿五	上午七時	二十九	馬
-香港新界粉嶺嘉盛苑嘉輝閣二某一二０室							
-香港新界粉嶺嘉盛苑嘉輝閣199室							
+香港新界粉嶺嘉盛苑嘉輝閣二某一二０室
+香港新界粉嶺嘉盛苑嘉輝閣199室
 
 釋	釋士玹	一0六	正	廿九	卯	二	雞
-新竹縣北屯區松竹北路1643號							
-新竹縣北屯區松竹北路1453號							
+新竹縣北屯區松竹北路1643號
+新竹縣北屯區松竹北路1453號
 男	余某宏	六十三	十	五	吉	四十五	虎
 釋	釋某音	六十三	十一	二十二	吉	四十五	虎
-苗栗市西屯區長安路二段a1號1樓							
-台中市西屯區長安路二段a1號1樓							
-苗栗縣西屯區長安路二段a1號1樓							
+苗栗市西屯區長安路二段a1號1樓
+台中市西屯區長安路二段a1號1樓
+苗栗縣西屯區長安路二段a1號1樓
 女	某宛諭	八十八	四	十一	寅	二十	兔
-台南市東區kk路50號							
+台南市東區kk路50號
 男	某國華	四十二	九	初十	晚上十一時五十分	六十六	蛇
-新北市新店區3928巷四十三號四樓							
+新北市新店區3928巷四十三號四樓
 男	曹某興	四十七	五	廿八	申時	六十一	狗
-高雄市楠梓區樂群路一770號							
+高雄市楠梓區樂群路一770號
 男 	某宇恩 	一0二	九	初九	申時	六	蛇
-深圳市芳安路3f6巷4號							
-嘉義市芳安路3s9巷4號							
+深圳市芳安路3f6巷4號
+嘉義市芳安路3s9巷4號
 男	蕭堂某	四十二	十一	初三	吉	六十六	蛇
 女	黃素某	四十六	六	廿三	吉	六十二	雞
 新北市蘆洲區民族路二六三巷
-深圳市蘆洲區民族路二六三巷							
+深圳市蘆洲區民族路二六三巷
 </textarea>
 </BODY>
 
