@@ -1356,7 +1356,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
         if (/^..[縣市]/.test(Arr2[i][1])) {
           if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中華民國' + Arr2[i][1]
+            // Arr2[i][1] = '中華民國' + Arr2[i][1]
             Arr5[i] = 'T'
           } else if (/^深圳市/.test(Arr2[i][1])) {
             Arr2[i][1] = '中國廣東省' + Arr2[i][1]
