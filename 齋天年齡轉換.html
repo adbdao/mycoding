@@ -1142,17 +1142,37 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         oObj.removeChild(oObj.firstChild)
       }
     }
+    // // 顯示隱藏個人名單流水號
+    // function LittleNumAdd() {
+    //   // 個人名單的流水號
+    //   var aP = document.getElementsByClassName('LittleNumClass')
+    //   // 用for of無法運行
+    //   for (var i in aP) {
+    //     if (aP[i].style.display == 'none') {
+    //       // 若顏色太淺，在紅紙上看不見。改為呈現與否，不用白色灰色轉換
+    //       aP[i].style.display = 'block'
+    //     } else {
+    //       aP[i].style.display = 'none'
+    //     }
+    //   }
+    // }
+    // // 顯示隱藏個人名單流水號
+    // function LittleNumAdd() {
+    //   // 用css功能
+    //   if (hiddenLittle.innerHTML) {
+    //     hiddenLittle.innerHTML = ''
+    //   } else {
+    //     // 無法隱藏，不知何因？
+    //     hiddenLittle.innerHTML = '.LittleNumClass {display: none;color:white;}'
+    //   }
+    // }
     // 顯示隱藏流水號
     function LittleNumAdd() {
-      var aP = document.getElementsByClassName('LittleNumClass')
-      // 用for of無法運行
-      for (var i in aP) {
-        if (aP[i].style.display == 'none') {
-          // 若顏色太淺，在紅紙上看不見。改為呈現與否，不用白色灰色轉換
-          aP[i].style.display = 'block'
-        } else {
-          aP[i].style.display = 'none'
-        }
+      // 用css功能，但流水號要加上<span>
+      if (hidden.innerHTML) {
+        hidden.innerHTML = ''
+      } else {
+        hidden.innerHTML = 'span {display: none;}'
       }
     }
     function JTNames() {
@@ -1182,7 +1202,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           n = '0' + n
         }
         // 加上樣式
-        return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;">' + m + ' ' + n + '</div>'
+        return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;"><span>' + m + ' ' + n + '</span></div>'
       }
       // 將資料導入陣列
       Arr1 = txt5.value.split('\n')
@@ -1464,7 +1484,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
               n = '0' + n
             }
             // 加上樣式，不轉90度，這樣複製到word才不會跑位
-            return '<span style="font-size:50%;">　　' + m + n + '</span>'
+            return '<span style="font-size:50%;">　　　' + m + n + '</span>'
           }
           // 加上人名流水編號
           for (var k = 1; k < Arr1.length; k++) {
@@ -1516,6 +1536,212 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           div2.appendChild(aDiv)
         }
       }
+    }
+
+    function NameTest() {
+      // 先刪除舊表格，不然會一直增加
+      // delTab('div2')
+      var Arr1 = []
+      var Arr2 = []
+      var Arr3 = []
+      var Arr4 = []
+      var Arr5 = []
+      var ChineseYear = []
+      var ChineseYear1 = []
+      var ChineseYear2 = []
+      var ChineseYear3 = []
+      var ChineseYear4 = []
+      var addNum = 0
+
+      // 將資料導入陣列
+      Arr1 = txt5.value.split('\n')
+      for (var i = 0; i < Arr1.length; i++) {
+        // 刪除前後空白，將地址前加上♂號，與人名區別
+        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+        Arr2[i] = []
+        Arr2[i] = Arr1[i].split('\t')
+        for (var j = 0; j < Arr2[i].length; j++) {
+          // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
+          Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
+        }
+        // // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
+        // if (/^..[縣市]/.test(Arr2[i][1])) {
+        //   if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
+        //     // Arr2[i][1] = '中華民國' + Arr2[i][1]
+        //     Arr5[i] = 'T'
+        //   } else if (/^深圳市/.test(Arr2[i][1])) {
+        //     Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+        //     Arr5[i] = 'H'
+        //   } else {
+        //     // Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+        //     Arr5[i] = 'T'
+        //   }
+        // }
+        // if (/^香港/.test(Arr2[i][1])) {
+        //   Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+        //   Arr5[i] = 'H'
+        // }
+        // if (!Arr5[i]) {
+        //   Arr5[i] = ''
+        // }
+      }
+      // 疏文封面
+      // var aDiv = document.createElement('div')
+      // aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
+      // aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
+      // div2.appendChild(aDiv)
+      // 疏文內容
+      for (var i = 0; i < Arr1.length; i++) {
+        // for (var i = 0, j = 1; i < Arr1.length; i++) {
+        // 建立DIV
+        // var aDiv = document.createElement('div')
+        // 人名開頭才建立
+        if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+          // 加入男女性別，及人名，出家沙門
+          // if (Arr2[i][0] == '釋') {
+          //   aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
+          // } else {
+          //   aDiv.innerHTML += '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+          // }
+          // 區別香港的西元生日，與台灣的民國生日
+
+          // 信徒名單檢驗，只檢驗空白的
+          if (!Arr2[i][2] || !Arr2[i][3] || !Arr2[i][4] || !Arr2[i][5] || Arr2[i][5] == '時') {
+            // 顯示▲，以便修訂
+            if (!Arr2[i][2]) { Arr2[i][2] = '▲' }
+            if (!Arr2[i][3]) { Arr2[i][3] = '▲' }
+            if (!Arr2[i][4]) { Arr2[i][4] = '▲' }
+            if (!Arr2[i][5]) { Arr2[i][5] = '▲' }
+            if (Arr2[i][5] == '時') { Arr2[i][5] = '▲' }
+            Arr5[i] = Arr2[i]
+          }
+
+          // if (Arr2[i][2].length == 4) {
+          //   aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
+
+          //   // 取出西元日期，轉為數字
+          //   ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
+
+          // } else {
+          //   // aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
+          //   // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
+          //   // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
+          //   if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
+          //     ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
+          //   }
+          //   // 轉換正統寫法的中文數字
+          //   // 取出百位數
+          //   if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
+          //     ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
+          //   }
+          //   // 取出十位數
+          //   if (Arr2[i][2].length && Arr2[i][2].match('十')) {
+          //     // 補上「一」十
+          //     if (Arr2[i][2].indexOf('十') < 1) {
+          //       ChineseYear2[i] = 10
+          //     } else if (Arr2[i][2].indexOf('十') == 1) {
+          //       ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
+          //       // 另外幾種寫法
+          //       // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
+          //       // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
+          //     }
+          //   }
+          //   // 取出個位數
+          //   if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
+          //     ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
+          //   }
+          //   // 空位轉0
+          //   if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
+          //   if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
+          //   if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
+          //   // 判斷不要覆蓋前面已轉好的年份
+          //   if (!ChineseYear4[i]) {
+          //     ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
+          //   }
+          //   // alert(ChineseYear4)
+          //   // 民國轉西元年
+          //   if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
+          // }
+          // 除錯：取代例外的錯字
+          // aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
+          // 導入日曆函數，並算出生肖
+          // var ADObj, ADObj1, ADObj2, ADA, ADS
+          // ADObj1 = new calendar(ChineseYear4[i], 5)
+          // ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
+          // if (!ADS) { ADS = '　吉' }
+          // ADA = Animals[(ADObj1[6].lYear - 4) % 12]
+          // if (ADObj1[6].lYear < 1901) { ADA = '吉' }
+
+          // aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
+
+          // 加上疏文流水編號，及自訂開始的數字
+          // function LittleNum(m, n) {
+          //   // 導入自訂數字
+          //   var LN = LittleNumNum.value
+          //   if (LN) {
+          //     n = n + Number(LN) - 1
+          //   }
+          //   // 補0
+          //   if (n < 10) {
+          //     n = '00' + n
+          //   } else if (n < 100) {
+          //     n = '0' + n
+          //   }
+          //   // 加上樣式，不轉90度，這樣複製到word才不會跑位
+          //   return '<span style="font-size:50%;">　　' + m + n + '</span>'
+          // }
+          // // 加上人名流水編號
+          // for (var k = 1; k < Arr1.length; k++) {
+          //   if (Arr2[i + k][0] == '♂') {
+          //     aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+          //     break
+          //   }
+          // }
+          // // 流水編號自增，若用i，會跳號
+          // j++
+
+          // // 判斷下一行是地址否？加入地址
+          // if (Arr2[i + 1][0] == '♂') {
+          //   // 統計名單中：同一地址有多少人
+          //   if (addNum > 0) {
+          //     aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
+          //     for (var k = 1; k < Arr1.length; k++) {
+          //       // 地址若有多行，則繼續加入地址，否則中止循環
+          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+          //         break
+          //       }
+          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+          //         // 加入行首空格7個，以便排版
+          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
+          //       }
+          //     }
+          //   } else {
+          //     aDiv.innerHTML += '<br/>現住：'
+          //     for (var k = 1; k < Arr1.length; k++) {
+          //       // 地址若有多行，則繼續加入地址，否則中止循環
+          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+          //         break
+          //       }
+          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+          //         // 加入行首空格5個，以便排版
+          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
+          //       }
+          //     }
+          //   }
+          //   // 統計名單歸零
+          //   addNum = 0
+          // } else {
+          //   // 下一行若非地址，統計名單加一
+          //   addNum++
+          // }
+          // // 插入DIV
+          // div2.appendChild(aDiv)
+        }
+      }
+      txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
+      overCopy()
     }
 
     // 賦予自訂的節日活動顏色
@@ -2052,16 +2278,16 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: darkred;
       color: yellow
     }
-
+    
      ::-moz-selection {
       background: darkred;
       color: yellow
     }
-
+    
     html {
       background: gray;
     }
-
+    
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
       BORDER-LEFT: blue 2px ridge;
@@ -2069,66 +2295,66 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       BORDER-TOP: blue 2px ridge;
       BORDER-RIGHT: blue 2px ridge
     }
-
+    
     .my {
-      BACKGROUND-COLOR: pink;
+      BACKGROUND-COLOR: tan;
     }
-
+    
     .font-blue {
       font-size: 16px;
       color: #0000FF;
     }
-
+    
     td {
       color: black;
     }
-
+    
     input {
       height: 30px;
       background: pink;
       color: navy;
     }
-
+    
     button {
       FONT-SIZE: 8pt
     }
-
+    
     #GX {
       font-size: 10pt;
       color: yellow
     }
-
+    
     .b {
       font-size: 12pt;
       background: #adf;
       color: #030;
     }
-
+    
     .k {
       background: khaki;
     }
-
+    
     #tab1,
     #tab2 {
       display: none;
     }
-
+    
     #p {
       color: darkred;
       font-size: 14pt;
     }
-
+    
     * {
       border-radius: 8px;
     }
-
+    
     input:hover,
     textarea:hover,
     button:hover {
       border: 2px solid fuchsia;
       box-shadow: 5px 5px 20px darkorchid
     }
-
+    
     input:active,
     textarea:active,
     button:active {
@@ -2137,17 +2363,17 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       border-style: solid;
       box-shadow: 5px -5px 20px darkorchid
     }
-
+    
     td:hover {
       border: 1px solid fuchsia;
       box-shadow: 3px 3px 20px darkorchid
     }
-
+    
     #txt5 {
       width: 600px;
       height: 45vh;
     }
-
+    
     @media all and (max-width:500px) {
       #detail {
         display: none
@@ -2158,7 +2384,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       height: 1cm;
       background: yellow;
     }*/
-
+    
     #div1 div {
       display: inline-block;
       /*border: 1px solid red;*/
@@ -2180,7 +2406,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*color: black;*/
       /*color: red;*/
     }
-
+    
     #div2 div {
       /*display: inline-block;*/
       /*border: 1px solid red;*/
@@ -2195,7 +2421,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       margin: 0 0 0 5mm;
       /*color: black;*/
     }
-
+    
     .LittleNumClass {
       /*position: absolute;
       -webkit-writing-mode: vertical-rl;
@@ -2208,7 +2434,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*color: #444;*/
       display: block;
     }
-
+    
     .lastFont {
       font-size: 24pt;
       /* 設定文字行距 */
@@ -2216,7 +2442,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /* 設定文字間距 */
       letter-spacing: 1px
     }
-
+    
     .lastFontRight {
       position: absolute;
       margin: 0 -1mm 0 0;
@@ -2226,7 +2452,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /* 設定文字間距 */
       letter-spacing: 1px
     }
-
+    
     .lastFontRightBack {
       position: absolute;
       margin: 180mm -4mm 0 0;
@@ -2237,6 +2463,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       letter-spacing: 1px
     }
   </STYLE>
+  <style id="hidden"></style>
 
   <META name=GENERATOR content="MSHTML 9.00.8112.16520">
 </HEAD>
@@ -2433,10 +2660,11 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input id="jt" class="b" type="button" value="齋天年齡轉換" onclick="changeADYear()" />__
   <input id="showCalendar" class="b" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />__
   <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
-  <input class="b" type="button" value="齋天功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
+  <input class="b" type="button" value="齋天疏文功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
   <br/>
   <input class="k" type="text" id="LittleNumNum" placeholder="流水號開始號碼" />
   <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAdd" onclick="LittleNumAdd()" />
+  <input class="my" type="button" value="名單檢驗，只檢出空白欄" id="test" onclick="NameTest()" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
