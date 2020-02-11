@@ -876,7 +876,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       document.getElementById('txt5').value = myObj2
       overCopy()
     }
-    // 輸出範例
+    // 輸入範例
     function btntest() {
       myArr4 = ["1955年5月6日", "1955,5,7", "1957 5 8", "1957-5-9", "1957/5/10", "1958,1,2", "2017*8*8", "2017 11 29"]
       document.getElementById('txt5').value = myArr4.join('\n')
@@ -1137,6 +1137,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
 
     function delTab(a) {
+      // 刪除表格
       var oObj = document.getElementById(a)
       while (oObj.firstChild) {
         oObj.removeChild(oObj.firstChild)
@@ -1166,378 +1167,397 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     //     hiddenLittle.innerHTML = '.LittleNumClass {display: none;color:white;}'
     //   }
     // }
-    // 顯示隱藏流水號
     function LittleNumAdd() {
-      // 用css功能，但流水號要加上<span>
+      // 顯示隱藏流水號
       if (hidden.innerHTML) {
         hidden.innerHTML = ''
+        LittleNumShow.value = '現在是顯示流水號'
       } else {
+        // 用插入css功能，但流水號要加上<span>
         hidden.innerHTML = 'span {display: none;}'
+        LittleNumShow.value = '現在是隱藏流水號'
       }
     }
     function JTNames() {
-      // 先刪除舊表格，不然會一直增加
-      delTab('div1')
-      var Arr1 = []
-      var Arr2 = []
-      var Arr3 = []
-      var Arr4 = []
-      var Arr5 = []
-      var ChineseYear = []
-      var ChineseYear1 = []
-      var ChineseYear2 = []
-      var ChineseYear3 = []
-      var ChineseYear4 = []
-      // 加上疏文流水編號，及自訂開始的數字
-      function LittleNum(m, n) {
-        // 導入自訂數字
-        var LN = LittleNumNum.value
-        if (LN) {
-          n = n + Number(LN) - 1
+      // 先做名單檢測
+      NameTest()
+      // 若無誤就+1，並且開始換轉
+      if (NameTestAlert == 1) {
+        // 先刪除舊表格，不然會一直增加
+        delTab('div1')
+        var Arr1 = []
+        var Arr2 = []
+        var Arr3 = []
+        var Arr4 = []
+        var Arr5 = []
+        var ChineseYear = []
+        var ChineseYear1 = []
+        var ChineseYear2 = []
+        var ChineseYear3 = []
+        var ChineseYear4 = []
+        // 加上疏文流水編號，及自訂開始的數字
+        function LittleNum(m, n) {
+          // 導入自訂數字
+          var LN = LittleNumNum.value
+          if (LN) {
+            n = n + Number(LN) - 1
+          }
+          // 補0
+          if (n < 10) {
+            n = '00' + n
+          } else if (n < 100) {
+            n = '0' + n
+          }
+          // 加上樣式
+          return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;"><span>' + m + ' ' + n + '</span></div>'
         }
-        // 補0
-        if (n < 10) {
-          n = '00' + n
-        } else if (n < 100) {
-          n = '0' + n
-        }
-        // 加上樣式
-        return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;"><span>' + m + ' ' + n + '</span></div>'
-      }
-      // 將資料導入陣列
-      Arr1 = txt5.value.split('\n')
-      for (var i = 0; i < Arr1.length; i++) {
-        // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
-        Arr2[i] = []
-        Arr2[i] = Arr1[i].split('\t')
-        for (var j = 0; j < Arr2[i].length; j++) {
-          // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
-          Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
-        }
-        // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
-        if (/^..[縣市]/.test(Arr2[i][1])) {
-          if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中華民國' + Arr2[i][1]
-            Arr5[i] = 'T'
-          } else if (/^深圳市/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+        // 將資料導入陣列
+        Arr1 = txt5.value.split('\n')
+        for (var i = 0; i < Arr1.length; i++) {
+          // 刪除前後空白，將地址前加上♂號，與人名區別
+          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+          Arr2[i] = []
+          Arr2[i] = Arr1[i].split('\t')
+          for (var j = 0; j < Arr2[i].length; j++) {
+            // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
+            Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
+          }
+          // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
+          if (/^..[縣市]/.test(Arr2[i][1])) {
+            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
+              Arr2[i][1] = '中華民國' + Arr2[i][1]
+              Arr5[i] = 'T'
+            } else if (/^深圳市/.test(Arr2[i][1])) {
+              Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+              Arr5[i] = 'H'
+            } else {
+              Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+              Arr5[i] = 'T'
+            }
+          }
+          if (/^香港/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
             Arr5[i] = 'H'
-          } else {
-            Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
-            Arr5[i] = 'T'
+          }
+          if (!Arr5[i]) {
+            Arr5[i] = ''
           }
         }
-        if (/^香港/.test(Arr2[i][1])) {
-          Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
-          Arr5[i] = 'H'
-        }
-        if (!Arr5[i]) {
-          Arr5[i] = ''
-        }
-      }
-      for (var i = 0, j = 1; i < Arr1.length; i++) {
-        // 建立DIV
-        var aDiv = document.createElement('div')
-        // 人名開頭才進入運算
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
-          // 疏文題目
-          aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 5mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
-          // 加上疏文流水編號
-          for (var k = 1; k < Arr1.length; k++) {
-            if (Arr2[i + k][0] == '♂') {
-              aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-              break
-            }
-          }
-          // 流水編號自增，若用i，會跳號
-          j++
-          // 本來另加一div，但不好用，所以改用判斷地址
-          // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
-          // 增加一空行，調整位置
-          aDiv.innerHTML += '<font style="font-size:30%;">　</font><br/>'
-          // 加入地址
-          for (var k = 1; k < Arr1.length; k++) {
-            // 地址若有多行，則繼續加入地址，否則中止循環
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-              aDiv.innerHTML += '　' + Arr2[i + k][1]
-              break
-            }
-            if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-              aDiv.innerHTML += '　' + Arr2[i + k][1] + '　以及<br/>'
-            }
-          }
-          // 加入男女性別，及人名，出家沙門
-          if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML += '<br/>　<sup>沙門</sup> ' + Arr2[i][1]
-          } else {
-            aDiv.innerHTML += '<br/>　<sup>信' + Arr2[i][0] + '</sup> ' + Arr2[i][1]
-          }
-          // 區別香港的西元生日，與台灣的民國生日
-          if (Arr2[i][2].length > 3) {
-            aDiv.innerHTML += ' 西元' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
-
-            // 取出西元日期，轉為數字
-            ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
-
-          } else {
-            aDiv.innerHTML += ' 民國' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
-            // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
-            // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
-            if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
-              ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
-            }
-            // 轉換正統寫法的中文數字
-            // 取出百位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
-              ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
-            }
-            // 取出十位數
-            if (Arr2[i][2].length && Arr2[i][2].match('十')) {
-              // 補上「一」十
-              if (Arr2[i][2].indexOf('十') < 1) {
-                ChineseYear2[i] = 10
-              } else if (Arr2[i][2].indexOf('十') == 1) {
-                ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
-                // 另外幾種寫法
-                // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
-                // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
+        for (var i = 0, j = 1; i < Arr1.length; i++) {
+          // 建立DIV
+          var aDiv = document.createElement('div')
+          // 人名開頭才進入運算
+          if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+            // 疏文題目
+            aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 5mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+            // 加上疏文流水編號
+            for (var k = 1; k < Arr1.length; k++) {
+              if (Arr2[i + k][0] == '♂') {
+                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+                break
               }
             }
-            // 取出個位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
-              ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
+            // 流水編號自增，若用i，會跳號
+            j++
+            // 本來另加一div，但不好用，所以改用判斷地址
+            // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
+            // 增加一空行，調整位置
+            aDiv.innerHTML += '<font style="font-size:30%;">　</font><br/>'
+            // 加入地址
+            for (var k = 1; k < Arr1.length; k++) {
+              // 地址若有多行，則繼續加入地址，否則中止循環
+              if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+                aDiv.innerHTML += '　' + Arr2[i + k][1]
+                break
+              }
+              if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+                aDiv.innerHTML += '　' + Arr2[i + k][1] + '　以及<br/>'
+              }
             }
-            // 空位轉0
-            if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
-            if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
-            if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
-            // 判斷不要覆蓋前面已轉好的年份
-            if (!ChineseYear4[i]) {
-              ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
+            // 加入男女性別，及人名，出家沙門
+            if (Arr2[i][0] == '釋') {
+              aDiv.innerHTML += '<br/>　<sup>沙門</sup> ' + Arr2[i][1]
+            } else {
+              aDiv.innerHTML += '<br/>　<sup>信' + Arr2[i][0] + '</sup> ' + Arr2[i][1]
             }
-            // 民國轉西元年
-            if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
-          }
-          // 除錯：取代例外的錯字
-          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
-          // 導入日曆函數，並算出：年齡及生肖
-          var ADObj, ADObj1, ADObj2, ADA, ADS
-          ADObj1 = new calendar(ChineseYear4[i], 5)
-          ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
-          // 若無生日年份，則用「吉歲」「屬吉」
-          if (!ADS) { ADS = '　吉' }
-          ADA = Animals[(ADObj1[6].lYear - 4) % 12]
-          if (ADObj1[6].lYear < 1901) { ADA = '　吉' }
+            // 區別香港的西元生日，與台灣的民國生日
+            if (Arr2[i][2].length > 3) {
+              aDiv.innerHTML += ' 西元' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
 
-          aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
-          // 疏文的正文部份
-          // 增加一<sup>，調整位置
-          aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup>　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
-          // 分段後，要重新設定字型大小
-          if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
-          } else {
-            aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+              // 取出西元日期，轉為數字
+              ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
+
+            } else {
+              aDiv.innerHTML += ' 民國' + Arr2[i][2] + '年 農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日 ' + Arr2[i][5] + '時生'
+              // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
+              // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
+              if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
+                ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
+              }
+              // 轉換正統寫法的中文數字
+              // 取出百位數
+              if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
+                ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
+              }
+              // 取出十位數
+              if (Arr2[i][2].length && Arr2[i][2].match('十')) {
+                // 補上「一」十
+                if (Arr2[i][2].indexOf('十') < 1) {
+                  ChineseYear2[i] = 10
+                } else if (Arr2[i][2].indexOf('十') == 1) {
+                  ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
+                  // 另外幾種寫法
+                  // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
+                  // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
+                }
+              }
+              // 取出個位數
+              if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
+                ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
+              }
+              // 空位轉0
+              if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
+              if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
+              if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
+              // 判斷不要覆蓋前面已轉好的年份
+              if (!ChineseYear4[i]) {
+                ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
+              }
+              // 民國轉西元年
+              if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
+            }
+            // 除錯：取代例外的錯字
+            aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
+            // 導入日曆函數，並算出：年齡及生肖
+            var ADObj, ADObj1, ADObj2, ADA, ADS
+            ADObj1 = new calendar(ChineseYear4[i], 5)
+            ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
+            // 若無生日年份，則用「吉歲」「屬吉」
+            if (!ADS) { ADS = '　吉' }
+            ADA = Animals[(ADObj1[6].lYear - 4) % 12]
+            if (ADObj1[6].lYear < 1901) { ADA = '　吉' }
+
+            aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
+            // 疏文的正文部份
+            // 增加一<sup>，調整位置
+            aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup>　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
+            // 分段後，要重新設定字型大小
+            if (Arr2[i][0] == '釋') {
+              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
+            } else {
+              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+            }
+            aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+            // 插入div
+            div1.appendChild(aDiv)
           }
-          aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
-          // 插入div
-          div1.appendChild(aDiv)
         }
+        alert('名單檢測無誤，並且已換轉為您要的格式，可直接列印')
+        NameTestAlert = 0
       }
     }
 
     function JTNamesBig() {
-      // 先刪除舊表格，不然會一直增加
-      delTab('div2')
-      var Arr1 = []
-      var Arr2 = []
-      var Arr3 = []
-      var Arr4 = []
-      var Arr5 = []
-      var ChineseYear = []
-      var ChineseYear1 = []
-      var ChineseYear2 = []
-      var ChineseYear3 = []
-      var ChineseYear4 = []
-      var addNum = 0
+      // 先做名單檢測
+      NameTest()
+      // 若無誤就+1，並且開始換轉
+      if (NameTestAlert == 1) {
+        // 先刪除舊表格，不然會一直增加
+        delTab('div2')
+        var Arr1 = []
+        var Arr2 = []
+        var Arr3 = []
+        var Arr4 = []
+        var Arr5 = []
+        var ChineseYear = []
+        var ChineseYear1 = []
+        var ChineseYear2 = []
+        var ChineseYear3 = []
+        var ChineseYear4 = []
+        var addNum = 0
 
-      // 將資料導入陣列
-      Arr1 = txt5.value.split('\n')
-      for (var i = 0; i < Arr1.length; i++) {
-        // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
-        Arr2[i] = []
-        Arr2[i] = Arr1[i].split('\t')
-        for (var j = 0; j < Arr2[i].length; j++) {
-          // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
-          Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
-        }
-        // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
-        if (/^..[縣市]/.test(Arr2[i][1])) {
-          if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-            // Arr2[i][1] = '中華民國' + Arr2[i][1]
-            Arr5[i] = 'T'
-          } else if (/^深圳市/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中國廣東省' + Arr2[i][1]
-            Arr5[i] = 'H'
-          } else {
-            // Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
-            Arr5[i] = 'T'
+        // 將資料導入陣列
+        Arr1 = txt5.value.split('\n')
+        for (var i = 0; i < Arr1.length; i++) {
+          // 刪除前後空白，將地址前加上♂號，與人名區別
+          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+          Arr2[i] = []
+          Arr2[i] = Arr1[i].split('\t')
+          for (var j = 0; j < Arr2[i].length; j++) {
+            // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
+            Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
           }
-        }
-        if (/^香港/.test(Arr2[i][1])) {
-          Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
-          Arr5[i] = 'H'
-        }
-        if (!Arr5[i]) {
-          Arr5[i] = ''
-        }
-      }
-      // 疏文封面
-      var aDiv = document.createElement('div')
-      aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
-      aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
-      div2.appendChild(aDiv)
-      // 疏文內容
-      for (var i = 0, j = 1; i < Arr1.length; i++) {
-        // 建立DIV
-        var aDiv = document.createElement('div')
-        // 人名開頭才建立
-        if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
-          // 加入男女性別，及人名，出家沙門
-          if (Arr2[i][0] == '釋') {
-            aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
-          } else {
-            aDiv.innerHTML += '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
-          }
-          // 區別香港的西元生日，與台灣的民國生日
-          if (Arr2[i][2].length == 4) {
-            aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-
-            // 取出西元日期，轉為數字
-            ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
-
-          } else {
-            aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-            // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
-            // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
-            if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
-              ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
-            }
-            // 轉換正統寫法的中文數字
-            // 取出百位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
-              ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
-            }
-            // 取出十位數
-            if (Arr2[i][2].length && Arr2[i][2].match('十')) {
-              // 補上「一」十
-              if (Arr2[i][2].indexOf('十') < 1) {
-                ChineseYear2[i] = 10
-              } else if (Arr2[i][2].indexOf('十') == 1) {
-                ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
-                // 另外幾種寫法
-                // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
-                // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
-              }
-            }
-            // 取出個位數
-            if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
-              ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
-            }
-            // 空位轉0
-            if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
-            if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
-            if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
-            // 判斷不要覆蓋前面已轉好的年份
-            if (!ChineseYear4[i]) {
-              ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
-            }
-            // alert(ChineseYear4)
-            // 民國轉西元年
-            if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
-          }
-          // 除錯：取代例外的錯字
-          aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
-          // 導入日曆函數，並算出生肖
-          var ADObj, ADObj1, ADObj2, ADA, ADS
-          ADObj1 = new calendar(ChineseYear4[i], 5)
-          ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
-          if (!ADS) { ADS = '　吉' }
-          ADA = Animals[(ADObj1[6].lYear - 4) % 12]
-          if (ADObj1[6].lYear < 1901) { ADA = '吉' }
-
-          aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
-
-          // 加上疏文流水編號，及自訂開始的數字
-          function LittleNum(m, n) {
-            // 導入自訂數字
-            var LN = LittleNumNum.value
-            if (LN) {
-              n = n + Number(LN) - 1
-            }
-            // 補0
-            if (n < 10) {
-              n = '00' + n
-            } else if (n < 100) {
-              n = '0' + n
-            }
-            // 加上樣式，不轉90度，這樣複製到word才不會跑位
-            return '<span style="font-size:50%;">　　　' + m + n + '</span>'
-          }
-          // 加上人名流水編號
-          for (var k = 1; k < Arr1.length; k++) {
-            if (Arr2[i + k][0] == '♂') {
-              aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-              break
-            }
-          }
-          // 流水編號自增，若用i，會跳號
-          j++
-
-          // 判斷下一行是地址否？加入地址
-          if (Arr2[i + 1][0] == '♂') {
-            // 統計名單中：同一地址有多少人
-            if (addNum > 0) {
-              aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
-              for (var k = 1; k < Arr1.length; k++) {
-                // 地址若有多行，則繼續加入地址，否則中止循環
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                  break
-                }
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                  // 加入行首空格7個，以便排版
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
-                }
-              }
+          // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
+          if (/^..[縣市]/.test(Arr2[i][1])) {
+            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
+              // Arr2[i][1] = '中華民國' + Arr2[i][1]
+              Arr5[i] = 'T'
+            } else if (/^深圳市/.test(Arr2[i][1])) {
+              Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+              Arr5[i] = 'H'
             } else {
-              aDiv.innerHTML += '<br/>現住：'
-              for (var k = 1; k < Arr1.length; k++) {
-                // 地址若有多行，則繼續加入地址，否則中止循環
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                  break
-                }
-                if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                  // 加入行首空格5個，以便排版
-                  aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
+              // Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+              Arr5[i] = 'T'
+            }
+          }
+          if (/^香港/.test(Arr2[i][1])) {
+            Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+            Arr5[i] = 'H'
+          }
+          if (!Arr5[i]) {
+            Arr5[i] = ''
+          }
+        }
+        // 疏文封面
+        var aDiv = document.createElement('div')
+        aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
+        aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
+        div2.appendChild(aDiv)
+        // 疏文內容
+        for (var i = 0, j = 1; i < Arr1.length; i++) {
+          // 建立DIV
+          var aDiv = document.createElement('div')
+          // 人名開頭才建立
+          if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+            // 加入男女性別，及人名，出家沙門
+            if (Arr2[i][0] == '釋') {
+              aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
+            } else {
+              aDiv.innerHTML += '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+            }
+            // 區別香港的西元生日，與台灣的民國生日
+            if (Arr2[i][2].length == 4) {
+              aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
+
+              // 取出西元日期，轉為數字
+              ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
+
+            } else {
+              aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
+              // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
+              // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
+              if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
+                ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
+              }
+              // 轉換正統寫法的中文數字
+              // 取出百位數
+              if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
+                ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
+              }
+              // 取出十位數
+              if (Arr2[i][2].length && Arr2[i][2].match('十')) {
+                // 補上「一」十
+                if (Arr2[i][2].indexOf('十') < 1) {
+                  ChineseYear2[i] = 10
+                } else if (Arr2[i][2].indexOf('十') == 1) {
+                  ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
+                  // 另外幾種寫法
+                  // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
+                  // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
                 }
               }
+              // 取出個位數
+              if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
+                ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
+              }
+              // 空位轉0
+              if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
+              if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
+              if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
+              // 判斷不要覆蓋前面已轉好的年份
+              if (!ChineseYear4[i]) {
+                ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
+              }
+              // alert(ChineseYear4)
+              // 民國轉西元年
+              if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
             }
-            // 統計名單歸零
-            addNum = 0
-          } else {
-            // 下一行若非地址，統計名單加一
-            addNum++
+            // 除錯：取代例外的錯字
+            aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆農曆', '農曆')
+            // 導入日曆函數，並算出生肖
+            var ADObj, ADObj1, ADObj2, ADA, ADS
+            ADObj1 = new calendar(ChineseYear4[i], 5)
+            ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
+            if (!ADS) { ADS = '　吉' }
+            ADA = Animals[(ADObj1[6].lYear - 4) % 12]
+            if (ADObj1[6].lYear < 1901) { ADA = '吉' }
+
+            aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
+
+            // 加上疏文流水編號，及自訂開始的數字
+            function LittleNum(m, n) {
+              // 導入自訂數字
+              var LN = LittleNumNum.value
+              if (LN) {
+                n = n + Number(LN) - 1
+              }
+              // 補0
+              if (n < 10) {
+                n = '00' + n
+              } else if (n < 100) {
+                n = '0' + n
+              }
+              // 加上樣式，不轉90度，這樣複製到word才不會跑位
+              return '<span style="font-size: 50%;float: right;">　　　' + m + n + '</span>'
+            }
+            // 加上人名流水編號
+            for (var k = 1; k < Arr1.length; k++) {
+              if (Arr2[i + k][0] == '♂') {
+                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+                break
+              }
+            }
+            // 流水編號自增，若用i，會跳號
+            j++
+
+            // 判斷下一行是地址否？加入地址
+            if (Arr2[i + 1][0] == '♂') {
+              // 統計名單中：同一地址有多少人
+              if (addNum > 0) {
+                aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
+                for (var k = 1; k < Arr1.length; k++) {
+                  // 地址若有多行，則繼續加入地址，否則中止循環
+                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+                    aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+                    break
+                  }
+                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+                    // 加入行首空格7個，以便排版
+                    aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
+                  }
+                }
+              } else {
+                aDiv.innerHTML += '<br/>現住：'
+                for (var k = 1; k < Arr1.length; k++) {
+                  // 地址若有多行，則繼續加入地址，否則中止循環
+                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+                    aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+                    break
+                  }
+                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+                    // 加入行首空格5個，以便排版
+                    aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
+                  }
+                }
+              }
+              // 統計名單歸零
+              addNum = 0
+            } else {
+              // 下一行若非地址，統計名單加一
+              addNum++
+            }
+            // 插入DIV
+            div2.appendChild(aDiv)
           }
-          // 插入DIV
-          div2.appendChild(aDiv)
         }
+        alert('名單檢測無誤，並且已換轉為您要的格式，請複製至Word手動編輯')
+        NameTestAlert = 0
       }
     }
 
+    // 檢測結果判斷用
+    var NameTestAlert = 0
+    // 名單檢測
     function NameTest() {
       // 先刪除舊表格，不然會一直增加
       // delTab('div2')
@@ -1613,6 +1633,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if (!Arr2[i][4]) { Arr2[i][4] = '▲' }
             if (!Arr2[i][5]) { Arr2[i][5] = '▲' }
             if (Arr2[i][5] == '時') { Arr2[i][5] = '▲' }
+            // 有誤的導入陣列
+            Arr5[i] = Arr2[i]
+          }
+          // 信徒名單檢驗，若重複按鈕，前一次有誤的名單
+          if (Arr2[i][2] == '▲' || Arr2[i][3] == '▲' || Arr2[i][4] == '▲' || Arr2[i][5] == '▲') {
+            // 有誤的導入陣列
             Arr5[i] = Arr2[i]
           }
 
@@ -1740,8 +1766,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // div2.appendChild(aDiv)
         }
       }
-      txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
-      overCopy()
+      // 只呈現有誤的
+      if (Arr5 != '') {
+        txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
+        overCopy()
+        alert('名單有誤，請先修訂')
+      } else {
+        // 若無誤就保持文本框中的資料
+        return NameTestAlert = 1
+      }
     }
 
     // 賦予自訂的節日活動顏色
@@ -2339,9 +2372,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       display: none;
     }
     
-    #p {
+    #p,
+    .c {
       color: darkred;
+      background: lightcyan;
       font-size: 14pt;
+      font-weight: bold;
     }
     
     * {
@@ -2664,7 +2700,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/>
   <input class="k" type="text" id="LittleNumNum" placeholder="流水號開始號碼" />
   <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAdd" onclick="LittleNumAdd()" />
-  <input class="my" type="button" value="名單檢驗，只檢出空白欄" id="test" onclick="NameTest()" />
+  <input class="c" type="button" value="流水號狀態" id="LittleNumShow" />
+  <input class="my" type="button" value="名單檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
