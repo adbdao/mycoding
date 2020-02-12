@@ -2372,7 +2372,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       display: none;
     }
     
-    #p,
     .c {
       color: darkred;
       background: lightcyan;
@@ -2684,7 +2683,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/> 將您的日期表，直接複製到下方文本框中。 年份一定要西元4位數字！ 日期的分隔符號，只要是非數字符號即可，如[年 月 日 - * / 空白 tab]， 再按「批次轉農曆日期」按鈕。
   <br/> 結果會呈現在文本框中，以便複製或剪貼
   <br/> 按「復原」可恢復原來輸入的日期！
-  <p id="p">將齋天疏文、或名冊，複製到下方文本框，
+  <p class="c">將齋天疏文、或名冊，複製到下方文本框，
     <br/> 依照「西元及民國」年份，每年自動依系統日期，算出並更正年齡、生肖。
     <br/>功德主名冊，人名太多直接列印會混亂，所以請複製至Word再列印</p>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
@@ -2698,8 +2697,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
   <input class="b" type="button" value="齋天疏文功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
   <br/>
-  <input class="k" type="text" id="LittleNumNum" placeholder="流水號開始號碼" />
-  <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAdd" onclick="LittleNumAdd()" />
+  <input class="k" type="number" id="LittleNumNum" placeholder="流水號開始號碼" />
+  <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAddId" onclick="LittleNumAdd()" />
   <input class="c" type="button" value="流水號狀態" id="LittleNumShow" />
   <input class="my" type="button" value="名單檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
   <br/>
