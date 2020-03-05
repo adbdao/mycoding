@@ -1,6 +1,7 @@
 /*每行排序：暫時依2016的css排序*/
 
-/*主要文件 */
+/*主要文件 
+用em可複製「樣式」到word中編輯，用%有時候不行*/
 body {background:#000; line-height:1.2em; color:yellow; font-size:2em;}
 .SearchWord1 {color:#ffc; background: #ffff66;}
 .SearchWord2 {color:#ffc; background: #a0ffff;}

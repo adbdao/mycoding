@@ -1,70 +1,55 @@
 // 導入模組
 var fs = require('fs')
 var path = require('path')
+
 // 配合timeEnd()成對出現。 打印出代碼執行的時間
 console.time('共耗費了')
+
 // 規範化檔案路徑
 var h = path.normalize('./')
 // 取得當前目錄下所有檔案及資料夾
 var d = fs.readdirSync(h)
-// 刪除.git這個目錄
-if (d[0] == '.git') {
-    d.shift()
-}
+
+// 刪除不需要的目錄
+// node.js 很多正規式，都不能用，以下失敗 d = d.replace(',"image"', '')
+var n = d.indexOf('.git')
+d.splice(n, 1)
+var m = d.indexOf('pic')
+d.splice(m, 1)
+
 // 倒轉陣列，以便中文筆劃多的檔在前
 d.reverse()
 
-// 讀取index.html
-var index = fs.readFileSync('index.html', 'utf8')
-// 不必關閉檔案
-// fs.closeSync(path.normalize('./index.html'))
-// 在陣列中找出「檔名陣列」
-var k = index.split('\n')
-for (var i = 0; i < k.length; i++) {
-    if (/var ArrLi\s?\=/.test(k[i])) {
-        k[i] = 'var ArrLi = ["' + d.join('","') + '"]'
-    }
-}
-// 好像無法在for of中使用正規，以下失敗
-// for(var i of k) {
-//     if (/var ArrLi\s?\=/.test(k[i])) {
-//     if (i.search('var ArrLi=')) {
-//         i = 'var ArrLi = ["' + d.join('","') + '"]'
-//     }
-// }
+function addDir(IndexName) {
+    // 讀取index的檔案，並導入陣列
+    var k = fs.readFileSync(IndexName, 'utf8').split('\n')
+    // 不必關閉檔案
+    // fs.closeSync(path.normalize('./index.html'))
 
-// 用相對路徑寫入檔案
-fs.writeFileSync('index.html', k.join('\n'), 'utf8')
-// 完成時返回通知
-console.log('index.html is OK')
+    // 無法在for of中使用正規，以下失敗
+    // for (var i of k) {
+    //     if (/var ArrLi\s?\=/.test(k)) {
+    //         i = 'var ArrLi = ["' + d.join('","') + '"]'
+    //     }
+    // }
 
-// 讀取Lum1.html
-var Lum1 = fs.readFileSync('Lum1.html', 'utf8')
-// 在陣列中找出「檔名陣列」
-var L = Lum1.split('\n')
-for (var i = 0; i < L.length; i++) {
-    if (/var ArrLi\s?\=/.test(L[i])) {
-        L[i] = 'var ArrLi = ["' + d.join('","') + '"]'
+    // 在陣列中找出「檔名陣列」
+    for (var i = 0; i < k.length; i++) {
+        if (/var ArrLi\s?\=/.test(k[i])) {
+            k[i] = 'var ArrLi = ["' + d.join('","') + '"]'
+        }
     }
-}
-// 用相對路徑寫入檔案
-fs.writeFileSync('Lum1.html', L.join('\n'), 'utf8')
-// 完成時返回通知
-console.log('Lum1.html is OK')
 
-// 讀取Lum2.html
-var Lum2 = fs.readFileSync('Lum2.html', 'utf8')
-// 在陣列中找出「檔名陣列」
-var L = Lum2.split('\n')
-for (var i = 0; i < L.length; i++) {
-    if (/var ArrLi\s?\=/.test(L[i])) {
-        L[i] = 'var ArrLi = ["' + d.join('","') + '"]'
-    }
+    // 用相對路徑寫入檔案
+    fs.writeFileSync(IndexName, k.join('\n'), 'utf8')
+
+    // 完成時返回通知
+    console.log(IndexName + ' is OK')
 }
-// 用相對路徑寫入檔案
-fs.writeFileSync('Lum2.html', L.join('\n'), 'utf8')
-// 完成時返回通知
-console.log('Lum2.html is OK')
+
+addDir('index.html')
+addDir('Lum1.html')
+addDir('Lum2.html')
 
 // 'test'名字要和time()中的名字保持一致
 console.timeEnd('共耗費了')

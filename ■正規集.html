@@ -24,6 +24,7 @@ input {height: 30px;color: black;}
 #div4 input {background:#f99;}
 .name {background:tan;color: darkred;}
 
+#div2 {display: none;background: white;line-height: 2em;}
 #txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
@@ -416,10 +417,15 @@ input {height: 30px;color: black;}
                         if (Arr1[i] && !/^　/.test(Arr1[i])) {
                             // 如果只有1行
                             if (q == 1) {
+                                // 試用加入HTML樣式，暫時代替D3.js
+                                // Arr2要在前面，不然Arr1會重複
+                                Arr2[0] = '<span class="b">' + myValue.value + '</span>─<span class="yg">' + Arr1[0] + '</span>'
                                 Arr1[0] = myValue.value + '─' + Arr1[0]
                                 break
                                 // 如果只有2行
                             } else if (q == 2) {
+                                Arr2[0] = '<span class="b">' + myValue.value + '</span>┬<span class="yg">' + Arr1[0] + '</span>'
+                                Arr2[1] = w + '</span>└<span class="yg">' + Arr1[1]
                                 Arr1[0] = myValue.value + '┬' + Arr1[0]
                                 Arr1[1] = w + '└' + Arr1[1]
                                 break
@@ -427,18 +433,22 @@ input {height: 30px;color: black;}
                             } else {
                                 // 行首
                                 if (i == 0 && r == 0) {
+                                    Arr2[i] = w + '┌' + '<span class="yg">' + Arr1[i] + '</span>'
                                     Arr1[i] = w + '┌' + Arr1[i]
                                     r = 1
                                     // 行末
                                 } else if (i == (q - 1)) {
+                                    Arr2[i] = w + '└' + '<span class="yg">' + Arr1[i] + '</span>'
                                     Arr1[i] = w + '└' + Arr1[i]
                                 } else {
                                     // 前有空行的行首
                                     if (r == 0) {
+                                        Arr2[i] = w + '┌' + '<span class="yg">' + Arr1[i] + '</span>'
                                         Arr1[i] = w + '┌' + Arr1[i]
                                         r = 1
                                     } else {
                                         // 中間行
+                                        Arr2[i] = w + '├' + '<span class="yg">' + Arr1[i] + '</span>'
                                         Arr1[i] = w + '├' + Arr1[i]
                                     }
                                 }
@@ -447,9 +457,11 @@ input {height: 30px;color: black;}
                         } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
                             // 前面都是空行的空行
                             if (/[^　]/.test(Arr1[i]) && r == 0) {
+                                Arr2[i] = w + '　' + '<span class="yg">' + Arr1[i] + '</span>'
                                 Arr1[i] = w + '　' + Arr1[i]
                                 // 前面有文字行的空行
                             } else if (r == 1) {
+                                Arr2[i] = w + '│' + '<span class="yg">' + Arr1[i] + '</span>'
                                 Arr1[i] = w + '│' + Arr1[i]
                             }
                         }
@@ -457,12 +469,17 @@ input {height: 30px;color: black;}
                         // 偶數行
                         if (i == (q2 - 1) && q % 2 == 0) {
                             Arr1[q2 - 1] = Arr1[q2 - 1].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                            // 題目要另外加樣式
+                            Arr2[q2 - 1] = Arr2[q2 - 1].replace(w, '<span class="b">' + myValue.value + '</span>').replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
                         }
                         // 奇數行
                         if (i == q2 && q % 2 != 0) {
                             Arr1[q2] = Arr1[q2].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                            Arr2[q2] = Arr2[q2].replace(w, '<span class="b">' + myValue.value + '</span>').replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
                         }
                     }
+                    // 加入HTML
+                    div2.innerHTML = Arr2.join('<br/>')
                     overCopy()
                     // 無題目的圖表
                 } else if (!myValue.value && txt1.value) {
@@ -665,6 +682,15 @@ input {height: 30px;color: black;}
                 } else { alert('請在 值1 及 文本框 中輸入文字') }
             }
 
+            NumViewShow.onclick = function () {
+                // 因為不常用，先隱藏HTML樹狀圖
+                if (div2.style.display == 'block') {
+                    div2.style.display = 'none'
+                } else {
+                    div2.style.display = 'block'
+                }
+            }
+
             NameToArr.onclick = function () {
                 zzUp()
                 // 陣列中的逗號轉為冒號+逗號，前後再各補一冒號
@@ -772,18 +798,22 @@ input {height: 30px;color: black;}
                     // 編輯成講義需要的分段與《、「
                     txt1.value = txt1.value.replace(/\n/g, '')
                     txt1.value = txt1.value.replace(/(《)/g, '\n\n$1').replace(/(「)/g, '$1\n')
+                    // 冊除開頭的1空行，保留1空行
+                    Arr1 = txt1.value.split('\n')
+                    Arr1.shift()
+                    txt1.value = Arr1.join('\n')
                     Copy()
                 }
             }
             ReToN2.onclick = function () {
                 zzUp()
-                // 文章轉換行符
+                // 文章轉換行符，留'。'
                 txt1.value = txt1.value.replace(/。/g, '。\n')
                 Copy()
             }
             ReToN1.onclick = function () {
                 zzUp()
-                // 文章轉換行符
+                // 文章轉換行符，刪'。'
                 txt1.value = txt1.value.replace(/。/g, '\n')
                 Copy()
             }
@@ -1069,6 +1099,7 @@ input {height: 30px;color: black;}
 </head>
 
 <body>
+    <div id="div2"></div>
     <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'></textarea><br/>
@@ -1081,6 +1112,7 @@ input {height: 30px;color: black;}
         <input id="reUp" type="button" class="r" value="回復上一步" />
         <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
         <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
+        <input id="NumViewShow" type="button" class="b" value="樹狀圖HTML" />
         <input id="DelTag" type="button" class="tan" value="刪<>置標符" />
         <input id="DelTabToNum" type="button" class="gy" value="刪大綱編號" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />

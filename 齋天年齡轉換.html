@@ -1262,6 +1262,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             // 本來另加一div，但不好用，所以改用判斷地址
             // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
             // 增加一空行，調整位置
+            // 用em可複製「樣式」到word中編輯，用%有時候不行
             aDiv.innerHTML += '<font style="font-size:0.3em;">　</font><br/>'
             // 加入地址
             for (var k = 1; k < Arr1.length; k++) {
@@ -1498,6 +1499,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
                 n = '0' + n
               }
               // 加上樣式，不轉90度，這樣複製到word才不會跑位
+              // 用em可複製「樣式」到word中編輯，用%有時候不行
               return '<span style="font-size: 0.5em;float: right;">　　　' + m + n + '</span>'
             }
             // 加上人名流水編號

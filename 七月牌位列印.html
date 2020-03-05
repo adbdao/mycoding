@@ -1,0 +1,277 @@
+﻿<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>七月牌位列印</title>
+    <style>
+        /*#div2 {
+            無作用
+            width: 275mm;
+        }*/
+        
+        #div1>div {
+            display: inline-block;
+            border: 0.5px solid gray;
+            /*配合A4紙大小
+            滿版列印*/
+            width: 58mm;
+            height: 190mm;
+            /*有邊界列印
+            width: 54mm;
+            height: 185mm;*/
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+        }
+        
+        .live {
+            /*背景圖片*/
+            background-image: url(pic/live.jpg);
+            /*滿版列印*/
+            background-size: 100% 100%;
+            /*有邊界列印
+            background-size: 98% 100%;*/
+        }
+        
+        .dead {
+            /*背景圖片*/
+            background-image: url(pic/dead.jpg);
+            background-size: 101% 100%;
+            /*有邊界列印
+            background-size: 98% 100%;*/
+        }
+        
+        .address {
+            margin: 57mm 3mm 0 0;
+            width: 10mm;
+            /*不設定高度，長地址可一直呈現
+            height: ;*/
+            /*border: 1px solid #aaa;*/
+            font-size: 16pt;
+        }
+        
+        .name1 {
+            margin: 70mm 9mm 0 0;
+            width: 20mm;
+            height: 55mm;
+            /*border: 1px solid #aaa;*/
+            font-size: 24pt;
+            text-align: center;
+        }
+        
+        .name2 {
+            margin: 72mm 11mm 0 0;
+            width: 20mm;
+            height: 60mm;
+            /*border: 1px solid #aaa;*/
+            font-size: 24pt;
+            text-align: center;
+        }
+        
+        .sit2 {
+            /*會亂跑
+            position: absolute;*/
+            float: right;
+            font-size: 18pt;
+            font-family: 標楷體;
+            line-height: 20pt;
+            text-align: center;
+        }
+        
+        .sit {
+            float: right;
+            margin: -120mm -20mm 0 0;
+            width: 10mm;
+            height: 56mm;
+            /*border: 1px solid #aaa;*/
+            font-size: 22pt;
+            font-family: 標楷體;
+            text-align: left;
+        }
+        
+        .son {
+            margin: 100mm 4mm 0 0;
+            width: 8mm;
+            height: 50mm;
+            /*border: 1px solid #aaa;*/
+            font-size: 20pt;
+            text-align: center;
+        }
+        
+        #txt1 {
+            width: 60vw;
+            height: 50vh;
+        }
+        
+        input {
+            height: 35px;
+            background: yellowgreen;
+            color: black;
+        }
+        
+        #btn1 {
+            background: hotpink;
+        }
+        
+        #btn2 {
+            background: yellow;
+        }
+        
+        #btn3 {
+            background: orange;
+        }
+    </style>
+    <script>
+        var Arr1 = []
+        var Arr2 = []
+        var Arr3 = []
+        var Arr4 = []
+
+        var ZZ, YY, XX, AA, BB, CC, DD
+
+        function zzUp() {
+            // 回覆上一步的值
+            ZZ = txt1.value
+            // 預先導入陣列
+            Arr1 = txt1.value.split('\n')
+        }
+        function Copy() {
+            // 結束時選取並複製文本框中的內容
+            txt1.select()
+            document.execCommand('Copy')
+        }
+        function overCopy() {
+            // 結束時呈現結果
+            txt1.value = Arr1.join('\n')
+            // 結束時選取並複製文本框中的內容
+            txt1.select()
+            document.execCommand('Copy')
+        }
+        function delTab(a) {
+            var oObj = document.getElementById(a)
+            while (oObj.firstChild) {
+                oObj.removeChild(oObj.firstChild)
+            }
+        }
+
+        // 設定多個參數，就可以共用一個函數
+        function addLiveDead(pic, name, nameHeight, text, showSit, showSon) {
+            // 先導入陣列
+            zzUp()
+            // 先刪除舊表格
+            delTab('div1')
+            for (var i = 0; i < Arr1.length; i++) {
+                // 各項資料，導入二維陣列
+                Arr2[i] = []
+                Arr2[i] = Arr1[i].split('\t')
+
+                // 建立要填入的人名、地址…div，背景牌位用css
+                var aDiv = document.createElement('div')
+                aDiv.setAttribute('class', pic)
+
+                // 地址
+                var c = document.createElement('div')
+                c.setAttribute('class', 'address')
+                c.innerHTML = Arr2[i][1]
+                aDiv.appendChild(c)
+
+                // 人名、被超渡者
+                var b = document.createElement('div')
+                b.setAttribute('class', name)
+                // 為調整祖先牌位與祿位的差異。最多可寫入3個字的姓氏，4字以上就會跑位
+                b.style.height = nameHeight
+                // text 為加入「昭穆宗親」
+                b.innerHTML = Arr2[i][0] + text
+                aDiv.appendChild(b)
+
+                // 往生蓮位
+                var e = document.createElement('div')
+                // 調定可不呈現
+                e.style.display = showSit
+                e.setAttribute('class', 'sit')
+                e.innerHTML = '往生蓮位'
+                aDiv.appendChild(e)
+
+                // 陽上人
+                var d = document.createElement('div')
+                // 調定可不呈現
+                d.style.display = showSon
+                d.setAttribute('class', 'son')
+                d.innerHTML = Arr2[i][2]
+                aDiv.appendChild(d)
+
+                div1.appendChild(aDiv)
+            }
+        }
+        window.onload = function () {
+            // 祿位名字，不可超過4人(12個字)
+            btn1.onclick = function () {
+                addLiveDead('live', 'name1', '55mm', '', 'none', 'none')
+            }
+            // 被超渡者，不可超過4人(12個字)
+            // 輸入完，立刻呈現
+            btn2.onclick = txt1.onkeyup = function () {
+                addLiveDead('dead', 'name2', '55mm', '', 'block', 'block')
+            }
+            // 祖先姓氏，不可超過3個字
+            btn3.onclick = function () {
+                addLiveDead('dead', 'name2', '60mm', '<div class="sit2">氏歷代祖先<br/>昭穆宗親', 'block', 'block')
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <input type="button" id="btn1" value="消災祿位" />
+    <input type="button" id="btn2" value="往生牌位" />
+    <input type="button" id="btn3" value="祖先牌位" />
+    <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+    <br/>
+    <textarea id="txt1" placeholder="
+在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
+        輸入完畢後，鍵盤一停止，
+        就會先呈現「往生牌位」！
+    其它牌位：輸入完畢後，請按「消災祿位」「往生牌位」「祖先牌位」按鈕！
+註：
+    為節省紙張，同一地址的多人，可寫在同一張祿位上！
+        祿位名字，不可超過4人(12個字)，中間可用空白分隔。例：張三三 李四四 王五五 趙六六
+        被超渡者，不可超過4人(12個字)，範例同上。
+        祖先姓氏，不可超過3個字
+">
+彭新松 薛清梅 薛清梅 薛清梅	新北市永和區豫溪街50號豫溪街50號豫溪街50號2樓	曹某興 曹某興
+鈕先鉞 張佩華 薛清梅	新北市永和區豫溪街50號2樓	曹某興 曹某興
+彭俊陽 鈕則謙	新北市永和區豫溪街50號2樓	曹某興 曹某興
+藍茂峰藍茂峰藍茂峰藍茂峰	台中市西屯區長安路二段a1號1樓	曹某興曹某興
+釋士玹	新竹縣北屯區松竹北路1643號	曹某興曹某興
+釋某音藍茂峰藍茂峰	苗栗市西屯區長安路二段a1號1樓	曹某興
+釋某音	高雄市楠梓區樂群路一770號	曹某興
+釋某音	苗栗市西屯區長安路二段a1號1樓	曹某興
+曹某興	高雄市楠梓區樂群路一770號	曹某興
+釋某音	苗栗市西屯區長安路二段a1號1樓	曹某興
+彭	新北市永和區豫溪街50號豫溪街50號豫溪街50號2樓	曹某興 曹某興
+鈕梅	新北市永和區豫溪街50號2樓	曹某興 曹某興
+彭俊陽	新北市永和區豫溪街50號2樓	曹某興 曹某興
+藍茂峰藍	台中市西屯區長安路二段a1號1樓	曹某興曹某興
+釋	新竹縣北屯區松竹北路1643號	曹某興曹某興
+峰藍茂峰	苗栗市西屯區長安路二段a1號1樓	曹某興
+釋音	高雄市楠梓區樂群路一770號	曹某興
+釋	苗栗市西屯區長安路二段a1號1樓	曹某興
+曹	高雄市楠梓區樂群路一770號	曹某興
+釋	苗栗市西屯區長安路二段a1號1樓	曹某興</textarea>
+    <br/>
+    <pre>
+在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
+        輸入完畢後，鍵盤一停止，
+        就會先呈現「往生牌位」！
+    其它牌位：輸入完畢後，請按「消災祿位」「往生牌位」「祖先牌位」按鈕！
+註：
+    為節省紙張，同一地址的多人，可寫在同一張祿位上！
+        祿位名字，不可超過4人(12個字)，中間可用空白分隔。例：張三三 李四四 王五五 趙六六
+        被超渡者，不可超過4人(12個字)，範例同上。
+        祖先姓氏，不可超過3個字
+    </pre>
+</body>
+
+</html>
