@@ -20,6 +20,7 @@ d.splice(m, 1)
 // 倒轉陣列，以便中文筆劃多的檔在前
 d.reverse()
 
+// 設定共用函數
 function addDir(IndexName) {
     // 讀取index的檔案，並導入陣列
     var k = fs.readFileSync(IndexName, 'utf8').split('\n')
@@ -47,6 +48,7 @@ function addDir(IndexName) {
     console.log(IndexName + ' is OK')
 }
 
+// 套用檔案
 addDir('index.html')
 addDir('Lum1.html')
 addDir('Lum2.html')
@@ -56,5 +58,3 @@ console.timeEnd('共耗費了')
 // 本來只寫入另一檔案DirName.txt，還要人工複製，後來可以直接寫入index.html
 // 用相對路徑寫入檔案
 // fs.writeFileSync(path.normalize('./DirName.txt'), '["' + d.join('","') + '"]', 'utf8')
-// // 完成時返回通知
-// console.log('DirName is OK')
