@@ -11,7 +11,7 @@ var h = path.normalize('./')
 var d = fs.readdirSync(h)
 
 // 刪除不需要的目錄
-// node.js 很多正規式，都不能用，以下失敗 d = d.replace(',"image"', '')
+// node.js 中，很多正規式，都不能用，以下失敗 d = d.replace(',"image"', '')
 var n = d.indexOf('.git')
 d.splice(n, 1)
 var m = d.indexOf('pic')

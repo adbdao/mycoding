@@ -800,10 +800,18 @@ input {height: 30px;color: black;}
                     txt1.value = txt1.value.replace(/(《)/g, '\n\n$1').replace(/(「)/g, '$1\n')
                     // 冊除開頭的1空行，保留1空行
                     Arr1 = txt1.value.split('\n')
-                    Arr1.shift()
-                    txt1.value = Arr1.join('\n')
+                    if (Arr1[0] == '' && Arr1[1] == '') {
+                        Arr1.shift()
+                        txt1.value = Arr1.join('\n')
+                    }
                     Copy()
                 }
+            }
+            ReToN3.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'、'
+                txt1.value = txt1.value.replace(/、/g, '、\n')
+                Copy()
             }
             ReToN2.onclick = function () {
                 zzUp()
@@ -1082,6 +1090,12 @@ input {height: 30px;color: black;}
                 txt1.value = txt1.value.replace(/\<[^\>]*\>/g, '')
                 Copy()
             }
+            DelTagOlLi.onclick = function () {
+                zzUp()
+                // 刪除所有<ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                Copy()
+            }
             DelTabToNum.onclick = function () {
                 zzUp()
                 // 刪除所有大綱編號
@@ -1092,6 +1106,12 @@ input {height: 30px;color: black;}
                 zzUp()
                 // 刪除空行
                 txt1.value = txt1.value.replace(/\n+/g, '\n')
+                Copy()
+            }
+            DelAllEnter.onclick = function () {
+                zzUp()
+                // 刪除所有\n
+                txt1.value = txt1.value.replace(/\n/g, '\n')
                 Copy()
             }
         }
@@ -1113,17 +1133,19 @@ input {height: 30px;color: black;}
         <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
         <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
         <input id="NumViewShow" type="button" class="b" value="樹狀圖HTML" />
-        <input id="DelTag" type="button" class="tan" value="刪<>置標符" />
+        <input id="DelTag" type="button" class="tan" value="刪標記<>" />
         <input id="DelTabToNum" type="button" class="gy" value="刪大綱編號" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
-        <input id="ReToN1" type="button" class="y" value="。號換行刪。" />
-        <input id="ReToN2" type="button" class="o" value="。號換行" />
+        <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
+        <input id="ReToN3" type="button" class="o" value="、號+\n" />
+        <input id="ReToN2" type="button" class="o" value="。號+\n" />
+        <input id="ReToN1" type="button" class="y" value="。號轉\n" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />
-        <input id="ReToN" type="button" class="y" value="值1取代為換行符" />
-        <input id="ReToT" type="button" class="y" value="值1取代為Tab" />
+        <input id="ReToN" type="button" class="y" value="值1轉\n" />
+        <input id="ReToT" type="button" class="y" value="值1轉Tab" />
         <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
         <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" /> 自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
     </div>
@@ -1150,6 +1172,7 @@ input {height: 30px;color: black;}
         <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
         <input id="toOlLi" type="button" class="lg" value="加上<ol><li>" />
+        <input id="DelTagOlLi" type="button" class="tan" value="刪<ol><li>" />
     </div>
     <div>
         <input id="toHref" type="button" class="p" value="整列網址加標記<a>值1自訂連結名稱" />
