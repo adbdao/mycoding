@@ -807,6 +807,12 @@ input {height: 30px;color: black;}
                     Copy()
                 }
             }
+            ReToN4.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'；'
+                txt1.value = txt1.value.replace(/；/g, '；\n')
+                Copy()
+            }
             ReToN3.onclick = function () {
                 zzUp()
                 // 文章轉換行符，留'、'
@@ -1134,9 +1140,10 @@ input {height: 30px;color: black;}
         <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
         <input id="NumViewShow" type="button" class="b" value="樹狀圖HTML" />
         <input id="DelTag" type="button" class="tan" value="刪標記<>" />
-        <input id="DelTabToNum" type="button" class="gy" value="刪大綱編號" />
+        <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
+        <input id="ReToN4" type="button" class="o" value="；號+\n" />
         <input id="ReToN3" type="button" class="o" value="、號+\n" />
         <input id="ReToN2" type="button" class="o" value="。號+\n" />
         <input id="ReToN1" type="button" class="y" value="。號轉\n" />
