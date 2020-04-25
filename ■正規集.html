@@ -797,7 +797,7 @@ input {height: 30px;color: black;}
                     zzUp()
                     // 編輯成講義需要的分段與《、「
                     txt1.value = txt1.value.replace(/\n/g, '')
-                    txt1.value = txt1.value.replace(/(《)/g, '\n\n$1').replace(/(「)/g, '$1\n')
+                    txt1.value = txt1.value.replace(/(《)/g, '\n\n$1').replace(/(》卷?\d*：「)/g, '$1\n')
                     // 冊除開頭的1空行，保留1空行
                     Arr1 = txt1.value.split('\n')
                     if (Arr1[0] == '' && Arr1[1] == '') {

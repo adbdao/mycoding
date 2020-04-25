@@ -82,7 +82,7 @@ padding: 30px 0px 30px 15px;
 #printNameDiv{
 display: none;
 /*配合A4紙大小*/
-width: 190mm;
+/*width: 190mm;*/
 /*人數不一定，所以不設長度*/
 /*height: 270mm;*/
 /*轉直排語法*/
@@ -94,23 +94,23 @@ writing-mode: vertical-rl;*/
 /*-webkit-writing-mode: vertical-rl;
 writing-mode: vertical-rl;*/
 display: inline-block;
-width: 85mm;
-height: 85mm;
+width: 75mm;
+height: 75mm;
 /*border-style:dotted solid double dashed; 
 上邊框是點狀
 右邊框是實線
 下邊框是雙線
 左邊框是虛線*/
 border: 1px dotted green;
-font-size: 56pt;
+font-size: 50pt;
 font-family: 標楷體;
 /* 垂直置中，設定文字行距 */
-line-height:85mm;
+line-height:75mm;
 /*水平置中*/
 margin: 0 auto;
 text-align: center;
 /* 設定文字間距 */
-letter-spacing: 3px;
+letter-spacing: 2px;
 }
 </style>
 <script>
@@ -195,7 +195,7 @@ var ps=['大寮',
 // ,'圊頭'
 ]
 // 分組的開始日期
-var ppDate='2019 10 24'
+var ppDate='2020 4 30'
 // 分組的工作內容
 var work7=[
 '煮早齋。<br/>▲飯後收飯菜及洗碗盤',
@@ -1710,17 +1710,17 @@ window.onload=function()
         if (txt2.value) {
             ww = txt2.value + 'mm'
         } else {
-            ww = '85mm'
+            ww = '75mm'
         }
         if (txt3.value) {
             hh = txt3.value + 'mm'
         } else {
-            hh = '85mm'
+            hh = '75mm'
         }
         if (nbr.value && Number(nbr.value)>9) {
             zz = nbr.value
         } else {
-            zz = '56'
+            zz = '50'
         }
         for (var k of arr) {
             var aDiv = document.createElement('div')
