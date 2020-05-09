@@ -78,7 +78,7 @@ p {width:650px;}
 
                 // 用日期函數運算：設定開始及增加，一定要轉為數字Number()，否則出錯
                 if (setH.value) {
-                    // 先運算HTML標準日期框中的日期
+                    // 優先運算HTML標準日期框中的日期
                     var sH = []
                     sH = setH.value.split('-')
                     d.setFullYear(Number(sH[0]) + Number(aY), Number(sH[1] - 1) + Number(aM), Number(sH[2]) + Number(aD))
@@ -100,10 +100,10 @@ p {width:650px;}
             }
             GT.onclick = function () {
                 // 高鐵買票運算結果
-                // 預設出發日期
-                setH.value = '2020-3-3'
-                setM.value = 3
-                setD.value = 3
+                // 預設出發日期，若不設定，即用今日日期
+                // setH.value = '2020-3-3'
+                // setM.value = 3
+                // setD.value = 3
                 // 設定0，防止誤算
                 addY.value = 0
                 addM.value = 0
@@ -125,6 +125,7 @@ p {width:650px;}
         <br/> 2. 再設定要增加的年月日日期，
         <br/>　　<span class="o">可用負數，來表示減少的日期</span>
         <br/> 3. 再按「計算」，結果呈現在文本框中
+        <br/> 4. 「高鐵早鳥」往前算27日，「早鳥優惠」可訂票的最早日期。可重複按，則累加7日，方便每週通勤者訂下一週的票
     </p>
     <div id="div2">
         <span class="g">快速設定日期</span>
