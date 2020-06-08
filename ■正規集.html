@@ -691,6 +691,12 @@ input {height: 30px;color: black;}
                 }
             }
 
+            DelNameToArr.onclick = function () {
+                zzUp()
+                // 陣列轉回文字
+                txt1.value = txt1.value.replace(/\s*['|"]\s*\,\s*['|"]\s*/g,'\n').replace(/^\s*\[?\s*['"]/,'').replace(/['"]\s*\]?\s*$/,'')
+                Copy()
+            }
             NameToArr.onclick = function () {
                 zzUp()
                 // 陣列中的逗號轉為冒號+逗號，前後再各補一冒號
@@ -1163,6 +1169,7 @@ input {height: 30px;color: black;}
         <input id="ch1911x" type="button" class="g" value="民國←西元年" />
         <input id="NameToArr" type="button" class="sb" value="轉陣列(橫)" />
         <input id="NameToArr2" type="button" class="sb" value="轉陣列(直)" />
+        <input id="DelNameToArr" type="button" class="tan" value="刪陣列" />
     </div>
     <div id="div1">修飾法名
         <input id="btn13" type="button" value="釋+名" />
