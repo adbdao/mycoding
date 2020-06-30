@@ -10,6 +10,11 @@
             width: 275mm;
         }*/
         
+         ::selection {
+            background: darkred;
+            color: yellow;
+        }
+        
         #div1>div {
             display: inline-block;
             border: 0.5px solid gray;
@@ -52,7 +57,7 @@
         }
         
         .name1 {
-            margin: 70mm 9mm 0 0;
+            margin: 70mm 2mm 0 0;
             width: 20mm;
             height: 55mm;
             /*border: 1px solid #aaa;*/
@@ -61,7 +66,7 @@
         }
         
         .name2 {
-            margin: 72mm 11mm 0 0;
+            margin: 72mm 1mm 0 0;
             width: 20mm;
             height: 60mm;
             /*border: 1px solid #aaa;*/
@@ -69,19 +74,10 @@
             text-align: center;
         }
         
-        .sit2 {
-            /*會亂跑
-            position: absolute;*/
-            float: right;
-            font-size: 18pt;
-            font-family: 標楷體;
-            line-height: 20pt;
-            text-align: center;
-        }
-        
         .sit1 {
+            /*往生蓮位*/
             float: right;
-            margin: -120mm -20mm 0 0;
+            margin: -120mm -9mm 0 0;
             width: 10mm;
             height: 56mm;
             /*border: 1px solid #aaa;*/
@@ -90,13 +86,25 @@
             text-align: left;
         }
         
-        .son {
-            margin: 100mm 4mm 0 0;
-            width: 8mm;
-            height: 50mm;
-            /*border: 1px solid #aaa;*/
-            font-size: 20pt;
+        .sit2 {
+            /*會亂跑 昭穆宗親
+            position: absolute;*/
+            float: right;
+            font-size: 18pt;
+            font-family: 標楷體;
+            line-height: 20pt;
             text-align: center;
+            /*border: 1px solid #aaa;*/
+        }
+        
+        .son {
+            margin: 102mm 14mm 0 0;
+            width: 8mm;
+            height: 88mm;
+            font-size: 18pt;
+            /*border: 1px solid #aaa;*/
+            /*text-align: center;*/
+            overflow: hidden;
         }
         
         #txt1 {
@@ -110,7 +118,7 @@
             color: black;
         }
         
-        #btn1 {
+        #btn1,#btn5 {
             background: hotpink;
         }
         
@@ -121,10 +129,9 @@
         #btn3 {
             background: orange;
         }
-        
-        * {
+        /** {
             border-radius: 3px;
-        }
+        }*/
         
         input:hover,
         textarea:hover {
@@ -154,6 +161,7 @@
 tr:nth-of-type(even){ background: lightblue; }
 tr:hover{background: wheat;}*/
     </style>
+    <style id="change"></style>
     <script>
         var Arr1 = []
         var Arr2 = []
@@ -189,11 +197,15 @@ tr:hover{background: wheat;}*/
 
         // 設定多個參數，就可以共用一個函數
         function addLiveDead(pic, name, nameHeight, text, showSit, showSon) {
+            // 先處理：使用者亂寫的標點符號。轉換成空白
+            txt1.value = txt1.value.replace(/[\,\.\/\\\;\:\'\"\[\]\(\)\{\}!_\-\=\+\*\|\<\>\&\%　丶，。、．‧；‥：…＆]/g, ' ').replace(/ +/g, ' ')
             // 先導入陣列
             zzUp()
             // 先刪除舊表格
             delTab('div1')
             for (var i = 0; i < Arr1.length; i++) {
+                // 刪除行首空白
+                Arr1[i] = Arr1[i].replace(/^\s+/, '')
                 // 各項資料，導入二維陣列
                 Arr2[i] = []
                 Arr2[i] = Arr1[i].split('\t')
@@ -234,23 +246,67 @@ tr:hover{background: wheat;}*/
                 aDiv.appendChild(d)
 
                 div1.appendChild(aDiv)
+
+                // 用css語法來調整字距，先歸零
+                change.innerHTML = ''
             }
         }
+
         window.onload = function () {
+            // 預先處理雜亂的資料。因為信徒常常亂填資料，資料的差異性太大！
+            btn5.onclick = function () {
+                // 先處理：使用者亂寫的標點符號。轉換成空白
+                txt1.value = txt1.value.replace(/[\,\.\/\\\;\:\'\"\[\]\(\)\{\}!_\-\=\+\*\|\<\>\&\%　丶，。、．‧；‥：…＆]/g, ' ').replace(/ +/g, ' ')
+                // 導入陣列
+                zzUp()
+                // 準備空物件
+                BB = ''
+                CC = ''
+                DD = ''
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 刪除行首空白
+                    Arr1[i] = Arr1[i].replace(/^\s+/, '')
+                    // 各項資料，導入二維陣列
+                    Arr2[i] = []
+                    Arr2[i] = Arr1[i].split('\t')
+                    // 判斷人名是否超過12個字
+                    if (Arr2[i][0].length > 13) {
+                        // 判斷人名是否超過18個字
+                        if (Arr2[i][0].length > 15) {
+                            BB += Arr1[i] + '※☆☆※'
+                        } else {
+                            CC += Arr1[i] + '※☆☆※'
+                        }
+                    } else {
+                        DD += Arr1[i] + '※☆☆※'
+                    }
+                }
+                // 導入文本框，但還要手動修訂！因為信徒常常亂填資料
+                txt1.value = BB + '\n======\n' + CC + '\n======\n' + DD
+                txt1.value = txt1.value.replace(/※☆☆※/g, '\n')
+                Copy()
+            }
+
             // 祿位名字，不可超過4人(12個字)
             btn1.onclick = function () {
                 addLiveDead('live', 'name1', '55mm', '', 'none', 'none')
             }
             // 亡者，不可超過4人(12個字)
-            // 輸入完，立刻呈現
-            btn2.onclick = txt1.onkeyup = function () {
+            // onkeyup輸入完，立刻呈現，後來發現不好用，還是手動呈現好
+            btn2.onclick = function () {
                 addLiveDead('dead', 'name2', '55mm', '', 'block', 'block')
             }
             // 祖先姓氏，不可超過3個字
             btn3.onclick = function () {
                 addLiveDead('dead', 'name2', '60mm', '<div class="sit2">氏歷代祖先<br/>昭穆宗親', 'block', 'block')
+                // 用css語法來調整字距，另外加一個<style>標籤
+                change.innerHTML = '.name2{margin:72mm 10mm 0 0;font-size:20pt;}.sit1{margin:-120mm -18mm 0 0;}.son{margin:102mm 5mm 0 0;}'
             }
-
+            // 舊字距，適合少量名字
+            btn4.onclick = function () {
+                // 用css語法來調整字距，另外加一個<style>標籤
+                change.innerHTML = '.name1 {margin: 70mm 9mm 0 0;}.name2 {margin: 72mm 11mm 0 0;}.sit1 {margin: -120mm -19mm 0 0;}.son {margin: 102mm 4mm 0 0;}'
+            }
             // 範例：
             var example1 = [
                 '人名	地址',
@@ -304,6 +360,8 @@ tr:hover{background: wheat;}*/
     <input type="button" id="btn1" value="消災祿位" />
     <input type="button" id="btn2" value="往生牌位" />
     <input type="button" id="btn3" value="祖先牌位" />
+    <input type="button" id="btn4" value="舊字距，適合少量名字" />
+    <input type="button" id="btn5" value="排序資料" />
     <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
     <br/>
     <textarea id="txt1" placeholder="在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
@@ -317,9 +375,10 @@ tr:hover{background: wheat;}*/
         祖先姓氏，不可超過3個字；陽上人不可超過2人(6個字)
 若一次要寫多人，而且準備日後重複使用資料，可用「試算表excel」寫資料，再用email寄來！ adb.dao@gmail.com
 撰寫範例如下：
-">張三三	台中市北屯區松竹路1段8號	何九九 石一二
-張三三 李四四	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二
+">張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
+張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
+張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
+張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
 張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九</textarea>
     <!--
 彭新松 薛清梅 鈕先鉞 張佩華	新北市永和區豫溪街50號2樓
@@ -359,11 +418,11 @@ tr:hover{background: wheat;}*/
     <h3>截止日期：農曆7月12日晚上。國曆2020年8月30日</h3>
     <h3>撰寫範例如下：</h3>
     <hr/>
-    <table id="tab1">祿位名字，不可超過4人(12個字)；為節省紙張，同一地址的多人，可寫在同一張祿位上！</table>
+    <table id="tab1">祿位名字，不可超過6人(18個字)[舊版4人(12個字)]；為節省紙張，同一地址的多人，可寫在同一張祿位上！</table>
     <hr/>
-    <table id="tab2">亡者，不可超過4人(12個字)；陽上人不可超過2人(6個字)</table>
+    <table id="tab2">亡者，不可超過6人(18個字)[舊版4人(12個字)]；陽上人不可超過2人(6個字)</table>
     <hr/>
-    <table id="tab3">祖先姓氏，不可超過3個字；陽上人不可超過2人(6個字)</table>
+    <table id="tab3">祖先姓氏，不可超過4個字(舊版3個字)；陽上人不可超過2人(6個字)</table>
 </body>
 
 </html>
