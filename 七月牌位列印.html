@@ -32,7 +32,16 @@
         
         .wun {
             /*背景圖片*/
-            background-image: url(pic/wun.jpg);
+            background-image: url(pic/wun-1.png);
+            /*滿版列印*/
+            background-size: 100% 100%;
+            /*有邊界列印
+            background-size: 98% 100%;*/
+        }
+        
+        .wun2 {
+            /*背景圖片*/
+            background-image: url(pic/wun2-1.png);
             /*滿版列印*/
             background-size: 100% 100%;
             /*有邊界列印
@@ -95,6 +104,10 @@
             text-align: left;
         }
         
+        span {
+            background: white;
+        }
+        
         .sit2 {
             /*會亂跑 昭穆宗親
             position: absolute;*/
@@ -125,6 +138,7 @@
             height: 35px;
             background: yellowgreen;
             color: black;
+            border-radius: 15px;
         }
         
         #btn1,
@@ -143,16 +157,18 @@
             background: orange;
         }
         
-        #btnW {
+        #btnW,
+        #btnwun {
             background: snow;
         }
         
         #btn7,
-        #btn8 {
+        #btn8,
+        #btnP {
             background: lightblue;
         }
         
-        #btnwun {
+        #btnwun2 {
             background: pink;
         }
         /** {
@@ -261,7 +277,7 @@ tr:hover{background: wheat;}*/
                 // 設定可不呈現
                 e.style.display = showSit
                 e.setAttribute('class', 'sit1')
-                e.innerHTML = '往生蓮位'
+                e.innerHTML = '<span>往生蓮位</span>'
                 aDiv.appendChild(e)
 
                 // 陽上人
@@ -400,7 +416,13 @@ tr:hover{background: wheat;}*/
             // 悟光精舍版牌位，一張A4中有10個牌位
             btnwun.onclick = function () {
                 addLiveDead('wun', 'name2', '', '', 'none', 'block')
-                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 18mm;height: 65mm;margin: 30mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
+                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 18mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
+            }
+
+            // 悟光精舍版祿位，一張A4中有10個牌位
+            btnwun2.onclick = function () {
+                addLiveDead('wun2', 'name2', '', '', 'none', 'none')
+                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 18mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
             }
 
             // 祿位名字，不可超過4人(12個字)
@@ -417,7 +439,7 @@ tr:hover{background: wheat;}*/
             // 祖先姓氏，不可超過3個字
             btn3.onclick = function () {
                 addLiveDead('dead', 'name2', '60mm', '<div class="sit2">氏歷代祖先<br/>昭穆宗親', 'block', 'block')
-                // 用css語法來調整字距，另外加一個<style>標籤
+                // 字體改小一點，可寫4字。用css語法來調整字距，另外加一個<style>標籤
                 change.innerHTML = '.name2{margin:72mm 10mm 0 0;font-size:20pt;}.sit1{margin:-120mm -18mm 0 0;}.son{margin:102mm 5mm 0 0;}'
             }
 
@@ -425,6 +447,11 @@ tr:hover{background: wheat;}*/
             btn4.onclick = function () {
                 // 用css語法來調整字距，另外加一個<style>標籤
                 change.innerHTML = '.name1 {margin: 70mm 9mm 0 0;}.name2 {margin: 72mm 11mm 0 0;}.sit1 {margin: -120mm -19mm 0 0;}.son {margin: 102mm 4mm 0 0;}'
+            }
+
+            btnP.onclick = function () {
+                SitColor('-other', '4')
+                changeColor.innerHTML += '.live{background-size: 107% 95%;}.dead{background-size: 97% 99%;}.name1{transform: scale(0.7,0.7);}'
             }
 
             // 範例：
@@ -484,13 +511,15 @@ tr:hover{background: wheat;}*/
     <input type="button" id="btnR" value="紅色蓮座" onclick="SitColor('2','2')" />
     <input type="button" id="btnY" value="金色蓮座" onclick="SitColor('3','3')" />
     <input type="button" id="btnW" value="黑白蓮座" onclick="SitColor('','')" />
+    <input type="button" id="btnP" value="敦煌華蓋" />
     <hr/>
     <input type="button" id="btn5" value="排序人名資料" />
     <input type="button" id="btn6" value="排序祖先資料" />
     <input type="button" id="btn7" value="HK人名1轉3" />
     <input type="button" id="btn8" value="HK人名轉消災" />
     <hr/>
-    <input type="button" id="btnwun" value="悟光精舍版" />
+    <input type="button" id="btnwun2" value="悟光精舍消災祿位" />
+    <input type="button" id="btnwun" value="悟光精舍往生牌位" />
     <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
     <br/>
     <textarea id="txt1" placeholder="在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
@@ -504,46 +533,26 @@ tr:hover{background: wheat;}*/
         祖先姓氏，不可超過3個字；陽上人不可超過2人(6個字)
 若一次要寫多人，而且準備日後重複使用資料，可用「試算表excel」寫資料，再用email寄來！ adb.dao@gmail.com
 撰寫範例如下：
-">張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
+">張三三	台中市北屯區松竹路1段8號	何九九
 張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
+張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
 張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
+張三三	台中市北屯區松竹路1段8號	何九九
 張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
+張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
 張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
+張三三	台中市北屯區松竹路1段8號	何九九
 張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
+張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
 張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
+張三三	台中市北屯區松竹路1段8號	何九九
 張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
-張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
-張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九</textarea>
+張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
+張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九</textarea>
     <!--
 彭新松 薛清梅 鈕先鉞 張佩華	新北市永和區豫溪街50號2樓
 彭俊陽 鈕則謙	新北市永和區豫溪街50號2樓
