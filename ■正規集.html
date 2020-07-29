@@ -694,7 +694,7 @@ input {height: 30px;color: black;}
             DelNameToArr.onclick = function () {
                 zzUp()
                 // 陣列轉回文字
-                txt1.value = txt1.value.replace(/\s*['|"]\s*\,\s*['|"]\s*/g,'\n').replace(/^\s*\[?\s*['"]/,'').replace(/['"]\s*\]?\s*$/,'')
+                txt1.value = txt1.value.replace(/\s*['|"]\s*\,\s*['|"]\s*/g, '\n').replace(/^\s*\[?\s*['"]/, '').replace(/['"]\,?\s*\]?\s*$/, '')
                 Copy()
             }
             NameToArr.onclick = function () {
@@ -777,6 +777,17 @@ input {height: 30px;color: black;}
                 zzUp()
                 // 以正規搜尋網址列，再刪除XML標記，並保留中文標題
                 txt1.value = txt1.value.replace(/\<聯\sl\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>(https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)\<\/聯\>/gi, ' $1').replace(/\<聯\sl\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>([^\<\>]+)\<\/聯\>/gi, '$2  $1')
+                Copy()
+            }
+
+            htmlTojs.onclick = function () {
+                // 將html文檔變成不分段的一整行，加入node.js，以便直接生成html檔
+                zzUp()
+                // 刪除行首行末的空白，以節省空間
+                // for (var i = 0; i < Arr1.length; i++) {
+                //     Arr1[i] = Arr1[i].replace(/^\s*(\S*)/, '$1').replace(/(\S*)\s*$/, '$1')
+                // }
+                txt1.value = Arr1.join('\\n')
                 Copy()
             }
 
@@ -1195,6 +1206,7 @@ input {height: 30px;color: black;}
         <input id="alltoHrefXML" type="button" class="o" value="網址加標記<聯>" />
         <input id="DelHref" type="button" class="tan" value="刪標記<a>" />
         <input id="DelHrefXML" type="button" class="tan" value="刪標記<聯>" />
+        <input id="htmlTojs" type="button" class="lsg" value="html轉.js" />
     </div>
     <div>
         <input id="MathToChinese" type="button" class="lc" value="值1的數字轉中文數字" />

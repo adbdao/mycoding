@@ -2,10 +2,8 @@
 ### 主要為了寺院文書工作，補充：市面上程式所缺少的功能！  
 > 授權方式：https://creativecommons.org/licenses/by-nc-sa/3.0/tw/
 > #### 聲明：其中有些函數，是網路上擷取來的，不完全是我寫的，著作權屬於原著者，我只是拿公開的程式碼來使用、開發…而已！    
-***  
->> 三大部轉換：  
-第一版，測試：從以前的accelon3的xml原檔中，轉換成html，並加上css樣式，及一點點js動態功能  
-***  
+
+---  
 #### Git常用指令  
 * 刪除上一次推送。出問題時，使用此命令  
 git remote rm origin  
@@ -20,7 +18,7 @@ git commit --amend --no-edit
 合并上一次提交（用于反复修改）  
 git commit --amend -m 'xxx'  
   
-***  
+---  
 #### Git基本起始指令  
 1. echo "# mycoding" >> README.md  
 git init  
@@ -33,4 +31,3 @@ git push -u origin master
 git clone https://github.com/adbdao/mycoding.git  
 git remote add origin https://github.com/adbdao/mycoding.git  
 git push -u origin master  
-***  
