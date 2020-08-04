@@ -164,6 +164,7 @@
         
         #btn7,
         #btn8,
+        #btn9,
         #btnP {
             background: lightblue;
         }
@@ -441,6 +442,11 @@ tr:hover{background: wheat;}*/
                 Arr1 = Arr3
                 overCopy()
             }
+            // 地址：香港轉台灣
+            btn9.onclick = function () {
+                txt1.value = txt1.value.replace(/香港/g, '台灣')
+                Copy()
+            }
 
             // 悟光精舍版牌位，一張A4中有10個牌位
             btnwun.onclick = function () {
@@ -556,6 +562,7 @@ tr:hover{background: wheat;}*/
         <input type="button" id="btn6" value="排序祖先資料" />
         <input type="button" id="btn7" value="HK人名1轉3" />
         <input type="button" id="btn8" value="HK人名轉消災" />
+        <input type="button" id="btn9" value="HK轉TW" />
         <hr/>
         <input type="button" id="btnwun2" value="悟光精舍消災祿位" />
         <input type="button" id="btnwun" value="悟光精舍往生牌位" />
