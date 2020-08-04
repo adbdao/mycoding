@@ -5,6 +5,8 @@
   
 >> 展示網址 https://adbdao.github.io/mycoding/  
   
+>> Blogger http://adbdao.blogspot.com/  
+  
 ---  
 #### Git常用指令  
 * 刪除上一次推送。出問題時，使用此命令  
