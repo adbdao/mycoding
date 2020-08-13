@@ -162,9 +162,7 @@
             background: snow;
         }
         
-        #btn7,
-        #btn8,
-        #btn9,
+        .HK,
         #btnP {
             background: lightblue;
         }
@@ -266,9 +264,15 @@ tr:hover{background: wheat;}*/
 
                 // 先處理：使用者亂寫的標點符號。轉換成空白。但地址有時會用到-()所以不能排除
                 Arr2[i][0] = Arr2[i][0].replace(/[\,\.\/\\\;\:\'\"\[\]\(\)\{\}_\-\=\+\*\|\<\>\&\%\~\!˙　丶，。、．‧！；‥：「」…＆]/g, ' ').replace(/ +/g, ' ').replace(/^ +/g, '').replace(/ +$/g, '')
+                // 為了廣嚴淨苑使用：無地址的，都先訂為「香港」
+                if (!Arr2[i][1]) {
+                    Arr2[i][1] = '香港'
+                }
+                // 祿位無地址，會出錯，所以必須判斷
                 if (Arr2[i][2]) {
                     Arr2[i][2] = Arr2[i][2].replace(/[\,\.\/\\\;\:\'\"\[\]\(\)\{\}_\-\=\+\*\|\<\>\&\%\~\!˙　丶，。、．‧！；‥：「」…＆]/g, ' ').replace(/ +/g, ' ').replace(/^ +/g, '').replace(/ +$/g, '')
                 }
+
                 // 建立要填入的人名、地址…div，背景牌位用css
                 var aDiv = document.createElement('div')
                 aDiv.setAttribute('class', pic)
@@ -309,6 +313,9 @@ tr:hover{background: wheat;}*/
                 // 用css語法來調整字距，先歸零
                 change.innerHTML = ''
             }
+
+            // 把undefined轉為空白，這樣牌位就不會浪費，變為空白牌位，還可以手寫
+            div1.innerHTML = div1.innerHTML.replace(/undefined/g, ' ')
         }
 
         // 轉換紅金白色蓮座
@@ -342,8 +349,8 @@ tr:hover{background: wheat;}*/
                     // 轉換後的資料，導入新陣列
                     Arr4[i] = Arr2[i].join('\t')
 
-                    // 有人矚名「佛弟子」「無」，亂寫資料，故排除他
-                    if (Arr2[i][2] != '佛弟子' && Arr2[i][2] != '無' && Arr2[i][2] != '三宝弟子' && Arr2[i][2] != '三寶弟子') {
+                    // 有人矚名「佛弟子」「無」…，亂寫資料，故排除他
+                    if (Arr2[i][2] != '佛弟子' && Arr2[i][2] != '無' && Arr2[i][2] != '無名氏' && Arr2[i][2] != '三宝弟子' && Arr2[i][2] != '三寶弟子') {
                         // 判斷人名，超過，要調整
                         if (Arr2[i][0].length > 18) {
                             AA += Arr4[i] + '※☆☆※'
@@ -447,6 +454,10 @@ tr:hover{background: wheat;}*/
                 txt1.value = txt1.value.replace(/香港/g, '台灣')
                 Copy()
             }
+            // 地址：undefined轉香港。因為來源資料空白的，都表示來自香港
+            // btn10.onclick = function () {
+            //     div1.innerHTML = div1.innerHTML.replace(/undefined/g, '香港')
+            // }
 
             // 悟光精舍版牌位，一張A4中有10個牌位
             btnwun.onclick = function () {
@@ -489,6 +500,7 @@ tr:hover{background: wheat;}*/
                 changeColor.innerHTML += '.live{background-size: 107% 95%;}.dead{background-size: 97% 99%;}.name1{transform: scale(0.7,0.7);}'
             }
 
+            // 隱藏下方所有按鈕
             btnHidden.onclick = function () {
                 if (div2.style.display == 'block') {
                     div2.style.display = 'none'
@@ -560,9 +572,10 @@ tr:hover{background: wheat;}*/
         <hr/>
         <input type="button" id="btn5" value="排序人名資料" />
         <input type="button" id="btn6" value="排序祖先資料" />
-        <input type="button" id="btn7" value="HK人名1轉3" />
-        <input type="button" id="btn8" value="HK人名轉消災" />
-        <input type="button" id="btn9" value="HK轉TW" />
+        <input type="button" id="btn7" class="HK" value="HK人名1轉3" />
+        <input type="button" id="btn8" class="HK" value="HK人名轉消災" />
+        <input type="button" id="btn9" class="HK" value="HK轉TW" />
+        <!--<input type="button" id="btn10" class="HK" value="Undefined轉HK" />-->
         <hr/>
         <input type="button" id="btnwun2" value="悟光精舍消災祿位" />
         <input type="button" id="btnwun" value="悟光精舍往生牌位" />

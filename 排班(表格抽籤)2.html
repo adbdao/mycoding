@@ -1669,7 +1669,7 @@ window.onload=function()
         // 先刪除Class下的所有子元素        
         delClass('print')
         // 頁首
-        print1.innerHTML = '<p style="text-align: center;">第2組留守工作表 2/3--2/13<br/>若要送菜出去，由值星白眾，請大家發心搬菜 製表日期：' + tY + '/' + tM + '/' + tD + '</p>'
+        print1.innerHTML = '<p style="text-align: center;">第2組留守工作表 9/13--9/23<br/>若要送菜出去，由值星白眾，請大家發心搬菜 製表日期：' + tY + '/' + tM + '/' + tD + '</p>'
 
         addDate()
         var arr2 = []
@@ -1691,6 +1691,7 @@ window.onload=function()
                 aDiv.innerHTML = r[j] + '師<hr/>' + arr2[j].join('\t')
                 print1.appendChild(aDiv)
                 print1.style.display = 'block'
+                print1.style.height = '40cm'
                 k++
             }
         }

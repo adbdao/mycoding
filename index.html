@@ -74,27 +74,6 @@
             background: -webkit-linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
             background: linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
         }
-        /*淺色主題*/
-        /*.big {
-            background: tan;
-            color: brown;
-            font-size: 18pt;
-            font-family: '標楷體';
-            line-height: 36pt;
-        }
-
-        a {
-            color: black;
-            font-size: 14pt;
-            text-decoration: none;
-        }
-
-        .small {
-            line-height: 30pt;
-            border: 2px solid #000;
-            background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);
-            background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);
-        }*/
 
         .small:hover {
             border-color: green lime lime green;
@@ -133,6 +112,16 @@ var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的�
                 mula.appendChild(g)
                 j++
             }
+
+            // 淺色主題
+            nocolor.onclick = function () {
+                if (!color.innerHTML) {
+                    color.innerHTML = ".big { background: tan; color: brown; font-size: 18pt; font-family: '標楷體'; line-height: 36pt; text-align: center;}a { color: black; font-size: 14pt; text-decoration: none;}.small { line-height: 30pt; border: 2px solid peru; background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%); background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);}.small:hover { border-color: green lime lime green; border-width: 2px; border-style: solid; background: greenyellow;}.small:active { border-color: indigo #f3f #f6f indigo; border-width: 3px; border-style: solid; background: pink;} body {background: -webkit-linear-gradient(left, peru 0.00%, gold 90.00%);background: linear-gradient(left, peru 0.00%, gold 90.00%);}"
+                } else {
+                    color.innerHTML = ''
+                }
+            }
+
         }
         function doSearch() {
             // 查詢並反白呈現
@@ -156,7 +145,16 @@ var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的�
                 document.designMode = "off";
             }
         }
-
+        // 後來檔案太多了，所以想要作「篩選按鈕」
+        function MyIni(a) {
+            if (search.value != a) {
+                search.value = a
+            } else {
+                search.value = ''
+            }
+            // 要重新啟動dt()函數
+            dt()
+        }
         function dt() {
             // 查詢，並動態呈現
             // 把輸入值轉小寫，就可以大小寫通查，因為在data-title已轉小寫
@@ -171,13 +169,16 @@ var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-手機4六個月的�
         }
     </script>
     <style id="search_style"></style>
+    <style id="color"></style>
 </head>
 
 <body>
     <div id="mula">
-        <h1 class="big">自己程式的目錄 <input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢" onkeyup="dt()"></h1>
+        <h1 class="big">自己程式的目錄 <input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢" onkeyup="dt()">
+        <input id="nocolor" type="button" value="淺色主題">
+        </h1>
         <div class="small"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html">　↗　部落格的資料連結點　↗</a></div>
-    </div>
+</div>
 </body>
 
 </html>
