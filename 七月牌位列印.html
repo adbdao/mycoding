@@ -335,8 +335,8 @@ tr:hover{background: wheat;}*/
                 CC = ''
                 DD = ''
                 for (var i = 0; i < Arr1.length; i++) {
-                    // 刪除行首空白，及人名後的空白
-                    Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/ \t/g, '\t')
+                    // 刪除行首空白，及人名後的空白。刪除上次的===號
+                    Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/ \t/g, '\t').replace(/^\=+\d+\=+/, '')
                     // 各項資料，導入二維陣列
                     Arr2[i] = []
                     Arr2[i] = Arr1[i].split('\t')
@@ -366,9 +366,9 @@ tr:hover{background: wheat;}*/
                         }
                     }
                 }
-                // 導入文本框，但還要手動修訂！因為信徒常常亂填資料
+                // 導入文本框，但還要手動修訂！因為信徒常常亂填資料。刪除最末尾的空行
                 txt1.value = AA + '\n===18===\n' + BB + '\n===15===\n' + CC + '\n===12===\n' + DD
-                txt1.value = txt1.value.replace(/※☆☆※/g, '\n')
+                txt1.value = txt1.value.replace(/※☆☆※/g, '\n').replace(/\n+/g, '\n').replace(/(.+)\n$/, '$1')
                 // 自動複製
                 Copy()
             }
@@ -383,8 +383,8 @@ tr:hover{background: wheat;}*/
                 CC = ''
                 DD = ''
                 for (var i = 0; i < Arr1.length; i++) {
-                    // 刪除行首空白，及人名後的空白
-                    Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/ \t/g, '\t')
+                    // 刪除行首空白，及人名後的空白。刪除上次的===號
+                    Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/ \t/g, '\t').replace(/^\=+\d+\=+/, '')
                     // 各項資料，導入二維陣列
                     Arr2[i] = []
                     Arr2[i] = Arr1[i].split('\t')
@@ -412,9 +412,9 @@ tr:hover{background: wheat;}*/
                         DD += Arr4[i] + '※☆☆※'
                     }
                 }
-                // 導入文本框，但還要手動修訂！因為信徒常常亂填資料
+                // 導入文本框，但還要手動修訂！因為信徒常常亂填資料。刪除最末尾的空行
                 txt1.value = AA + '\n===3===\n' + BB + '\n===2===\n' + CC + '\n===1===\n' + DD
-                txt1.value = txt1.value.replace(/※☆☆※/g, '\n')
+                txt1.value = txt1.value.replace(/※☆☆※/g, '\n').replace(/\n+/g, '\n').replace(/(.+)\n$/, '$1')
                 // 自動複製
                 Copy()
             }
