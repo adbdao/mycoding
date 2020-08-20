@@ -780,14 +780,21 @@ input {height: 30px;color: black;}
                 Copy()
             }
 
-            htmlTojs.onclick = function () {
-                // 將html文檔變成不分段的一整行，加入node.js，以便直接生成html檔
+            htmlTojsN.onclick = function () {
+                // 將html文檔變成不分段的一整行，加入node.js，以便直接生成html檔。保留原分段樣式
                 zzUp()
                 // 刪除行首行末的空白，以節省空間
                 // for (var i = 0; i < Arr1.length; i++) {
                 //     Arr1[i] = Arr1[i].replace(/^\s*(\S*)/, '$1').replace(/(\S*)\s*$/, '$1')
                 // }
                 txt1.value = Arr1.join('\\n')
+                Copy()
+            }
+
+            htmlTojs.onclick = function () {
+                // 將html文檔變成不分段的一整行，加入node.js，以便直接生成html檔。無\n
+                zzUp()
+                txt1.value = Arr1.join('').replace(/ +/g,' ')
                 Copy()
             }
 
@@ -1206,7 +1213,8 @@ input {height: 30px;color: black;}
         <input id="alltoHrefXML" type="button" class="o" value="網址加標記<聯>" />
         <input id="DelHref" type="button" class="tan" value="刪標記<a>" />
         <input id="DelHrefXML" type="button" class="tan" value="刪標記<聯>" />
-        <input id="htmlTojs" type="button" class="lsg" value="html轉.js" />
+        <input id="htmlTojsN" type="button" class="lsg" value="html轉.js" />
+        <input id="htmlTojs" type="button" class="lsg" value="html轉.js無\n" />
     </div>
     <div>
         <input id="MathToChinese" type="button" class="lc" value="值1的數字轉中文數字" />
