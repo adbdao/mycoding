@@ -60,6 +60,7 @@ input {height: 30px;color: black;}
         height: 20px;
     }
 }
+ol li{margin-left:5em;}
 </style>
     <script>
         var Arr1 = []
@@ -186,32 +187,53 @@ input {height: 30px;color: black;}
 
             toOlLi.onclick = function () {
                 zzUp()
-                if (myValue.value > 0) {
-                    AA = myValue.value + 4
-                } else {
-                    AA = 7
-                }
-                for (var i in Arr1) {
-                    if (!Arr1[i]) {
+                // 刪除所有<ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
                         continue
+                    } else {
+                        // 先加上<li>符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1<li>$2</li>'))
                     }
-                    Arr1[i] = '<li>' + Arr1[i] + '</li>'
                 }
-                for (var i = 1; i < Arr1.length; i++) {
-                    if (Arr1[i - 1]) {
-                        for (var j = 4; j < AA; j++) {
-                            if (Arr1[i - 1].charAt(j) != '\t' && Arr1[i].charAt(j) == '\t' && Arr1[i - 1].substr(0, 4) != '<ol>') {
-                                Arr1[i] = '<ol>' + Arr1[i]
-                            }
-                            if (Arr1[i].charAt(j) == '\t' && Arr1[i + 1].charAt(j) != '\t') {
-                                Arr1[i] = Arr1[i] + '</ol>'
-                            }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上<ol>符號。但有些層級還是無法分出，不如用「大綱層級」
+                // for (var k = 0; k < Arr1.length; k++) {
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的<li>比前一行縮排，即加上<ol>
+                        if (Arr1[i].indexOf('<li>') < Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', '<ol>')
+                        }
+                        // 下一行的<li>比前一行凸排，即加上</ol></li>
+                        if (Arr1[i].indexOf('<li>') > Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', '</li></ol></li>')
                         }
                     }
+                    // 層級的條件(倒算)
+                    // if (Arr1[i + 1]) {
+                    //     if (Arr1[i].substr(k, 4) == '<li>' && Arr1[i + 1].substr(k + 1, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '<ol>')
+                    //     }
+                    //     if (Arr1[i].substr(k + 1, 4) == '<li>' && Arr1[i + 1].substr(k, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '</li></ol></li>')
+                    //     }
+                    // }
                 }
-                Arr1.unshift('<ol>')
+                // }
+                // 補上頭尾的標記，順便加上css語法，加大縮排
+                Arr1.unshift('<style>ol li{margin-left:1em;}</style><ol>')
                 Arr1.push('</ol>')
                 overCopy()
+                // 加入並呈現HTML
+                div2.innerHTML = Arr1.join('\n')
+                div2.style.display = 'block'
             }
 
             TabToNum.onclick = function () {
@@ -691,7 +713,7 @@ input {height: 30px;color: black;}
                 }
             }
 
-            DelNameToArr.onclick = function () {
+            k.onclick = function () {
                 zzUp()
                 // 陣列轉回文字
                 txt1.value = txt1.value.replace(/\s*['|"]\s*\,\s*['|"]\s*/g, '\n').replace(/^\s*\[?\s*['"]/, '').replace(/['"]\,?\s*\]?\s*$/, '')
@@ -794,7 +816,7 @@ input {height: 30px;color: black;}
             htmlTojs.onclick = function () {
                 // 將html文檔變成不分段的一整行，加入node.js，以便直接生成html檔。無\n
                 zzUp()
-                txt1.value = Arr1.join('').replace(/ +/g,' ')
+                txt1.value = Arr1.join('').replace(/ +/g, ' ')
                 Copy()
             }
 
@@ -1152,7 +1174,30 @@ input {height: 30px;color: black;}
     <div id="div2"></div>
     <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
-再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'></textarea><br/>
+再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'>
+演講次序(對初學介紹戒定慧)
+三歸依
+	savaka聲聞弟子(會聽話的才叫弟子)
+	不拜外神、算命、乩童、黃大仙、鬼神…
+		不求捷徑賺錢，不勞而獲
+		不邪命、不正當職業：(若供養人以下之物，皆無功德，反有過失)
+			殺生、農藥、釣具
+			賣酒、毒品、麻醉藥
+            
+				賣色、淫女、媒人
+			歌舞音樂表演
+
+			因該果海，果徹因源；因果相應，方成佛道
+			拜師學藝，入一行業一般
+	心中趨向，相應一切修行正道，包括淨土…
+			正向三乘
+	正行之道	八正道
+				正向無為
+
+四聖諦
+		改自己的命運
+		信智慧，信佛陀：了達萬法
+        </textarea><br/>
     <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br/>
     <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br/>
     <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br/>
@@ -1163,15 +1208,17 @@ input {height: 30px;color: black;}
         <input id="NumView" type="button" class="b" value="樹狀圖(值1為題目)" />
         <input id="NumViewEnd" type="button" class="b" value="樹狀圖(值1為尾註)" />
         <input id="NumViewShow" type="button" class="b" value="樹狀圖HTML" />
-        <input id="DelTag" type="button" class="tan" value="刪標記<>" />
-        <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
-        <input id="DelEnter" type="button" class="gy" value="刪空行" />
-        <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
         <input id="ReToN4" type="button" class="o" value="；號+\n" />
         <input id="ReToN3" type="button" class="o" value="、號+\n" />
         <input id="ReToN2" type="button" class="o" value="。號+\n" />
         <input id="ReToN1" type="button" class="y" value="。號轉\n" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
+    </div>
+    <div>
+        <input id="DelTag" type="button" class="tan" value="刪標記<>" />
+        <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
+        <input id="DelEnter" type="button" class="gy" value="刪空行" />
+        <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />
@@ -1187,7 +1234,7 @@ input {height: 30px;color: black;}
         <input id="ch1911x" type="button" class="g" value="民國←西元年" />
         <input id="NameToArr" type="button" class="sb" value="轉陣列(橫)" />
         <input id="NameToArr2" type="button" class="sb" value="轉陣列(直)" />
-        <input id="DelNameToArr" type="button" class="tan" value="刪陣列" />
+        <input id="k" type="button" class="tan" value="刪陣列" />
     </div>
     <div id="div1">修飾法名
         <input id="btn13" type="button" value="釋+名" />
@@ -1203,7 +1250,7 @@ input {height: 30px;color: black;}
         <input id="SpaceToNumEvery" type="button" class="pink" value="大綱編號多層(以四個空白分層級)" />
         <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
-        <input id="toOlLi" type="button" class="lg" value="加上<ol><li>" />
+        <input id="toOlLi" type="button" class="tan" value="加上<ol><li>" />
         <input id="DelTagOlLi" type="button" class="tan" value="刪<ol><li>" />
     </div>
     <div>
