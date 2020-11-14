@@ -765,7 +765,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       if (SY > 1908 && SY < 1912) yDisplay = '宣統' + (((SY - 1908) == 1) ? '元' : SY - 1908);
       if (SY > 1911) yDisplay = '民國' + (((SY - 1911) == 1) ? '元' : SY - 1911);
 
-      document.getElementById("GZ").innerHTML = ('當前月曆：' + (yDisplay + '年' + (SM + 1) + '月').big()  + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1027) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年").fontcolor('white');
+      document.getElementById("GZ").innerHTML = ('當前月曆：' + (yDisplay + '年' + (SM + 1) + '月').big() + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1027) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年").fontcolor('white');
 
       //  document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];//背景年份月份
 
@@ -1322,7 +1322,6 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     #p {
       color: darkred;
     }
-    
     /** {
       border-radius: 8px;
     }*/
@@ -1348,10 +1347,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       box-shadow: 3px 3px 20px darkorchid
     }
     
-    
     @media all and (max-width:500px) {
       #detail {
         display: none
+      }
+      #tab1 {
+        width: 100vw;
       }
     }
   </STYLE>

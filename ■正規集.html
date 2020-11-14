@@ -15,7 +15,7 @@ input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:
 td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
 #tab1{border: 3px solid darkgoldenrod;}
 td{border: 1px solid indigo;}
-input {height: 30px;color: black;}
+input {height: 35px;color: black;border-radius: 15px;}
 #div0 {background:#ccc;}
 #div1 {background:#ebe;color: blue;}
 #div1 input {background:#fec;}
@@ -24,7 +24,7 @@ input {height: 30px;color: black;}
 #div4 input {background:#f99;}
 .name {background:tan;color: darkred;}
 
-#div2 {display: none;background: white;line-height: 2em;}
+#div2 {display: none;background: beige;color:black;line-height: 2em;}
 #txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
@@ -1011,6 +1011,7 @@ ol li{margin-left:5em;}
             MathToChinese.onclick = function () {
                 zzUp()
                 // 這一段是另一人的程式碼，是從網路上抓下來，現成的程式碼，專為銀行支票而寫
+                // substr省略提取字串的長度，將提取到字串結束
                 function $(id) { return document.getElementById(id.substr(1)); }
                 // $('#myValue2').onmouseover = function() {
                 //     $('#myValue2').select();
@@ -1174,30 +1175,7 @@ ol li{margin-left:5em;}
     <div id="div2"></div>
     <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
-再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'>
-演講次序(對初學介紹戒定慧)
-三歸依
-	savaka聲聞弟子(會聽話的才叫弟子)
-	不拜外神、算命、乩童、黃大仙、鬼神…
-		不求捷徑賺錢，不勞而獲
-		不邪命、不正當職業：(若供養人以下之物，皆無功德，反有過失)
-			殺生、農藥、釣具
-			賣酒、毒品、麻醉藥
-            
-				賣色、淫女、媒人
-			歌舞音樂表演
-
-			因該果海，果徹因源；因果相應，方成佛道
-			拜師學藝，入一行業一般
-	心中趨向，相應一切修行正道，包括淨土…
-			正向三乘
-	正行之道	八正道
-				正向無為
-
-四聖諦
-		改自己的命運
-		信智慧，信佛陀：了達萬法
-        </textarea><br/>
+再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'></textarea><br/>
     <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br/>
     <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br/>
     <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br/>
