@@ -12,10 +12,10 @@ var d = fs.readdirSync(h)
 
 // 刪除不需要的目錄
 // node.js 中，很多正規式，都不能用，以下失敗 d = d.replace(',"image"', '')
-var n = d.indexOf('.git')
-d.splice(n, 1)
-var m = d.indexOf('pic')
-d.splice(m, 1)
+// var n = d.indexOf('.git')
+// d.splice(n, 1)
+// var m = d.indexOf('pic')
+// d.splice(m, 1)
 
 // 倒轉陣列，以便中文筆劃多的檔在前
 d.reverse()
@@ -38,6 +38,8 @@ function addDir(IndexName) {
     for (var i = 0; i < k.length; i++) {
         if (/var ArrLi\s?\=/.test(k[i])) {
             k[i] = 'var ArrLi = ["' + d.join('","') + '"]'
+            // 刪除不需要的檔
+            k[i] = k[i].replace(',"debug.log"', '').replace(',".git"', '').replace(',"pic"', '')
         }
     }
 
