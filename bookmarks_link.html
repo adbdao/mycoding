@@ -4,6 +4,7 @@
      DO NOT EDIT! -->
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <TITLE>Bookmarks</TITLE>
+
     <base target="_blank">
 <style>
     /**{border-radius: 22px;}*/
@@ -23,23 +24,24 @@
     }
     /*暗色主題*/
     
-    h3 {
+    h3,h1 {
         background: darkslategray;
         color: tomato;
-        font-size: 18pt;
+        font-size: 2em;
         font-family: '標楷體';
     }
     
     a {
         color: yellow;
-        font-size: 14pt;
+        font-size: 1.5em;
+        line-height: 1.5em;
         text-decoration: none;
     }
     
     DT {
         width: 70vw;
         margin: 0 5vw;
-        line-height: 22pt;
+        /*line-height: 22pt;*/
         border: 1px solid #000;
         background: -webkit-linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
         background: linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
@@ -59,6 +61,47 @@
         background: darkslateblue;
     }
 </style>
+<script>
+    window.onload=function(){
+        // 淺色主題
+        nocolor.onclick = function () {
+            if (!color.innerHTML) {
+                color.innerHTML = "h3,h1 { background: tan; color: brown; font-size: 18pt; font-family: '標楷體'; line-height: 36pt;}a { color: black; font-size: 14pt; text-decoration: none;}DT { line-height: 30pt; border: 2px solid peru; background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%); background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);}a:hover { border-color: green lime lime green; border-width: 2px; border-style: solid; background: greenyellow;}a:active { border-color: indigo #f3f #f6f indigo; border-width: 3px; border-style: solid; background: pink;} body {background: -webkit-linear-gradient(left, peru 0.00%, gold 90.00%);background: linear-gradient(left, peru 0.00%, gold 90.00%);}"
+            } else {
+                color.innerHTML = ''
+            }
+        }
+    }
+    // 後來檔案太多了，所以想要作「篩選按鈕」
+    function MyIni(a) {
+        if (search.value != a) {
+            search.value = a
+        } else {
+            search.value = ''
+        }
+        // 要重新啟動dt()函數
+        dt()
+    }
+    function dt() {
+        // 查詢，並動態呈現
+        // 把輸入值轉小寫，就可以大小寫通查，因為在data-title已轉小寫
+        var x = search.value.toLowerCase()
+        if (!x) {
+            // 當沒有數值的時候，清空style，避免清空的時候無法還原所有的清單
+            search_style.innerHTML = ''
+        } else {
+            // style 裡面動態寫入寫入下方的 CSS，如此一來，data-title 裡面只要有吻合的字串，就會顯示，沒有就會被加入display:none的屬性
+            search_style.innerHTML = '#mula div:not([data-title*="' + x + '"]) {display: none;}'
+        }
+    }
+</script>
+<style id="search_style"></style>
+<style id="color"></style>
+    <div id="mula">
+        <!--<input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢" onkeyup="dt()">-->
+        <input id="nocolor" type="button" value="淺色主題">
+    </div>
+    
 <H1>書籤選單</H1>
 
 <DL><p>

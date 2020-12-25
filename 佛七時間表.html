@@ -72,7 +72,8 @@ letter-spacing: 3px;
             if (n < 10) {
                 return '0' + n
             } else {
-                return '' + n }
+                return '' + n
+            }
         }
         function addDate() {
             var oDate = new Date()
@@ -160,6 +161,9 @@ letter-spacing: 3px;
             '註：第七天大迴向',
             '大迴向'
         ]
+        // 準備c3表單
+        // 加outline才不會自動整合成一欄
+        var c3a = ['各支香時間長短'], c3b = ['各支香名稱'], outline = 1
         function b7() {
             var a, b, c, d, e, f
             var d = new Date()
@@ -197,12 +201,16 @@ letter-spacing: 3px;
                     d.setHours(t, m + Number(s[k]) + e)
                     t = d.getHours()
                     m = d.getMinutes()
-                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　' + k +' <span>共'+f+ '分</span><br/>'
+                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　' + k + ' <span>共' + f + '分</span><br/>'
                     // 保留前一支香的時、分
                     a = t
                     b = m
                     // 增加的分鐘數歸零
                     e = 0
+                    // 準備c3表單
+                    c3a.push(f)
+                    c3b.push(outline + '.' + k)
+                    outline++
                 }
             }
             // 最末行
@@ -218,6 +226,46 @@ letter-spacing: 3px;
 <body onload="b7()">
     <div id="printNameDiv">　　佛七作息表　</div>
     <div id="print1" class="print"></div>
+    <div id="chart"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.css">
+    <!-- 因為是從 D3 發展而來，所以要擺 D3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <!-- 最後擺上 C3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.js"></script>
+    <script>
+        // C3先運行，所以要再跑一次b7
+        b7()
+        var chart1 = c3.generate({
+            bindto: '#chart',
+            data: {
+                x: '各支香名稱',
+                columns: [
+                    // 加outline才不會自動整合成一欄
+                    c3b,
+                    c3a
+                ],
+                type: 'bar',
+                // types: {
+                //     c3a: 'area-spline'
+                // }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    tick: {
+                        rotate: 70,
+                        multiline: false
+                    },
+                    // height: 130
+                }
+            },
+            grid: {
+                y: {
+                    lines: [{ value: 15 }]
+                }
+            },
+        })
+    </script>
 </body>
 
 </html>
