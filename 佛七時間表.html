@@ -4,53 +4,73 @@
 
 <head>
     <title>佛七時間表</title>
-<style>
-/**{border-radius: 8px;padding: 3px;}*/
-html{background: silver;color:black;}
-::selection{background: olive;color:yellow}
-::-moz-selection{background: olive;color:yellow}
-
-.print{
-/*border: 1px solid red;*/
-/*配合A4紙大小，有時Chrome列印的邊界會不準*/
-width: 190mm;
-height: 265mm;
-font-size: 16pt;
-font-family: 標楷體;
-color: black;
--moz-column-count:2; /* Firefox */
--webkit-column-count:2; /* Safari and Chrome */
-column-count:2;
-letter-spacing: 3px;
-}
-.print span {
- font-size:10pt;
- font-family:新細明體;
- letter-spacing: 0px;
-}
-#printNameDiv{
-/*配合A4紙大小*/
-width: 190mm;
-height: 15mm;
-/*轉直排語法*/
-/*-webkit-writing-mode: vertical-rl;
-writing-mode: vertical-rl;*/
-border-bottom: 5px double green;
-font-size: 30pt;
-font-family: 標楷體;
-/* 垂直置中，設定文字行距 */
-/*line-height:85mm;*/
-/*水平置中*/
-text-align: center;
-/* 設定文字間距 */
-letter-spacing: 3px;
-}
-#printNameDiv span {    
- font-size:12pt;
- font-family:新細明體;
- letter-spacing: 0px;
-}
-</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.css">
+    <style>
+        /**{border-radius: 8px;padding: 3px;}*/
+        
+        html {
+            background: silver;
+            color: black;
+        }
+        
+         ::selection {
+            background: olive;
+            color: yellow
+        }
+        
+         ::-moz-selection {
+            background: olive;
+            color: yellow
+        }
+        
+        .print {
+            /*border: 1px solid red;*/
+            /*配合A4紙大小，有時Chrome列印的邊界會不準*/
+            width: 190mm;
+            height: 265mm;
+            font-size: 16pt;
+            font-family: 標楷體;
+            color: black;
+            -moz-column-count: 2;
+            /* Firefox */
+            -webkit-column-count: 2;
+            /* Safari and Chrome */
+            column-count: 2;
+            letter-spacing: 3px;
+        }
+        
+        .print span {
+            font-size: 10pt;
+            font-family: 新細明體;
+            letter-spacing: 0px;
+        }
+        
+        #printNameDiv {
+            /*配合A4紙大小*/
+            width: 190mm;
+            height: 15mm;
+            /*轉直排語法*/
+            /*-webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;*/
+            border-bottom: 5px double green;
+            font-size: 30pt;
+            font-family: 標楷體;
+            /* 垂直置中，設定文字行距 */
+            /*line-height:85mm;*/
+            /*水平置中*/
+            text-align: center;
+            /* 設定文字間距 */
+            letter-spacing: 3px;
+        }
+        
+        #printNameDiv span {
+            font-size: 12pt;
+            font-family: 新細明體;
+            letter-spacing: 0px;
+        }
+    </style>
     <script>
         function overCopy() {
             // 結束時選取並複製文本框中的內容，無法複製div
@@ -85,187 +105,193 @@ letter-spacing: 3px;
             // 焦點移至最頂端(x軸,y軸)
             window.scrollTo(0, 0)
         }
-        var s = {
-            // 設定：各支香的時間
-            '早課': 30,
-            '晚課': 30,
-            '繞佛': 15,
-            '念佛': 15,
-            '止靜': 15,
-            '迴向': 5,
-            '早齋': 50,
-            '午齋': 50,
-            '拜佛': 30,
-            '大迴向': 60,
-            '出坡': 60,
-            '休息': 60
-        }
-        var p = [
-            // 設定：作息順序。時間加減：在前一行加上數字，可用負數
-            '早課',
-            '繞佛',
-            '念佛',
-            '止靜',
-            '-5',
-            '念佛',
-            '迴向',
-            '早齋',
-            '10',
-            '出坡',
-            '',
-            '拜佛',
-            '繞佛',
-            '念佛',
-            '止靜',
-            '念佛',
-            '',
-            '拜佛',
-            '繞佛',
-            '註：第一天午供',
-            '-5',
-            '念佛',
-            '-5',
-            '止靜',
-            '-5',
-            '念佛',
-            '迴向',
-            '午齋',
-            '80',
-            '休息',
-            '',
-            '5',
-            '繞佛',
-            '念佛',
-            '止靜',
-            '-5',
-            '念佛',
-            '',
-            '-5',
-            '拜佛',
-            '念佛',
-            '5',
-            '止靜',
-            '',
-            '繞佛',
-            '念佛',
-            '止靜',
-            '-5',
-            '念佛',
-            '迴向',
-            '60',
-            '休息',
-            '',
-            '晚課',
-            '念佛',
-            '止靜',
-            '註：第七天大迴向',
-            '大迴向'
-        ]
-        // 準備c3表單
-        // 加outline才不會自動整合成一欄
-        var c3a = ['各支香時間長短'], c3b = ['各支香名稱'], outline = 1
-        function b7() {
-            var a, b, c, d, e, f
-            var d = new Date()
-            // 設定作息開始時間：早上4點，首行文字
-            d.setHours(4, 0)
-            // 取出時、分
-            var t = d.getHours()
-            var m = d.getMinutes()
-            // 首行文字
-            // print1.innerHTML = '<span style="font-size:150%;">　　佛七作息表</span><hr/>'
-            print1.innerHTML = toDon(t) + ':' + toDon(m) + '　　' + '起板' + '<br/>'
-            // 保留前一支香的時、分
-            a = t
-            // 早課晚30分開始
-            b = m = m + 30
-            // 預設增加的分鐘數
-            e = 0
-            for (var k of p) {
-                // 空行
-                if (!k) {
-                    print1.innerHTML += '<hr/>'
-                }
-                // 註解行
-                if (/^註/.test(k)) {
-                    print1.innerHTML += k + '<br/>'
-                }
-                // 增加的分鐘數
-                if (/\-?\d+/.test(k)) {
-                    e = Number(k)
-                }
-                // 循環每支香的時間
-                if (s[k]) {
-                    // 一支香的總共分鐘數
-                    f = Number(s[k]) + e
-                    d.setHours(t, m + Number(s[k]) + e)
-                    t = d.getHours()
-                    m = d.getMinutes()
-                    print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　' + k + ' <span>共' + f + '分</span><br/>'
-                    // 保留前一支香的時、分
-                    a = t
-                    b = m
-                    // 增加的分鐘數歸零
-                    e = 0
-                    // 準備c3表單
-                    c3a.push(f)
-                    c3b.push(outline + '.' + k)
-                    outline++
-                }
+
+        window.onload = function () {
+            var s = {
+                // 設定：各支香的時間
+                '早課': 30,
+                '晚課': 30,
+                '繞佛': 15,
+                '念佛': 15,
+                '止靜': 15,
+                '迴向': 5,
+                '早齋': 50,
+                '午齋': 50,
+                '拜佛': 30,
+                '大迴向': 60,
+                '出坡': 60,
+                '休息': 60
             }
-            // 最末行
-            print1.innerHTML += toDon(t) + ':' + toDon(m) + '　　' + '念佛出班，安板' + '<hr/>'
-            // 行距
-            print1.style.lineHeight = Math.floor((280 / (p.length)) * 2 + 1) + 'mm'
-            // 製表日期
-            printNameDiv.innerHTML += '<span>' + addDate()
+            var p = [
+                // 設定：作息順序。時間加減：在前一行加上數字，可用負數
+                '早課',
+                '繞佛',
+                '念佛',
+                '止靜',
+                '-5',
+                '念佛',
+                '迴向',
+                '早齋',
+                '10',
+                '出坡',
+                '',
+                '拜佛',
+                '繞佛',
+                '念佛',
+                '止靜',
+                '念佛',
+                '',
+                '拜佛',
+                '繞佛',
+                '註：第一天午供',
+                '-5',
+                '念佛',
+                '-5',
+                '止靜',
+                '-5',
+                '念佛',
+                '迴向',
+                '午齋',
+                '80',
+                '休息',
+                '',
+                '5',
+                '繞佛',
+                '念佛',
+                '止靜',
+                '-5',
+                '念佛',
+                '',
+                '-5',
+                '拜佛',
+                '念佛',
+                '5',
+                '止靜',
+                '',
+                '繞佛',
+                '念佛',
+                '止靜',
+                '-5',
+                '念佛',
+                '迴向',
+                '60',
+                '休息',
+                '',
+                '晚課',
+                '念佛',
+                '止靜',
+                '註：第七天大迴向',
+                '大迴向'
+            ]
+
+            // 準備c3表單
+            // 加outline才不會自動整合成一欄
+            var c3a = ['每支香分鐘'], c3b = ['各支香名稱'], outline = 1
+
+            function b7() {
+                var a, b, c, d, e, f
+                var d = new Date()
+                // 設定作息開始時間：早上4點，首行文字
+                d.setHours(4, 0)
+                // 取出時、分
+                var t = d.getHours()
+                var m = d.getMinutes()
+                // 首行文字
+                // print1.innerHTML = '<span style="font-size:150%;">　　佛七作息表</span><hr/>'
+                print1.innerHTML = toDon(t) + ':' + toDon(m) + '　　' + '起板' + '<br/>'
+                // 保留前一支香的時、分
+                a = t
+                // 早課晚30分開始
+                b = m = m + 30
+                // 預設增加的分鐘數
+                e = 0
+                for (var k of p) {
+                    // 空行
+                    if (!k) {
+                        print1.innerHTML += '<hr/>'
+                    }
+                    // 註解行
+                    if (/^註/.test(k)) {
+                        print1.innerHTML += k + '<br/>'
+                    }
+                    // 增加的分鐘數
+                    if (/\-?\d+/.test(k)) {
+                        e = Number(k)
+                    }
+                    // 循環每支香的時間
+                    if (s[k]) {
+                        // 一支香的總共分鐘數
+                        f = Number(s[k]) + e
+                        d.setHours(t, m + Number(s[k]) + e)
+                        t = d.getHours()
+                        m = d.getMinutes()
+                        print1.innerHTML += toDon(a) + ':' + toDon(b) + '～' + toDon(t) + ':' + toDon(m) + '　' + k + ' <span>共' + f + '分</span><br/>'
+
+                        // 準備c3表單
+                        c3a.push(f)
+                        // outline只用數列
+                        // c3b.push(outline + '.' + k)
+                        // outline++
+                        // 直接標出時間，要在a=t之前
+                        c3b.push(a + ':' + toDon(b) + ' ' + k)
+
+                        // 保留前一支香的時、分
+                        a = t
+                        b = m
+                        // 增加的分鐘數歸零
+                        e = 0
+                    }
+                }
+                // 最末行
+                print1.innerHTML += toDon(t) + ':' + toDon(m) + '　　' + '念佛出班，安板' + '<hr/>'
+                // 行距
+                print1.style.lineHeight = Math.floor((280 / (p.length)) * 2 + 1) + 'mm'
+                // 製表日期
+                printNameDiv.innerHTML += '<span>' + addDate()
+            }
+
+            // 要先跑一次b7
+            // 若要A4列印時，先將瀏覽器寬度縮小，表單才可納入，不然就要設定#chart寬度
+            b7()
+            var chart1 = c3.generate({
+                bindto: '#chart',
+                data: {
+                    x: '各支香名稱',
+                    columns: [
+                        // 加outline才不會自動整合成一欄
+                        c3b,
+                        c3a
+                    ],
+                    type: 'bar',
+                    // types: {
+                    //     c3a: 'area-spline'
+                    // }
+                },
+                axis: {
+                    x: {
+                        type: 'category',
+                        tick: {
+                            rotate: 70,
+                            multiline: false
+                        },
+                        // height: 130
+                    }
+                },
+                grid: {
+                    y: {
+                        lines: [{ value: 15 }]
+                    }
+                },
+            })
         }
     </script>
 </head>
 
-<body onload="b7()">
+<body>
     <div id="printNameDiv">　　佛七作息表　</div>
     <div id="print1" class="print"></div>
+    <hr/>
     <div id="chart"></div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.css">
-    <!-- 因為是從 D3 發展而來，所以要擺 D3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
-    <!-- 最後擺上 C3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.js"></script>
-    <script>
-        // C3先運行，所以要再跑一次b7
-        b7()
-        var chart1 = c3.generate({
-            bindto: '#chart',
-            data: {
-                x: '各支香名稱',
-                columns: [
-                    // 加outline才不會自動整合成一欄
-                    c3b,
-                    c3a
-                ],
-                type: 'bar',
-                // types: {
-                //     c3a: 'area-spline'
-                // }
-            },
-            axis: {
-                x: {
-                    type: 'category',
-                    tick: {
-                        rotate: 70,
-                        multiline: false
-                    },
-                    // height: 130
-                }
-            },
-            grid: {
-                y: {
-                    lines: [{ value: 15 }]
-                }
-            },
-        })
-    </script>
 </body>
 
 </html>
