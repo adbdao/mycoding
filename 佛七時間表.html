@@ -265,20 +265,32 @@
                     type: 'bar',
                     // types: {
                     //     c3a: 'area-spline'
-                    // }
+                    // },
+                    labels: true,
+                    // labels: {
+                    //     format: {
+                    //         每支香分鐘: d3.format(''),
+                    //         // 每支香分鐘: d3.format('$'),
+                    //     }
+                    // },
                 },
                 axis: {
                     x: {
                         type: 'category',
                         tick: {
                             rotate: 70,
+                            // 不折行
                             multiline: false
                         },
                         // height: 130
-                    }
+                    },
+                    y: {
+                        label: '單位：分鐘'
+                    },
                 },
                 grid: {
                     y: {
+                        // 橫隔線
                         lines: [{ value: 15 }]
                     }
                 },
