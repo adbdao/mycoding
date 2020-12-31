@@ -236,6 +236,62 @@ ol li{margin-left:5em;}
                 div2.style.display = 'block'
             }
 
+            toJson.onclick = function () {
+                zzUp()
+                // 預備運算用
+                AA=0
+                BB=0
+                CC=''
+                // var Arr1 = txt1.value.split('\n')  ,Arr2 =[]
+                // 刪除所有<ol><li>標記語言的標記
+                // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上{"name符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2"},'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上children。但有些層級還是無法分出
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的{比前一行縮排，即加上children
+                        if (Arr1[i].indexOf('{') < Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', ',"children":[')
+                            // 算出有幾個children
+                            AA++
+                        }
+                        // 下一行的{比前一行凸排，即加上]}
+                        if (Arr1[i].indexOf('{') > Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', '},]},')
+                            // 算出有幾個凸排
+                            BB++
+                        }
+                    }
+                }
+                // Arr1.unshift('{[')
+                // 補上不足的]}
+                if(AA>BB){
+                for (var i = 0; i < (AA-BB); i++) {
+                        CC+=']},\n'
+                }
+                }
+                // 刪除最後一個,
+                CC=CC.substring(0,(CC.length-2))
+                Arr1.push(CC)
+                overCopy()
+                // 加入並呈現HTML
+                // div2.innerHTML = Arr1.join('\n')
+                // div2.style.display = 'block'
+            }
+
             TabToNum.onclick = function () {
                 zzUp()
                 // 號碼的變量
@@ -1230,6 +1286,7 @@ ol li{margin-left:5em;}
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
         <input id="toOlLi" type="button" class="tan" value="加上<ol><li>" />
         <input id="DelTagOlLi" type="button" class="tan" value="刪<ol><li>" />
+        <input id="toJson" type="button" class="tan" value="轉json" />
     </div>
     <div>
         <input id="toHref" type="button" class="p" value="整列網址加標記<a>值1自訂連結名稱" />

@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>部派分裂圖 D3 Tree Only Little</title>
+    <base target="_blank">
+    <style>
+        h2 {
+            text-align: center;
+        }
+        
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+        
+        .node text {
+            /*font: 12px sans-serif;*/
+            font-size: 1.1em;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #cac;
+            stroke-width: 2px;
+        }
+        
+        #txt1 {
+            width: 60vw;
+            height: 30vh;
+        }
+        
+        #myValue {
+            width: 60vw;
+            background: #aca;
+        }
+        
+        #myValue2 {
+            width: 60vw;
+            background: snow;
+        }
+        
+        #myValue3 {
+            width: 60vw;
+            background: bisque;
+        }
+        
+        .g {
+            background: gold;
+        }
+        
+        .t {
+            background: tomato;
+        }
+        
+        .r {
+            background: red;
+        }
+        
+        .sb {
+            background: skyblue;
+        }
+        
+        .ky {
+            background: khaki;
+        }
+        
+        .pink {
+            background: pink;
+        }
+        
+        .y {
+            background: yellow;
+        }
+        
+        .o {
+            background: orange;
+        }
+        
+        .yg {
+            background: yellowgreen;
+        }
+        
+        .b {
+            background: lightblue;
+        }
+        
+        .p {
+            background: plum;
+        }
+        
+        .lg {
+            background: limegreen;
+        }
+        
+        .lsg {
+            background: lightseagreen;
+        }
+        
+        .lc {
+            background: lightcyan;
+        }
+        
+        .gy {
+            background: greenyellow;
+        }
+        
+        .tan {
+            background: tan;
+        }
+    </style>
+
+    <body>
+        <h2>部派分裂圖(二十部)__!!(尚在校訂中)</h2>
+        <h2>點擊紅色節點，開始動畫</h2>
+        <!-- load the d3.js library -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script>
+            var treeData = {
+                "name": "佛陀", "children": [
+                    {
+                        "name": "迦葉", "children": [
+                            {
+                                "name": "阿難", "children": [
+                                    { "name": "末田地" },
+                                    {
+                                        "name": "商那和修", "children": [
+                                            {
+                                                "name": "優婆毱多", "children": [
+                                                    { "name": "曇無德部：四分律" },
+                                                    {
+                                                        "name": "薩婆多部：十誦律", "children": [
+                                                            {
+                                                                "name": "婆差部", "children": [
+                                                                    { "name": "法上" },
+                                                                    { "name": "賢冑" },
+                                                                    { "name": "六城(連本身共五部)" },]
+                                                            },
+                                                        ]
+                                                    },
+
+                                                    {
+                                                        "name": "迦葉遺部：但傳戒本，即解脫戒經", "children": [
+                                                            { "name": "僧伽提" },
+                                                            { "name": "淺摩提(連本身共三部)" },]
+                                                    },
+                                                    {
+                                                        "name": "彌沙塞部：五分律，", "children": [
+                                                            { "name": "中間見(連本身共二部)" },]
+                                                    },
+                                                    { "name": "婆麤富羅部：我國未傳" },
+                                                    {
+                                                        "name": "僧祇部", "children": [
+                                                            { "name": "遺跡" },
+                                                            { "name": "彌沙" },
+                                                            { "name": "施設" },
+                                                            { "name": "毗陀" },
+                                                            { "name": "施羅" },
+                                                            { "name": "上施羅(連本身共七部)" },
+                                                        ]
+                                                    },
+                                                ]
+                                            },
+                                        ]
+                                    },
+
+                                ]
+                            },
+                            {
+                                "name": "窟內上座部", "children": [
+                                    { "name": "一、一切語言" },
+                                    { "name": "二、雪山" },
+                                    { "name": "三、犢子" },
+                                    { "name": "四、法勝" },
+                                    { "name": "五、賢" },
+                                    { "name": "六、一切所貴" },
+                                    { "name": "七、芿山" },
+                                    { "name": "八、大不可棄" },
+                                    { "name": "九、法護" },
+                                    { "name": "十、迦葉毗" },
+                                    { "name": "十一、修妬路" },]
+                            },
+                        ]
+                    },
+                    {
+                        "name": "富羅那", "subname": "", "fill": "tan", "children": [
+                            {
+                                "name": "窟外大眾部", "children": [
+                                    { "name": "一、執一語言" },
+                                    { "name": "二、出世間語言" },
+                                    { "name": "三、高拘梨柯" },
+                                    { "name": "四、多聞" },
+                                    { "name": "五、只底舸" },
+                                    { "name": "六、東山" },
+                                    { "name": "七、北山" },
+
+                                ]
+                            },
+
+                        ]
+                    },
+                ]
+            };
+
+            // Set the dimensions and margins of the diagram
+            // 設置圖的尺寸和邊距
+            var margin = { top: 20, right: 90, bottom: 30, left: 90 },
+                width = 1600 - margin.left - margin.right,
+                height = 900 - margin.top - margin.bottom;
+
+            // append the svg object to the body of the page
+            // appends a 'group' element to 'svg'
+            // moves the 'group' element to the top left margin
+            var svg = d3.select("body").append("svg")
+                .attr("width", width + margin.right + margin.left)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate("
+                + margin.left + "," + margin.top + ")");
+
+            var i = 0,
+                duration = 750,
+                root;
+
+            // declares a tree layout and assigns the size
+            // 聲明樹形佈局並分配大小
+            var treemap = d3.tree().size([height, width]);
+
+            // Assigns parent, children, height, depth
+            //分配父項，子項，高度，深度
+            root = d3.hierarchy(treeData, function (d) { return d.children; });
+            root.x0 = height / 2;
+            root.y0 = 0;
+
+            // Collapse after the second level
+            //在第二級之後折疊QQ
+            root.children.forEach(collapse);
+            update(root);
+
+            // Collapse the node and all it's children
+            // 折疊節點及其所有子節點
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children
+                    d._children.forEach(collapse)
+                    d.children = null
+                }
+            }
+
+            function update(source) {
+
+                // Assigns the x and y position for the nodes
+                //為節點分配x和y位置
+                var treeData = treemap(root);
+
+                // Compute the new tree layout.
+                //計算新的樹佈局。
+                var nodes = treeData.descendants(),
+                    links = treeData.descendants().slice(1);
+
+                // Normalize for fixed-depth.
+                //歸一化為固定深度。
+                nodes.forEach(function (d) { d.y = d.depth * 160 });
+
+                // ****************** Nodes section ***************************
+
+                // Update the nodes...
+                var node = svg.selectAll('g.node')
+                    .data(nodes, function (d) { return d.id || (d.id = ++i); });
+
+                // Enter any new modes at the parent's previous position.
+                //在父級的上一個位置輸入任何新模式。
+                var nodeEnter = node.enter().append('g')
+                    .attr('class', 'node')
+                    .attr("transform", function (d) {
+                        return "translate(" + source.y0 + "," + source.x0 + ")";
+                    })
+                    .on('click', click);
+
+                // Add Circle for the nodes
+                nodeEnter.append('circle')
+                    .attr('class', 'node')
+                    .attr('r', 1e-6)
+                    .style("fill", function (d) {
+                        return d._children ? "lightsteelblue" : "#fff";
+                    });
+
+                // Add labels for the nodes
+                //為節點添加標籤
+                nodeEnter.append('text')
+                    .attr("dy", ".35em")
+                    .attr("x", function (d) {
+                        // 文字向左向右
+                        // return d.children || d._children ? -13 : 13;
+                        return 13
+                    })
+                    .attr("text-anchor", function (d) {
+                        // return d.children || d._children ? "end" : "start";
+                        return "start";
+                    })
+                    .text(function (d) { return d.data.name; });
+
+                // UPDATE
+                var nodeUpdate = nodeEnter.merge(node);
+
+                // Transition to the proper position for the node
+                //過渡到節點的正確位置
+                nodeUpdate.transition()
+                    .duration(duration)
+                    .attr("transform", function (d) {
+                        return "translate(" + d.y + "," + d.x + ")";
+                    });
+
+                // Update the node attributes and style
+                //更新節點屬性和样式
+                nodeUpdate.select('circle.node')
+                    .attr('r', 10)
+                    .style("fill", function (d) {
+                        return d._children ? "red" : "yellow";
+                    })
+                    .attr('cursor', 'pointer');
+
+
+                // Remove any exiting nodes
+                //刪除所有現有節點
+                var nodeExit = node.exit().transition()
+                    .duration(duration)
+                    .attr("transform", function (d) {
+                        return "translate(" + source.y + "," + source.x + ")";
+                    })
+                    .remove();
+
+                // On exit reduce the node circles size to 0
+                //在退出時，將節點圓圈的大小減小為0
+                nodeExit.select('circle')
+                    .attr('r', 1e-6);
+
+                // On exit reduce the opacity of text labels
+                //在退出時減少文本標籤的不透明度
+                nodeExit.select('text')
+                    .style('fill-opacity', 1e-6);
+
+                // ****************** links section ***************************
+
+                // Update the links...
+                var link = svg.selectAll('path.link')
+                    .data(links, function (d) { return d.id; });
+
+                // Enter any new links at the parent's previous position.
+                //在父級的上一個位置輸入任何新鏈接。
+                var linkEnter = link.enter().insert('path', "g")
+                    .attr("class", "link")
+                    .attr('d', function (d) {
+                        var o = { x: source.x0, y: source.y0 }
+                        return diagonal(o, o)
+                    });
+
+                // UPDATE
+                var linkUpdate = linkEnter.merge(link);
+
+                // Transition back to the parent element position
+                //過渡回父元素位置
+                linkUpdate.transition()
+                    .duration(duration)
+                    .attr('d', function (d) { return diagonal(d, d.parent) });
+
+                // Remove any exiting links
+                //刪除所有現有鏈接
+                var linkExit = link.exit().transition()
+                    .duration(duration)
+                    .attr('d', function (d) {
+                        var o = { x: source.x, y: source.y }
+                        return diagonal(o, o)
+                    })
+                    .remove();
+
+                // Store the old positions for transition.
+                //存儲舊職位以進行過渡。
+                nodes.forEach(function (d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+
+                // Creates a curved (diagonal) path from parent to the child nodes
+                //創建從父節點到子節點的彎曲（對角線）路徑
+                function diagonal(s, d) {
+
+                    path = `M ${s.y} ${s.x}
+            C ${(s.y + d.y) / 2} ${s.x},
+              ${(s.y + d.y) / 2} ${d.x},
+              ${d.y} ${d.x}`
+
+                    return path
+                }
+
+                // Toggle children on click.
+                //在點擊時切換孩子。
+                function click(d) {
+                    if (d.children) {
+                        d._children = d.children;
+                        d.children = null;
+                    } else {
+                        d.children = d._children;
+                        d._children = null;
+                    }
+                    update(d);
+                }
+            }
+        </script>
+        <textarea id='txt1' placeholder='輸入要轉json的原始資料、或原始文章。
+轉換完畢後，會自動反白，並自動複製。
+以純文字編輯軟體，開啟本網頁檔，
+再貼上json，
+再以瀏覽器開啟本網頁檔，或「重新整理」即可更新樹狀圖'>佛陀
+ 迦葉
+  阿難
+    末田地
+    商那和修
+        優婆毱多
+            曇無德部：四分律，譯為法正。(始終不分)
+            薩婆多部：十誦律，譯一切有，從宗計取名。
+                婆差部
+                    法上
+                    賢冑
+                    六城(連本身共五部)
+            迦葉遺部：但傳戒本，即解脫戒經；重空觀。
+                僧伽提
+                淺摩提(連本身共三部)
+            彌沙塞部：五分律，不著有無觀，從行而名。
+                中間見(連本身共二部)
+            婆麤富羅部：我國未傳，著有行，不捨實我之堅執。
+            僧祇部
+                遺跡
+                彌沙
+                施設
+                毗陀
+                施羅
+                上施羅(連本身共七部)
+    窟內上座部
+        一、一切語言
+        二、雪山
+        三、犢子
+        四、法勝
+        五、賢
+        六、一切所貴
+        七、芿山
+        八、大不可棄
+        九、法護
+        十、迦葉毗
+        十一、修妬路
+  富羅那
+    窟外摩訶僧祇部出七部
+        一、執一語言
+        二、出世間語言
+        三、高拘梨柯
+        四、多聞
+        五、只底舸
+        六、東山
+        七、北山
+</textarea>
+        <input id="toJson" type="button" class="tan" value="轉json" />
+
+        <script>
+            toJson.onclick = function () {
+                // 預備運算用
+                var AA = 0, BB = 0, CC = ''
+                var Arr1 = txt1.value.split('\n'), Arr2 = []
+                // 刪除所有<ol><li>標記語言的標記
+                // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上{"name符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2"},'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上children。但有些層級還是無法分出
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的{比前一行縮排，即加上children
+                        if (Arr1[i].indexOf('{') < Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', ',"children":[')
+                            // 算出有幾個children
+                            AA++
+                        }
+                        // 下一行的{比前一行凸排，即加上]}
+                        if (Arr1[i].indexOf('{') > Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', '},]},')
+                            // 算出有幾個凸排
+                            BB++
+                        }
+                    }
+                }
+                // Arr1.unshift('{[')
+                // 補上不足的]}
+                if (AA > BB) {
+                    for (var i = 0; i < (AA - BB); i++) {
+                        CC += ']},\n'
+                    }
+                }
+                // 刪除最後一個,
+                CC = CC.substring(0, (CC.length - 2))
+                Arr1.push(CC)
+                // 結束時呈現結果
+                txt1.value = Arr1.join('\n')
+                // 結束時選取並複製文本框中的內容
+                txt1.select()
+                document.execCommand('Copy')
+            }
+        </script>
+    </body>
+
+</html>

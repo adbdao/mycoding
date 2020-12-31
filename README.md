@@ -1,6 +1,5 @@
 ## 我自己學習，並試作的JS網頁程式  
 ### 主要為了寺院文書工作，補充：市面上程式所缺少的功能！  
-> 授權方式：https://creativecommons.org/licenses/by-nc-sa/3.0/tw/
 > #### 聲明：其中有些函數，是網路上擷取來的，不完全是我寫的，著作權屬於原著者，我只是拿公開的程式碼來使用、開發…而已！  
   
 >> 展示網址 https://adbdao.github.io/mycoding/  
