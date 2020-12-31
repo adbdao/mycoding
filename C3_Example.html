@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>C3 Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.css">
+    <!-- 因為是從 D3 發展而來，所以要擺 D3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <!-- 最後擺上 C3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.js"></script>
+</head>
+<!--<script src="c3.js" charset="utf-8"></script>-->
+<script>
+    window.onload = function () {
+        var chart = c3.generate({
+            bindto: ".chart",
+            data: {
+                // x:'data1',
+                columns: [
+                    ['data1', 30, 200, 100, 400, 150, 250],
+                    ['data2', 500, 20, 10, 44, 56, 40, 15, 25],
+                ],
+                types: {
+                    data1: 'area',
+                    // data2: 'area-spline'
+                    data2: 'step'
+                },
+                axes: {
+                    data1: 'y',
+                    data2: 'y2'
+                },
+                labels: true,
+                // labels: {
+                //     format: {
+                //         data1: d3.format(''),
+                //         // 每支香分鐘: d3.format('$'),
+                //     }
+                // },
+            },
+            axis: {
+                // y: {
+                //     padding: { top: 200, bottom: 0 }
+                // },
+                y2: {
+                    // padding: { top: 100, bottom: 100 },
+                    show: true,
+                    label: 'Y Axis Label'
+                }
+            },
+            grid: {
+                y: {
+                    lines: [{ value: 200 }]
+                }
+            }
+        });
+
+        var chart5 = c3.generate({
+            bindto: "#chart5",
+            data: {
+                columns: [
+                    ['data1', 30, 20, 50, 40, 60, 50],
+                    ['data2', 200, 130, 90, 240, 130, 220],
+                    ['data3', 300, 200, 160, 400, 250, 250],
+                    ['data4', 200, 130, 90, 240, 130, 220],
+                    ['data5', 130, 120, 150, 140, 160, 150],
+                    ['data6', 90, 70, 20, 50, 60, 120],
+                ],
+                type: 'bar',
+                types: {
+                    data3: 'spline',
+                    data4: 'line',
+                    data6: 'area',
+                },
+                groups: [
+                    ['data1', 'data2']
+                ],
+                axes: {
+                    data4: 'y',
+                    data3: 'y2'
+                },
+                labels: true,
+            },
+            axis: {
+                y: {
+                    label: 'Y Axis Label'
+                },
+                y2: {
+                    show: true,
+                    label: 'Y Axis Label'
+                },
+            },
+        });
+
+        var chart6 = c3.generate({
+            bindto: '#chart6',
+            data: {
+                // iris data from R
+                columns: [
+                    ['data1', 30],
+                    ['data2', 120],
+                    ['data3', 80],
+                ],
+                type: 'pie',
+            }
+        });
+
+        var chart1 = c3.generate({
+            bindto: '#chart',
+            data: {
+                columns: [
+                    ['chart data1', 30, 200, 100, 400, 150, 250],
+                    ['chart data2', 500, 20, 10, 40, 15, 25]],
+                type: 'donut'
+            },
+            donut: { title: 'Chart Title' }
+        });
+
+        var chart7 = c3.generate({
+            bindto: '#chart7',
+            data: {
+                columns: [
+                    ['a', 44, 44],
+                    ['b', 78],
+                    ['c', 27],
+                ],
+                type: 'gauge'
+            },
+            gauge: {
+                width: 60
+            },
+            // size:{
+            //     height:200,
+            // }
+        })
+
+
+        var chart2 = c3.generate({
+            size: {
+                height: 500,
+                // width:500
+            },
+            bindto: '#chart2',
+            data: {
+                columns: [
+                    ['chart2data1', 30, 200, 100, 400, 150, 250],
+                    ['chart2data2', 500, 20, 10, 44, 56, 40, 15, 25]],
+                type: 'spline',
+                types: {
+                    chart2data1: 'area-spline'
+                },
+                labels: true,
+            },
+            axis: {
+                rotated: true
+            }
+        });
+
+        var chart3 = c3.generate({
+            size: {
+                height: 500,
+                // width:500
+            },
+            bindto: '#chart3',
+            data: {
+                columns: [
+                    ['chart3 data1', 30, 200, 100, 400, 150, 250],
+                    ['chart3 data2', 500, 20, 10, 40, 33, 15, 25]],
+                type: 'bar'
+            },
+            grid: {
+                x: {
+                    show: true
+                },
+                y: {
+                    show: true
+                }
+            },
+            axis: {
+                rotated: true
+            }
+        });
+
+        function All(id, ty, y1name, y2name) {
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    x: 'x',
+                    xFormat: '%H:%M',
+                    columns: [
+                        ['x', '1:30', '2:20', '8:50', '12:40', '16:0', '22:50'],
+                        ['data1', 30, 20, 50, 40, 60, 50],
+                        ['data2', 200, 130, 90, 240, 130, 220],
+                        ['data3', 300, 200, 160, 400, 250, 250],
+                        ['data4', 200, 130, 90, 240, 130, 220],
+                        ['data5', 130, 120, 150, 140, 160, 150],
+                        ['data6', 90, 70, 20, 50, 60, 120],
+                    ],
+                    type: ty,
+                    types: {
+                        data3: 'spline',
+                        data4: 'line',
+                        data6: 'area',
+                    },
+                    groups: [
+                        ['data1', 'data2']
+                    ],
+                    axes: {
+                        data4: 'y',
+                        data3: 'y2'
+                    },
+                    labels: true,
+                },
+                axis: {
+                    y: {
+                        label: y1name
+                    },
+                    y2: {
+                        show: true,
+                        label: y2name
+                    },
+
+                    x: {
+                        type: 'timeseries',
+                        // localtime: false,
+                        localtime: true,
+                        tick: {
+                            format: '%H:%M'
+                            // format: '%Y-%m-%d %H:%M:%S'
+                        }
+                    }
+                },
+            });
+        }
+
+        ch1.onmouseover = function () {
+            All('#chart8', 'bar', 'Time///good', 'bad')
+        }
+        ch1.onclick = function () {
+            chart8.innerHTML = ''
+        }
+        ch2.onmouseover = function () {
+            All('#chart9', 'line', 'Time--line', 'more')
+        }
+        ch2.onclick = function () {
+            chart9.innerHTML = ''
+        }
+
+    }
+
+</script>
+
+<body>
+    <input id="ch1" type="button" value="bar">
+    <input id="ch2" type="button" value="line">
+    <div id="chart9"></div>
+    <div id="chart8"></div>
+    <div id="chart5"></div>
+    <div class="chart"></div>
+    <div id="chart6"></div>
+    <div id="chart"></div>
+    <div id="chart7"></div>
+    <div id="chart2"></div>
+    <div id="chart3"></div>
+</body>
+
+</html>
