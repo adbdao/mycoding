@@ -3,24 +3,30 @@
 <meta charset="utf-8">
 
 <head>
-    <title>部派分裂圖 直排橫排通用表格 D3 Tree Can Vertical Box</title>
+    <title>部派分裂圖 直排橫排通用表格 D3 Tree Can Vertical 2Kinds</title>
     <base target="_blank">
     <style>
-        /*.node circle {
-            fill: #fff;
-            stroke: steelblue;
-            stroke-width: 2px;
-        }*/
-        
         input {
-            position: absolute;
+            /*position: absolute;*/
             float: left;
             height: 60px;
             border-radius: 50%;
+            /*margin: 0 0 0 50vw;*/
+        }
+        
+        #toJson {
+            position: absolute;
+            /*float: left;*/
         }
         
         h2 {
             text-align: center;
+        }
+        
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
         }
         
         .node rect {
@@ -149,7 +155,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
         window.onload = function () {
-            function d3Example(xyRotate, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myLevel, myDepth, myRectHeight, myRectWidth) {
+            function d3Example(myKinds, xyRotate, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myLevel, myDepth, myRectHeight, myRectWidth) {
                 h2.innerHTML = myH2
                 var treeData = {
                     "name": "佛陀", "subname": "", "fill": "gold", "children": [
@@ -320,93 +326,137 @@
                         })
                         .on('click', click);
 
-                    var rectHeight = myRectHeight, rectWidth = myRectWidth;
-
-                    if (xyRotate != 1) {
-                        // 橫排
-                        nodeEnter.append('rect')
+                    // 區分兩種樣式
+                    if (myKinds != 1) {
+                        // 原始樣式
+                        // Add Circle for the nodes
+                        nodeEnter.append('circle')
                             .attr('class', 'node')
-                            .attr("width", rectWidth)
-                            .attr("height", rectHeight)
-                            .attr("x", 0)
-                            .attr("y", (rectHeight / 2) * -1)
-                            .attr("rx", "5")
+                            .attr('r', 1e-6)
                             .style("fill", function (d) {
-                                return d.data.fill;
+                                return d._children ? "lightsteelblue" : "#fff";
                             });
 
                         // Add labels for the nodes
                         // 為節點添加標籤
-                        nodeEnter.append('text')
-                            .attr("dy", ".35em")
-                            // 雙行小名
-                            // .attr("dy", "-.35em")
-                            .attr("x", function (d) {
-                                return 13;
-                            })
-                            .attr("text-anchor", function (d) {
-                                return "start";
-                            })
-                            .text(function (d) { return d.data.name; })
-                        // 雙行小名
-                        // .append("tspan")
-                        // .attr("dy", "1.75em")
-                        // .attr("x", function (d) {
-                        //    return 13;
-                        // })
-                        // .text(function (d) { return d.data.subname; });
-
+                        if (xyRotate != 1) {
+                            // 橫排
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                .attr("x", function (d) {
+                                    // 文字向左向右
+                                    // return d.children || d._children ? -13 : 13;
+                                    return 13
+                                })
+                                .attr("text-anchor", function (d) {
+                                    // return d.children || d._children ? "end" : "start";
+                                    return "start";
+                                })
+                                .text(function (d) { return d.data.name; });
+                        } else {
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 直排X軸Y軸對調
+                                .attr("y", function (d) {
+                                    // 文字向左向右
+                                    return d.children || d._children ? -20 : 8;
+                                })
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "head" : "body"
+                                })
+                                .text(function (d) { return d.data.name; });
+                        }
                     } else {
-                        nodeEnter.append('rect')
-                            // .attr('class', 'node')
-                            .attr('class', function (d) {
-                                // 區分子節點直排，父節點不直排
-                                return d.children || d._children ? "rectHead" : "rectBody"
-                            })
-                            .attr("width", rectWidth)
-                            .attr("height", rectHeight)
-                            .attr("x", function (d) {
-                                // 區分子節點直排，父節點不直排
-                                return d.children || d._children ? (rectWidth / 2) * -1 : 0
-                            })
-                            .attr("y", function (d) {
-                                // 區分子節點直排，父節點不直排
-                                return d.children || d._children ? (rectHeight - 4) * -1 : (rectHeight / 2) * -1
-                            })
-                            .attr("rx", "5")
-                            .style("fill", function (d) {
-                                return d.data.fill;
-                            });
+                        // 顏色樣式
+                        var rectHeight = myRectHeight, rectWidth = myRectWidth;
 
-                        // Add labels for the nodes
-                        // 為節點添加標籤
-                        nodeEnter.append('text')
-                            .attr("dy", ".35em")
-                            // 直排X軸Y軸對調
-                            .attr("y", function (d) {
-                                // 文字向左向右
-                                return d.children || d._children ? -8 : 8;
-                            })
-                            .attr('class', function (d) {
-                                // 區分子節點直排，父節點不直排
-                                return d.children || d._children ? "head" : "body"
-                            })
-                            // // 雙行小名
-                            // // .attr("dy", "-.35em")
+                        if (xyRotate != 1) {
+                            // 橫排
+                            nodeEnter.append('rect')
+                                .attr('class', 'node')
+                                .attr("width", rectWidth)
+                                .attr("height", rectHeight)
+                                .attr("x", 0)
+                                .attr("y", (rectHeight / 2) * -1)
+                                .attr("rx", "5")
+                                .style("fill", function (d) {
+                                    return d.data.fill;
+                                });
+
+                            // Add labels for the nodes
+                            // 為節點添加標籤
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 雙行小名
+                                // .attr("dy", "-.35em")
+                                .attr("x", function (d) {
+                                    return 13;
+                                })
+                                .attr("text-anchor", function (d) {
+                                    return "start";
+                                })
+                                .text(function (d) { return d.data.name; })
+                            // 雙行小名
+                            // .append("tspan")
+                            // .attr("dy", "1.75em")
                             // .attr("x", function (d) {
-                            //     return 13;
+                            //    return 13;
                             // })
-                            // .attr("text-anchor", function (d) {
-                            //     return "start";
+                            // .text(function (d) { return d.data.subname; });
+
+                        } else {
+                            nodeEnter.append('rect')
+                                // .attr('class', 'node')
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "rectHead" : "rectBody"
+                                })
+                                .attr("width", rectWidth)
+                                .attr("height", rectHeight)
+                                .attr("x", function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? (rectWidth / 2) * -1 : 0
+                                })
+                                .attr("y", function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? (rectHeight - 4) * -1 : (rectHeight / 2) * -1
+                                })
+                                .attr("rx", "5")
+                                .style("fill", function (d) {
+                                    return d.data.fill;
+                                });
+
+                            // Add labels for the nodes
+                            // 為節點添加標籤
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 直排X軸Y軸對調
+                                .attr("y", function (d) {
+                                    // 文字向左向右
+                                    return d.children || d._children ? -8 : 8;
+                                })
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "head" : "body"
+                                })
+                                // // 雙行小名
+                                // // .attr("dy", "-.35em")
+                                // .attr("x", function (d) {
+                                //     return 13;
+                                // })
+                                // .attr("text-anchor", function (d) {
+                                //     return "start";
+                                // })
+                                .text(function (d) { return d.data.name; })
+                            // 雙行小名
+                            // .append("tspan")
+                            // .attr("dy", "1.75em")
+                            // .attr("x", function (d) {
+                            //    return 13;
                             // })
-                            .text(function (d) { return d.data.name; })
-                        // 雙行小名
-                        // .append("tspan")
-                        // .attr("dy", "1.75em")
-                        // .attr("x", function (d) {
-                        //    return 13;
-                        // })
-                        // .text(function (d) { return d.data.subname; });
+                            // .text(function (d) { return d.data.subname; });
+                        }
                     }
 
                     // UPDATE
@@ -431,7 +481,7 @@
                     nodeUpdate.select('circle.node')
                         .attr('r', 10)
                         .style("fill", function (d) {
-                            return d._children ? "red" : "#ccc";
+                            return d._children ? "red" : "yellow";
                         })
                         .attr('cursor', 'pointer');
 
@@ -593,8 +643,12 @@
                 document.execCommand('Copy')
             }
 
+            function Kinds(k1, k2) {
+                var k = k1, v = k2
+            }
+
             // 調用D3參數
-            d3Example(0, '部派分裂圖(二十部)__!!(尚在校訂中)<br/>點擊節點，開始動畫，可切換「直書/橫書」', div1, 10, 10, 10, 30, 1800, 1100, 0, 180, 25, 120)
+            d3Example(1, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1800, 1100, 0, 180, 25, 120)
 
             // 直書/橫書
             toVertical.onclick = function () {
@@ -602,10 +656,23 @@
                 var tsvg = document.getElementsByClassName('head')[0]
                 if (tsvg) {
                     d3.select('div svg').remove()
-                    d3Example(0, '部派分裂圖(二十部)__!!(尚在校訂中)<br/>點擊節點，開始動畫，可切換「直書/橫書」', div1, 10, 10, 10, 30, 1800, 1100, 0, 180, 25, 120)
+                    d3Example(1, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1100, 0, 180, 25, 120)
                 } else {
                     d3.select('div svg').remove()
-                    d3Example(1, '部派分裂圖(二十部)__!!(尚在校訂中)<br/>點擊節點，開始動畫，可切換「直書/橫書」', div1, 60, 10, 10, 30, 1400, 1400, 0, 80, 25, 140)
+                    d3Example(1, 1, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 120, 25, 140)
+                }
+            }
+
+            // 另類樣式
+            toKinds.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(0, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1100, 0, 180, '', '')
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(0, 1, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 120, '', '')
                 }
             }
 
@@ -614,8 +681,9 @@
 </head>
 
 <body>
-    <h2 id="h2"></h2>
     <input id="toVertical" type="button" class="o" value="直書/橫書" />
+    <input id="toKinds" type="button" class="gy" value="另類樣式" />
+    <h2 id="h2"></h2>
     <div id="div1"></div>
     <textarea id='txt1' placeholder='輸入要轉json的原始資料、或原始文章。
 用「空白鍵」或「tab鍵」在前面作層級的區分，
