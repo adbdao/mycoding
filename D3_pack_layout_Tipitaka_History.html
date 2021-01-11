@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>歷代漢文大藏經概述 D3 Pack Layout</title>
+    <base target="_blank">
+    <style>
+        input {
+            /*position: absolute;*/
+            float: left;
+            height: 60px;
+            border-radius: 50%;
+            /*margin: 0 0 0 50vw;*/
+        }
+        
+        #toJson {
+            position: absolute;
+            /*float: left;*/
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+        
+        .node rect {
+            stroke-width: 3px;
+        }
+        
+        .node text {
+            /*font: 14px sans-serif;*/
+            font-size: 1.1em;
+            fill: black;
+        }
+        
+        .node {
+            fill: lightblue;
+            /*word-wrap:break-word;
+        white-space:pre;*/
+        }
+        
+        .rectBody {
+            transform: rotate(90deg);
+        }
+        
+        .body {
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+        }
+        
+        .head {
+            /*text-align: center;*/
+            /*D3語法*/
+            /*text-anchor: middle;*/
+            transform: rotate(15deg);
+        }
+        
+        .link {
+            fill: none;
+            stroke: #cac;
+            stroke-width: 2px;
+        }
+        
+        #txt1 {
+            width: 60vw;
+            height: 30vh;
+        }
+        
+        #myValue {
+            width: 60vw;
+            background: #aca;
+        }
+        
+        #myValue2 {
+            width: 60vw;
+            background: snow;
+        }
+        
+        #myValue3 {
+            width: 60vw;
+            background: bisque;
+        }
+        
+        .g {
+            background: gold;
+        }
+        
+        .t {
+            background: tomato;
+        }
+        
+        .r {
+            background: red;
+        }
+        
+        .sb {
+            background: skyblue;
+        }
+        
+        .ky {
+            background: khaki;
+        }
+        
+        .pink {
+            background: pink;
+        }
+        
+        .y {
+            background: yellow;
+        }
+        
+        .o {
+            background: orange;
+        }
+        
+        .yg {
+            background: yellowgreen;
+        }
+        
+        .b {
+            background: lightblue;
+        }
+        
+        .p {
+            background: plum;
+        }
+        
+        .lg {
+            background: limegreen;
+        }
+        
+        .lsg {
+            background: lightseagreen;
+        }
+        
+        .lc {
+            background: lightcyan;
+        }
+        
+        .gy {
+            background: greenyellow;
+        }
+        
+        .tan {
+            background: tan;
+        }
+    </style>
+    <!-- load the d3.js library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        window.onload = function () {
+            function d3Example(myKinds, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myPadding, myTextX, myTextY) {
+                h2.innerHTML = myH2
+                var treeData = {
+                    "name": "漢文大藏經", "subname": "10", "fill": "", "children": [
+                        {
+                            "name": "國內", "subname": "10", "fill": "gold", "children": [
+                                {
+                                    "name": "唐(含之前)", "subname": "10", "fill": "", "children": [
+                                        { "name": "敦煌手抄本", "subname": "10", "fill": "" },]
+                                },
+                                {
+                                    "name": "宋", "subname": "10", "fill": "", "children": [
+                                        {
+                                            "name": "蜀版", "subname": "10", "fill": "cyan", "children": [
+                                                { "name": "開寶藏(西元971-983)", "subname": "10", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "遼版", "subname": "10", "fill": "cyan", "children": [
+                                                { "name": "契丹藏(丹本)(約1031-1063)", "subname": "10", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "金版", "subname": "10", "fill": "cyan", "children": [
+                                                { "name": "金藏(趙城本)(約1148-1173)", "subname": "10", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "福州版", "subname": "10", "fill": "cyan", "children": [
+                                                { "name": "崇寧萬壽藏(福州東禪寺本)(1080-1140)", "subname": "10", "fill": "" },
+                                                { "name": "毗廬藏(福州開元寺本)(1115-1150)", "subname": "10", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "湖州版", "subname": "10", "fill": "cyan", "children": [
+                                                { "name": "思溪圓覺藏(1132-)", "subname": "10", "fill": "" },
+                                                { "name": "思溪資福藏(1175前後)", "subname": "10", "fill": "" },]
+                                        },
+                                        { "name": "磧砂藏(約1231-1322)", "subname": "10", "fill": "" },]
+                                },
+                                {
+                                    "name": "元", "subname": "10", "fill": "", "children": [
+                                        { "name": "普寧藏(1269-1286)", "subname": "10", "fill": "" },
+                                        { "name": "弘法藏(1277-1294)", "subname": "10", "fill": "" },]
+                                },
+                                {
+                                    "name": "明", "subname": "10", "fill": "", "children": [
+                                        { "name": "南藏(1372-)", "subname": "10", "fill": "" },
+                                        { "name": "北藏(1410-1441)", "subname": "10", "fill": "" },
+                                        { "name": "武林藏(約1522-1566)", "subname": "10", "fill": "" },
+                                        { "name": "徑山藏(嘉興藏本)(1589-1677)", "subname": "10", "fill": "" },]
+                                },
+                                {
+                                    "name": "清", "subname": "10", "fill": "", "children": [
+                                        { "name": "龍藏(1735-1738)", "subname": "10", "fill": "" },
+                                        { "name": "頻伽藏(1909-1914)", "subname": "10", "fill": "" },
+                                        { "name": "百衲藏(1866-)", "subname": "10", "fill": "" },]
+                                },
+                            ]
+                        },
+                        {
+                            "name": "國外", "subname": "10", "fill": "gold", "children": [
+                                {
+                                    "name": "高麗", "subname": "10", "fill": "lime", "children": [
+                                        { "name": "高麗大藏初雕本(約1011-1082)", "subname": "10", "fill": "" },
+                                        { "name": "高麗續藏本(1094前後)", "subname": "10", "fill": "" },
+                                        { "name": "高麗大藏再雕本(1236-1251)", "subname": "10", "fill": "" },]
+                                },
+                                {
+                                    "name": "日本", "subname": "10", "fill": "pink", "children": [
+                                        { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "10", "fill": "" },
+                                        { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "10", "fill": "" },
+                                        { "name": "黃蘗藏(鐵眼本)(1669-1681)", "subname": "10", "fill": "" },
+                                        { "name": "弘教藏(縮刷藏本)(1880-1866)", "subname": "10", "fill": "" },
+                                        { "name": "卍字藏(1902-1905)", "subname": "10", "fill": "" },
+                                        { "name": "卍字續藏(1905-0912)", "subname": "10", "fill": "" },
+                                        { "name": "大正新修大藏經(1922-1932)", "subname": "10", "fill": "pink" },
+                                        { "name": "昭和再訂縮刷藏(1935-)", "subname": "10", "fill": "" },
+                                        { "name": "聖語藏(古寫本與版本集合而成約自759-1093)", "subname": "10", "fill": "" },
+                                        { "name": "宮本(即福州東禪寺與開元寺本合成之全藏)", "subname": "10", "fill": "" },
+                                    ]
+                                },
+                            ]
+                        },
+                    ]
+                };
+
+                // Set the dimensions and margins of the diagram
+                // 設置圖的尺寸和邊距
+                var margin = { top: myTop, right: myRight, bottom: myBottom, left: myLeft },
+                    width = myWidth - margin.left - margin.right,
+                    height = myHeight - margin.top - margin.bottom;
+
+                // append the svg object to the body of the page
+                // appends a 'group' element to 'svg'
+                // moves the 'group' element to the top left margin
+                var svg = d3.select(myId).append("svg")
+                    .attr("width", width + margin.right + margin.left)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate("
+                    + margin.left + "," + margin.top + ")");
+
+                // 讀取資料
+                var rootNode = d3.hierarchy(treeData)
+
+                rootNode.sum(function (d) {
+                    return d.subname;
+                });
+
+                // 區分兩種樣式
+                if (myKinds != 1) {
+                    // pack layout
+                    // 包裝佈局；泡泡圖
+                    var packLayout = d3.pack()
+                        .size([height - 50, width - 50])
+                        .padding(myPadding)
+
+                    packLayout(rootNode);
+
+                    var nodes = svg
+                        .selectAll('g')
+                        .data(rootNode.descendants())
+                        .enter()
+                        .append('g')
+                        .attr('transform', function (d) { return 'translate(' + [d.x, d.y] + ')' })
+
+                    nodes.append('circle')
+                        .attr('r', function (d) { return d.r; })
+                        .attr("stroke", "brown")
+                        .attr("fill", "#ddd")
+                    nodes.append('text')
+                        .attr('dx', myTextX)
+                        .attr('dy', myTextY)
+                        // 此class無用，只是用來區分兩種樣式
+                        .attr("class", "head")
+                        .text(function (d) {
+                            // return d.children === undefined ? d.data.name : '';
+                            return d.data.name;
+                        })
+                } else {
+                    // treemap layout
+                    // 樹形圖佈局
+                    var treemapLayout = d3.treemap()
+                        .size([height - 50, width - 50])
+                        .paddingOuter(myPadding);
+
+                    treemapLayout(rootNode);
+
+                    var nodes = svg
+                        .selectAll('g')
+                        .data(rootNode.descendants())
+                        .enter()
+                        .append('g')
+                        .attr('transform', function (d) { return 'translate(' + [d.x0, d.y0] + ')' })
+
+                    nodes.append('rect')
+                        .attr('width', function (d) { return d.x1 - d.x0; })
+                        .attr('height', function (d) { return d.y1 - d.y0; })
+                        .attr("stroke", "green")
+                        .attr("fill", "#ddd")
+
+                    nodes.append('text')
+                        .attr('dx', myTextX)
+                        .attr('dy', myTextY)
+                        .text(function (d) {
+                            return d.data.name;
+                        })
+                }
+            }
+
+            // 調用D3參數
+            d3Example(1, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 30, 4, 20)
+
+            // 另類樣式
+            toKinds.onclick = function () {
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (!tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 5, -30, 4)
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(1, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 30, 4, 20)
+                }
+            }
+
+            toJson.onclick = function () {
+                // 預備運算用
+                var AA = 0, BB = 0, CC = ''
+                var Arr1 = txt1.value.split('\n'), Arr2 = []
+                // 刪除所有<ol><li>標記語言的標記
+                // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上{"name符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2","subname":"","fill":""},'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上children。但有些層級還是無法分出
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的{比前一行縮排，即加上children
+                        if (Arr1[i].indexOf('{') < Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', ',"children":[')
+                            // 算出有幾個children
+                            AA++
+                        }
+                        // 下一行的{比前一行凸排，即加上]}
+                        if (Arr1[i].indexOf('{') > Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', '},]},')
+                            // 算出有幾個凸排
+                            BB++
+                        }
+                    }
+                }
+                // Arr1.unshift('{[')
+                // 補上不足的]}
+                if (AA > BB) {
+                    for (var i = 0; i < (AA - BB); i++) {
+                        CC += ']},\n'
+                    }
+                }
+                // 刪除最後一個,
+                CC = CC.substring(0, (CC.length - 2))
+                Arr1.push(CC)
+                // 結束時呈現結果
+                txt1.value = Arr1.join('\n')
+                // 結束時選取並複製文本框中的內容
+                txt1.select()
+                document.execCommand('Copy')
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <input id="toKinds" type="button" class="gy" value="另類樣式" />
+    <h2 id="h2"></h2>
+    <div id="div1"></div>
+    <textarea id='txt1' placeholder='輸入要轉json的原始資料、或原始文章。
+用「空白鍵」或「tab鍵」在前面作層級的區分，
+轉換完畢後，會自動反白，並自動複製。
+以純文字編輯軟體，開啟本網頁檔，
+再貼上json，
+再以瀏覽器開啟本網頁檔，或「重新整理」即可更新樹狀圖'>漢文大藏經
+    國內
+        唐(含之前)
+            敦煌手抄本
+        宋
+            蜀版
+                開寶藏(西元971-983)
+            遼版
+                契丹藏(丹本)(約1031-1063)
+            金版
+                金藏(趙城本)(約1148-1173)
+            福州版
+                崇寧萬壽藏(福州東禪寺本)(1080-1140)
+                毗廬藏(福州開元寺本)(1115-1150)
+            湖州版
+                思溪圓覺藏(1132-)
+                思溪資福藏(1175前後)
+            磧砂藏(約1231-1322)
+        元
+            普寧藏(1269-1286)
+            弘法藏(1277-1294)
+        明
+            南藏(1372-)
+            北藏(1410-1441)
+            武林藏(約1522-1566)
+            徑山藏(嘉興藏本)(1589-1677)
+        清
+            龍藏(1735-1738)
+            頻伽藏(1909-1914)
+            百衲藏(1866-)
+    國外
+        高麗
+            高麗大藏初雕本(約1011-1082)
+            高麗續藏本(1094前後)
+            高麗大藏再雕本(1236-1251)
+        日本
+            天海藏(寬永寺本)(1637-1648)
+            天海藏(寬永寺本)(1637-1648)
+            黃蘗藏(鐵眼本)(1669-1681)
+            弘教藏(縮刷藏本)(1880-1866)
+            卍字藏(1902-1905)
+            卍字續藏(1905-0912)
+            大正新修大藏經(1922-1932)
+            昭和再訂縮刷藏(1935-)
+            聖語藏(古寫本與版本集合而成約自759-1093)
+            宮本(即福州東禪寺與開元寺本合成之全藏)
+</textarea>
+    <input id="toJson" type="button" class="tan" value="轉json" />
+</body>
+
+</html>
