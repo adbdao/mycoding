@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>部派分裂圖 圓圈圖 D3 Ball</title>
+    <base target="_blank">
+    <style>
+        input {
+            /*position: absolute;*/
+            float: left;
+            height: 60px;
+            border-radius: 50%;
+            /*margin: 0 0 0 50vw;*/
+        }
+        
+        #toJson {
+            position: absolute;
+            /*float: left;*/
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+        
+        .node rect {
+            stroke-width: 3px;
+        }
+        
+        .node text {
+            /*font: 14px sans-serif;*/
+            font-size: 1.1em;
+            fill: black;
+        }
+        
+        .node {
+            fill: lightblue;
+            /*word-wrap:break-word;
+        white-space:pre;*/
+        }
+        
+        .rectBody {
+            transform: rotate(90deg);
+        }
+        
+        .body {
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+        }
+        
+        .head {
+            /*text-align: center;*/
+            /*D3語法*/
+            text-anchor: middle;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #cac;
+            stroke-width: 2px;
+        }
+        
+        #txt1 {
+            width: 60vw;
+            height: 30vh;
+        }
+        
+        #myValue {
+            width: 60vw;
+            background: #aca;
+        }
+        
+        #myValue2 {
+            width: 60vw;
+            background: snow;
+        }
+        
+        #myValue3 {
+            width: 60vw;
+            background: bisque;
+        }
+        
+        .g {
+            background: gold;
+        }
+        
+        .t {
+            background: tomato;
+        }
+        
+        .r {
+            background: red;
+        }
+        
+        .sb {
+            background: skyblue;
+        }
+        
+        .ky {
+            background: khaki;
+        }
+        
+        .pink {
+            background: pink;
+        }
+        
+        .y {
+            background: yellow;
+        }
+        
+        .o {
+            background: orange;
+        }
+        
+        .yg {
+            background: yellowgreen;
+        }
+        
+        .b {
+            background: lightblue;
+        }
+        
+        .p {
+            background: plum;
+        }
+        
+        .lg {
+            background: limegreen;
+        }
+        
+        .lsg {
+            background: lightseagreen;
+        }
+        
+        .lc {
+            background: lightcyan;
+        }
+        
+        .gy {
+            background: greenyellow;
+        }
+        
+        .tan {
+            background: tan;
+        }
+    </style>
+    <!-- load the d3.js library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        window.onload = function () {
+const data = [
+  {name: "jim",   amount: "34.0",   date: "11/12/2015"},
+  {name: "carl",  amount: "120.11", date: "11/12/2015"},
+  {name: "carl",  amount: "10.31", date: "11/12/2015"},
+  {name: "stacy", amount: "12.01",  date: "01/04/2016"},
+  {name: "stacy", amount: "1233.01",  date: "01/04/2016"},
+  {name: "stacy", amount: "34.05",  date: "01/04/2016"}
+];
+
+groupByName = d3.group(data, d => d.name)
+
+groupByNameThenByDate = d3.group(data, d => d.name, d => d.date)
+
+fistAmountPerEachName = Array.from(
+   groupByName, 
+   ([key, value]) => ({ key, value: value[0].amount })
+)
+
+numberOfItemsPerEachName = d3.rollup(
+   data,
+   d => d.length, // reducerFn
+   d => d.name    // keyToGroupBy
+)
+
+reduceFn = data => d3.sum(data, d => d["Initial Approvals"] + d["Initial Denials"] + d["Continuing Approvals"] + d["Continuing Denials"]);
+
+groupingFns = [d => d.State, d => d.City, d => d.Employer]
+
+rollupData = d3.rollup(dataArray, reduceFn, ...groupingFns);
+
+d3.hierarchy(data, childrenAccessorFn)
+// :RootNode
+
+childrenAccessorFn = ([ key, value ]) => value.size && Array.from(value)
+
+pack = () => d3.pack()
+ .size([width, height])
+ .padding(1)
+ (hierarchyData)
+
+
+
+
+ function makeHierarchy(config) {
+ const defaultConfig = {
+   childrenAccessorFn: ([key, value]) => value.size && Array.from(value),
+   sumFn: ([key, value]) => value,
+   sortFn: (a, b) => b.value - a.value,
+ };
+ const { 
+   data,
+   reduceFn,
+   groupByFns,
+   childrenAccessorFn,
+   sumFn,
+   sortFn
+ } = { ...defaultConfig, ...config };
+ const rollupData = d3.rollup(data, reduceFn, ...groupByFns);
+ const hierarchyData = d3.hierarchy([null, rollupData], childrenAccessorFn)
+ .sum(sumFn)
+ .sort(sortFn);
+ return hierarchyData;
+}
+// and call it:
+makeHierarchy({
+ data: dataArray,
+ groupByFns: [d => d.State, d => d.City, d => d.Employer],
+ reduceFn: v => d3.sum(v, d => d["Initial Approvals"] + d["Initial Denials"] + d["Continuing Approvals"] + d["Continuing Denials"])
+});
+
+
+
+
+            toJson.onclick = function () {
+                // 預備運算用
+                var AA = 0, BB = 0, CC = ''
+                var Arr1 = txt1.value.split('\n'), Arr2 = []
+                // 刪除所有<ol><li>標記語言的標記
+                // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上{"name符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2","subname":"","fill":""},'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上children。但有些層級還是無法分出
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的{比前一行縮排，即加上children
+                        if (Arr1[i].indexOf('{') < Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', ',"children":[')
+                            // 算出有幾個children
+                            AA++
+                        }
+                        // 下一行的{比前一行凸排，即加上]}
+                        if (Arr1[i].indexOf('{') > Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', '},]},')
+                            // 算出有幾個凸排
+                            BB++
+                        }
+                    }
+                }
+                // Arr1.unshift('{[')
+                // 補上不足的]}
+                if (AA > BB) {
+                    for (var i = 0; i < (AA - BB); i++) {
+                        CC += ']},\n'
+                    }
+                }
+                // 刪除最後一個,
+                CC = CC.substring(0, (CC.length - 2))
+                Arr1.push(CC)
+                // 結束時呈現結果
+                txt1.value = Arr1.join('\n')
+                // 結束時選取並複製文本框中的內容
+                txt1.select()
+                document.execCommand('Copy')
+            }
+
+            function Kinds(k1, k2) {
+                var k = k1, v = k2
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <input id="toVertical" type="button" class="o" value="直書/橫書" />
+    <input id="toKinds" type="button" class="gy" value="另類樣式" />
+    <h2 id="h2"></h2>
+    <div id="div1"></div>
+    <textarea id='txt1' placeholder='輸入要轉json的原始資料、或原始文章。
+用「空白鍵」或「tab鍵」在前面作層級的區分，
+轉換完畢後，會自動反白，並自動複製。
+以純文字編輯軟體，開啟本網頁檔，
+再貼上json，
+再以瀏覽器開啟本網頁檔，或「重新整理」即可更新樹狀圖'>佛陀
+ 迦葉
+  阿難
+    末田地
+    商那和修
+        優婆毱多
+            曇無德部：四分律，譯為法正。(始終不分)
+            薩婆多部：十誦律，譯一切有，從宗計取名。
+                婆差部
+                    法上
+                    賢冑
+                    六城(連本身共五部)
+            迦葉遺部：但傳戒本，即解脫戒經；重空觀。
+                僧伽提
+                淺摩提(連本身共三部)
+            彌沙塞部：五分律，不著有無觀，從行而名。
+                中間見(連本身共二部)
+            婆麤富羅部：我國未傳，著有行，不捨實我之堅執。
+            僧祇部
+                遺跡
+                彌沙
+                施設
+                毗陀
+                施羅
+                上施羅(連本身共七部)
+    窟內上座部
+        一、一切語言
+        二、雪山
+        三、犢子
+        四、法勝
+        五、賢
+        六、一切所貴
+        七、芿山
+        八、大不可棄
+        九、法護
+        十、迦葉毗
+        十一、修妬路
+  富羅那
+    窟外摩訶僧祇部出七部
+        一、執一語言
+        二、出世間語言
+        三、高拘梨柯
+        四、多聞
+        五、只底舸
+        六、東山
+        七、北山
+</textarea>
+    <input id="toJson" type="button" class="tan" value="轉json" />
+</body>
+
+</html>

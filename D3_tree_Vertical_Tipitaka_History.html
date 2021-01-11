@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 
 <head>
-    <title>部派分裂圖 直排橫排通用表格 D3 Tree Can Vertical 2Kinds</title>
+    <title>歷代漢文大藏經概述 D3 Tree Can Vertical 2Kinds</title>
     <base target="_blank">
     <style>
         input {
@@ -158,84 +158,81 @@
             function d3Example(myKinds, xyRotate, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myLevel, myDepth, myRectHeight, myRectWidth) {
                 h2.innerHTML = myH2
                 var treeData = {
-                    "name": "佛陀", "subname": "", "fill": "gold", "children": [
+                    "name": "漢文大藏經", "subname": "", "fill": "", "children": [
                         {
-                            "name": "迦葉", "subname": "", "fill": "tan", "children": [
+                            "name": "國內", "subname": "", "fill": "gold", "children": [
                                 {
-                                    "name": "阿難", "subname": "", "fill": "", "children": [
-                                        { "name": "末田地", "subname": "", "fill": "" },
-                                        {
-                                            "name": "商那和修", "subname": "", "fill": "", "children": [
-                                                {
-                                                    "name": "優婆毱多", "subname": "", "fill": "lime", "children": [
-                                                        { "name": "曇無德", "subname": "", "fill": "" },
-                                                        {
-                                                            "name": "薩婆多", "subname": "", "fill": "", "children": [
-                                                                {
-                                                                    "name": "婆差部", "subname": "", "fill": "", "children": [
-                                                                        { "name": "法上", "subname": "", "fill": "" },
-                                                                        { "name": "賢冑", "subname": "", "fill": "" },
-                                                                        { "name": "六城(連本身共五部)", "subname": "", "fill": "" },]
-                                                                },
-                                                            ]
-                                                        },
-                                                        {
-                                                            "name": "迦葉遺", "subname": "", "fill": "", "children": [
-                                                                { "name": "僧伽提", "subname": "", "fill": "" },
-                                                                { "name": "淺摩提(連本身共三部)", "subname": "", "fill": "" },]
-                                                        },
-                                                        {
-                                                            "name": "彌沙塞", "subname": "", "fill": "", "children": [
-                                                                { "name": "中間見(連本身共二部)", "subname": "", "fill": "" },]
-                                                        },
-                                                        { "name": "婆麤富羅部：我國未傳", "subname": "", "fill": "" },
-                                                        {
-                                                            "name": "僧祇部", "subname": "", "fill": "lime", "children": [
-                                                                { "name": "遺跡", "subname": "", "fill": "" },
-                                                                { "name": "彌沙", "subname": "", "fill": "" },
-                                                                { "name": "施設", "subname": "", "fill": "" },
-                                                                { "name": "毗陀", "subname": "", "fill": "" },
-                                                                { "name": "施羅", "subname": "", "fill": "" },
-                                                                { "name": "上施羅(連本身共七部)", "subname": "", "fill": "" },]
-                                                        },
-                                                    ]
-                                                },
-
-                                            ]
+                                    "name": "唐(含之前)", "subname": "", "fill": "", "children": [
+                                        { "name": "敦煌手抄本", "subname": "", "fill": "" },]                                
+},
+                                {
+                                    "name": "宋", "subname": "", "fill": "", "children": [
+                                        {                                            
+"name": "蜀版", "subname": "", "fill": "cyan", "children": [
+                                                { "name": "開寶藏(西元971-983)", "subname": "", "fill": "" },]
                                         },
-                                    ]
+                                        {
+                                            "name": "遼版", "subname": "", "fill": "cyan", "children": [
+                                                { "name": "契丹藏(丹本)(約1031-1063)", "subname": "", "fill": "" },]                                        
+},
+                                        {
+                                            "name": "金版", "subname": "", "fill": "cyan", "children": [
+                                                { "name": "金藏(趙城本)(約1148-1173)", "subname": "", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "福州版", "subname": "", "fill": "cyan", "children": [
+                                                { "name": "崇寧萬壽藏(福州東禪寺本)(1080-1140)", "subname": "", "fill": "" },
+                                                { "name": "毗廬藏(福州開元寺本)(1115-1150)", "subname": "", "fill": "" },]
+                                        },
+                                        {
+                                            "name": "湖州版", "subname": "", "fill": "cyan", "children": [
+                                                { "name": "思溪圓覺藏(1132-)", "subname": "", "fill": "" },
+                                                { "name": "思溪資福藏(1175前後)", "subname": "", "fill": "" },]
+                                        },
+                                        { "name": "磧砂藏(約1231-1322)", "subname": "", "fill": "" },]
                                 },
                                 {
-                                    "name": "窟內上座部", "subname": "", "fill": "hotpink", "children": [
-                                        { "name": "一、一切語言", "subname": "", "fill": "" },
-                                        { "name": "二、雪山", "subname": "", "fill": "" },
-                                        { "name": "三、犢子", "subname": "", "fill": "" },
-                                        { "name": "四、法勝", "subname": "", "fill": "" },
-                                        { "name": "五、賢", "subname": "", "fill": "" },
-                                        { "name": "六、一切所貴", "subname": "", "fill": "" },
-                                        { "name": "七、芿山", "subname": "", "fill": "" },
-                                        { "name": "八、大不可棄", "subname": "", "fill": "" },
-                                        { "name": "九、法護", "subname": "", "fill": "" },
-                                        { "name": "十、迦葉毗", "subname": "", "fill": "" },
-                                        { "name": "十一、修妬路", "subname": "", "fill": "" },]
+                                    "name": "元", "subname": "", "fill": "", "children": [
+                                        { "name": "普寧藏(1269-1286)", "subname": "", "fill": "" },
+                                        { "name": "弘法藏(1277-1294)", "subname": "", "fill": "" },]
+                                },
+                                {                                    
+"name": "明", "subname": "", "fill": "", "children": [
+                                        { "name": "南藏(1372-)", "subname": "", "fill": "" },
+                                        { "name": "北藏(1410-1441)", "subname": "", "fill": "" },
+                                        { "name": "武林藏(約1522-1566)", "subname": "", "fill": "" },
+                                        { "name": "徑山藏(嘉興藏本)(1589-1677)", "subname": "", "fill": "" },]
+                                },
+                                {
+                                    "name": "清", "subname": "", "fill": "", "children": [
+                                        { "name": "龍藏(1735-1738)", "subname": "", "fill": "" },
+                                        { "name": "頻伽藏(1909-1914)", "subname": "", "fill": "" },
+                                        { "name": "百衲藏(1866-)", "subname": "", "fill": "" },]
                                 },
                             ]
                         },
                         {
-                            "name": "富羅那", "subname": "", "fill": "tan", "children": [
+                            "name": "國外", "subname": "", "fill": "gold", "children": [
                                 {
-                                    "name": "窟外大眾部", "subname": "", "fill": "hotpink", "children": [
-                                        { "name": "一、執一語言", "subname": "", "fill": "" },
-                                        { "name": "二、出世間語言", "subname": "", "fill": "" },
-                                        { "name": "三、高拘梨柯", "subname": "", "fill": "" },
-                                        { "name": "四、多聞", "subname": "", "fill": "" },
-                                        { "name": "五、只底舸", "subname": "", "fill": "" },
-                                        { "name": "六、東山", "subname": "", "fill": "" },
-                                        { "name": "七、北山", "subname": "", "fill": "" },
-
-                                    ]
+                                    "name": "高麗", "subname": "", "fill": "lime", "children": [
+                                        { "name": "高麗大藏初雕本(約1011-1082)", "subname": "", "fill": "" },
+                                        { "name": "高麗續藏本(1094前後)", "subname": "", "fill": "" },
+                                        { "name": "高麗大藏再雕本(1236-1251)", "subname": "", "fill": "" },]
                                 },
-
+                                {                                    
+"name": "日本", "subname": "", "fill": "pink", "children": [
+                                        { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "", "fill": "" },
+                                        { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "", "fill": "" },
+                                        { "name": "黃蘗藏(鐵眼本)(1669-1681)", "subname": "", "fill": "" },
+                                        { "name": "弘教藏(縮刷藏本)(1880-1866)", "subname": "", "fill": "" },
+                                        { "name": "卍字藏(1902-1905)", "subname": "", "fill": "" },
+                                        { "name": "卍字續藏(1905-0912)", "subname": "", "fill": "" },
+                                        { "name": "大正新修大藏經(1922-1932)", "subname": "", "fill": "pink" },
+                                        { "name": "昭和再訂縮刷藏(1935-)", "subname": "", "fill": "" },
+                                        { "name": "聖語藏(古寫本與版本集合而成約自759-1093)", "subname": "", "fill": "" },
+                                        { "name": "宮本(即福州東禪寺與開元寺本合成之全藏)", "subname": "", "fill": "" },
+                                    ]                                
+},
                             ]
                         },
                     ]
@@ -345,12 +342,12 @@
                                 .attr("dy", ".35em")
                                 .attr("x", function (d) {
                                     // 文字向左向右
-                                    // return d.children || d._children ? -13 : 13;
-                                    return 13
+                                    return d.children || d._children ? -13 : 13;
+                                    // return 13
                                 })
                                 .attr("text-anchor", function (d) {
-                                    // return d.children || d._children ? "end" : "start";
-                                    return "start";
+                                    return d.children || d._children ? "end" : "start";
+                                    // return "start";
                                 })
                                 .text(function (d) { return d.data.name; });
                         } else {
@@ -367,7 +364,7 @@
                                 })
                                 .text(function (d) { return d.data.name; });
                         }
-                        
+
                         // add number of children to node circle
                         //  將節點數添加到節點圈
                         nodeEnter.append('text')
@@ -661,7 +658,7 @@
             }
 
             // 調用D3參數
-            d3Example(1, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1800, 1100, 0, 180, 25, 120)
+            d3Example(1, 0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1300, 0, 180, 25, 120)
 
             // 直書/橫書
             toVertical.onclick = function () {
@@ -669,10 +666,10 @@
                 var tsvg = document.getElementsByClassName('head')[0]
                 if (tsvg) {
                     d3.select('div svg').remove()
-                    d3Example(1, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1100, 0, 180, 25, 120)
+                    d3Example(1, 0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1300, 0, 180, 25, 120)
                 } else {
                     d3.select('div svg').remove()
-                    d3Example(1, 1, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 120, 25, 140)
+                    d3Example(1, 1, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 120, 25, 100)
                 }
             }
 
@@ -682,10 +679,10 @@
                 var tsvg = document.getElementsByClassName('head')[0]
                 if (tsvg) {
                     d3.select('div svg').remove()
-                    d3Example(0, 0, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1100, 0, 180, '', '')
+                    d3Example(0, 0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 10, 10, 10, 30, 1600, 1300, 0, 180, '', '')
                 } else {
                     d3.select('div svg').remove()
-                    d3Example(0, 1, '<span class="g">部派分裂圖(二十部)</span>__!!(尚在校訂中)<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 120, '', '')
+                    d3Example(0, 1, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>點擊<span class="r">紅色</span>節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」', div1, 60, 10, 10, 30, 1400, 1400, 0, 100, '', '')
                 }
             }
 
@@ -703,52 +700,52 @@
 轉換完畢後，會自動反白，並自動複製。
 以純文字編輯軟體，開啟本網頁檔，
 再貼上json，
-再以瀏覽器開啟本網頁檔，或「重新整理」即可更新樹狀圖'>佛陀
- 迦葉
-  阿難
-    末田地
-    商那和修
-        優婆毱多
-            曇無德部：四分律，譯為法正。(始終不分)
-            薩婆多部：十誦律，譯一切有，從宗計取名。
-                婆差部
-                    法上
-                    賢冑
-                    六城(連本身共五部)
-            迦葉遺部：但傳戒本，即解脫戒經；重空觀。
-                僧伽提
-                淺摩提(連本身共三部)
-            彌沙塞部：五分律，不著有無觀，從行而名。
-                中間見(連本身共二部)
-            婆麤富羅部：我國未傳，著有行，不捨實我之堅執。
-            僧祇部
-                遺跡
-                彌沙
-                施設
-                毗陀
-                施羅
-                上施羅(連本身共七部)
-    窟內上座部
-        一、一切語言
-        二、雪山
-        三、犢子
-        四、法勝
-        五、賢
-        六、一切所貴
-        七、芿山
-        八、大不可棄
-        九、法護
-        十、迦葉毗
-        十一、修妬路
-  富羅那
-    窟外摩訶僧祇部出七部
-        一、執一語言
-        二、出世間語言
-        三、高拘梨柯
-        四、多聞
-        五、只底舸
-        六、東山
-        七、北山
+再以瀏覽器開啟本網頁檔，或「重新整理」即可更新樹狀圖'>漢文大藏經
+    國內
+        唐(含之前)
+            敦煌手抄本
+        宋
+            蜀版
+                開寶藏(西元971-983)
+            遼版
+                契丹藏(丹本)(約1031-1063)
+            金版
+                金藏(趙城本)(約1148-1173)
+            福州版
+                崇寧萬壽藏(福州東禪寺本)(1080-1140)
+                毗廬藏(福州開元寺本)(1115-1150)
+            湖州版
+                思溪圓覺藏(1132-)
+                思溪資福藏(1175前後)
+            磧砂藏(約1231-1322)
+        元
+            普寧藏(1269-1286)
+            弘法藏(1277-1294)
+        明
+            南藏(1372-)
+            北藏(1410-1441)
+            武林藏(約1522-1566)
+            徑山藏(嘉興藏本)(1589-1677)
+        清
+            龍藏(1735-1738)
+            頻伽藏(1909-1914)
+            百衲藏(1866-)
+    國外
+        高麗
+            高麗大藏初雕本(約1011-1082)
+            高麗續藏本(1094前後)
+            高麗大藏再雕本(1236-1251)
+        日本
+            天海藏(寬永寺本)(1637-1648)
+            天海藏(寬永寺本)(1637-1648)
+            黃蘗藏(鐵眼本)(1669-1681)
+            弘教藏(縮刷藏本)(1880-1866)
+            卍字藏(1902-1905)
+            卍字續藏(1905-0912)
+            大正新修大藏經(1922-1932)
+            昭和再訂縮刷藏(1935-)
+            聖語藏(古寫本與版本集合而成約自759-1093)
+            宮本(即福州東禪寺與開元寺本合成之全藏)
 </textarea>
     <input id="toJson" type="button" class="tan" value="轉json" />
 </body>
