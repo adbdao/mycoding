@@ -164,7 +164,7 @@
                             "name": "國內", "subname": "10", "fill": "gold", "children": [
                                 {
                                     "name": "唐(含之前)", "subname": "10", "fill": "", "children": [
-                                        { "name": "敦煌手抄本", "subname": "10", "fill": "" },]
+                                        { "name": "敦煌手抄本", "subname": "10", "fill": "beige" },]
                                 },
                                 {
                                     "name": "宋", "subname": "10", "fill": "", "children": [
@@ -228,7 +228,7 @@
                                         { "name": "弘教藏(縮刷藏本)(1880-1866)", "subname": "10", "fill": "" },
                                         { "name": "卍字藏(1902-1905)", "subname": "10", "fill": "" },
                                         { "name": "卍字續藏(1905-0912)", "subname": "10", "fill": "" },
-                                        { "name": "大正新修大藏經(1922-1932)", "subname": "10", "fill": "pink" },
+                                        { "name": "大正新修大藏經(1922-1932)", "subname": "20", "fill": "hotpink" },
                                         { "name": "昭和再訂縮刷藏(1935-)", "subname": "10", "fill": "" },
                                         { "name": "聖語藏(古寫本與版本集合而成約自759-1093)", "subname": "10", "fill": "" },
                                         { "name": "宮本(即福州東禪寺與開元寺本合成之全藏)", "subname": "10", "fill": "" },
@@ -283,6 +283,10 @@
                         .attr('r', function (d) { return d.r; })
                         .attr("stroke", "brown")
                         .attr("fill", "#ddd")
+                        .style("fill", function (d) {
+                            return d.data.fill;
+                        });
+
                     nodes.append('text')
                         .attr('dx', myTextX)
                         .attr('dy', myTextY)
@@ -292,6 +296,7 @@
                             // return d.children === undefined ? d.data.name : '';
                             return d.data.name;
                         })
+
                 } else {
                     // treemap layout
                     // 樹形圖佈局
@@ -313,6 +318,9 @@
                         .attr('height', function (d) { return d.y1 - d.y0; })
                         .attr("stroke", "green")
                         .attr("fill", "#ddd")
+                        .style("fill", function (d) {
+                            return d.data.fill;
+                        });
 
                     nodes.append('text')
                         .attr('dx', myTextX)
@@ -331,7 +339,7 @@
                 var tsvg = document.getElementsByClassName('head')[0]
                 if (!tsvg) {
                     d3.select('div svg').remove()
-                    d3Example(0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 5, -30, 4)
+                    d3Example(0, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 10, -30, 4)
                 } else {
                     d3.select('div svg').remove()
                     d3Example(1, '<span class="g">歷代漢文大藏經概述</span><br/>──李圓淨，原載《南行》第六期（南行學社編印）<br/>按鈕可切換「另類樣式」', div1, 10, 10, 10, 30, 1400, 1400, 30, 4, 20)
@@ -351,7 +359,8 @@
                         continue
                     } else {
                         // 先加上{"name符號
-                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2","subname":"","fill":""},'))
+                        // pack layout && treemap layout 要補上數值才能運行 "subname":"10"
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2","subname":"10","fill":""},'))
                     }
                 }
                 // 導入Arr1比較好運算
