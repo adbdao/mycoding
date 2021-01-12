@@ -223,7 +223,6 @@
                                 {
                                     "name": "日本", "subname": "10", "fill": "pink", "children": [
                                         { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "10", "fill": "" },
-                                        { "name": "天海藏(寬永寺本)(1637-1648)", "subname": "10", "fill": "" },
                                         { "name": "黃蘗藏(鐵眼本)(1669-1681)", "subname": "10", "fill": "" },
                                         { "name": "弘教藏(縮刷藏本)(1880-1866)", "subname": "10", "fill": "" },
                                         { "name": "卍字藏(1902-1905)", "subname": "10", "fill": "" },
@@ -282,6 +281,7 @@
                     nodes.append('circle')
                         .attr('r', function (d) { return d.r; })
                         .attr("stroke", "brown")
+                        .attr("stroke-width", "3px")
                         .attr("fill", "#ddd")
                         .style("fill", function (d) {
                             return d.data.fill;
@@ -289,10 +289,21 @@
 
                     nodes.append('text')
                         .attr('dx', myTextX)
-                        .attr('dy', myTextY)
+                        .attr('dy', function (d) {
+                            // 父級文字Y軸要調高，才看得見
+                            if (d.children || d._children) {
+                                if (d.children.length < 3) { return myTextY - 40 }
+                                if (2 < d.children.length && d.children.length < 4) { return myTextY - 60 }
+                                if (3 < d.children.length && d.children.length < 12) { return myTextY - 120 }
+                                if (13 < d.children.length) { return myTextY - 200 }
+                            }
+                            if (!d.children) { return myTextY }
+                            // return d.children || d._children ? myTextY-50 : myTextY;
+                        })
                         // 此class無用，只是用來區分兩種樣式
                         .attr("class", "head")
                         .text(function (d) {
+                            // 作者預設只有子級文字顯示，因為父級會被擋住
                             // return d.children === undefined ? d.data.name : '';
                             return d.data.name;
                         })
@@ -317,6 +328,7 @@
                         .attr('width', function (d) { return d.x1 - d.x0; })
                         .attr('height', function (d) { return d.y1 - d.y0; })
                         .attr("stroke", "green")
+                        .attr("stroke-width", "3px")
                         .attr("fill", "#ddd")
                         .style("fill", function (d) {
                             return d.data.fill;
@@ -450,7 +462,6 @@
             高麗續藏本(1094前後)
             高麗大藏再雕本(1236-1251)
         日本
-            天海藏(寬永寺本)(1637-1648)
             天海藏(寬永寺本)(1637-1648)
             黃蘗藏(鐵眼本)(1669-1681)
             弘教藏(縮刷藏本)(1880-1866)
