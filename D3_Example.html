@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>D3 Example</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>
+        window.onload = function () {
+            // 只數字
+            var d1 = [1, 2, 3, 4, 5]
+            d3.select('#a1')
+                .data(d1)
+                .enter()
+                .append('div')
+                .text(d => d)
+                .style({
+                    'font-size': '2em',
+                    'color': 'blue'
+                })
+
+            // 統計60以下
+            var d2 = [13, 59, 88, 95, 61, 22, 84]
+            d3.select('body>div')
+                .data(d2)
+                .enter()
+                .append('h3')
+                .text(d => d)
+                .style({
+                    'color': d => { if (d < 60) { return 'red' } },
+                    'background': 'pink',
+                    'width': d => d * 5 + 'px',
+                    'height': '2em',
+                    'margin': '5px',
+                    'text-align': 'center'
+                })
+
+            // 折線圖
+            var d4 = [
+                { x: 10, y: 10 },
+                { x: 50, y: 100 },
+                { x: 60, y: 50 },
+                { x: 100, y: 30 }
+            ]
+
+            var svg = d3.select('body')
+                .append('svg')
+                .attr({
+                    'width': 200,
+                    'height': 200
+                })
+
+            var line = d3.svg.line()
+                .x(d => d.x)
+                .y(d => d.y)
+
+            svg.append('path')
+                .attr({
+                    'd': line(d4),
+                    'y': 0,
+                    'stroke': 'green',
+                    'stroke-width': '5px',
+                    'fill': 'none'
+                })
+            // =====================
+            // import {scaleLinear} from "d3-scale"
+
+            // 單純畫圓
+            d3.select('body>p')
+                .append('svg')
+                .attr({
+                    'width': 77,
+                    'height': 77
+                }).append('circle')
+                .attr({
+                    'cx': 35,
+                    'cy': 35,
+                    'r': 30,
+                    'stroke': 'block',
+                    'fill': 'hotpink',
+                    'stroke-width': '5px'
+                })
+
+            // 單純畫圓
+            d3.select('body')
+                .append('svg')
+                .attr({
+                    'width': 77,
+                    'height': 77
+                }).append('circle')
+                .attr({
+                    'cx': 35,
+                    'cy': 35,
+                    'r': 30,
+                    'stroke': 'block',
+                    'fill': 'red',
+                    'stroke-width': '5px'
+                })
+
+            // 長條圖
+            var d2 = [113, 29, 88, 95, 60, 22, 84]
+            d3.select('body')
+                .data(d2)
+                .enter()
+                .append('div')
+                .text(d => d)
+                .style({
+                    'color': d => { if (d > 60) { return 'cyan' } },
+                    'background': 'orange',
+                    'width': d => d * 3 + 'px',
+                    'height': '2em',
+                    'margin': '5px',
+                    'text-align': 'center'
+                })
+
+            // 長條圖
+            var d5 = [113, 29, 88, 95, 60, 22, 84]
+            d3.select('body')
+                .data(d5)
+                .enter()
+                .append('div')
+                .text(d => d)
+                .style({
+                    'color': d => { if (d > 60) { return 'red' } },
+                    'background': 'lime',
+                    'height': d => d * 3 + 'px',
+                    'width': '2em',
+                    'margin': '5px',
+                    'text-align': 'center',
+                    'display': 'inline-block',
+                    'vertical-align': 'bottom'
+                    // 'position':'absolute',
+                    //  'bottom': 0
+                    //  'display':'table-cell',
+                    //  'vertical':'bottom'
+                })
+
+            // 單純控製變色
+            d3.selectAll('p').style({ 'color': 'green' })
+
+            // 座標
+            var dataa2 = [
+                { x: 0, y: 1.89 },
+                { x: 1, y: 2.77 },
+                { x: 2, y: 0.86 },
+                { x: 3, y: 3.45 },
+                { x: 4, y: 4.13 },
+                { x: 5, y: 3.59 },
+                { x: 6, y: 2.33 },
+                { x: 7, y: 3.79 },
+                { x: 8, y: 2.61 },
+                { x: 9, y: 2.15 }
+            ]
+            var width = 250, height = 300
+            var s = d3.select('#a2').append('svg')
+            s.attr({
+                // 座標要加大空間
+                'width': width + 150,
+                'height': height + 150,
+            })
+                .style({
+                    'border': '5px solid tomato'
+                })
+            // var linea2 = d3.svg.line()
+            //     .x(d => d.x)
+            //     .y(d => d.y)
+
+            // 縮放
+            var sx = d3.scale.linear().range([0, width]).domain([0, 9]).nice()
+            var sy = d3.scale.linear().range([0, height]).domain([0, 5]).nice()
+
+            var line = d3.svg.line()
+                .x(d => sx(d.x))
+                .y(d => sy(d.y))
+
+            // 座標
+            var axisX = d3.svg.axis().scale(sx).orient('bottom').ticks(10).tickFormat(d => d + 'cm')
+            var axisY = d3.svg.axis().scale(sy).orient('left').ticks(10).tickFormat(d => d + 'kg')
+
+            s.append('path')
+                .attr({
+                    'd': line(dataa2),
+                    'stroke': 'green',
+                    'fill': 'yellow',
+                    'transform': 'translate(40,30)'
+                })
+
+            s.append('g').call(axisX).attr({
+                'stroke': 'gray',
+                'fill': 'none',
+                'transform': 'translate(40,' + (height + 30) + ')'
+            })
+                .selectAll('text')
+                .attr({
+                    'stroke': 'blue',
+                    'fill': 'purple',
+                })
+                .style({
+                    'font-size': '14px'
+                })
+
+            s.append('g').call(axisY).attr({
+                'stroke': 'brown',
+                'fill': 'beige',
+                'transform': 'translate(40,30)'
+            })
+                .selectAll('text')
+                .attr({
+                    'fill': 'olive',
+                    'stroke': 'lime',
+                })
+                .style({
+                    'font-size': '16px'
+                })
+
+            var sxGrid = d3.svg.axis().scale(sx).orient('bottom').ticks(10).tickFormat('').tickSize(-height, 0)
+
+            var syGrid = d3.svg.axis().scale(sy).orient('left').ticks(10).tickFormat('').tickSize(-width, 0)
+
+            s.append('g').call(sxGrid).attr({
+                'fill': 'none',
+                'storke': 'blue',
+                'transform': 'translate(40,' + (height + 30) + ')'
+            })
+            s.append('g').call(syGrid).attr({
+                'fill': 'none',
+                'storke': 'cyan',
+                'transform': 'translate(40,30)'
+            })
+
+            // area
+            var dataa3 = [
+                { x: 0, y: 18 },
+                { x: 20, y: 27 },
+                { x: 40, y: 56 },
+                { x: 60, y: 34 },
+                { x: 80, y: 41 },
+                { x: 100, y: 35 },
+                { x: 120, y: 100 },
+                { x: 140, y: 37 },
+                { x: 160, y: 26 },
+                { x: 180, y: 21 }
+            ];
+            var wh = 300, hh = 200
+            var a = d3.select('#a3').append('svg')
+            a.attr({
+                'width': wh,
+                'height': hh,
+            })
+                .style({
+                    'border': '5px solid blue'
+                })
+            var area = d3.svg.area()
+                // .y(d => d.y).x0(0)
+                // .x1(d => d.x)
+                .x(d => d.x).y0(0)
+                .y1(d => d.y)
+            a.append('path')
+                .attr({
+                    'd': area(dataa3),
+                    'stroke': 'black',
+                    'fill': 'yellow',
+                    'transform': 'translate(2, 2)',
+
+                })
+
+            var area2 = d3.svg.area()
+                // .y(d => d.y).x0(0)
+                // .x1(d => d.x)
+                .x(d => d.x).y0(0)
+                .y1(d => d.y)
+                .interpolate('bundle')
+                .defined(d => d.x % 3 != 0)
+            a.append('path')
+                .attr({
+                    'd': area2(dataa3),
+                    'stroke': 'black',
+                    'fill': 'lime',
+                    'transform': 'translate(2, 2)',
+
+                })
+
+            // tree
+            var json = {
+                "name": "中国",
+                "children":
+                [
+                    {
+                        "name": "浙江",
+                        "children":
+                        [
+                            { "name": "杭州" },
+                            { "name": "宁波" },
+                            { "name": "温州" },
+                            { "name": "绍兴" }
+                        ]
+                    },
+
+                    {
+                        "name": "广西",
+                        "children":
+                        [
+                            {
+                                "name": "桂林",
+                                "children":
+                                [
+                                    { "name": "秀峰区" },
+                                    { "name": "叠彩区" },
+                                    { "name": "象山区" },
+                                    { "name": "七星区" }
+                                ]
+                            },
+                            { "name": "南宁" },
+                            { "name": "柳州" },
+                            { "name": "防城港" }
+                        ]
+                    },
+
+                    {
+                        "name": "黑龙江",
+                        "children":
+                        [
+                            { "name": "哈尔滨" },
+                            { "name": "齐齐哈尔" },
+                            { "name": "牡丹江" },
+                            { "name": "大庆" }
+                        ]
+                    },
+
+                    {
+                        "name": "新疆",
+                        "children":
+                        [
+                            { "name": "乌鲁木齐" },
+                            { "name": "克拉玛依" },
+                            { "name": "吐鲁番" },
+                            { "name": "哈密" }
+                        ]
+                    }
+                ]
+            }
+
+            var st = d3.select('#a4').append('svg')
+            st.attr({
+                // 座標要加大空間
+                'width': 200,
+                'height': 100,
+            })
+                .style({
+                    'border': '5px solid green'
+                })
+
+            var tree = d3.layout.tree()
+                .size([50, 80])
+                .separation(function (a, b) { return (a.parent == b.parent ? 1 : 2); });
+
+            d3.json("json", function (error, root) {
+                var nodes = tree.nodes(root);
+                var links = tree.links(nodes);
+            })
+
+            var diagonal = d3.svg.diagonal()
+                .projection(function (d) { return [d.y, d.x]; });
+            var link = svg.selectAll(".link")
+                .data(tree)
+                .enter()
+                .append("path")
+                .attr("class", "link")
+                .attr("d", diagonal);   //使用对角线生成器
+
+            var tjson = {
+                "name": "Top Node",
+                "children": [
+                    {
+                        "name": "Bob: Child of Top Node",
+                        "parent": "Top Node",
+                        "children": [
+                            {
+                                "name": "Son of Bob",
+                                "parent": "Bob: Child of Top Node"
+                            },
+                            {
+                                "name": "Daughter of Bob",
+                                "parent": "Bob: Child of Top Node"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Sally: Child of Top Node",
+                        "parent": "Top Node"
+                    }
+                ]
+            }
+
+
+            var treeData = [
+                {
+                    "name": "Top Level",
+                    "parent": "null",
+                    "children": [
+                        {
+                            "name": "Level 2: A",
+                            "parent": "Top Level",
+                            "children": [
+                                {
+                                    "name": "Son of A",
+                                    "parent": "Level 2: A"
+                                },
+                                {
+                                    "name": "Daughter of A",
+                                    "parent": "Level 2: A"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Level 2: B",
+                            "parent": "Top Level"
+                        }
+                    ]
+                }
+            ];
+
+            // ************** Generate the tree diagram  *****************
+            var margin = { top: 20, right: 120, bottom: 20, left: 120 },
+                tw = 960 - margin.right - margin.left,
+                th = 500 - margin.top - margin.bottom;
+
+            var i = 0;
+
+            var tree = d3.layout.tree()
+                .size([th, tw]);
+
+            var diagonal = d3.svg.diagonal()
+                .projection(function (d) { return [d.y, d.x]; });
+
+            var svg = d3.select("#a5").append("svg")
+                .attr("width", tw + margin.right + margin.left)
+                .attr("height", th + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            // var root = treeData[0];
+            root = treeData[0].children[0];
+
+            function update(source) {
+
+                // Compute the new tree layout.
+                var nodes = tree.nodes(root).reverse(),
+                    links = tree.links(nodes);
+
+                // Normalize for fixed-depth.
+                nodes.forEach(function (d) { d.y = d.depth * 180; });
+
+                // Declare the nodesâ€¦
+                var node = svg.selectAll("g.node")
+                    .data(nodes, function (d) { return d.id || (d.id = ++i); });
+
+                // Enter the nodes.
+                var nodeEnter = node.enter().append("g")
+                    .attr("class", "node")
+                    .attr("transform", function (d) {
+                        return "translate(" + d.y + "," + d.x + ")";
+                    });
+
+                nodeEnter.append("circle")
+                    .attr("r", 10)
+                    .style("fill", "blue");
+
+                nodeEnter.append("text")
+                    .attr("x", function (d) {
+                        return d.children || d._children ? -13 : 13;
+                    })
+                    .attr("dy", ".35em")
+                    .attr("text-anchor", function (d) {
+                        return d.children || d._children ? "end" : "start";
+                    })
+                    .text(function (d) { return d.name; })
+                    .style("fill-opacity", 1);
+
+                // Declare the linksâ€¦
+                var link = svg.selectAll("path.link")
+                    .data(links, function (d) { return d.target.id; });
+
+                // Enter the links.
+                link.enter().insert("path", "g")
+                    .attr("class", "link")
+                    .attr("d", diagonal);
+            }
+            update(root);
+
+
+
+
+        }
+    </script>
+    <style>
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 3px;
+        }
+        
+        .node text {
+            font: 12px sans-serif;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 2px;
+        }
+        #a5{
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2></h2>
+    <p>ggggg</p>
+    <p>ggggg</p>
+    <div id="a1"></div>
+    <div id="a2"></div>
+    <div id="a3"></div>
+    <div id="a4"></div>
+    <div id="a5"></div>
+    <div id="a6"></div>
+    <div id="a7"></div>
+    <p>kkkk</p>
+    <p>kkkk</p>
+</body>
+
+</html>
