@@ -1209,7 +1209,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             n = '0' + n
           }
           // 加上樣式
-          return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:257mm;"><span>' + m + ' ' + n + '</span></div>'
+          return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:252mm;padding-top:12mm"><span>' + m + ' ' + n + '</span></div>'
         }
         // 將資料導入陣列
         Arr1 = txt5.value.split('\n')
@@ -1249,7 +1249,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 人名開頭才進入運算
           if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
             // 疏文題目
-            aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 5mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+            aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 10mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
             // 加上疏文流水編號
             for (var k = 1; k < Arr1.length; k++) {
               if (Arr2[i + k][0] == '♂') {
@@ -1341,14 +1341,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
             // 疏文的正文部份
             // 增加一<sup>，調整位置
-            aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup>　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
+            aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup class="s">　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
             // 分段後，要重新設定字型大小
             if (Arr2[i][0] == '釋') {
               aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
             } else {
               aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
             }
-            aDiv.innerHTML += '<font class="lastFont"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+            aDiv.innerHTML += '<font class="lastFont1"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<sup>　</sup><br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
             // 插入div
             div1.appendChild(aDiv)
           }
@@ -1420,11 +1420,40 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           var aDiv = document.createElement('div')
           // 人名開頭才建立
           if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
+
+            // 2021年要求流水號排到前面，就不要用float: right;
+            // 加上疏文流水編號，及自訂開始的數字
+            function LittleNum(m, n) {
+              // 導入自訂數字
+              var LN = LittleNumNum.value
+              if (LN) {
+                n = n + Number(LN) - 1
+              }
+              // 補0
+              if (n < 10) {
+                n = '00' + n
+              } else if (n < 100) {
+                n = '0' + n
+              }
+              // 加上樣式，不轉90度，這樣複製到word才不會跑位
+              // 用em可複製「樣式」到word中編輯，用%有時候不行
+              return '<span style="font-size: 0.5em;">' + m + n + '</span>'
+            }
+            // 加上人名流水編號
+            for (var k = 1; k < Arr1.length; k++) {
+              if (Arr2[i + k][0] == '♂') {
+                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+                break
+              }
+            }
+            // 流水編號自增，若用i，會跳號
+            j++
+
             // 加入男女性別，及人名，出家沙門
             if (Arr2[i][0] == '釋') {
-              aDiv.innerHTML += '<sup>沙門</sup>' + Arr2[i][1]
+              aDiv.innerHTML += '<sup class="s">沙門</sup>' + Arr2[i][1]
             } else {
-              aDiv.innerHTML += '<sup>信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
+              aDiv.innerHTML += '<sup class="s">信' + Arr2[i][0] + '</sup>' + Arr2[i][1]
             }
             // 區別香港的西元生日，與台灣的民國生日
             if (Arr2[i][2].length == 4) {
@@ -1485,32 +1514,32 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 
             aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
 
-            // 加上疏文流水編號，及自訂開始的數字
-            function LittleNum(m, n) {
-              // 導入自訂數字
-              var LN = LittleNumNum.value
-              if (LN) {
-                n = n + Number(LN) - 1
-              }
-              // 補0
-              if (n < 10) {
-                n = '00' + n
-              } else if (n < 100) {
-                n = '0' + n
-              }
-              // 加上樣式，不轉90度，這樣複製到word才不會跑位
-              // 用em可複製「樣式」到word中編輯，用%有時候不行
-              return '<span style="font-size: 0.5em;float: right;">　　　' + m + n + '</span>'
-            }
-            // 加上人名流水編號
-            for (var k = 1; k < Arr1.length; k++) {
-              if (Arr2[i + k][0] == '♂') {
-                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-                break
-              }
-            }
-            // 流水編號自增，若用i，會跳號
-            j++
+            // // 加上疏文流水編號，及自訂開始的數字
+            // function LittleNum(m, n) {
+            //   // 導入自訂數字
+            //   var LN = LittleNumNum.value
+            //   if (LN) {
+            //     n = n + Number(LN) - 1
+            //   }
+            //   // 補0
+            //   if (n < 10) {
+            //     n = '00' + n
+            //   } else if (n < 100) {
+            //     n = '0' + n
+            //   }
+            //   // 加上樣式，不轉90度，這樣複製到word才不會跑位
+            //   // 用em可複製「樣式」到word中編輯，用%有時候不行
+            //   return '<span style="font-size: 0.5em;float: right;">　　　' + m + n + '</span>'
+            // }
+            // // 加上人名流水編號
+            // for (var k = 1; k < Arr1.length; k++) {
+            //   if (Arr2[i + k][0] == '♂') {
+            //     aDiv.innerHTML += LittleNum(Arr5[i + k], j)
+            //     break
+            //   }
+            // }
+            // // 流水編號自增，若用i，會跳號
+            // j++
 
             // 判斷下一行是地址否？加入地址
             if (Arr2[i + 1][0] == '♂') {
@@ -2318,7 +2347,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       background: darkred;
       color: yellow
     }
-    
     /*html {
       background: gray;
     }*/
@@ -2436,7 +2464,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*font-weight: bold;*/
       /*padding: 0mm 7mm 0mm 0mm;*/
       /* 設定文字行距 */
-      line-height: 11mm;
+      line-height: 12mm;
       /* 設定文字間距 */
       /*letter-spacing: 1px;*/
       /*不必設定黑色，因為護眼高亮度主題時，會看不見*/
@@ -2480,6 +2508,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       letter-spacing: 1px
     }
     
+    .lastFont1 {
+      font-size: 24pt;
+      /* 設定文字行距 */
+      line-height: 10mm;
+      /* 設定文字間距 */
+      letter-spacing: 1px;
+    }
+    
     .lastFontRight {
       position: absolute;
       margin: 0 -1mm 0 0;
@@ -2498,6 +2534,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*line-height: 11mm;*/
       /* 設定文字間距 */
       letter-spacing: 1px
+    }
+    
+    .s {
+      font-size: 14pt;
     }
   </STYLE>
   <style id="hidden"></style>
