@@ -1208,7 +1208,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           } else if (n < 100) {
             n = '0' + n
           }
-          // 加上樣式
+          // 加上樣式，必須在行間加上，若在<style>會被覆蓋
           return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:252mm;padding-top:12mm"><span>' + m + ' ' + n + '</span></div>'
         }
         // 將資料導入陣列
@@ -1249,7 +1249,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 人名開頭才進入運算
           if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
             // 疏文題目
-            aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 10mm;font-size:46pt;font-weight: bold;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+            aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 10mm;font-size:46pt;font-weight: bold;text-shadow: 0px 0px black;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
             // 加上疏文流水編號
             for (var k = 1; k < Arr1.length; k++) {
               if (Arr2[i + k][0] == '♂') {
@@ -1411,7 +1411,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         }
         // 疏文封面
         var aDiv = document.createElement('div')
-        aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
+        aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;text-shadow: 0px 0px black;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
         aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
         div2.appendChild(aDiv)
         // 疏文內容
@@ -2461,7 +2461,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       writing-mode: vertical-rl;
       font-size: 22pt;
       font-family: 標楷體;
-      font-weight: bold;
+      /*字體加到最粗是900*/
+      font-weight: 900;
+      /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
+      text-shadow: 0px 1px black;
       /*padding: 0mm 7mm 0mm 0mm;*/
       /* 設定文字行距 */
       line-height: 12mm;
@@ -2483,7 +2486,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       writing-mode: vertical-rl;*/
       font-size: 20pt;
       font-family: 標楷體;
-      font-weight: bold;
+      /*字體加到最粗是900*/
+      font-weight: 900;
+      /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
+      text-shadow: 1px 0px black;
       margin: 0 0 0 5mm;
       /*color: black;*/
     }
