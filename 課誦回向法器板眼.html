@@ -1,0 +1,510 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>課誦回向法器板眼</title>
+    <base target="_blank">
+    <style>
+        * {
+            border-radius: 8px;
+            padding: 3px;
+        }
+        /*html{background: black;color:yellow;}*/
+        
+         ::selection {
+            background: darkred;
+            color: yellow;
+        }
+        
+         ::-moz-selection {
+            background: darkred;
+            color: yellow;
+        }
+        
+        td:nth-of-type(odd) {
+            /*background: lightgreen; */
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }
+        /*td:nth-of-type(even){ background: lightblue; }*/
+        
+        input:hover,
+        textarea:hover {
+            border: 2px solid fuchsia;
+            box-shadow: 5px 5px 20px darkorchid;
+        }
+        
+        input:active,
+        textarea:active {
+            border-color: indigo #f3f #f6f indigo;
+            border-width: 5px;
+            border-style: solid;
+            box-shadow: 5px -5px 20px darkorchid;
+        }
+        
+        td:hover {
+            border: 1px solid fuchsia;
+            box-shadow: 5px 5px 20px darkorchid;
+        }
+        
+        #tab1 {
+            border: 3px solid darkgoldenrod;
+        }
+        
+        td {
+            border: 1px solid indigo;
+        }
+        
+        input {
+            height: 30px;
+            background: pink;
+            color: navy;
+        }
+        
+        #div0 {
+            background: #ccc;
+        }
+        
+        #div1 {
+            font-size: 76pt;
+            color: #ccb;
+            font-family: c;
+            /*margin: 0 0 0 3cm;*/
+        }
+        
+        #div1 input {
+            background: #fec;
+        }
+        
+        #div2 input {
+            background: #aea;
+        }
+        
+        #div3 input {
+            background: #ff8;
+        }
+        
+        #div4 input {
+            background: #f99;
+        }
+        
+        .name {
+            background: tan;
+            color: crimson;
+        }
+        
+        #txt1 {
+            width: 130px;
+            height: 30px;
+        }
+        
+        #myValue {
+            width: 200px;
+            background: #aca;
+        }
+        
+        #myValue2 {
+            width: 200px;
+            background: snow;
+        }
+        
+        .g {
+            color: gold;
+        }
+        
+        .t {
+            color: tomato;
+        }
+        
+        .r {
+            color: red;
+        }
+        
+        .sb {
+            color: skyblue;
+        }
+        
+        .ky {
+            color: khaki;
+        }
+        
+        .pink {
+            color: pink;
+        }
+        
+        .y {
+            color: yellow;
+        }
+        
+        .o {
+            color: orange;
+        }
+        
+        .yg {
+            color: yellowgreen;
+        }
+        
+        .b {
+            color: lightblue;
+        }
+        
+        .p {
+            color: mediumpurple;
+        }
+        
+        .lg {
+            color: limegreen;
+            font-size: 0.9em;
+        }
+        
+        .lsg {
+            color: lightseagreen;
+        }
+        
+        .lc {
+            color: lightcyan;
+        }
+        
+        .gy {
+            color: greenyellow;
+        }
+        
+        .tan {
+            color: tan;
+        }
+        
+        .magenta {
+            /*字體加到最粗是900*/
+            font-weight: 900;
+            /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
+            text-shadow: 1px 1px magenta;
+            color: magenta;
+        }
+        
+        #reload {
+            height: 40px;
+            background: yellowgreen;
+        }
+        
+        .ru {
+            /*display: inline-block;*/
+            /*靠右對齊*/
+            /*position: absolute;
+            right: 1cm;*/
+            float: right;
+            border: 1px solid red;
+            /*配合A4紙大小*/
+            /*width: 197mm;
+            height: 277mm;*/
+            /*配合B5紙大小*/
+            width: 160mm;
+            height: 235mm;
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            /*padding: 1cm 1cm 1cm 1cm;*/
+            font-size: 10pt;
+            font-family: 標楷體;
+            /*字體加到最粗是900*/
+            /*font-weight: 500;*/
+            /* 設定文字行距 */
+            line-height: 0.3em;
+        }
+        
+        .ruup {
+            height: 300px;
+            /*margin: 0 0 -200px 0 ;*/
+        }
+        
+        .rudown {
+            height: 500px;
+            float: right;
+            margin: -200px -80px 0 0;
+        }
+        
+        h2 {
+            margin: 20vh 0 0 0;
+            font-size: 20pt;
+            /* 設定文字行距 */
+            line-height: 0.8em;
+            color: blue;
+        }
+        
+        h3 {
+            margin: 10vh 0 0 0;
+            font-size: 18pt;
+            /* 設定文字行距 */
+            line-height: 0.8em;
+            color: cyan;
+        }
+        
+        h4 {
+            /*無法從span中調整板眼大小，只好把正文改為h4*/
+            margin: 0 -1mm 0 -1mm;
+            font-size: 18pt;
+            /* 設定文字行距 */
+            line-height: 0.9em;
+            font-weight: 300;
+        }
+        
+        font {
+            /*無法從span中調整板眼大小，只好把正文改為h4*/
+            /*transform: scale(1,0.5);*/
+            font-size: 10pt;
+            /* 設定文字行距 */
+            line-height: 1em;
+            /* 設定文字間距 */
+            letter-spacing: 8pt;
+        }
+        
+        sup {
+            /*position: absolute;*/
+            margin: -0.8em -1em 0 0;
+            font-size: 0.6em;
+        }
+        
+        sub {
+            /*position: absolute;*/
+            margin: -0.8em 0 0 -1em;
+            font-size: 0.6em;
+            /*transform-origin: top;
+            transform: rotateX(80deg) rotateY(-30deg);*/
+        }
+        
+        #btnHidden {
+            height: 8px;
+            width: 8px;
+            background: white;
+        }
+        
+        #btnHidden:hover {
+            height: 35px;
+            width: 5cm;
+            background: white;
+        }
+    </style>
+    <style id="change"></style>
+    <script>
+        var oBody = document.getElementsByTagName('body')
+
+        function changeColor(col, bg) {
+            div1.style.color = col
+            div1.style.background = bg
+            change.innerHTML += '.ru {background:' + bg + '; color:' + col + ';}'
+            tab1.style.color = col
+            tab1.style.background = bg
+        }
+        function changeSize(sz) {
+            div1.style.fontSize = sz
+            change.innerHTML += '.ru {font-size:' + sz + ';}'
+            tab1.style.fontSize = sz
+        }
+        function changeFamily(ff) {
+            div1.style.fontFamily = ff
+            change.innerHTML += '.ru {font-family:' + ff + ';}'
+            tab1.style.fontFamily = ff
+        }
+        window.onload = function () {
+            btn1.onclick = function () {
+                changeColor('black', 'beige')
+            }
+            btn2.onclick = function () {
+                changeColor('#ccb', '#000')
+            }
+            btn3.onclick = function () {
+                changeColor('darkslategray', 'khaki')
+            }
+            btn5.onclick = function () {
+                changeColor('darkblue', 'tan')
+            }
+            btn4.onclick = function () {
+                changeColor('maroon', '#aca')
+            }
+            btn6.onclick = function () {
+                changeSize('76pt')
+            }
+            btn7.onclick = function () {
+                changeSize('20pt')
+            }
+            btn8.onclick = function () {
+                changeSize('16pt')
+            }
+            btn9.onclick = function () {
+                changeSize('48pt')
+            }
+            myValue.onkeyup = function () {
+                changeSize(myValue.value + 'pt')
+            }
+            myValue2.onkeyup = function () {
+                changeFamily(myValue2.value)
+            }
+
+            txt1.onkeyup = function () {
+                div1.innerHTML = txt1.value
+            }
+
+            var VinayaTime = []
+            // 範例圖表
+            function addTable(ps, tab, background, Arr, nt) {
+                // 二維陣列
+                var Arr2 = []
+                // 必須加入tbody，否則無法插入td
+                tab.innerHTML = ps + '<tbody></tbody>'
+                for (var i = 0; i < Arr.length; i++) {
+                    Arr2[i] = Arr[i].split(nt)
+                    var oTr = document.createElement('tr')
+                    // 記得用[i]
+                    for (var j of Arr2[i]) {
+                        var oTd = document.createElement('td')
+                        oTd.innerHTML = j
+                        oTr.appendChild(oTd)
+                    }
+                    tab.tBodies[0].appendChild(oTr)
+                    tab.style.background = background
+                }
+            }
+            addTable(' ', tab1, 'black', VinayaTime, '\t')
+
+            // 隱藏下方所有按鈕
+            btnHidden.onclick = function () {
+                if (divHidden.style.display == 'block') {
+                    divHidden.style.display = 'none'
+                } else {
+                    divHidden.style.display = 'block'
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="divHidden" style="display: block;">
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+        <input id="btn1" type="button" value="白色系主題">
+        <input id="btn3" type="button" value="黃色系主題">
+        <input id="btn5" type="button" value="茶色系主題">
+        <input id="btn4" type="button" value="綠色系主題">
+        <input id="btn2" type="button" value="黑色系主題">
+
+        <input id="btn8" type="button" value="16號字">
+        <input id="btn7" type="button" value="20號字">
+        <input id="btn9" type="button" value="48號字">
+        <input id="btn6" type="button" value="76號字">
+        <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
+        <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
+        <textarea id="txt1" type="text" placeholder='可打字'></textarea>
+        <br/>
+        <div id="div1"></div>
+        <table id="tab1"></table>
+    </div>
+    <div class="ru">
+        <h2>客堂回向</h2>
+        <div class="ruup">
+            <h3>經行入殿</h3>
+            <font><b class="magenta">．</b>　　　<b class="magenta">．</b><b class="r">◎</b><b class="lg">◥</b></font>
+            <h4>南無阿彌陀佛</h4>
+            <font>　　<b class="r">◎</b>　<b class="lg">◥</b><b class="r">◎</b></font>
+        </div>
+        <div class="rudown">
+            <h3>香讚</h3>
+            <font>　　　　　　　　<b class="lg">◥</b><b class="r">◎</b></font>
+            <h4>南無香雲蓋菩薩摩訶薩（三遍）</h4>
+            <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　<b class="r">◎</b><b class="lg">◥</b><b class="r">◎</b></font>
+        </div>
+        <h3>念誦</h3>
+        <!--<font>　　　　　　　　　　　　　　　　<b class="r">◎</b></font>-->
+        <h4>南無西方接引阿彌陀佛<sup><b class="r">◎</b></sup>（三稱）</h4>
+        <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　　　<b class="lg">◥</b></font>
+        <h4>一心歸命　極樂世界　阿彌陀佛　願以淨光照我　慈誓攝我　我今正念　稱如來名　為菩提道　求生淨土　佛昔本誓　若有眾生　欲生我國　志心信樂　乃至十念　若不生者　不取正覺　以此念佛因緣　得入如來　大誓海中　承佛慈力　眾罪消滅　善根增長若臨命終　自知時至　身無病苦　心不貪戀　意不顛倒　如入禪定　佛及聖眾　手執金臺　來迎接我　於一念頃　生極樂國<sub><b class="r">◎</b></sub>　花開見佛　即聞佛乘　頓開佛慧　廣度眾生　滿菩提願　十方三世一切佛<sub><b class="r">◎</b></sub>　一切菩薩摩訶薩　摩<sub><b class="r">◎</b></sub>訶般若波羅蜜</h4>
+        <h3>變食真言（三遍）</h3>
+        <font>　　　　　　　<b class="r">◎</b></font>
+        <h4>曩謨薩嚩怛他誐多　嚩嚕枳帝唵　三跋囉　三跋囉　吽</h4>
+        <font>　　　　　　　　　　　　　　　　　　　　　　　 <b class="r">◎</b></font>
+        <h3>甘露水真言（三遍）</h3>
+        <h4>曩謨蘇嚕婆耶　怛他誐多耶　怛姪他唵　蘇嚕蘇嚕　缽囉蘇嚕缽囉蘇嚕 娑婆訶</h4>
+        <font><b class="lg">◥</b>　　　　<b class="r">◎</b></font>
+        <h3>普供養真言（三遍）</h3>
+        <font><b class="lg">◥</b>　　　　　　　　　　　　<b class="r">◎</b></font>
+        <h4>唵　誐誐曩　三婆嚩　伐日囉斛</h4>
+        <font><b class="lg">◥</b>　　　<b class="r">◎</b>　　　<b class="r">◎</b>　　　　<b class="lg">◥</b></font>
+        <h3>讚偈</h3>
+        <!--<font>　　　　　 <b class="r">◎</b></font>-->
+        <h4>阿彌陀佛<sup><b class="r">◎</b></sup>　無上醫王　巍巍金相放毫光　 苦海作舟航　九品蓮邦　同<sup><b class="r">◎</b></sup>願往西方 </h4>
+        <font><b class="lg">◥</b>　　　　　　　　<b class="r">◎</b></font>
+        <h4>南無蓮池會菩薩摩訶薩（三遍）</h4>
+        <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　<b class="r">◎</b><b class="lg">◥</b><b class="r">◎</b></font>
+    </div>
+    <div class="ru">
+        <h2>書記室回向</h2>
+        <h3>經行入殿</h3>
+        <font><b class="magenta">．</b>　　　<b class="magenta">．</b>　　<b class="r">◎</b><b class="lg">◥</b></font>
+        <h4>南無本師釋迦牟尼佛</h4>
+        <font>　　<b class="r">◎</b>　　　　<b class="lg">◥</b><b class="r">◎</b></font>
+        <h3>香讚</h3>
+        <!--<font>　　　　　　　　　　　　　　　 <b class="lg">◥</b><b class="r">◎</b></font>-->
+        <h4>南無香雲蓋菩薩摩訶薩（三遍）</h4>
+        <font>　　<b class="magenta">…</b>　　　　<b class="magenta">…</b></font>
+        <h3>念誦</h3>
+        <font>　　　　　　　　<b class="r">◎</b></font>
+        <h4>南無本師釋迦牟尼佛（三稱）</h4>
+        <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　　<b class="lg">◥</b></font>
+        <h3>七佛滅罪真言（三遍）</h3>
+        <font>　　　　<b class="r">◎</b></font>
+        <h4>離婆離婆帝<sub><b class="r">◎</b></sub>　求訶求訶帝　陀羅尼帝　尼訶囉帝　毗黎你帝　摩<sub><b class="r">◎</b></sub>訶伽帝　真陵乾帝<sub><b class="r">◎</b></sub>　莎婆訶</h4>
+        <!--<font>　　　　　　　　<b class="r">◎</b>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<b class="r">◎</b>　　　　　　　　　　　　　　　　<b class="r">◎</b></font>-->
+        <h3>讚偈</h3>
+        <font><b class="lg">◥</b></font>
+        <h4>三寶廣無邊　僧伽萬德功圓　六年苦行證金仙　說法利人天　放光現瑞周沙界 天龍八部同瞻仰　</h4>
+        <h4>千賢萬聖會祇園　結集永流傳　</h4>
+        <h4>千賢萬聖會祇園　結集永流傳</h4>
+        <font>　　　　　　　　<b class="magenta">…</b>　<b class="magenta">…</b></font>
+    </div>
+    <div class="ru">
+        <h2>大寮（五觀堂）回向</h2>
+        <div class="ruup">
+            <h3>經行入殿</h3>
+            <font><b class="magenta">．</b>　　 <b class="magenta">．</b>　　<b class="magenta">．</b>　<b class="r">◎</b><b class="lg">◥</b></font>
+            <h4>南無大聖緊那羅王菩薩</h4>
+            <font>　　<b class="r">◎</b>　　　<b class="r">◎</b>　<b class="lg">◥</b><b class="r">◎</b></font>
+        </div>
+        <div class="rudown">
+            <h3>香讚</h3>
+            <font>　　　　　　　　<b class="lg">◥</b><b class="r">◎</b></font>
+            <h4>南無香雲蓋菩薩摩訶薩（三遍）</h4>
+            <font><b class="lg">◥</b>　<b class="r">◎</b>　　　 <b class="r">◎</b><b class="lg">◥</b><b class="r">◎</b></font>
+        </div>
+        <h3>念誦</h3>
+        <font>　　　　　　　　　<b class="r">◎</b></font>
+        <h4>南無大聖緊那羅王菩薩（三稱）</h4>
+        <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　　　 <b class="lg">◥</b></font>
+        <h3>準提神咒</h3>
+        <font>　　　　　　<b class="r">◎</b></font>
+        <h4>稽首皈依蘇悉帝　頭面頂禮七俱胝 </h4>
+        <font><b class="lg">◥</b>　　　　　<b class="r">◎</b></font>
+        <h4>我今稱讚大準提　惟願慈悲垂加護 </h4>
+        <h4>南無颯哆喃 三藐三菩陀　俱胝喃 怛姪他　唵<sub><b class="r">◎</b></sub>　折戾主戾 準提娑婆訶<sub><b class="r">◎</b></sub>（三遍）</h4>
+        <h3>變食真言（三遍）</h3>
+        <font>　　　　　　　<b class="r">◎</b></font>
+        <h4>曩謨薩嚩怛他誐多　嚩嚕枳帝唵　三跋囉　三跋囉　吽</h4>
+        <font>　　　　　　　　　　　　　　　　　　　　　　　 <b class="r">◎</b></font>
+        <h3>甘露水真言（三遍）</h3>
+        <h4>曩謨蘇嚕婆耶　怛他誐多耶　怛姪他唵　蘇嚕蘇嚕　缽囉蘇嚕缽囉蘇嚕 娑婆訶</h4>
+        <font><b class="lg">◥</b>　　　　<b class="r">◎</b></font>
+        <h3>普供養真言（三遍）</h3>
+        <font><b class="lg">◥</b>　　　　　　　　　　　　<b class="r">◎</b></font>
+        <h4>唵　誐誐曩　三婆嚩　伐日囉斛</h4>
+        <font><b class="lg">◥</b>　　　<b class="r">◎</b>　　　<b class="r">◎</b>　　　　<b class="lg">◥</b></font>
+        <h3>讚偈</h3>
+        <!--<font>　　　　　　 <b class="r">◎</b></font>-->
+        <h4>監齋使者<sup><b class="r">◎</b></sup>　火部威神　調和百味薦唯馨　災耗永無侵　護法安僧　清<sup><b class="r">◎</b></sup>眾永蒙恩 </h4>
+        <font><b class="lg">◥</b>　　　　　　　　<b class="r">◎</b></font>
+        <h4>南無護法藏菩薩摩訶薩（三遍）</h4>
+        <font><b class="lg">◥</b>　<b class="r">◎</b>　　　　<b class="r">◎</b><b class="lg">◥</b><b class="r">◎</b></font>
+    </div>
+    <input type="button" id="btnHidden" value="隱藏多餘按鈕" />
+</body>
+
+</html>

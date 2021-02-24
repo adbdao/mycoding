@@ -1341,14 +1341,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             aDiv.innerHTML += ' 現年' + ADS + '歲 屬' + ADA
             // 疏文的正文部份
             // 增加一<sup>，調整位置
-            aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺<br/>齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup class="s">　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩<br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜'
+            aDiv.innerHTML += '<br/><font class="lastFont">　茲為祈求齋天消災植福延齡祈安　奉<br/>佛植福　修設金光明供佛齋天吉祥道場　雲集緇侶　諷誦金光明懺</font><sub class="s">　</sub><br/><font class="lastFont1">齋天科儀　恭設香案　虔備香花　賜果　清淨供品等　<sup class="s">　</sup><br/>　　祈求<br/>南無清淨法身毘盧遮那佛<br/>南無本師釋迦牟尼佛<br/>南無大慈大悲觀世音菩薩</font><sub class="s1">　</sub><br/><font class="lastFontRight">南無第一威德成就眾事大功德天　大慈大悲恩賜</font>'
             // 分段後，要重新設定字型大小
             if (Arr2[i][0] == '釋') {
-              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1]
+              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>沙門</sup>　' + Arr2[i][1] + '</font>'
             } else {
-              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1]
+              aDiv.innerHTML += '<font class="lastFontRightBack">　<sup>信' + Arr2[i][0] + '</sup>　' + Arr2[i][1] + '</font>'
             }
-            aDiv.innerHTML += '<font class="lastFont1"><br/>　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成<sup>　</sup><br/>　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在<br/>　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿'
+            aDiv.innerHTML += '<br/><font class="lastFont2">　元神旺盛　添福延壽　身體健康　平安順利　吉祥如意　心想事成</font><br/><font class="lastFont2">　所願成就　消災解厄　災劫化消　業障消除　煩惱消除　身心自在</font><br/><font class="lastFont2">　開佛智慧　善根增長　福慧增長　菩提日增　修行無礙　佛果圓滿</font>'
             // 插入div
             div1.appendChild(aDiv)
           }
@@ -1545,7 +1545,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             if (Arr2[i + 1][0] == '♂') {
               // 統計名單中：同一地址有多少人
               if (addNum > 0) {
-                aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
+                aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
                 for (var k = 1; k < Arr1.length; k++) {
                   // 地址若有多行，則繼續加入地址，否則中止循環
                   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
@@ -1558,7 +1558,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
                   }
                 }
               } else {
-                aDiv.innerHTML += '<br/>現住：'
+                aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>現住：'
                 for (var k = 1; k < Arr1.length; k++) {
                   // 地址若有多行，則繼續加入地址，否則中止循環
                   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
@@ -1671,6 +1671,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           if (Arr2[i][2] == '▲' || Arr2[i][3] == '▲' || Arr2[i][4] == '▲' || Arr2[i][5] == '▲') {
             // 有誤的導入陣列
             Arr5[i] = Arr2[i]
+          }
+
+          // 護法會名單檢驗，護法會成員另作大份齋天
+          if (txt6.value.match(Arr2[i][1])) {
+            // 顯示▲，以便修訂
+            Arr4[i] = '▲此為護法會成員▲' + Arr2[i]
           }
 
           // if (Arr2[i][2].length == 4) {
@@ -1798,11 +1804,13 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         }
       }
       // 只呈現有誤的
-      if (Arr5 != '') {
-        txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
+      if (Arr5 != '' || Arr4 != '') {
+        txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n') + '\n' + Arr4.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
         overCopy()
         alert('名單有誤，請先修訂')
       } else {
+        // alert要在return上一行
+        // alert('OK  名單無誤，\n請繼續操作')
         // 若無誤就保持文本框中的資料
         return NameTestAlert = 1
       }
@@ -2405,8 +2413,9 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     .c {
       color: darkred;
       background: lightcyan;
-      font-size: 14pt;
+      font-size: 1.2em;
       font-weight: bold;
+      /*line-height: 1.4em;*/
     }
     
     * {
@@ -2435,8 +2444,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     #txt5 {
-      width: 600px;
+      width: 500px;
       height: 45vh;
+    }
+    
+    #txt6 {
+      width: 200px;
+      height: 45vh;
+      background: beige;
     }
     
     @media all and (max-width:500px) {
@@ -2516,6 +2531,16 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     .lastFont1 {
+      /*margin: 0 1mm 0 0;*/
+      font-size: 24pt;
+      /* 設定文字行距 */
+      line-height: 10mm;
+      /* 設定文字間距 */
+      letter-spacing: 1px;
+    }
+    
+    .lastFont2 {
+      margin: 1mm 0 0 0;
       font-size: 24pt;
       /* 設定文字行距 */
       line-height: 10mm;
@@ -2524,8 +2549,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     .lastFontRight {
-      position: absolute;
-      margin: 0 -1mm 0 0;
+      /*position: absolute;
+      margin: 0 1mm 0 0;*/
       font-size: 24pt;
       /* 設定文字行距 */
       /*line-height: 11mm;*/
@@ -2534,8 +2559,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
     
     .lastFontRightBack {
-      position: absolute;
-      margin: 180mm -4mm 0 0;
+      /*position: absolute;
+      margin: 180mm -2mm 0 0;*/
       font-size: 24pt;
       /* 設定文字行距 */
       /*line-height: 11mm;*/
@@ -2545,6 +2570,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     
     .s {
       font-size: 14pt;
+    }
+    
+    .s1 {
+      font-size: 60pt;
     }
   </STYLE>
   <style id="hidden"></style>
@@ -2732,9 +2761,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/> 將您的日期表，直接複製到下方文本框中。 年份一定要西元4位數字！ 日期的分隔符號，只要是非數字符號即可，如[年 月 日 - * / 空白 tab]， 再按「批次轉農曆日期」按鈕。
   <br/> 結果會呈現在文本框中，以便複製或剪貼
   <br/> 按「復原」可恢復原來輸入的日期！
-  <p class="c">將齋天疏文、或名冊，複製到下方文本框，
-    <br/> 依照「西元及民國」年份，每年自動依系統日期，算出並更正年齡、生肖。
-    <br/>功德主名冊，人名太多直接列印會混亂，所以請複製至Word再列印</p>
+  <ol class="c">
+    <li>將齋天疏文、或名冊，複製到下方文本框，</li>
+    <li>依照「西元及民國」年份，每年自動依系統日期，算出並更正年齡、生肖。</li>
+    <li>功德主名冊，人名太多直接列印會混亂，所以請複製至Word再列印</li>
+    <li>先把「護法會」名單貼到右邊的淺黃色的文本框中，「護法會」格式不限，只要含有「人名」即可！再按【名單(與護法會)檢驗】，即可一次檢驗出「名冊」與「護法會」</li>
+  </ol>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
   />__<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
   <br/>
@@ -2749,7 +2781,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input class="k" type="number" id="LittleNumNum" placeholder="流水號開始號碼" />
   <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAddId" onclick="LittleNumAdd()" />
   <input class="c" type="button" value="流水號狀態" id="LittleNumShow" />
-  <input class="my" type="button" value="名單檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
+  <br/>
+  <input class="my" type="button" value="名單(與護法會)檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
@@ -2797,6 +2830,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 新北市蘆洲區民族路二六三巷
 深圳市蘆洲區民族路二六三巷
 </textarea>
+  <textarea id="txt6" placeholder="在此貼上「護法會名單」"></textarea>
 </BODY>
 
 </HTML>
