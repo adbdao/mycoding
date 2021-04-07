@@ -76,27 +76,29 @@
         
         .name1 {
             margin: 70mm 2mm 0 0;
-            width: 20mm;
+            width: 30mm;
             height: 55mm;
             /*border: 1px solid #aaa;*/
             font-size: 24pt;
             text-align: center;
+            overflow: hidden;
         }
         
         .name2 {
             margin: 72mm 1mm 0 0;
-            width: 20mm;
+            width: 30mm;
             height: 60mm;
             /*border: 1px solid #aaa;*/
             font-size: 24pt;
             text-align: center;
+            overflow: hidden;
         }
         
         .name3 {
             /*海濤法師慈悲志業道場牌位*/
-            margin: 92mm -33mm 0 0;
-            padding: 0 1mm 0 0;
-            width: 34mm;
+            margin: 92mm -34mm 0 0;
+            padding: 0 2mm 0 0;
+            width: 36mm;
             height: 55mm;
             /*border: 1px solid #aaa;*/
             font-size: 12pt;
@@ -106,7 +108,7 @@
         .sit1 {
             /*往生蓮位*/
             float: right;
-            margin: -120mm -9mm 0 0;
+            margin: -120mm -19mm 0 0;
             width: 10mm;
             height: 56mm;
             /*border: 1px solid #aaa;*/
@@ -131,7 +133,7 @@
         }
         
         .son {
-            margin: 102mm 14mm 0 0;
+            margin: 102mm 4mm 0 0;
             width: 8mm;
             height: 88mm;
             font-size: 18pt;
@@ -381,7 +383,7 @@ tr:hover{background: wheat;}*/
                 aDiv.appendChild(f)
 
                 // 用css語法來調整字距
-                change.innerHTML = '#div1>div {font-family: 標楷體;}.address{width: 8mm;} .name2 {margin: 72mm 14mm 0 0;height: 18mm;font-size: 16pt; overflow: hidden;}.son {margin: 102mm 2mm 0 0;}.sit1 {margin: -108mm -27mm 0 0; width: 18mm;  font-size: 22pt;}'
+                change.innerHTML = '#div1>div {font-family: 標楷體;}.address{width: 8mm;} .name2 {margin: 72mm 14mm 0 0;width: 20mm;height: 18mm;font-size: 16pt; overflow: hidden;}.son {margin: 102mm 0 0 0;}.sit1 {margin: -108mm -27mm 0 0; width: 18mm;  font-size: 22pt;}'
 
                 // 往生蓮位
                 var e = document.createElement('div')
@@ -518,13 +520,13 @@ tr:hover{background: wheat;}*/
             // 悟光精舍版牌位，一張A4中有10個牌位
             btnwun.onclick = function () {
                 addLiveDead('wun', 'name2', '', '', 'none', 'block')
-                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 18mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
+                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 16mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 3mm 0 0;}'
             }
 
             // 悟光精舍版祿位，一張A4中有10個牌位
             btnwun2.onclick = function () {
                 addLiveDead('wun2', 'name2', '', '', 'none', 'none')
-                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 18mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
+                change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 16mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 1mm 0 0;}'
             }
 
             // 祿位名字，不可超過4人(12個字)
@@ -542,13 +544,13 @@ tr:hover{background: wheat;}*/
             btn3.onclick = function () {
                 addLiveDead('dead', 'name2', '60mm', '<div class="sit2">氏歷代祖先<br/>昭穆宗親', 'block', 'block')
                 // 字體改小一點，可寫4字。用css語法來調整字距，另外加一個<style>標籤
-                change.innerHTML = '.name2{margin:72mm 10mm 0 0;font-size:20pt;}.sit1{margin:-120mm -18mm 0 0;}.son{margin:102mm 5mm 0 0;}'
+                change.innerHTML = '.name2{margin:72mm 10mm 0 0;font-size:20pt;}.sit1{margin:-120mm -28mm 0 0;}.son{margin:102mm -5mm 0 0;}'
             }
 
             // 舊字距，適合少量名字
             btn4.onclick = function () {
                 // 用css語法來調整字距，另外加一個<style>標籤
-                change.innerHTML = '.name1 {margin: 70mm 9mm 0 0;}.name2 {margin: 72mm 11mm 0 0;}.sit1 {margin: -120mm -19mm 0 0;}.son {margin: 102mm 4mm 0 0;}'
+                change.innerHTML = '.name1 {margin: 70mm 9mm 0 0;}.name2 {margin: 72mm 11mm 0 0;}.sit1 {margin: -120mm -29mm 0 0;}.son {margin: 102mm -6mm 0 0;}'
             }
 
             btnP.onclick = function () {
@@ -649,9 +651,9 @@ tr:hover{background: wheat;}*/
         祖先姓氏，不可超過3個字；陽上人不可超過2人(6個字)
 若一次要寫多人，而且準備日後重複使用資料，可用「試算表excel」寫資料，再用email寄來！ adb.dao@gmail.com
 撰寫範例如下：
-">張三三	台中市北屯區松竹路1段8號-1	何九九[]
+">張三三張三三-李四四-王五五張三三-李四四-王五五張三三-李四四-王五五	台中市北屯區松竹路1段8號-1	何九九[]
 (張三三 )(李四四)	台中市北屯區松竹路1段8號*(7)	(何九九)() ;'何九九 []石一二 ][}{何九九 石一二 何九九 石一二
-張三三-李四四-王五五	台中市北屯區松竹路1段8號*(7)	何九九-石一二*何九九+石一二
+張三三-李四四-王五五張三三-李四四-王五五張三三-李四四-王五五張三三-李四四-王五五	台中市北屯區松竹路1段8號*(7)	何九九-石一二*何九九+石一二
  :張三三*李四四/王五五,. 趙六六.,	台中市北屯區松竹路1段8號/-*(7)	.何九九\;'' 石一二,
 />張三三 李四四;'' 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九
 張三三	台中市北屯區松竹路1段8號	何九九
@@ -668,7 +670,7 @@ tr:hover{background: wheat;}*/
 張三三 李四四	台中市北屯區松竹路1段8號	何九九 何九九 石一二 何九九 石一二 何九九 石一二
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
 張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
-張三三 李四四 王五五 趙六六 王五五 趙六六	台中市北屯區松竹路1段8號	何九九</textarea>
+張三三 李四四 王五五 趙六六 趙六六張三三-李四四-王五五張三三-李四四-王五五	台中市北屯區松竹路1段8號	何九九</textarea>
         <br/>
         <pre>
 文本框中，是輸入範例！請先刪除，再輸入新資料。
