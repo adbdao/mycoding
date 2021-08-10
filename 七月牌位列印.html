@@ -4,17 +4,17 @@
 
 <head>
     <title>七月牌位列印</title>
-    <style>
+    <style id="mula">
         /*#div2 {
             無作用
             width: 275mm;
         }*/
-        
-         ::selection {
+
+        ::selection {
             background: darkred;
             color: yellow;
         }
-        
+
         #div1>div {
             display: inline-block;
             border: 0.5px solid gray;
@@ -29,7 +29,7 @@
             -webkit-writing-mode: vertical-rl;
             writing-mode: vertical-rl;
         }
-        
+
         .wun {
             /*背景圖片*/
             background-image: url(pic/wun-1.png);
@@ -38,7 +38,7 @@
             /*有邊界列印
             background-size: 98% 100%;*/
         }
-        
+
         .wun2 {
             /*背景圖片*/
             background-image: url(pic/wun2-1.png);
@@ -47,7 +47,7 @@
             /*有邊界列印
             background-size: 98% 100%;*/
         }
-        
+
         .live {
             /*背景圖片*/
             background-image: url(pic/live.png);
@@ -56,7 +56,7 @@
             /*有邊界列印
             background-size: 98% 100%;*/
         }
-        
+
         .dead {
             /*背景圖片*/
             background-image: url(pic/dead.png);
@@ -64,7 +64,7 @@
             /*有邊界列印
             background-size: 98% 100%;*/
         }
-        
+
         .address {
             margin: 57mm 3mm 0 0;
             width: 10mm;
@@ -73,7 +73,7 @@
             /*border: 1px solid #aaa;*/
             font-size: 16pt;
         }
-        
+
         .name1 {
             margin: 70mm 2mm 0 0;
             width: 30mm;
@@ -84,7 +84,7 @@
             /*多餘的不顯示*/
             overflow: hidden;
         }
-        
+
         .name2 {
             margin: 72mm 1mm 0 0;
             width: 30mm;
@@ -95,9 +95,9 @@
             /*多餘的不顯示*/
             overflow: hidden;
         }
-        
+
         .name3 {
-            /*海濤法師慈悲志業道場牌位☑與□*/
+            /*海濤法師慈悲僧伽會牌位☑與□*/
             margin: 92mm -34mm 0 0;
             padding: 0 2mm 0 0;
             width: 36mm;
@@ -106,7 +106,7 @@
             font-size: 12pt;
             background: white;
         }
-        
+
         .sit1 {
             /*往生蓮位*/
             float: right;
@@ -118,11 +118,11 @@
             font-family: 標楷體;
             text-align: left;
         }
-        
+
         span {
             background: white;
         }
-        
+
         .sit2 {
             /*會亂跑 昭穆宗親
             position: absolute;*/
@@ -133,7 +133,7 @@
             text-align: center;
             /*border: 1px solid #aaa;*/
         }
-        
+
         .son {
             margin: 102mm 4mm 0 0;
             width: 8mm;
@@ -144,71 +144,74 @@
             /*多餘的不顯示*/
             overflow: hidden;
         }
-        
+
         #txt1 {
             width: 80vw;
             height: 20vh;
         }
-        
+
         input {
             height: 35px;
             background: yellowgreen;
             color: black;
             border-radius: 15px;
         }
-        
+
         #btn1,
         #btn5,
         #btnR {
             background: hotpink;
         }
-        
+
         #btn2,
         #btnY {
             background: yellow;
         }
-        
+
         #btn3,
         #btn6,
-        #btnht,b {
+        #btnht,
+        b {
             background: orange;
         }
-        
+
         #btnW,
         #btnwun {
             background: snow;
         }
-        
+
         .HK,
         #btnP {
             background: lightblue;
         }
-        
-        #btnwun2 {
+
+        #btnwun2,
+        #btnpink {
             background: pink;
         }
+
         /** {
             border-radius: 3px;
         }*/
-        
+
         #btnHidden {
             height: 8px;
             width: 8px;
             background: white;
         }
-        
+
         #btnHidden:hover {
             height: 35px;
             width: 5cm;
             background: white;
         }
-        
+
         input:hover,
         textarea:hover {
             border: 2px solid fuchsia;
             box-shadow: 5px 5px 20px darkorchid
         }
-        
+
         input:active,
         textarea:active {
             border-color: indigo #f3f #f6f indigo;
@@ -216,17 +219,19 @@
             border-style: solid;
             box-shadow: 5px -5px 20px darkorchid
         }
+
         /*table{border: 3px solid darkgoldenrod;}*/
-        
+
         td {
             border: 1px solid black;
         }
-        
+
         tr:hover {
             border: 1px solid fuchsia;
             box-shadow: 5px 5px 20px darkorchid;
             background: cyan;
         }
+
         /*tr:nth-of-type(odd){ background: lightgreen; }
 tr:nth-of-type(even){ background: lightblue; }
 tr:hover{background: wheat;}*/
@@ -340,7 +345,7 @@ tr:hover{background: wheat;}*/
             changeColor.innerHTML = '.live{background-image: url(pic/live' + a + '.png);}.dead{background-image: url(pic/dead' + b + '.png);}'
         }
 
-        // 海濤法師慈悲志業道場牌位
+        // 海濤法師慈悲僧伽會牌位
         function HtDead() {
             // 先導入陣列
             zzUp()
@@ -448,23 +453,23 @@ tr:hover{background: wheat;}*/
                 // 有人矚名「佛弟子」「無」…，亂寫資料，故排除他
                 // 祖先資料比較無人亂寫資料，故不必判斷排除
                 // if (Arr2[i][2] != '佛弟子' && Arr2[i][2] != '無' && Arr2[i][2] != '無名氏' && Arr2[i][2] != '三宝弟子' && Arr2[i][2] != '三寶弟子') {
-                    // 判斷人名，超過18，要調整
-                    // 判斷祖先人名，超過字數3
-                    if (Arr2[i][0].length > nn1) {
-                        AA += Arr4[i] + '※☆☆※'
-                        // 判斷人名，可用寬行距列印
-                        // 判斷祖先人名，三字姓
-                    } else if (Arr2[i][0].length > nn2) {
-                        BB += Arr4[i] + '※☆☆※'
-                        // 判斷人名，可用窄行距列印
-                        // 判斷祖先人名，複姓
-                    } else if (Arr2[i][0].length > nn3) {
-                        CC += Arr4[i] + '※☆☆※'
-                    } else {
-                        // 正常12個字
-                        // 祖先正常1個字
-                        DD += Arr4[i] + '※☆☆※'
-                    }
+                // 判斷人名，超過18，要調整
+                // 判斷祖先人名，超過字數3
+                if (Arr2[i][0].length > nn1) {
+                    AA += Arr4[i] + '※☆☆※'
+                    // 判斷人名，可用寬行距列印
+                    // 判斷祖先人名，三字姓
+                } else if (Arr2[i][0].length > nn2) {
+                    BB += Arr4[i] + '※☆☆※'
+                    // 判斷人名，可用窄行距列印
+                    // 判斷祖先人名，複姓
+                } else if (Arr2[i][0].length > nn3) {
+                    CC += Arr4[i] + '※☆☆※'
+                } else {
+                    // 正常12個字
+                    // 祖先正常1個字
+                    DD += Arr4[i] + '※☆☆※'
+                }
                 // }
             }
             // 導入文本框，但還要手動修訂！因為信徒常常亂填資料。刪除最末尾的空行
@@ -570,6 +575,36 @@ tr:hover{background: wheat;}*/
                 }
             }
 
+            // 為配合網路牌位，加上紅色底色，只有祿位，牌位無
+            // 本來想用CSS語法，改變圖片顏色，但太複雜太難控制，還是改用「去背」的圖片
+            btnpink.onclick = function () {
+                // 先刪除舊的CSS語法，不然會亂掉
+                if (changeColor.innerHTML) {
+                    if (body1.style.background == 'pink' && /pic-bg/.test(changeColor.innerHTML)) {
+                        body1.style.background = ''
+                        changeColor.innerHTML = ''
+                    } else {
+                        body1.style.background = 'pink'
+                        // 可以直接用正規表達式改CSS語法，改圖片路徑，變成新的去背的圖片
+                        changeColor.innerHTML = changeColor.innerHTML.replace('(pic/', '(pic/pic-bg/')
+                    }
+                } else {
+                    // 設定可以雙向改回原來的圖片
+                    if (body1.style.background == 'pink' && /pic-bg/.test(mula.innerHTML)) {
+                        body1.style.background = ''
+                        mula.innerHTML = mula.innerHTML.replace('(pic/pic-bg/wun2-1.png', '(pic/wun2-1.png')
+                        mula.innerHTML = mula.innerHTML.replace('(pic/pic-bg/live.png', '(pic/live.png')
+                    } else {
+                        body1.style.background = 'pink'
+                        mula.innerHTML = mula.innerHTML.replace('(pic/wun2-1.png', '(pic/pic-bg/wun2-1.png')
+                        mula.innerHTML = mula.innerHTML.replace('(pic/live.png', '(pic/pic-bg/live.png')
+                        body1.style.background = 'pink'
+                    }
+                }
+
+                // document.getElementsByTagName('style')[0].innerHTML.replace(/(background\-image\: url\(\a+\)\;)/g,'$1,linear-gradient(black ,red ,black );background-blend-mode:color-dodge;')
+            }
+
             // 範例：
             var example1 = [
                 '人名	地址',
@@ -618,7 +653,7 @@ tr:hover{background: wheat;}*/
     </script>
 </head>
 
-<body>
+<body id="body1">
     <div id="div1"></div>
     <input type="button" id="btnHidden" value="隱藏多餘按鈕" />
     <div id="div2" style="display:block;">
@@ -630,19 +665,20 @@ tr:hover{background: wheat;}*/
         <input type="button" id="btnY" value="金色蓮座" onclick="SitColor('3','3')" />
         <input type="button" id="btnW" value="黑白蓮座" onclick="SitColor('','')" />
         <input type="button" id="btnP" value="敦煌華蓋" />
-        <hr/>
+        <input type="button" id="btnpink" value="祿位轉紅底色，牌位無" />
+        <hr />
         <input type="button" id="btn5" value="排序人名資料" onclick="cleanData(18,15,12)" />
         <input type="button" id="btn6" value="排序祖先資料" onclick="cleanData(3,2,1)" />
         <input type="button" id="btn7" class="HK" value="HK人名1轉3" />
         <input type="button" id="btn8" class="HK" value="HK人名轉消災" />
         <input type="button" id="btn9" class="HK" value="HK轉TW" />
         <!--<input type="button" id="btn10" class="HK" value="Undefined轉HK" />-->
-        <hr/>
+        <hr />
         <input type="button" id="btnwun2" value="悟光精舍消災祿位" />
         <input type="button" id="btnwun" value="悟光精舍往生牌位" />
-        <input type="button" id="btnht" value="慈悲志業道場牌位" onclick="HtDead()" />
+        <input type="button" id="btnht" value="慈悲僧伽會牌位" onclick="HtDead()" />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
-        <br/>
+        <br />
         <textarea id="txt1" placeholder="在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
         輸入完畢後，鍵盤一停止，
         就會先呈現「往生牌位」！
@@ -674,34 +710,44 @@ tr:hover{background: wheat;}*/
 張三三 李四四 王五五	台中市北屯區松竹路1段8號	何九九 石一二 何九九 石一二
 張三三 李四四 王五五 趙六六	台中市北屯區松竹路1段8號	何九九 石一二
 張三三 李四四 王五五 趙六六 趙六六張三三-李四四-王五五張三三-李四四-王五五	台中市北屯區松竹路1段8號	何九九</textarea>
-        <br/>
-        <pre>
-文本框中，是輸入範例！請先刪除，再輸入新資料。
-在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，可寫多人！
-    再用tab隔開。再寫地址。
-    再用tab隔開。最後寫陽上人。
-        撰寫範例見下表格：
-        ☆更快的方法：把整個excel表格複製到文本框中
-其它牌位：輸入完畢後，請按「消災祿位」「往生牌位」「祖先牌位」按鈕！
-若資料量大，可先作「排序人名資料」，會刪除重複資料，並按18字、12字…排序
-HK是特別為香港信徒的資料轉換，從單一名字，轉出4種表格資料
-「消災祿位」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。
+        <br />
+        <p>
+        <h2>使用說明：</h2>
+        <h3>文本框中，是輸入範例！請先刪除，再輸入新資料。</h3>
+        <ol>
+            <li>在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，可寫多人！</li>
+            <li>再用tab隔開。再寫地址。</li>
+            <li>再用tab隔開。最後寫陽上人。</li>
+            <li>撰寫範例見下表格：</li>
+            <li>☆更快的方法：把整個excel表格複製到文本框中</li>
+            <li>若一次要寫多人，而且準備日後重複使用資料，可用「試算表excel」寫資料</li>
+        </ol>
+        <ul>
+            <li>其它牌位：輸入完畢後，請按「消災祿位」「往生牌位」「祖先牌位」按鈕！</li>
+            <li>若資料量大，可先作「排序人名資料」，會刪除重複資料，並按18字、12字…排序</li>
+            <li>HK是特別為香港信徒的資料轉換，從單一名字，轉出4種表格資料</li>
+            <li>「消災祿位」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。</li>
+        </ul>
 
-海濤法師「慈悲志業道場牌位」的輸入資料方法一樣。多加的功能：
-    1. 點選☑與□可互相切換
-    2. 亡者名，最多9字，<b>多餘的不顯示</b>
-    3. 可切換紅色金色蓮座(悟光精舍的不行)
+        <h3>海濤法師「慈悲僧伽會牌位」的輸入資料方法一樣。多加的功能：</h3>
+        <ol>
+            <li>點選☑與□可互相切換</li>
+            <li>亡者名，最多9字，<b>多餘的不顯示</b></li>
+            <li>可切換紅色金色蓮座(悟光精舍的不行)</li>
+        </ol>
 
-
-※列印方法：
-用chrome瀏覽器開啟，列印時，先按ctrl+P，
-    點選「配置」→選「橫向」。
-    再點選「顯示更多設定」，其中
-        「邊界」→選「無」。或設定成你要的大小
-        「選項」→「背景圖形」打鉤！
-        再按「列印」即可！
-當然，紙張顏色…要先自備紅色、黃色…的紙！
-<h4>南普陀寺2020年農曆7月法會網路登記：
+        <h3>※列印方法：</h3>
+        <ol>
+            <li>用chrome瀏覽器開啟，列印時，先按ctrl+P，</li>
+            <li>點選「配置」→選「橫向」。</li>
+            <li>再點選「顯示更多設定」，其中</li>
+            <li>「邊界」→選「無」。或設定成你要的大小</li>
+            <li>「選項」→「背景圖形」打鉤！</li>
+            <li>再按「列印」即可！</li>
+            <li>當然，紙張顏色…要先自備紅色、黃色…的紙！</li>
+        </ol>
+        </p>
+        <!-- <h4>南普陀寺2020年農曆7月法會網路登記：
 消災祿位
 <a href="https://forms.gle/yFWJDybRpy21mPjSA" target="_blank">https://forms.gle/yFWJDybRpy21mPjSA</a>
 往生牌位
@@ -709,16 +755,15 @@ HK是特別為香港信徒的資料轉換，從單一名字，轉出4種表格�
 祖先牌位
 <a href="https://forms.gle/ZDNvASvWinenP1jZ6" target="_blank">https://forms.gle/ZDNvASvWinenP1jZ6</a>
 </h4>
-    </pre>
         <h2>若一次要寫多人，而且準備日後重複使用資料，可用「試算表excel」寫資料，再用email寄來！
             <a href='mailto:adb.dao3@gmail.com'>adb.dao3@gmail.com</a></h2>
-        <h3>截止日期：農曆7月12日晚上。國曆2020年8月30日 (※後來提早為農曆6月26就截止了！)</h3>
+        <h3>截止日期：農曆7月12日晚上。國曆2020年8月30日 (※後來提早為農曆6月26就截止了！)</h3> -->
         <h3>撰寫範例如下：</h3>
-        <hr/>
+        <hr />
         <table id="tab1">祿位名字，不可超過6人(18個字，<b>多餘的不顯示</b>)[舊版4人(12個字)]；為節省紙張，同一地址的多人，可寫在同一張祿位上！</table>
-        <hr/>
+        <hr />
         <table id="tab2">亡者，不可超過6人(18個字，<b>多餘的不顯示</b>)[舊版4人(12個字)]；陽上人不可超過4人(12個字，<b>多餘的不顯示</b>)</table>
-        <hr/>
+        <hr />
         <table id="tab3">祖先姓氏，不可超過4個字[舊版3個字]；陽上人不可超過4人(12個字，<b>多餘的不顯示</b>)</table>
     </div>
 </body>

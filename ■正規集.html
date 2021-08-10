@@ -24,7 +24,7 @@ input {height: 35px;color: black;border-radius: 15px;}
 #div4 input {background:#f99;}
 .name {background:tan;color: darkred;}
 
-#div2 {display: none;background: beige;color:black;line-height: 2em;}
+#div2 {display: none;background: beige;color:black;line-height: 2em;padding-left:1em;}
 #txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
@@ -187,8 +187,8 @@ ol li{margin-left:5em;}
 
             toOlLi.onclick = function () {
                 zzUp()
-                // 刪除所有<ol><li>標記語言的標記
-                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除所有<ul><ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?ul\>|\<\/?li\>/g, '')
                 // 刪除空白字元的行
                 for (var k of Arr1) {
                     // 跳過空行，不處理空白符號的行
@@ -230,6 +230,57 @@ ol li{margin-left:5em;}
                 // 補上頭尾的標記，順便加上css語法，加大縮排
                 Arr1.unshift('<style>ol li{margin-left:1em;}</style><ol>')
                 Arr1.push('</ol>')
+                overCopy()
+                // 加入並呈現HTML
+                div2.innerHTML = Arr1.join('\n')
+                div2.style.display = 'block'
+            }
+
+            toUlLi.onclick = function () {
+                zzUp()
+                // 刪除所有<ul><ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?ul\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上<li>符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1<li>$2</li>'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上<ul>符號。但有些層級還是無法分出，不如用「大綱層級」
+                // for (var k = 0; k < Arr1.length; k++) {
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的<li>比前一行縮排，即加上<ul>
+                        if (Arr1[i].indexOf('<li>') < Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', '<ul>')
+                        }
+                        // 下一行的<li>比前一行凸排，即加上</ul></li>
+                        if (Arr1[i].indexOf('<li>') > Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', '</li></ul></li>')
+                        }
+                    }
+                    // 層級的條件(倒算)
+                    // if (Arr1[i + 1]) {
+                    //     if (Arr1[i].substr(k, 4) == '<li>' && Arr1[i + 1].substr(k + 1, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '<ul>')
+                    //     }
+                    //     if (Arr1[i].substr(k + 1, 4) == '<li>' && Arr1[i + 1].substr(k, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '</li></ul></li>')
+                    //     }
+                    // }
+                }
+                // }
+                // 補上頭尾的標記，順便加上css語法，加大縮排
+                Arr1.unshift('<ul>')
+                Arr1.push('</ul>')
                 overCopy()
                 // 加入並呈現HTML
                 div2.innerHTML = Arr1.join('\n')
@@ -1202,7 +1253,7 @@ ol li{margin-left:5em;}
             DelTagOlLi.onclick = function () {
                 zzUp()
                 // 刪除所有<ol><li>標記語言的標記
-                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                txt1.value = txt1.value.replace(/\<\/?ul\>|\<\/?ol\>|\<\/?li\>/g, '')
                 Copy()
             }
             DelTabToNum.onclick = function () {
@@ -1284,8 +1335,9 @@ ol li{margin-left:5em;}
         <input id="SpaceToNumEvery" type="button" class="pink" value="大綱編號多層(以四個空白分層級)" />
         <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
         <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
-        <input id="toOlLi" type="button" class="tan" value="加上<ol><li>" />
-        <input id="DelTagOlLi" type="button" class="tan" value="刪<ol><li>" />
+        <input id="toUlLi" type="button" class="tan" value="加上點標<ul><li>" />
+        <input id="toOlLi" type="button" class="tan" value="加上數列<ol><li>" />
+        <input id="DelTagOlLi" type="button" class="tan" value="刪<ul><ol><li>" />
         <input id="toJson" type="button" class="tan" value="轉json" />
     </div>
     <div>
