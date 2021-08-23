@@ -950,7 +950,7 @@ ol li{margin-left:5em;}
                     zzUp()
                     // 編輯成講義需要的分段與《、「
                     txt1.value = txt1.value.replace(/\n/g, '')
-                    txt1.value = txt1.value.replace(/(《)/g, '\n\n$1').replace(/(》卷?\d*：「)/g, '$1\n')
+                    txt1.value = txt1.value.replace(/(《[^》]+》卷?\d*：「)/g, '\n\n$1\n')
                     // 冊除開頭的1空行，保留1空行
                     Arr1 = txt1.value.split('\n')
                     if (Arr1[0] == '' && Arr1[1] == '') {
@@ -959,6 +959,20 @@ ol li{margin-left:5em;}
                     }
                     Copy()
                 }
+            }
+            ReVinayaNum.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留雙行'\n\n'
+                txt1.value = txt1.value.replace(/\n\n/g, '♂※※♂').replace(/\n/g, '').replace(/♂※※♂/g, '\n\n')
+                // 讓《律學彙集》中的數字標題分段
+                txt1.value = txt1.value.replace(/([^》〉\w])(\d+)/g, '$1\n$2').replace(/([：。])([A-Za-z]\W)/g, '$1\n$2')
+                Copy()
+            }
+            ReToN5.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'《'
+                txt1.value = txt1.value.replace(/《/g, '\n《')
+                Copy()
             }
             ReToN4.onclick = function () {
                 zzUp()
@@ -1297,7 +1311,9 @@ ol li{margin-left:5em;}
         <input id="ReToN3" type="button" class="o" value="、號+\n" />
         <input id="ReToN2" type="button" class="o" value="。號+\n" />
         <input id="ReToN1" type="button" class="y" value="。號轉\n" />
+        <input id="ReVinayaNum" type="button" class="t" value="毗尼答問\n+數字" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
+        <input id="ReToN5" type="button" class="y" value="\n+《號" />
     </div>
     <div>
         <input id="DelTag" type="button" class="tan" value="刪標記<>" />
