@@ -290,9 +290,9 @@ ol li{margin-left:5em;}
             toJson.onclick = function () {
                 zzUp()
                 // 預備運算用
-                AA=0
-                BB=0
-                CC=''
+                AA = 0
+                BB = 0
+                CC = ''
                 // var Arr1 = txt1.value.split('\n')  ,Arr2 =[]
                 // 刪除所有<ol><li>標記語言的標記
                 // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
@@ -329,13 +329,13 @@ ol li{margin-left:5em;}
                 }
                 // Arr1.unshift('{[')
                 // 補上不足的]}
-                if(AA>BB){
-                for (var i = 0; i < (AA-BB); i++) {
-                        CC+=']},\n'
-                }
+                if (AA > BB) {
+                    for (var i = 0; i < (AA - BB); i++) {
+                        CC += ']},\n'
+                    }
                 }
                 // 刪除最後一個,
-                CC=CC.substring(0,(CC.length-2))
+                CC = CC.substring(0, (CC.length - 2))
                 Arr1.push(CC)
                 overCopy()
                 // 加入並呈現HTML
@@ -1288,6 +1288,12 @@ ol li{margin-left:5em;}
                 txt1.value = txt1.value.replace(/\n/g, '')
                 Copy()
             }
+            Toicon.onclick = function () {
+                zzUp()
+                // 取代'icon'成為'img src'，就可以顯現小圖
+                txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
+                Copy()
+            }
         }
     </script>
 </head>
@@ -1296,10 +1302,10 @@ ol li{margin-left:5em;}
     <div id="div2"></div>
     <textarea id='txt1' placeholder='輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
-再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'></textarea><br/>
-    <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br/>
-    <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br/>
-    <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br/>
+再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！'></textarea><br />
+    <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br />
+    <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br />
+    <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br />
     <div>
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="reValue" type="button" class="r" value="回復原始資料" />
@@ -1326,7 +1332,9 @@ ol li{margin-left:5em;}
         <input id="ReToN" type="button" class="y" value="值1轉\n" />
         <input id="ReToT" type="button" class="y" value="值1轉Tab" />
         <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
-        <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" /> 自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
+        <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" />
+        <input id="Toicon" type="button" class="gy" value="轉icon" />
+        自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
     </div>
     <div>
         <input id="addNumber" type="button" class="p" value="數列1-99" />
