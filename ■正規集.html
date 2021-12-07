@@ -330,151 +330,27 @@ li{margin-left:1em;}
                 // div1.style.display = 'block'
             }
 
-            TabToNum.onclick = function () {
-                zzUp()
-                // 號碼的變量
-                var j = 1
-                // 可自訂分層數量
-                if (myValue.value > 0) {
-                    AA = myValue.value
-                } else {
-                    AA = 6
-                }
-                for (var k = 0; k < AA; k++) {
-                    for (var i = 0; i < Arr1.length; i++) {
-                        // 刪除空行，及行尾空白
-                        Arr1[i] = Arr1[i].replace(/\s+$/, '')
-                        if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
-                            Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
-                            j++
-                        }
-                    }
-                    // 歸零，下一層才會從1開始
-                    j = 1
-                }
-                overCopy()
-            }
             TabToNumEvery.onclick = function () {
-                zzUp()
-                // 號碼的變量
-                var j = 1
-                var m = 1
-                // 可自訂分層數量
-                if (myValue.value > 0) {
-                    AA = myValue.value
-                } else {
-                    AA = 6
-                }
-                for (var i = 0; i < Arr1.length; i++) {
-                    // 刪除空行，及行尾空白
-                    Arr1[i] = Arr1[i].replace(/\s+$/, '')
-                    // 行首條件
-                    if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
-                        Arr1[i] = m + '. ' + Arr1[i]
-                        m++
-                    }
-                }
-                for (var k = 0; k < AA; k++) {
-                    for (var i = 0; i < Arr1.length; i++) {
-                        // 層級的條件(倒算)
-                        if (Arr1[i].charAt(k + 1) != '\t' && Arr1[i].charAt(k + 1) != '　') {
-                            if (Arr1[i].charAt(k) == '\t') {
-                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
-                                j++
-                            }
-                            // 新行歸零條件
-                            if (Arr1[i].charAt(k) != '\t' && Arr1[i].charAt(k) != ' ' && Arr1[i].charAt(k) != '　' && Arr1[i].charAt(k) != '\n' && Arr1[i].charAt(k) != '') {
-                                j = 1
-                            }
-                        }
-                    }
-                    // 歸零，下一層才會從1開始
-                    j = 1
-                }
-                overCopy()
+                TabToNumEveryFunction('t')
             }
             TabToNumEvery2.onclick = function () {
-                zzUp()
-                // 號碼的變量
-                var j = 1
-                var m = 1
-                // 可自訂分層數量
-                if (myValue.value > 0) {
-                    AA = myValue.value
-                } else {
-                    AA = 6
-                }
-                for (var i = 0; i < Arr1.length; i++) {
-                    // 刪除空行，及行尾空白
-                    Arr1[i] = Arr1[i].replace(/\s+$/, '')
-                    // 行首條件
-                    if (myValue.value) {
-                        if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
-                            Arr1[i] = myValue.value + Arr1[i]
-                            // m++
-                        }
-                    }
-                }
-                for (var k = 0; k < AA; k++) {
-                    for (var i = 0; i < Arr1.length; i++) {
-                        // 層級的條件(倒算)
-                        if (Arr1[i].charAt(k + 1) != '\t' && Arr1[i].charAt(k + 1) != '　') {
-                            if (Arr1[i].charAt(k) == '\t') {
-                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
-                                j++
-                            }
-                            // 新行歸零條件
-                            if (Arr1[i].charAt(k) != '\t' && Arr1[i].charAt(k) != ' ' && Arr1[i].charAt(k) != '　' && Arr1[i].charAt(k) != '\n' && Arr1[i].charAt(k) != '') {
-                                j = 1
-                            }
-                        }
-                    }
-                    // 歸零，下一層才會從1開始
-                    j = 1
-                }
-                overCopy()
+                TabToNumEveryFunction('t1')
             }
             SpaceToNumEvery.onclick = function () {
-                zzUp()
-                // 號碼的變量
-                var j = 1
-                var m = 1
-                // 可自訂分層數量
-                if (myValue.value > 0) {
-                    AA = myValue.value
-                } else {
-                    AA = 6
-                }
-                for (var i = 0; i < Arr1.length; i++) {
-                    // 刪除空行，及行尾空白
-                    Arr1[i] = Arr1[i].replace(/\s+$/, '')
-                    // 行首條件
-                    if (Arr1[i].substr(0, 4) != '    ' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　' && Arr1[i].charAt(0) != '\t') {
-                        Arr1[i] = m + '. ' + Arr1[i]
-                        m++
-                    }
-                }
-                for (var k = 0; k < AA; k++) {
-                    for (var i = 0; i < Arr1.length; i++) {
-                        // 層級的條件(倒算)
-                        if (Arr1[i].substr(((k + 1) * 4), 4) != '    ' && Arr1[i].substr(((k + 1) * 4), 1) != '　') {
-                            if (Arr1[i].substr((k * 4), 4) == '    ') {
-                                Arr1[i] = Arr1[i].replace(Arr1[i].substr(((k + 1) * 4), 4), j + '. ' + Arr1[i].substr(((k + 1) * 4), 4))
-                                j++
-                            }
-                            // 新行歸零條件
-                            if (Arr1[i].substr((k * 4), 4) != '    ' && Arr1[i].substr((k * 4), 1) != ' ' && Arr1[i].substr((k * 4), 1) != '　' && Arr1[i].substr((k * 4), 1) != '\n' && Arr1[i].substr((k * 4), 1) != '') {
-                                j = 1
-                            }
-                        }
-                    }
-                    // 歸零，下一層才會從1開始
-                    j = 1
-                }
-                overCopy()
+                TabToNumEveryFunction('4')
+            }
+            TabToNum.onclick = function () {
+                TabToNumFunction('')
             }
             TabToAccelon3Tag.onclick = function () {
+                TabToNumFunction('a')
+                // 刪除未定義的標記<undefined>
+                txt1.value = txt1.value.replace(/\<\/?undefined\>/gi, '')
+            }
+            function TabToNumFunction(taball) {
+                // 最早的大綱編號，及後來加Accelon3標記…，整合為一個函數
                 zzUp()
+                // 號碼的變量
                 var j = 1
                 // 可自訂分層數量
                 if (myValue.value > 0) {
@@ -486,16 +362,95 @@ li{margin-left:1em;}
                     for (var i = 0; i < Arr1.length; i++) {
                         // 刪除空行，及行尾空白
                         Arr1[i] = Arr1[i].replace(/\s+$/, '')
-                        // 行首條件
-                        if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(0) != '\<' && Arr1[i].charAt(0) != '') {
-                            Arr1[i] = '<' + Accelon3Tag[k] + '>' + Arr1[i] + '</' + Accelon3Tag[k] + '>'
-                        }
-                        // 分層條件
-                        if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
-                            Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), '<' + Accelon3Tag[k + 1] + '>' + Arr1[i].charAt(k + 1)) + '</' + Accelon3Tag[k + 1] + '>'
-                            j++
+                        // 最早的大綱編號，及後來加Accelon3標記…，整合為一個函數
+                        if (taball == 'a') {
+                            // 行首條件
+                            if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(0) != '\<' && Arr1[i].charAt(0) != '') {
+                                Arr1[i] = '<' + Accelon3Tag[k] + '>' + Arr1[i] + '</' + Accelon3Tag[k] + '>'
+                            }
+                            // 分層條件
+                            if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
+                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), '<' + Accelon3Tag[k + 1] + '>' + Arr1[i].charAt(k + 1)) + '</' + Accelon3Tag[k + 1] + '>'
+                                j++
+                            }
+                        } else {
+                            if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
+                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
+                                j++
+                            }
                         }
                     }
+                    // 歸零，下一層才會從1開始
+                    j = 1
+                }
+                overCopy()
+            }
+            function TabToNumEveryFunction(tab4p) {
+                // 大綱編號多層：tab、四個空白…，整合為一個函數
+                zzUp()
+                // 號碼的變量
+                var j = 1
+                var m = 1
+                // 可自訂分層數量
+                if (myValue.value > 0) {
+                    AA = myValue.value
+                } else {
+                    AA = 8
+                }
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 刪除空行，及行尾空白
+                    Arr1[i] = Arr1[i].replace(/\s+$/, '')
+                    // 大綱編號多層：tab、四個空白…，整合為一個函數
+                    // 行首條件
+                    if (tab4p == 't') {
+                        if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
+                            Arr1[i] = m + '. ' + Arr1[i]
+                            m++
+                        }
+                    } else if (tab4p == 't1') {
+                        if (myValue.value) {
+                            if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
+                                Arr1[i] = myValue.value + Arr1[i]
+                                // m++
+                            }
+                        }
+                    } else if (tab4p == '4') {
+                        if (Arr1[i].substr(0, 4) != '    ' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　' && Arr1[i].charAt(0) != '\t') {
+                            Arr1[i] = m + '. ' + Arr1[i]
+                            m++
+                        }
+                    }
+                }
+                for (var k = 0; k < AA; k++) {
+                    for (var i = 0; i < Arr1.length; i++) {
+                        // 大綱編號多層：tab、四個空白…，整合為一個函數
+                        // 層級的條件(倒算)
+                        if (tab4p == 't' || tab4p == 't1') {
+                            if (Arr1[i].charAt(k + 1) != '\t' && Arr1[i].charAt(k + 1) != '　') {
+                                if (Arr1[i].charAt(k) == '\t') {
+                                    Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
+                                    j++
+                                }
+                                // 新行歸零條件
+                                if (Arr1[i].charAt(k) != '\t' && Arr1[i].charAt(k) != ' ' && Arr1[i].charAt(k) != '　' && Arr1[i].charAt(k) != '\n' && Arr1[i].charAt(k) != '') {
+                                    j = 1
+                                }
+                            }
+                        } else if (tab4p == '4') {
+                            // 層級的條件(倒算)
+                            if (Arr1[i].substr(((k + 1) * 4), 4) != '    ' && Arr1[i].substr(((k + 1) * 4), 1) != '　') {
+                                if (Arr1[i].substr((k * 4), 4) == '    ') {
+                                    Arr1[i] = Arr1[i].replace(Arr1[i].substr(((k + 1) * 4), 4), j + '. ' + Arr1[i].substr(((k + 1) * 4), 4))
+                                    j++
+                                }
+                                // 新行歸零條件
+                                if (Arr1[i].substr((k * 4), 4) != '    ' && Arr1[i].substr((k * 4), 1) != ' ' && Arr1[i].substr((k * 4), 1) != '　' && Arr1[i].substr((k * 4), 1) != '\n' && Arr1[i].substr((k * 4), 1) != '') {
+                                    j = 1
+                                }
+                            }
+                        }
+                    }
+                    // 歸零，下一層才會從1開始
                     j = 1
                 }
                 overCopy()
@@ -986,6 +941,12 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/、/g, '、\n')
                 Copy()
             }
+            ReToN6.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'，'
+                txt1.value = txt1.value.replace(/，/g, '，\n')
+                Copy()
+            }
             ReToN2.onclick = function () {
                 zzUp()
                 // 文章轉換行符，留'。'
@@ -1330,6 +1291,7 @@ li{margin-left:1em;}
         <input id="NumViewShow" type="button" class="lb" value="ShowHTML" />
         <input id="ReToN4" type="button" class="o" value="；號+\n" />
         <input id="ReToN3" type="button" class="o" value="、號+\n" />
+        <input id="ReToN6" type="button" class="o" value="，號+\n" />
         <input id="ReToN2" type="button" class="o" value="。號+\n" />
         <input id="ReToN1" type="button" class="y" value="。號轉\n" />
         <input id="ReVinayaNum" type="button" class="t" value="毗尼答問\n+數字" />
