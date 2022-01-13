@@ -24,87 +24,6 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
                           尊重他人創作‧請勿刪除或變更此說明
 
 -->
-<!--
-2018年依原碼修改後，對其它佛學院的指導教學：
-
-您要的行事曆即是：
-「農曆台灣月曆-手機4六個月的月曆.html」
-檔案，以Google 的Chrome瀏覽器打開，才可見到最佳效果！
-
-我是複製到excel中再美化一翻！
-
-可自己編輯，方法如下：
-在
-「農曆台灣月曆-手機4六個月的月曆.html」上按右鑑，以純文字軟體打開：
-筆記本、MadEdit.exe、我是用Visual Studio Code…
-https://imagine.microsoft.com/zh-tw/Catalog/Product/104
-
-至第76行，
-'0101 元旦',
-'0228 和平紀念日',
-前四位數字，即可自行修改你要的「國曆日期」，後面修改為你要的事項！但中間要是一空隔號！
-
-第93行，
-'0109 寒假第一批結束',
-'0110 寒假第二批開始',
-前四位數字，即可自行修改你要的「農曆日期」，後面修改為你要的事項！但中間要是一空隔號！
-
-但！最後一行，不要末尾的(英文)逗號！！
-'0928 教師節',
-'1010 國慶日'
-或
-'1215 出功德衣',
-'1208 臘八節'
-
-第843行以後，是可以程式碼編的日期！
-比較複雜！
-<font color="royalblue"'+' '+'size=3>午供</font>
-"royalblue"是顏色，可自行修改，改為英文的顏色：red , yellow都可以
-
-第898行
-        myBr=givecolor('六齋','cyan')
-        myBr1=givecolor('六齋','cyan')+givebrcolor('誦戒','magenta').big()
-         if(mylD==8){lObj.innerHTML+=myBr;}
-         if(mylD==14){lObj.innerHTML+=myBr1;gObj.style.background='pink'}
- 此為初八初十四，可以加入「六齋」或自行改為需要的事情事項！
-'cyan'是青色，可改為英文的顏色：red , yellow都可以
-也可用#00ff00等#+紅+綠+藍
-的html語法
-
-第904行
-if(monthDays(cld[sD].lYear,cld[sD].lMonth)==28){
-         if(monthDays(cld[sD].lYear,cld[sD].lMonth)==31){
-這語法表示：如果月底是28天…31天…
-可自行修改…
-
-第921行
-            if (12==(cld[sD].lMonth)){    //判斷是否為除夕
-這語法表示：12月的月底！
-                if (eve==(mylD)){lObj.innerHTML+=givebrcolor('除夕,寒假第一批開始','brown');}
-                if ((eve-1)==(mylD)){lObj.innerHTML+=givebrcolor('普茶,圍爐','brown');}
-                if ((eve-2)==(mylD)){lObj.innerHTML+=givebrcolor('大掃除','brown');}
-「eve-1 」「eve-2」表示除夕前一天，前二天…
-可以加入「普茶,圍爐」或自行改為需要的事情事項！
-
-Javascript教學影片：
-https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGmw6v
-我看2月即可編寫！
-
-舊行事曆如附
-若你們在excel編輯新行事曆，
-不必急著調整行距或儲存格的大小以符合A4大小，
-先調整顏色、字體、邊框…
-最後列印時，再從列印設定中「將所有列放入一頁中」
-即可全部壓縮為適合A4大小的尺寸
-我覺得這樣會美觀、省事很多！
-
-又，若要編輯「農曆台灣月曆-手機4六個月的月曆.html」原始檔，記得編寫後要存檔，再以瀏覽器重新開啟！
-這個程式語言是Javascript
-
-阿彌陀佛！
-祝 法安
-南普陀寺教務助理 道中 謹上
--->
 <HTML>
 
 <HEAD>
@@ -953,18 +872,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       if (s.length == 1) {
         n = MathNum[s[0]]
       }
-      // 以下是繁瑣的寫法，效果一樣
-      // Number(d)
-      // if (1000 > d && d > 99) {
-      //   s=String(d)
-      //   n = MathNum[s.charAt(0)] + '百' + MathNum[s.charAt(1)] + '十' + MathNum[s.charAt(2)]
-      // } else if (100 > d && d > 9) {
-      //   s=String(d)
-      //   n = MathNum[s.charAt(0)] + '十' + MathNum[s.charAt(1)]
-      // } else if (10 > d && d > -1) {
-      //   s=String(d)
-      //   n = MathNum[s.charAt(0)]
-      // }
       return n
     }
     var ChineseNum = {
@@ -1143,39 +1050,15 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         oObj.removeChild(oObj.firstChild)
       }
     }
-    // // 顯示隱藏個人名單流水號
-    // function LittleNumAdd() {
-    //   // 個人名單的流水號
-    //   var aP = document.getElementsByClassName('LittleNumClass')
-    //   // 用for of無法運行
-    //   for (var i in aP) {
-    //     if (aP[i].style.display == 'none') {
-    //       // 若顏色太淺，在紅紙上看不見。改為呈現與否，不用白色灰色轉換
-    //       aP[i].style.display = 'block'
-    //     } else {
-    //       aP[i].style.display = 'none'
-    //     }
-    //   }
-    // }
-    // // 顯示隱藏個人名單流水號
-    // function LittleNumAdd() {
-    //   // 用css功能
-    //   if (hiddenLittle.innerHTML) {
-    //     hiddenLittle.innerHTML = ''
-    //   } else {
-    //     // 無法隱藏，不知何因？
-    //     hiddenLittle.innerHTML = '.LittleNumClass {display: none;color:white;}'
-    //   }
-    // }
     function LittleNumAdd() {
       // 顯示隱藏流水號
       if (hidden.innerHTML) {
         hidden.innerHTML = ''
-        LittleNumShow.value = '現在是顯示流水號'
+        LittleNumAddId.value = '〔顯示/隱藏〕流水號 (現在是顯示流水號)'
       } else {
         // 用插入css功能，但流水號要加上<span>
         hidden.innerHTML = 'span {display: none;}'
-        LittleNumShow.value = '現在是隱藏流水號'
+        LittleNumAddId.value = '〔顯示/隱藏〕流水號 (現在是隱藏流水號)'
       }
     }
     function JTNames() {
@@ -1615,33 +1498,7 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
           // 刪除資料手誤輸入的前後空白，人名、生日…，分別導入陣列
           Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
         }
-        // // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
-        // if (/^..[縣市]/.test(Arr2[i][1])) {
-        //   if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-        //     // Arr2[i][1] = '中華民國' + Arr2[i][1]
-        //     Arr5[i] = 'T'
-        //   } else if (/^深圳市/.test(Arr2[i][1])) {
-        //     Arr2[i][1] = '中國廣東省' + Arr2[i][1]
-        //     Arr5[i] = 'H'
-        //   } else {
-        //     // Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
-        //     Arr5[i] = 'T'
-        //   }
-        // }
-        // if (/^香港/.test(Arr2[i][1])) {
-        //   Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
-        //   Arr5[i] = 'H'
-        // }
-        // if (!Arr5[i]) {
-        //   Arr5[i] = ''
-        // }
       }
-      // 疏文封面
-      // var aDiv = document.createElement('div')
-      // aDiv.innerHTML = '<font style="font-size:38pt;font-weight: bold;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安法會功德主名冊</font>'
-      // aDiv.setAttribute('style', 'text-align:center;height:47mm;line-height:47mm;')
-      // div2.appendChild(aDiv)
-      // 疏文內容
       for (var i = 0; i < Arr1.length; i++) {
         // for (var i = 0, j = 1; i < Arr1.length; i++) {
         // 建立DIV
@@ -1679,128 +1536,6 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             Arr4[i] = '▲此為護法會成員▲' + Arr2[i]
           }
 
-          // if (Arr2[i][2].length == 4) {
-          //   aDiv.innerHTML += '　西元' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-
-          //   // 取出西元日期，轉為數字
-          //   ChineseYear4[i] = Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0')
-
-          // } else {
-          //   // aDiv.innerHTML += '　民國' + Arr2[i][2] + '年農曆' + Arr2[i][3] + '月' + Arr2[i][4] + '日' + Arr2[i][5] + '時生'
-          //   // 取出民國日期，轉為數字，轉換手寫的１０７或一0七年，這種寫法
-          //   // if (Arr2[i][2].length > 2 && Arr2[i][2].match(/[０0]/)) {
-          //   if (Arr2[i][2].length > 2 && Arr2[i][2].match(/^一/)) {
-          //     ChineseYear4[i] = Number(Arr2[i][2].replace(/零/g, '0').replace(/一/g, '1').replace(/二/g, '2').replace(/三/g, '3').replace(/四/g, '4').replace(/五/g, '5').replace(/六/g, '6').replace(/七/g, '7').replace(/八/g, '8').replace(/九/g, '9').replace(/０/g, '0'))
-          //   }
-          //   // 轉換正統寫法的中文數字
-          //   // 取出百位數
-          //   if (Arr2[i][2].length && Arr2[i][2].match(/^.百/)) {
-          //     ChineseYear1[i] = ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('百') - 1), (Arr2[i][2].indexOf('百')))] * 100
-          //   }
-          //   // 取出十位數
-          //   if (Arr2[i][2].length && Arr2[i][2].match('十')) {
-          //     // 補上「一」十
-          //     if (Arr2[i][2].indexOf('十') < 1) {
-          //       ChineseYear2[i] = 10
-          //     } else if (Arr2[i][2].indexOf('十') == 1) {
-          //       ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].charAt(0)]) * 10
-          //       // 另外幾種寫法
-          //       // ChineseYear2[i] = ChineseNum[Arr2[i][2].substr((Arr2[i][2].indexOf('十') - 1), 1)] * 10
-          //       // ChineseYear2[i] = Number(ChineseNum[Arr2[i][2].substring((Arr2[i][2].indexOf('十') - 1), (Arr2[i][2].indexOf('十')))] )* 10
-          //     }
-          //   }
-          //   // 取出個位數
-          //   if (Arr2[i][2].length && Arr2[i][2].match(/^.+$/)) {
-          //     ChineseYear3[i] = ChineseNum[Arr2[i][2].charAt(Arr2[i][2].length - 1)]
-          //   }
-          //   // 空位轉0
-          //   if (typeof (ChineseYear1[i]) == 'undefined') { ChineseYear1[i] = 0 }
-          //   if (typeof (ChineseYear2[i]) == 'undefined') { ChineseYear2[i] = 0 }
-          //   if (typeof (ChineseYear3[i]) == 'undefined') { ChineseYear3[i] = 0 }
-          //   // 判斷不要覆蓋前面已轉好的年份
-          //   if (!ChineseYear4[i]) {
-          //     ChineseYear4[i] = Number(ChineseYear1[i]) + Number(ChineseYear2[i]) + Number(ChineseYear3[i])
-          //   }
-          //   // alert(ChineseYear4)
-          //   // 民國轉西元年
-          //   if (ChineseYear4[i] != 0) { ChineseYear4[i] = ChineseYear4[i] + 1911 }
-          // }
-          // 除錯：取代例外的錯字
-          // aDiv.innerHTML = aDiv.innerHTML.replace('分時生', '分生').replace('時時生', '時生').replace('農曆西曆', '西曆').replace('農曆國曆', '國曆').replace('農曆農曆', '農曆')
-          // 導入日曆函數，並算出生肖
-          // var ADObj, ADObj1, ADObj2, ADA, ADS
-          // ADObj1 = new calendar(ChineseYear4[i], 5)
-          // ADS = ChineseNumToMath(tY - ADObj1[6].sYear + 1)
-          // if (!ADS) { ADS = '　吉' }
-          // ADA = Animals[(ADObj1[6].lYear - 4) % 12]
-          // if (ADObj1[6].lYear < 1901) { ADA = '吉' }
-
-          // aDiv.innerHTML += '　現年' + ADS + '歲　屬' + ADA
-
-          // 加上疏文流水編號，及自訂開始的數字
-          // function LittleNum(m, n) {
-          //   // 導入自訂數字
-          //   var LN = LittleNumNum.value
-          //   if (LN) {
-          //     n = n + Number(LN) - 1
-          //   }
-          //   // 補0
-          //   if (n < 10) {
-          //     n = '00' + n
-          //   } else if (n < 100) {
-          //     n = '0' + n
-          //   }
-          //   // 加上樣式，不轉90度，這樣複製到word才不會跑位
-          //   return '<span style="font-size:50%;">　　' + m + n + '</span>'
-          // }
-          // // 加上人名流水編號
-          // for (var k = 1; k < Arr1.length; k++) {
-          //   if (Arr2[i + k][0] == '♂') {
-          //     aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-          //     break
-          //   }
-          // }
-          // // 流水編號自增，若用i，會跳號
-          // j++
-
-          // // 判斷下一行是地址否？加入地址
-          // if (Arr2[i + 1][0] == '♂') {
-          //   // 統計名單中：同一地址有多少人
-          //   if (addNum > 0) {
-          //     aDiv.innerHTML += '<br/>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
-          //     for (var k = 1; k < Arr1.length; k++) {
-          //       // 地址若有多行，則繼續加入地址，否則中止循環
-          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-          //         break
-          //       }
-          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-          //         // 加入行首空格7個，以便排版
-          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
-          //       }
-          //     }
-          //   } else {
-          //     aDiv.innerHTML += '<br/>現住：'
-          //     for (var k = 1; k < Arr1.length; k++) {
-          //       // 地址若有多行，則繼續加入地址，否則中止循環
-          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-          //         break
-          //       }
-          //       if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-          //         // 加入行首空格5個，以便排版
-          //         aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
-          //       }
-          //     }
-          //   }
-          //   // 統計名單歸零
-          //   addNum = 0
-          // } else {
-          //   // 下一行若非地址，統計名單加一
-          //   addNum++
-          // }
-          // // 插入DIV
-          // div2.appendChild(aDiv)
         }
       }
       // 只呈現有誤的
@@ -2404,6 +2139,11 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     .k {
       background: khaki;
     }
+
+    .g {
+      width: 200px;
+      background: #aca;
+    }
     
     #tab1,
     #tab2 {
@@ -2477,9 +2217,9 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       font-size: 22pt;
       font-family: 標楷體;
       /*字體加到最粗是900*/
-      font-weight: 900;
+      /* font-weight: 900; */
       /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
-      text-shadow: 0px 1px black;
+      /* text-shadow: 0px 1px black; */
       /*padding: 0mm 7mm 0mm 0mm;*/
       /* 設定文字行距 */
       line-height: 12mm;
@@ -2499,12 +2239,12 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
       /*轉直排語法*/
       /*-webkit-writing-mode: vertical-rl;
       writing-mode: vertical-rl;*/
-      font-size: 20pt;
+      font-size: 22pt;
       font-family: 標楷體;
       /*字體加到最粗是900*/
-      font-weight: 900;
+      /* font-weight: 900; */
       /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
-      text-shadow: 1px 0px black;
+      /* text-shadow: 1px 0px black; */
       margin: 0 0 0 5mm;
       /*color: black;*/
     }
@@ -2577,6 +2317,8 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
     }
   </STYLE>
   <style id="hidden"></style>
+  <style id="myfontsize"></style>
+  <style id="myfontbold"></style>
 
   <META name=GENERATOR content="MSHTML 9.00.8112.16520">
 </HEAD>
@@ -2762,10 +2504,10 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <br/> 結果會呈現在文本框中，以便複製或剪貼
   <br/> 按「復原」可恢復原來輸入的日期！
   <ol class="c">
-    <li>將齋天疏文、或名冊，複製到下方文本框，</li>
-    <li>依照「西元及民國」年份，每年自動依系統日期，算出並更正年齡、生肖。</li>
-    <li>功德主名冊，人名太多直接列印會混亂，所以請複製至Word再列印</li>
-    <li>先把「護法會」名單貼到右邊的淺黃色的文本框中，「護法會」格式不限，只要含有「人名」即可！再按【名單(與護法會)檢驗】，即可一次檢驗出「名冊」與「護法會」</li>
+    <li>將齋天疏文的信徒名冊，複製到下方文本框，</li>
+    <li>依照〔西元及民國〕年份，每年自動依系統日期，算出並更正年齡、生肖。</li>
+    <li>《功德主名冊》，人名太多直接列印會混亂，所以請複製至Word再列印</li>
+    <li>先把「護法會」名單貼到右邊的淺黃色的文本框中，「護法會」格式不限，只要含有「人名」即可！再按【名單(與護法會)檢驗】，即可一次檢驗出「名冊」與「護法會」重複的人名</li>
   </ol>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
   />__<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
@@ -2773,16 +2515,18 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
   <input id="btn1" type="button" value="批次轉佛曆+西元+農曆日期" onclick="myOB1()" /> __
   <input id="btn" type="button" value="測試" onclick="btntest()" />
   <br/>
-  <input id="jt" class="b" type="button" value="齋天年齡轉換" onclick="changeADYear()" />__
-  <input id="showCalendar" class="b" type="button" value="(顯示/隱藏)月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />__
+  <input id="showCalendar" class="b" type="button" value="〔顯示/隱藏〕月曆" onclick="showCalendar(tab1);showCalendar(tab2)" />__
+  <input id="jt" class="b" type="button" value="齋天信徒的年齡轉換" onclick="changeADYear()" />__
   <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
   <input class="b" type="button" value="齋天疏文功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
   <br/>
-  <input class="k" type="number" id="LittleNumNum" placeholder="流水號開始號碼" />
-  <input class="k" type="button" value="(顯示/隱藏)流水號" id="LittleNumAddId" onclick="LittleNumAdd()" />
-  <input class="c" type="button" value="流水號狀態" id="LittleNumShow" />
-  <br/>
   <input class="my" type="button" value="名單(與護法會)檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
+  <br/>
+  <input class="k" type="number" id="LittleNumNum" placeholder="流水號開始號碼" />
+  <input class="k" type="button" value="〔顯示/隱藏〕流水號" id="LittleNumAddId" onclick="LittleNumAdd()" />
+  <input class="c" type="button" value="流水號狀態" id="LittleNumShow" style="display: none;"/>
+  <input class="g" id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
+  <input class="my" type="button" value="粗體" id="fontbold" />
   <br/>
   <textarea id="txt5" placeholder="1955年5月6日
 1955,5,7
@@ -2831,6 +2575,37 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
 深圳市蘆洲區民族路二六三巷
 </textarea>
   <textarea id="txt6" placeholder="在此貼上「護法會名單」"></textarea>
+  <script>
+    // <script>放在HTML底端，就不用window.onload
+    // 輸入數字，立刻變換字體大小
+    myValue.onkeyup = function () {
+      if (myValue) {
+        myfontsize.innerHTML = '#div1 div ,#div2 div {font-size:' + myValue.value + 'pt;}'
+      } else {
+        myfontsize.innerHTML = ''
+      }
+    }
+
+    // 變換字體粗體，在同一個按鈕，可進行三種變換
+    var fb = 0
+    fontbold.onclick = function () {
+      if (fb == 0) {
+        // 字體一般加粗是700
+        myfontbold.innerHTML = '#div1 div ,#div2 div { font-weight: 700; }'
+        fontbold.value = '粗體 (現在是粗體)'
+        fb = 1
+      } else if (fb == 1) {
+        // 字體加到最粗是900。再加陰影，就更粗，注意X軸Y軸，直排時會對調
+        myfontbold.innerHTML = '#div1 div ,#div2 div { font-weight: 900; text-shadow: 0px 1px black; }'
+        fontbold.value = '粗體 (現在是超級粗體)'
+        fb = 2
+      } else if (fb == 2) {
+        myfontbold.innerHTML = ''
+        fontbold.value = '粗體 (現在是細字)'
+        fb = 0
+      }
+    }
+  </script>
 </BODY>
 
 </HTML>
