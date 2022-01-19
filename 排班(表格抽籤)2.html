@@ -1997,5 +1997,13 @@ window.onload=function()
 </div>
 <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()"/>
 <hr/>
-    </body>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+	// 亮色暗色模式切換的套件
+  function addDarkmodeWidget() {
+    new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
 </html>

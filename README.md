@@ -4,7 +4,10 @@
   
 >> 展示網址 https://adbdao.github.io/mycoding/  
   
->> Blogger http://adbdao.blogspot.com/  
+[單機版下載] https://github.com/adbdao/mycoding/tags  
+「單機版」也就是「全站」下載！下載後，解壓縮，點選index.html。就可啟動所有程式！  
+  
+>> 最新消息Blogger http://adbdao.blogspot.com/  
   
 ---  
 #### Git常用指令  
