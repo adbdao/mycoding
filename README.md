@@ -37,3 +37,9 @@ git push -u origin master
 git clone https://github.com/adbdao/mycoding.git  
 git remote add origin https://github.com/adbdao/mycoding.git  
 git push -u origin master  
+  
+---  
+#### 如何告訴 git 縮寫的指令  
+git config alias.co checkout  
+查看所有指令  
+git config --list  

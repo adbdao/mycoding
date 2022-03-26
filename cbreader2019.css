@@ -2,7 +2,7 @@
 
 /*主要文件 
 用em可複製「樣式」到word中編輯，用%有時候不行*/
-body {background:#000; line-height:1.2em; color:yellow; font-size:2em;}
+body {background:#000; line-height:1.4em; color:yellow; font-size:3em;}
 .SearchWord1 {color:#ffc; background: #ffff66;}
 .SearchWord2 {color:#ffc; background: #a0ffff;}
 .SearchWord3 {color:#ffc; background: #99ff99;}
