@@ -6,7 +6,7 @@
     <title>正規集 按鈕集</title>
     <base target="_blank">
 <style>
-*{border-radius: 8px;}
+/* *{border-radius: 8px;} */
 body{background: black;}
 ::selection{background: darkred;color:yellow;}
 ::-moz-selection{background: darkred;color:yellow;}
@@ -24,7 +24,7 @@ input {height: 35px;color: black;border-radius: 15px;}
 #divHidden input {background:#eaa;}
 .name {background:tan;color: darkred;}
 
-#div1 {font-size: 24pt; color: yellow;line-height: 1.2em;padding-left:1em; display: none;}
+#div1 {font-size: 24pt; color: yellow;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
 #txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
@@ -68,6 +68,7 @@ li{margin-left:1em;}
 #youValue2{width:200px;}
 </style>
     <style id="change"></style>
+    <style id="prewrap"></style>
     <script>
         var Arr1 = []
         var Arr2 = []
@@ -125,11 +126,14 @@ li{margin-left:1em;}
         }
 
         window.onload = function () {
-            txt1.onkeyup = function () {
+            txt1.onkeyup = txt1.onmouseover = function () {
                 // 回覆原輸入值
                 YY = txt1.value
+                // 運算結果以HTML呈現，教學投影用！
                 div1.innerHTML = ''
                 div1.innerHTML = txt1.value
+                // 清空div1為了<ol>的折行樣式pre-wrap
+                prewrap.innerHTML = ''
             }
             addNumber.onclick = function () {
                 zzUp()
@@ -253,6 +257,9 @@ li{margin-left:1em;}
                 // Arr1.length = 0
                 // Arr2.length = 0
                 div1.style.display = 'block'
+
+                // 加上div1為了<ol>的折行樣式
+                prewrap.innerHTML = '#div1{white-space:normal;}'
             }
 
             toOlLi.onclick = function () {
@@ -551,7 +558,7 @@ li{margin-left:1em;}
                         }
                     }
                     // 加入HTML
-                    div1.innerHTML = Arr2.join('<br/>')
+                    div1.innerHTML = Arr2.join('\n')
                     overCopy()
                     //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
                     // 後來直接在zzUp()清空所有預設的陣列
@@ -609,7 +616,7 @@ li{margin-left:1em;}
                         }
                     }
                     // 加入HTML
-                    div1.innerHTML = Arr1.join('<br/>')
+                    div1.innerHTML = Arr1.join('\n')
                     overCopy()
                     //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
                     // 後來直接在zzUp()清空所有預設的陣列
@@ -691,7 +698,7 @@ li{margin-left:1em;}
                     // 偶數行奇數行位置都一樣，因為視覺上題目在末尾，最好低一行
                     Arr1[q2] = Arr1[q2].replace(/┤/, '┼').replace(/│/, '├').replace(/┘/, '┴') + myValue.value
                     // 加入HTML
-                    div1.innerHTML = Arr1.join('<br/>')
+                    div1.innerHTML = Arr1.join('\n')
                     overCopy()
                     // 無題目的圖表
                 } else if (!myValue.value && txt1.value) {
@@ -760,7 +767,7 @@ li{margin-left:1em;}
                         }
                     }
                     // 加入HTML
-                    div1.innerHTML = Arr1.join('<br/>')
+                    div1.innerHTML = Arr1.join('\n')
                     overCopy()
                     // 跳出警示框
                 } else { alert('請在 值1 及 文本框 中輸入文字') }
@@ -1268,6 +1275,7 @@ li{margin-left:1em;}
         <input id="toOlLi" type="button" class="tan" value="加上數列<ol><li>" />
         <input id="DelTagOlLi" type="button" class="tan" value="刪<ul><ol><li>" />
         <input id="toJson" type="button" class="tan" value="轉json" />
+        <input id="open" type="file" onchange="handleFiles(this.files)" class="lb" />
     </div>
     <div id="divHidden" style="display: block;">
         <input id="btn1" type="button" value="白色系主題">
@@ -1286,7 +1294,10 @@ li{margin-left:1em;}
     <textarea id="txt1" placeholder="輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！
-所有運算結果都可以HTML呈現，請按「ShowHTML」顯示/隱藏"></textarea><br />
+
+所有運算結果都可以HTML呈現，請按「ShowHTML」顯示/隱藏
+
+也可托曳TXT檔到文本框中呈現，並以HTML呈現"></textarea><br />
     <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br />
     <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br />
     <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br />
@@ -1337,6 +1348,7 @@ li{margin-left:1em;}
         <input id="btn16" type="button" value="名-釋-法師" />
         <input id="myBA" type="button" value="自訂+前(值1)+後(值2)的符號" />
         <input id="tagBA" type="button" value="<值2 class=值3>值1" />
+        可托曳TXT檔到文本框中呈現
     </div>
     <div>
         <input id="TabToNum" type="button" class="y" value="大綱編號(首層無)(以Tab分層級)" />
@@ -1417,6 +1429,52 @@ li{margin-left:1em;}
     }
     youValue2.onkeyup = function () {
         changeFamily(youValue2.value)
+    }
+    // 讀取外部檔案，並以HTML呈現
+    function handleFiles(files) {
+        if (files.length) {
+            // 讀取單一檔案
+            let file = files[0]
+            // 讀取內容
+            let reader = new FileReader()
+            // 觸發後，呈現
+            reader.onload = function () {
+                // 運算結果以HTML呈現，教學投影用！
+                div1.innerHTML = ''
+                div1.innerHTML = txt1.value = this.result
+                // 清空div1為了<ol>的折行樣式pre-wrap
+                prewrap.innerHTML = ''
+                // 呈現HTML
+                div1.style.display = 'block'
+            }
+            // 設定以「純文字模式」呈現
+            reader.readAsText(file)
+        }
+    }
+    // 使用拖放来选择文件
+    // 第一步是创建一个drop区域
+    var open1 = document.getElementById("txt1");
+    open1.addEventListener("dragenter", dragenter, false);
+    open1.addEventListener("dragover", dragover, false);
+    open1.addEventListener("drop", drop, false);
+    // 禁止事件传播和阻止默认事件
+    function dragenter(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    function dragover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    // 从事件中获取到了dataTransfer 这个域，然后从中得到文件列表，再将它们传递给handleFiles()函数
+    function drop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        handleFiles(files);
     }
 </script>
 
