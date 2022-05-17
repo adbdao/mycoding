@@ -6,8 +6,9 @@
     <title>正規集 按鈕集</title>
     <base target="_blank">
 <style>
+@media (prefers-color-scheme: light) {
 /* *{border-radius: 8px;} */
-body{background: black;}
+/* body{background: black;} */
 ::selection{background: darkred;color:yellow;}
 ::-moz-selection{background: darkred;color:yellow;}
 input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
@@ -16,7 +17,7 @@ td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
 #tab1{border: 3px solid darkgoldenrod;}
 td{border: 1px solid indigo;}
 input {height: 35px;color: black;border-radius: 15px;}
-#div0 {background:#ccc;}
+/* #div0 {background:#ccc;} */
 #div2 {background:#ebe;color: blue;}
 #div2 input {background:#fec;}
 #div1 input {background:#aea;}
@@ -66,6 +67,68 @@ input{
 li{margin-left:1em;}
 #youValue{width:200px;}
 #youValue2{width:200px;}
+}
+@media (prefers-color-scheme: dark) {
+body{background: black;}
+::selection{background: darkred;color:yellow;}
+::-moz-selection{background: darkred;color:yellow;}
+input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:3px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+#tab1{border: 3px solid darkgoldenrod;}
+td{border: 1px solid indigo;}
+input {height: 35px;border-radius: 15px;background: #111;}
+#div0 {filter:invert(100%);}
+#div2 {background:#ebe;color: blue;}
+#div2 input {color :#fec;border-color:#fec;}
+#div1 input {background:#aea;}
+#div3 input {background:#ff8;}
+#divHidden input {color:#eaa;border-color:tan;}
+.name {background:tan;color: darkred;}
+
+#div1 {font-size: 24pt; color: yellow;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
+#txt1{width: 60vw;height: 30vh;}
+#myValue {width: 60vw;background: #aca;}
+#myValue2 {width: 60vw;background: snow;}
+#myValue3 {width: 60vw;background:bisque;}
+.g {color :gold;border-color:gold;}
+.t {color :tomato;border-color:tomato;}
+.r {color :red;border-color:red;}
+.sb {color :skyblue;border-color:skyblue;}
+.ky {color :khaki;border-color:khaki;}
+.pink {color :pink;border-color:pink;}
+.y {color :yellow;border-color:yellow;}
+.o {color :orange;border-color:orange;}
+.yg {color :yellowgreen;border-color:yellowgreen;}
+.b {color :blue;border-color:blue;}
+.lb {color :lightblue;border-color:lightblue;}
+.p {color :plum;border-color:plum;}
+.i {color :indigo;border-color:indigo;}
+.d {color :darkblue;border-color:darkblue;}
+.lg {color :limegreen;border-color:limegreen;}
+.lsg {color :lightseagreen;border-color:lightseagreen;}
+.lc {color :lightcyan;border-color:lightcyan;}
+.gy {color :greenyellow;border-color:greenyellow;}
+.tan {color :tan;border-color:tan;}
+#reload {color :yellowgreen;border-color:yellowgreen;}
+
+@media all and (max-width:700px) {
+#txt1,#myValue,#myValue2,#myValue3 {
+width: 90vw;
+}
+}
+@media all and (max-height:700px) {
+    #txt1 {
+    height: 15vw;
+    }
+    input{
+        height: 20px;
+    }
+}
+li{margin-left:1em;}
+#youValue{width:200px;}
+#youValue2{width:200px;}
+}
 </style>
     <style id="change"></style>
     <style id="prewrap"></style>
@@ -1291,16 +1354,18 @@ li{margin-left:1em;}
         <input id="youValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="youValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
     </div>
-    <textarea id="txt1" placeholder="輸入要改轉的原始資料、或原始文章。
+    <div id="div0">
+        <textarea id="txt1" placeholder="輸入要改轉的原始資料、或原始文章。
 轉換完畢後，會自動反白，並自動複製。
 再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！
 
 所有運算結果都可以HTML呈現，請按「ShowHTML」顯示/隱藏
 
 也可托曳TXT檔到文本框中呈現，並以HTML呈現"></textarea><br />
-    <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br />
-    <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br />
-    <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br />
+        <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br />
+        <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br />
+        <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br />
+    </div>
     <div>
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="reValue" type="button" class="r" value="回復原始資料" />
@@ -1477,5 +1542,21 @@ li{margin-left:1em;}
         handleFiles(files);
     }
 </script>
+<!-- 直接在純文字TXT檔頭，加上下面的標記。再把副檔名改為.HTML。就變成：教學投影
+<html>
+<style>
+    html {
+        background: black;
+        font-size: 3em;
+        color: yellow;
+        white-space: pre-wrap;
+        line-height: 1.3em;
+    }
+
+    ::selection {
+        background: darkred;
+        color: lime;
+    }
+</style> -->
 
 </html>
