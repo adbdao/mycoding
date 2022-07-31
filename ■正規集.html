@@ -853,12 +853,23 @@ li{margin-left:1em;}
             }
             NameToArr.onclick = function () {
                 zzUp()
+                // 刪除陣列中的空元素、無效值
+                Arr1 = Arr1.filter(item => item)
                 // 陣列中的逗號轉為冒號+逗號，前後再各補一冒號
-                txt1.value = "'" + Arr1.join("','") + "'"
+                // txt1.value = "'" + Arr1.join("','") + "'"
+                txt1.value = '"' + Arr1.join('","') + '"'
                 Copy()
             }
             // 加上頭尾''冒號，就變成陣列
-            NameToArr2.onclick = function () { zzUp(); addAB("'", "',") }
+            NameToArr2.onclick = function () {
+                zzUp();
+                // 刪除陣列中的空元素、無效值
+                Arr1 = Arr1.filter(item => item)
+                txt1.value = '"' + Arr1.join('",\n"') + '"'
+                // addAB('"', '",')
+                // addAB("'", "',")
+                Copy()
+            }
             btn13.onclick = function () { zzUp(); reAB('釋', '') }
             btn14.onclick = function () { zzUp(); reAB('', '法師') }
             btn15.onclick = function () { zzUp(); reAB('釋', '法師') }
@@ -1021,6 +1032,12 @@ li{margin-left:1em;}
                 zzUp()
                 // 文章轉換行符，留'。'
                 txt1.value = txt1.value.replace(/。/g, '。\n')
+                Copy()
+            }
+            ReToN2more.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'。'
+                txt1.value = txt1.value.replace(/。([^』」])/g, '。\n$1').replace(/([』|」]+)/g, '$1\n')
                 Copy()
             }
             ReToN1.onclick = function () {
@@ -1313,6 +1330,12 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/\n+/g, '\n')
                 Copy()
             }
+            DelEnter1.onclick = function () {
+                zzUp()
+                // 刪除空行，段間空一行
+                txt1.value = txt1.value.replace(/\n+/g, '\n\n')
+                Copy()
+            }
             DelAllEnter.onclick = function () {
                 zzUp()
                 // 刪除所有\n
@@ -1321,7 +1344,7 @@ li{margin-left:1em;}
             }
             Toicon.onclick = function () {
                 zzUp()
-                // 取代'icon'成為'img src'，就可以顯現小圖
+                // 取代'icon'成為'img src'，書籤就可以顯現小圖
                 txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
                 Copy()
             }
@@ -1377,6 +1400,7 @@ li{margin-left:1em;}
         <input id="ReToN3" type="button" class="o" value="、號+\n" />
         <input id="ReToN6" type="button" class="o" value="，號+\n" />
         <input id="ReToN2" type="button" class="o" value="。號+\n" />
+        <input id="ReToN2more" type="button" class="gy" value="。』號+\n" />
         <input id="ReToN1" type="button" class="y" value="。號轉\n" />
         <input id="ReVinayaNum" type="button" class="t" value="毗尼答問\n+數字" />
         <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
@@ -1387,14 +1411,15 @@ li{margin-left:1em;}
         <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
+        <input id="DelEnter1" type="button" class="gy" value="段間空一行" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />
-        <input id="ReToN" type="button" class="y" value="值1轉\n" />
-        <input id="ReToT" type="button" class="y" value="值1轉Tab" />
+        <input id="ReToN" type="button" class="y" value="值1+\n" />
+        <input id="ReToT" type="button" class="y" value="值1+Tab" />
         <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
         <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" />
-        <input id="Toicon" type="button" class="gy" value="轉icon" />
+        <input id="Toicon" type="button" class="gy" value="書籤轉icon" />
         自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
     </div>
     <div>
