@@ -25,7 +25,7 @@ input {height: 35px;color: black;border-radius: 15px;}
 #divHidden input {background:#eaa;}
 .name {background:tan;color: darkred;}
 
-#div1 {font-size: 24pt; color: yellow;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
+#div1 {font-size: 24pt; color: black;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
 #txt1{width: 60vw;height: 30vh;}
 #myValue {width: 60vw;background: #aca;}
 #myValue2 {width: 60vw;background: snow;}
@@ -959,7 +959,7 @@ li{margin-left:1em;}
             htmlTojs.onclick = function () {
                 // 將html文檔變成不分段的一整行，加入v4search的node.js，以便直接生成html檔。無\n
                 zzUp()
-                txt1.value = Arr1.join('').replace(/ +/g, ' ')
+                txt1.value = Arr1.join('').replace(/\s+/g, ' ')
                 Copy()
             }
 
@@ -1409,8 +1409,8 @@ li{margin-left:1em;}
     <div>
         <input id="DelTag" type="button" class="tan" value="刪標記<>" />
         <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
-        <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
+        <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelEnter1" type="button" class="gy" value="段間空一行" />
     </div>
     <div class="name">
