@@ -1324,6 +1324,12 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/\d+\. /g, '').replace(/\d+◣/g, '')
                 Copy()
             }
+            DelRdg.onclick = function () {
+                zzUp()
+                // 刪除校勘符號
+                txt1.value = txt1.value.replace(/\[＊\]/g, '').replace(/\[\w+\]/g, '').replace(/\( ?[CBETA|大正][^)]+\)/g, '')
+                Copy()
+            }
             DelEnter.onclick = function () {
                 zzUp()
                 // 刪除空行
@@ -1409,6 +1415,7 @@ li{margin-left:1em;}
     <div>
         <input id="DelTag" type="button" class="tan" value="刪標記<>" />
         <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
+        <input id="DelRdg" type="button" class="tan" value="刪校勘" />
         <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelEnter1" type="button" class="gy" value="段間空一行" />
