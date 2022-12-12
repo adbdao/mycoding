@@ -902,6 +902,8 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       '9': '九'
     }
     function changeADYear() {
+      // 再做日期更新
+      dateAdd()
       var all = []
       var ChineseYear = []
       var ChineseYear1 = []
@@ -1064,6 +1066,8 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     function JTNames() {
       // 先做名單檢測
       NameTest()
+      // 再做日期更新
+      dateAdd()
       // 若無誤就+1，並且開始換轉
       if (NameTestAlert == 1) {
         // 先刪除舊表格，不然會一直增加
@@ -1244,6 +1248,8 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     function JTNamesBig() {
       // 先做名單檢測
       NameTest()
+      // 再做日期更新
+      dateAdd()
       // 若無誤就+1，並且開始換轉
       if (NameTestAlert == 1) {
         // 先刪除舊表格，不然會一直增加
@@ -1729,6 +1735,17 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     var tY = Today.getFullYear();
     var tM = Today.getMonth();
     var tD = Today.getDate();
+    function dateAdd() {
+        if (setH.value) {
+          // 優先運算HTML標準日期框中的日期
+          var sH = []
+          sH = setH.value.split('-')
+          Today.setFullYear(Number(sH[0]), Number(sH[1] - 1), Number(sH[2]))
+          tY = Today.getFullYear();
+          tM = Today.getMonth();
+          tD = Today.getDate();
+        }
+      }
     //////////////////////////////////////////////////////////////////////////////
 
     var width = "130";
@@ -2508,6 +2525,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     <li>依照〔西元及民國〕年份，每年自動依系統日期，算出並更正年齡、生肖。</li>
     <li>《功德主名冊》，人名太多直接列印會混亂，所以請複製至Word再列印</li>
     <li>先把「護法會」名單貼到右邊的淺黃色的文本框中，「護法會」格式不限，只要含有「人名」即可！再按【名單(與護法會)檢驗】，即可一次檢驗出「名冊」與「護法會」重複的人名</li>
+    <li>可自由設定日期，設定好後，直接按前3按鈕，如果不反應，請按一下〔新日期〕</li>
   </ol>
   <input id="btn2" type="button" value="批次轉農曆日期" onclick="myCalendar()" />__<input id="rebtn" type="button" value="復原" onclick="T5()"
   />__<input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
@@ -2520,7 +2538,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
   <input class="b" type="button" value="齋天小份名冊A4直排縱向_直接列印" onclick="JTNames()" />__
   <input class="b" type="button" value="齋天疏文功德主名冊A4橫排_複製至Word再列印" onclick="JTNamesBig()" />
   <br/>
-  <input class="my" type="button" value="名單(與護法會)檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />
+  <input class="my" type="button" value="名單(與護法會)檢驗，只檢出空白欄，檢測功能已加入前2按鈕" id="test" onclick="NameTest()" />__<b class="c">自由設定日期，設定好後，直接按前3按鈕，如果不反應，請按一下〔新日期〕</b><input class="my" id="setH" type="date" /><input class="my" id="OK" type="button" value="新日期" onclick="dateAdd()"/>
   <br/>
   <input class="k" type="number" id="LittleNumNum" placeholder="流水號開始號碼" />
   <input class="k" type="button" value="〔顯示/隱藏〕流水號" id="LittleNumAddId" onclick="LittleNumAdd()" />
