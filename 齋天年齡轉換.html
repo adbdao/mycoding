@@ -1136,7 +1136,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
           // 人名開頭才進入運算
           if (Arr2[i][0] == '男' || Arr2[i][0] == '女' || Arr2[i][0] == '釋') {
             // 疏文題目
-            aDiv.innerHTML = '<p style="margin: 10mm 10mm 0 11mm;font-size:46pt;font-weight: bold;text-shadow: 0px 0px black;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
+            aDiv.innerHTML = '<p style="margin: 0mm 10mm 0 10mm;font-size:46pt;font-weight: bold;text-shadow: 0px 0px black;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
             // 加上疏文流水編號
             for (var k = 1; k < Arr1.length; k++) {
               if (Arr2[i + k][0] == '♂') {
@@ -1150,7 +1150,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // aDiv.innerHTML += '<div id="div4" style="width: 10mm;height: 23mm;font-size: 10pt;font-family: 標楷體;margin: 36px 0 0 20px;padding: 0 0;line-height: 22px;">中華民國<br/>中　　國</div>'
             // 增加一空行，調整位置
             // 用em可複製「樣式」到word中編輯，用%有時候不行
-            aDiv.innerHTML += '<font style="font-size:0.3em;">　</font><br/>'
+            // aDiv.innerHTML += '<font style="font-size:0.3em;">　</font><br/>'
             // 加入地址
             for (var k = 1; k < Arr1.length; k++) {
               // 地址若有多行，則繼續加入地址，否則中止循環
