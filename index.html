@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base target="_blank">
     <link rel="icon" href="pic/老和尚的蓮花.ico" />
+    <link rel="canonical" href="https://adbdao.github.io/mycoding/" />
+    <link rel="manifest" href="/mycoding/mycoding.webmanifest">
     <style>
         /**{border-radius: 22px;}*/
 
@@ -173,17 +175,66 @@ var ArrLi = ["齋天年齡轉換.html","農曆台灣月曆-課誦本佛誕日.ht
     <style id="search_style"></style>
     <style id="color"></style>
 </head>
-
 <body>
     <div id="mula">
-        <h1 class="big">自己程式的目錄 <input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢" onkeyup="dt()">
+        <h1 class="big">自己程式的目錄 <input type="text" id="search" style="height:14pt;" placeholder="輸入關鍵字查詢"
+                onkeyup="dt()">
             <input id="nk" type="button" class="t" value="D3圖表" onclick="MyIni('3_')">
             <input id="nk" type="button" class="b" value="Link連結清單" onclick="MyIni('link')">
             <input id="nk" type="button" class="yg" value="CSS" onclick="MyIni('.css')">
             <input id="nocolor" type="button" value="淺色主題">
+            <button id="addPWA" disabled>安裝成APP<br />iPhone請使用「加到主頁面」</button>
         </h1>
         <div class="small"><a href="http://adbdao.blogspot.com/2018/07/blog-post.html">　↗　部落格的資料連結點　↗</a></div>
     </div>
+    <script>
+        window.addEventListener('load', function () {
+            var btnSave = document.getElementById('addPWA')
+            var savedPrompt
+            // 註冊serviceWorker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register(
+                    // Github路徑
+                    '/mycoding/pwabuilder-sw.js',
+                    { scope: '/mycoding/' }
+                )
+                    .then(function (registration) {
+                        console.log('ServiceWorker registration successful with scope:', registration.scope)
+                        // alert('安裝成功')
+                    }).catch(function (err) {
+                        console.log('ServiceWorker registration failed:', err)
+                        // alert('安裝失敗，請重新安裝')
+                    })
+            }
+            // 安裝按鈕
+            window.addEventListener('beforeinstallprompt', function (e) {
+                e.preventDefault()
+                btnSave.removeAttribute('disabled')
+                savedPrompt = e
+                // 我設定true
+                return true
+                // return false
+            })
+            // 安裝按鈕
+            btnSave.addEventListener('click', function () {
+                if (savedPrompt !== undefined) {
+                    savedPrompt.prompt()
+
+                    savedPrompt.userChoice.then(function (result) {
+
+                        if (result.outcome == 'dismissed') {
+                            // alert('使用者關閉主營幕')
+                            console.log('User dismissed homescreen install')
+                        } else {
+                            // alert('使用者加入主營幕')
+                            console.log('User added to homescreen')
+                        }
+                        savedPrompt = null
+                    })
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>
