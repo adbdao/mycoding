@@ -3,12 +3,14 @@
 > #### 聲明：其中有些函數，是網路上擷取來的，不完全是我寫的，著作權屬於原著者，我只是拿公開的程式碼來使用、開發…而已！  
   
 >> 展示網址 https://adbdao.github.io/mycoding/  
+>###  漸進式網站PWA  
+  1. Android自動安裝成APP  
+  2. iPhone請使用「加到主頁面」 
   
 [單機版下載] https://github.com/adbdao/mycoding/tags  
 「單機版」也就是「全站」下載！下載後，解壓縮，點選index.html。就可啟動所有程式！  
   
->> 最新消息Blogger http://adbdao.blogspot.com/  
-  
+> 最新資訊 http://adbdao.blogspot.com/2018/07/blog-post.html  
 ---  
 #### Git常用指令  
 * 刪除上一次推送。出問題時，使用此命令  

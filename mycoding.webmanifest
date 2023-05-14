@@ -1,9 +1,9 @@
 {
-    "name": "mycoding",
+    "name": "道中程式PWA",
     "short_name": "道中程式",
-    "description": "道中程式APP",
+    "description": "道中程式PWA",
     "lang": "zh-Hant-TW",
-    "version": "1.0",
+    "version": "7.1",
     "author": "DaoChung",
     "icons": [
         {
