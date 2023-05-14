@@ -766,7 +766,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       if (SY > 1908 && SY < 1912) yDisplay = '宣統' + (((SY - 1908) == 1) ? '元' : SY - 1908);
       if (SY > 1911) yDisplay = '民國' + (((SY - 1911) == 1) ? '元' : SY - 1911);
 
-      document.getElementById("GZ").innerHTML = ('當前月曆：' + (yDisplay + '年' + (SM + 1) + '月').big() + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1027) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年").fontcolor('white');
+      document.getElementById("GZ").innerHTML = ('當前月曆：' + (yDisplay + '年' + (SM + 1) + '月').big() + cyclical(SY - 1900 + 36) + '年【' + Animals[(SY - 4) % 12] + '】' + "<br/>" + "中國佛曆" + (SY + 1027) + "年 " + "世界佛曆" + (SM > 4 ? (SY + 544) : (SY + 543)) + "年");
 
       //  document.getElementById("YMBG").innerHTML = "&nbsp;" + SY + "<br/>&nbsp;" + monthName[SM];//背景年份月份
 
@@ -1312,7 +1312,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     
     #GX {
       font-size: 14pt;
-      color: lightyellow
+      /* color: lightyellow */
     }
     
     .num {
@@ -1396,12 +1396,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 -->
     <TABLE bordercolor="silver" padding="0" border=3 cellpadding="0" cellspacing="0" id="tab1">
       <tr>
-        <td bgColor=darkslategray colSpan=7 align=right>
+        <td bgColor=aquamarine colSpan=7 align=right>
           <FONT id=GX></FONT><br/></td>
       </tr>
       <TR>
-        <TD bgColor=#540 colSpan=7 align=right>
-          <FONT style="FONT-SIZE: 10pt" color=#ffffff size=2>
+        <TD bgColor=paleturquoise colSpan=7 align=right>
+          <FONT style="FONT-SIZE: 10pt" color=#000 size=2>
             西元
             <SELECT style="FONT-SIZE: 9pt;color:darkred" onchange=changeCld() name=SY> 
               <SCRIPT language=Javascript>
