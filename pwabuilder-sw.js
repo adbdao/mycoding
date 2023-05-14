@@ -54,30 +54,7 @@ self.addEventListener('install', async (event) => {
         "農曆台灣月曆-手機3.html",
         "農曆台灣月曆-手機4六個月的月曆.html",
         "農曆台灣月曆-課誦本佛誕日.html",
-        "齋天年齡轉換.html",
-        "pic/AccelonLogo2014.png",
-        "pic/dead-other.jpg",
-        "pic/dead.png",
-        "pic/dead2-1.png",
-        "pic/dead2.png",
-        "pic/dead3.png",
-        "pic/dead4-1.png",
-        "pic/dead4.png",
-        "pic/live-other.png",
-        "pic/live.png",
-        "pic/live2.png",
-        "pic/live3.png",
-        "pic/pic-bg",
-        "pic/wun-1.png",
-        "pic/wun.png",
-        "pic/wun2-1.png",
-        "pic/wun2.png",
-        "pic/老和尚的蓮花.ico",
-        "pic/pic-bg/live-other.png",
-        "pic/pic-bg/live.png",
-        "pic/pic-bg/live2.png",
-        "pic/pic-bg/live3.png",
-        "pic/pic-bg/wun2-1.png"
+        "齋天年齡轉換.html"
       ]))
   );
 });
