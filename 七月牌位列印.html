@@ -32,7 +32,7 @@
 
         .wun {
             /*背景圖片*/
-            background-image: url(pic/wun-1.png);
+            background-image: url(pic/wundead.png);
             /*滿版列印*/
             background-size: 100% 100%;
             /*有邊界列印
@@ -41,7 +41,7 @@
 
         .wun2 {
             /*背景圖片*/
-            background-image: url(pic/wun2-1.png);
+            background-image: url(pic/wunlive.png);
             /*滿版列印*/
             background-size: 100% 100%;
             /*有邊界列印
@@ -344,7 +344,14 @@ tr:hover{background: wheat;}*/
 
         // 轉換紅金白色蓮座
         function SitColor(a, b) {
-            changeColor.innerHTML = '.live{background-image: url(pic/live' + a + '.png);}.dead{background-image: url(pic/dead' + b + '.png);}'
+            if (body1.style.background == 'pink') {
+                // 本來在changeColor.innerHTML中，加入css，現在直接改mula.innerHTML的css即可
+                mula.innerHTML = mula.innerHTML.replace(/\(pic(\/pic-bg)?\/(wunlive|live)(\d)?/g, '(pic/pic-bg/$2' + a)
+                mula.innerHTML = mula.innerHTML.replace(/\(pic\/(wundead|dead)(\d)?/g, '(pic/$1' + b)
+            } else {
+                mula.innerHTML = mula.innerHTML.replace(/\(pic(\/pic-bg)?\/(wunlive|live)(\d)?/g, '(pic/$2' + a)
+                mula.innerHTML = mula.innerHTML.replace(/\(pic\/(wundead|dead)(\d)?/g, '(pic/$1' + b)
+            }
         }
 
         // 海濤法師慈悲僧伽會牌位
@@ -568,10 +575,11 @@ tr:hover{background: wheat;}*/
                 change.innerHTML = '.name1 {margin: 70mm 9mm 0 0;}.name2 {margin: 72mm 11mm 0 0;}.sit1 {margin: -120mm -29mm 0 0;}.son {margin: 102mm -6mm 0 0;}'
             }
 
-            btnP.onclick = function () {
-                SitColor('-other', '4')
-                changeColor.innerHTML += '.live{background-size: 107% 95%;}.dead{background-size: 97% 99%;}.name1{transform: scale(0.7,0.7);}'
-            }
+            // 2023-05-18重新製作dead4圖片，所以不必這個函式
+            // btnP.onclick = function () {
+            //     SitColor('-other', '4')
+            //     changeColor.innerHTML += '.live{background-size: 107% 95%;}.dead{background-size: 97% 99%;}.name1{transform: scale(0.7,0.7);}'
+            // }
 
             // 隱藏下方所有按鈕
             btnHidden.onclick = function () {
@@ -586,27 +594,14 @@ tr:hover{background: wheat;}*/
             // 本來想用CSS語法，改變圖片顏色，但太複雜太難控制，還是改用「去背」的圖片
             btnpink.onclick = function () {
                 // 先刪除舊的CSS語法，不然會亂掉
-                if (changeColor.innerHTML) {
-                    if (body1.style.background == 'pink' && /pic-bg/.test(changeColor.innerHTML)) {
-                        body1.style.background = ''
-                        changeColor.innerHTML = ''
-                    } else {
-                        body1.style.background = 'pink'
-                        // 可以直接用正規表達式改CSS語法，改圖片路徑，變成新的去背的圖片
-                        changeColor.innerHTML = changeColor.innerHTML.replace('(pic/', '(pic/pic-bg/')
-                    }
+                if (body1.style.background == 'pink') {
+                    body1.style.background = ''
+                    // 可以直接用正規表達式改CSS語法，改圖片路徑，變成新的去背的圖片
+                    // 可以雙向改回原來的圖片
+                    mula.innerHTML = mula.innerHTML.replace(/\(pic\/pic-bg\/(wunlive|live)/g, '(pic/$1')
                 } else {
-                    // 設定可以雙向改回原來的圖片
-                    if (body1.style.background == 'pink' && /pic-bg/.test(mula.innerHTML)) {
-                        body1.style.background = ''
-                        mula.innerHTML = mula.innerHTML.replace('(pic/pic-bg/wun2-1.png', '(pic/wun2-1.png')
-                        mula.innerHTML = mula.innerHTML.replace('(pic/pic-bg/live.png', '(pic/live.png')
-                    } else {
-                        body1.style.background = 'pink'
-                        mula.innerHTML = mula.innerHTML.replace('(pic/wun2-1.png', '(pic/pic-bg/wun2-1.png')
-                        mula.innerHTML = mula.innerHTML.replace('(pic/live.png', '(pic/pic-bg/live.png')
-                        body1.style.background = 'pink'
-                    }
+                    body1.style.background = 'pink'
+                    mula.innerHTML = mula.innerHTML.replace(/\(pic\/(wunlive|live)/g, '(pic/pic-bg/$1')
                 }
 
                 // document.getElementsByTagName('style')[0].innerHTML.replace(/(background\-image\: url\(\a+\)\;)/g,'$1,linear-gradient(black ,red ,black );background-blend-mode:color-dodge;')
@@ -671,7 +666,7 @@ tr:hover{background: wheat;}*/
         <input type="button" id="btnR" value="紅色蓮座" onclick="SitColor('2','2')" />
         <input type="button" id="btnY" value="金色蓮座" onclick="SitColor('3','3')" />
         <input type="button" id="btnW" value="黑白蓮座" onclick="SitColor('','')" />
-        <input type="button" id="btnP" value="敦煌華蓋" />
+        <input type="button" id="btnP" value="敦煌華蓋" onclick="SitColor('4','4')" />
         <input type="button" id="btnpink" value="祿位轉紅底色，牌位無" />
         <hr />
         <input type="button" id="btn5" value="排序人名資料" onclick="cleanData(18,15,12)" />
@@ -740,7 +735,7 @@ tr:hover{background: wheat;}*/
         <ol>
             <li>點選☑與□可互相切換</li>
             <li>亡者名，最多9字，<b>多餘的不顯示</b></li>
-            <li>可切換紅色金色蓮座(悟光精舍的不行)</li>
+            <li>可切換紅色金色蓮座</li>
         </ol>
 
         <h3>※列印方法：</h3>
