@@ -1,0 +1,1633 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>打字取代表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_blank">
+<style>
+@media (prefers-color-scheme: light) {
+#qdb{height: 50px;}
+/* *{border-radius: 8px;} */
+/* body{background: black;} */
+::selection{background: darkred;color:yellow;}
+::-moz-selection{background: darkred;color:yellow;}
+input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:5px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+#tab1{border: 3px solid darkgoldenrod;}
+td{border: 1px solid indigo;}
+input {height: 35px;color: black;border-radius: 15px;}
+/* #div0 {background:#ccc;} */
+#div2 {background:#ebe;color: blue;}
+#div2 input {background:#fec;}
+#div1 input {background:#aea;}
+#div3 input {background:#ff8;}
+#divHidden input {background:#eaa;}
+.name {background:tan;color: darkred;}
+
+#div1 {font-size: 24pt; color: black;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
+#txt1{width: 50vw;height: 30vh;}
+#txt2{width: 30vw;height: 30vh;}
+#myValue {width: 60vw;background: #aca;}
+#myValue2 {width: 60vw;background: snow;}
+#myValue3 {width: 60vw;background:bisque;}
+.g {background: gold;}
+.t {background: tomato;}
+.r {background: red;}
+.sb {background: skyblue;}
+.ky {background: khaki;}
+.pink {background: pink;}
+.y {background: yellow;}
+.o {background: orange;}
+.yg {background: yellowgreen;}
+.b {background: blue;}
+.lb {background: lightblue;}
+.p {background: plum;}
+.i {background: indigo;}
+.d {background: darkblue;}
+.lg {background: limegreen;}
+.lsg {background: lightseagreen;}
+.lc {background: lightcyan;}
+.gy {background: greenyellow;}
+.tan {background: tan;}
+#reload {height: 40px;background: yellowgreen;}
+
+@media all and (max-width:700px) {
+#txt1,#txt2,#myValue,#myValue2,#myValue3 {
+width: 90vw;
+}
+}
+@media all and (max-height:700px) {
+#txt1,#txt2 {
+height: 15vw;
+}
+input{
+    height: 20px;
+}
+}
+li{margin-left:1em;}
+#youValue{width:200px;}
+#youValue2{width:200px;}
+}
+@media (prefers-color-scheme: dark) {
+#qdb{height: 50px;}
+body{background: black;}
+::selection{background: darkred;color:yellow;}
+::-moz-selection{background: darkred;color:yellow;}
+input:hover,textarea:hover{border: 2px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+input:active,textarea:active{border-color: indigo #f3f #f6f indigo;border-width:3px;border-style:solid;box-shadow: 5px -5px 20px darkorchid;}
+td:hover{border: 1px solid fuchsia;box-shadow: 5px 5px 20px darkorchid;}
+#tab1{border: 3px solid darkgoldenrod;}
+td{border: 1px solid indigo;}
+input {height: 35px;border-radius: 15px;background: #111;}
+#div0 {filter:invert(100%);}
+#div2 {background:#ebe;color: blue;}
+#div2 input {color :#fec;border-color:#fec;}
+#div1 input {background:#aea;}
+#div3 input {background:#ff8;}
+#divHidden input {color:#eaa;border-color:tan;}
+.name {background:tan;color: darkred;}
+
+#div1 {font-size: 24pt; color: yellow;line-height: 1.2em;padding-left:1em; display: none;white-space: pre-wrap;}
+#txt1{width: 60vw;height: 30vh;}
+#txt2{width: 30vw;height: 30vh;}
+#myValue {width: 60vw;background: #aca;}
+#myValue2 {width: 60vw;background: snow;}
+#myValue3 {width: 60vw;background:bisque;}
+.g {color :gold;border-color:gold;}
+.t {color :tomato;border-color:tomato;}
+.r {color :red;border-color:red;}
+.sb {color :skyblue;border-color:skyblue;}
+.ky {color :khaki;border-color:khaki;}
+.pink {color :pink;border-color:pink;}
+.y {color :yellow;border-color:yellow;}
+.o {color :orange;border-color:orange;}
+.yg {color :yellowgreen;border-color:yellowgreen;}
+.b {color :blue;border-color:blue;}
+.lb {color :lightblue;border-color:lightblue;}
+.p {color :plum;border-color:plum;}
+.i {color :indigo;border-color:indigo;}
+.d {color :darkblue;border-color:darkblue;}
+.lg {color :limegreen;border-color:limegreen;}
+.lsg {color :lightseagreen;border-color:lightseagreen;}
+.lc {color :lightcyan;border-color:lightcyan;}
+.gy {color :greenyellow;border-color:greenyellow;}
+.tan {color :tan;border-color:tan;}
+#reload {color :yellowgreen;border-color:yellowgreen;}
+
+@media all and (max-width:700px) {
+#txt1,#txt2,#myValue,#myValue2,#myValue3 {
+width: 90vw;
+}
+}
+@media all and (max-height:700px) {
+#txt1,#txt2 {
+height: 15vw;
+}
+input{
+    height: 20px;
+}
+}
+li{margin-left:1em;}
+#youValue{width:200px;}
+#youValue2{width:200px;}
+}
+</style>
+    <style id="change"></style>
+    <style id="prewrap"></style>
+    <script>
+        var Arr1 = []
+        var Arr2 = []
+        var Arr3 = []
+        var Arr4 = []
+
+        var ZZ, YY, XX, AA, BB, CC, DD
+        var Accelon3Tag = ['類', '年', '項', '詩', '文', '卷', '粗', '冊']
+
+        function zzUp() {
+            //直接清空所有預設的陣列，不然函數運算會互相干擾
+            Arr1.length = 0
+            Arr2.length = 0
+            Arr3.length = 0
+            Arr4.length = 0
+            // 回覆上一步的值
+            ZZ = txt1.value
+            // 預先導入陣列
+            Arr1 = txt1.value.split('\n')
+        }
+        function Copy() {
+            // 結束時選取並複製文本框中的內容
+            txt1.select()
+            document.execCommand('Copy')
+            // 焦點移至最頂端(x軸,y軸)
+            window.scrollTo(0, 0)
+        }
+        function overCopy() {
+            // 結束時呈現結果
+            txt1.value = Arr1.join('\n')
+            // 結束時選取並複製文本框中的內容
+            txt1.select()
+            document.execCommand('Copy')
+            // 焦點移至最頂端(x軸,y軸)
+            window.scrollTo(0, 0)
+        }
+        function reAB(a, b) {
+            // 先刪除所有前後的「釋，法師」
+            var ntr = txt1.value.replace(/釋|法師|師/g, '').split('\n')
+            // 加入前後的值
+            for (var i = 0; i < ntr.length; i++) {
+                ntr[i] = a + ntr[i] + b
+            }
+            txt1.value = ntr.join('\n')
+            Copy()
+        }
+        function addAB(a, b) {
+            var ntr = txt1.value.split('\n')
+            // 加入前後的值
+            for (var i = 0; i < ntr.length; i++) {
+                ntr[i] = a + ntr[i] + b
+            }
+            txt1.value = ntr.join('\n')
+            Copy()
+        }
+
+        window.onload = function () {
+            txt1.onkeyup = txt1.onmouseover = function () {
+                // 回覆原輸入值
+                YY = txt1.value
+                // 運算結果以HTML呈現，教學投影用！
+                div1.innerHTML = ''
+                div1.innerHTML = txt1.value
+                // 清空div1為了<ol>的折行樣式pre-wrap
+                prewrap.innerHTML = ''
+            }
+            addNumber.onclick = function () {
+                zzUp()
+                // Arr1在zzUp已經有賦值，所以要清空
+                Arr1.length = 0
+                // 可自訂數量
+                if (myValue.value > 0) {
+                    AA = myValue.value
+                } else {
+                    AA = 99
+                }
+                for (var i = 0; i < AA; i++) {
+                    Arr1[i] = i + 1
+                }
+                overCopy()
+            }
+            addNumberZero.onclick = function () {
+                zzUp()
+                // Arr1在zzUp已經有賦值，所以要清空
+                Arr1.length = 0
+                // 可自訂數量
+                if (myValue.value > 0) {
+                    AA = myValue.value
+                } else {
+                    AA = 99
+                }
+                BB = String(AA).length
+                for (var i = 0; i < AA; i++) {
+                    Arr1[i] = i + 1
+                    CC = String(Arr1[i]).length
+                    for (var j = 0; j < (BB - CC); j++) {
+                        Arr1[i] = '0' + Arr1[i]
+                    }
+                    // Arr1[i]=(i+1)<10?'0'+(i+1):''+(i+1)
+                }
+                overCopy()
+            }
+            function add1911(year) {
+                zzUp()
+                for (var i = 0; i < Arr1.length; i++) {
+                    Arr2[i] = []
+                    // 拆分出年份，再導入二維陣列
+                    Arr2[i] = Arr1[i].split(/[^\n\d]/)
+                    // 文字轉數字
+                    Arr2[i][0] = Number(Arr2[i][0]) + Number(year)
+                }
+                // 為了導入excel所以用"/"號
+                txt1.value = Arr2.join('\n').replace(/,/g, '/')
+                Copy()
+            }
+            ch1911.onclick = function () {
+                add1911(1911)
+            }
+            ch1911x.onclick = function () {
+                add1911(-1911)
+            }
+            reValue.onclick = function () {
+                // 回覆原輸入的值
+                txt1.value = YY
+            }
+            reUp.onclick = function () {
+                // 回覆上一步的值
+                txt1.value = ZZ
+            }
+
+            function addULOL(tag, tagEnd, addStyle) {
+                //要清空陣列，不然HTML會重複呈現。會被其他函數的運算干擾
+                // 後來直接在zzUp()清空所有預設的陣列
+                // Arr1.length = 0
+                // Arr2.length = 0
+                zzUp()
+                // 刪除所有<ul><ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?ul\>|\<\/?li\>/gi, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上<li>符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1<li>$2</li>'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上<ol>符號。但有些層級還是無法分出，不如用「大綱層級」
+                // for (var k = 0; k < Arr1.length; k++) {
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的<li>比前一行縮排，即加上<ol>
+                        if (Arr1[i].indexOf('<li>') < Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', tag)
+                        }
+                        // 下一行的<li>比前一行凸排，即加上</ol></li>
+                        if (Arr1[i].indexOf('<li>') > Arr1[i + 1].indexOf('<li>')) {
+                            Arr1[i] = Arr1[i].replace('</li>', '</li>' + tagEnd + '</li>')
+                        }
+                    }
+                    // 層級的條件(倒算)
+                    // if (Arr1[i + 1]) {
+                    //     if (Arr1[i].substr(k, 4) == '<li>' && Arr1[i + 1].substr(k + 1, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '<ol>')
+                    //     }
+                    //     if (Arr1[i].substr(k + 1, 4) == '<li>' && Arr1[i + 1].substr(k, 4) == '<li>') {
+                    //         Arr1[i] = Arr1[i].replace('</li>', '</li></ol></li>')
+                    //     }
+                    // }
+                }
+                // }
+                // 補上頭尾的標記，順便加上css語法，加大縮排
+                // Arr1.unshift('<style>ol li{margin-left:1em;}</style><ol>')
+                Arr1.unshift(addStyle + tag)
+                Arr1.push(tagEnd)
+                overCopy()
+                // 加入並呈現HTML
+                div1.innerHTML = Arr1.join('\n')
+                //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
+                // 後來直接在zzUp()清空所有預設的陣列
+                // Arr1.length = 0
+                // Arr2.length = 0
+                div1.style.display = 'block'
+
+                // 加上div1為了<ol>的折行樣式
+                prewrap.innerHTML = '#div1{white-space:normal;}'
+            }
+
+            toOlLi.onclick = function () {
+                addULOL('<ol>', '</ol>', '')
+            }
+            toUlLi.onclick = function () {
+                addULOL('<ul>', '</ul>', '')
+            }
+            ReVinayaShowOl.onclick = function () {
+                // 文章轉換行符，留'。』」'
+                txt1.value = txt1.value.replace(/。([^』」])/g, '。\n$1').replace(/([』|」]+)/g, '$1\n')
+                addULOL('<ol>', '</ol>', '')
+            }
+            ReVinayaShowUl.onclick = function () {
+                // 文章轉換行符，留'。』」'
+                txt1.value = txt1.value.replace(/。([^』」])/g, '。\n$1').replace(/([』|」]+)/g, '$1\n')
+                addULOL('<ul>', '</ul>', '')
+            }
+
+            toJson.onclick = function () {
+                zzUp()
+                // 預備運算用
+                AA = 0
+                BB = 0
+                CC = ''
+                // var Arr1 = txt1.value.split('\n')  ,Arr2 =[]
+                // 刪除所有<ol><li>標記語言的標記
+                // txt1.value = txt1.value.replace(/\<\/?ol\>|\<\/?li\>/g, '')
+                // 刪除空白字元的行
+                for (var k of Arr1) {
+                    // 跳過空行，不處理空白符號的行
+                    if (/^\s*$/.test(k)) {
+                        continue
+                    } else {
+                        // 先加上{"name符號
+                        Arr2.push(k.replace(/^(\s*)(.+)/, '$1{"name":"$2"},'))
+                    }
+                }
+                // 導入Arr1比較好運算
+                Arr1 = Arr2
+
+                // 作判斷，加上children。但有些層級還是無法分出
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 必須判斷Arr1[i + 1]存在
+                    if (Arr1[i + 1]) {
+                        // 下一行的{比前一行縮排，即加上children
+                        if (Arr1[i].indexOf('{') < Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', ',"children":[')
+                            // 算出有幾個children
+                            AA++
+                        }
+                        // 下一行的{比前一行凸排，即加上]}
+                        if (Arr1[i].indexOf('{') > Arr1[i + 1].indexOf('{')) {
+                            Arr1[i] = Arr1[i].replace('},', '},]},')
+                            // 算出有幾個凸排
+                            BB++
+                        }
+                    }
+                }
+                // Arr1.unshift('{[')
+                // 補上不足的]}
+                if (AA > BB) {
+                    for (var i = 0; i < (AA - BB); i++) {
+                        CC += ']},\n'
+                    }
+                }
+                // 刪除最後一個,
+                CC = CC.substring(0, (CC.length - 2))
+                Arr1.push(CC)
+                overCopy()
+                // 加入並呈現HTML
+                // div1.innerHTML = Arr1.join('\n')
+                //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
+                // Arr1.length=0
+                // div1.style.display = 'block'
+            }
+
+            TabToNumEvery.onclick = function () {
+                TabToNumEveryFunction('t')
+            }
+            TabToNumEvery2.onclick = function () {
+                TabToNumEveryFunction('t1')
+            }
+            SpaceToNumEvery.onclick = function () {
+                TabToNumEveryFunction('4')
+            }
+            TabToNum.onclick = function () {
+                TabToNumFunction('')
+            }
+            TabToAccelon3Tag.onclick = function () {
+                TabToNumFunction('a')
+                // 刪除未定義的標記<undefined>
+                txt1.value = txt1.value.replace(/\<\/?undefined\>/gi, '')
+            }
+            function TabToNumFunction(taball) {
+                // 最早的大綱編號，及後來加Accelon3標記…，整合為一個函數
+                zzUp()
+                // 號碼的變量
+                var j = 1
+                // 可自訂分層數量
+                if (myValue.value > 0) {
+                    AA = myValue.value
+                } else {
+                    AA = 8
+                }
+                for (var k = 0; k < AA; k++) {
+                    for (var i = 0; i < Arr1.length; i++) {
+                        // 刪除空行，及行尾空白
+                        Arr1[i] = Arr1[i].replace(/\s+$/, '')
+                        // 最早的大綱編號，及後來加Accelon3標記…，整合為一個函數
+                        if (taball == 'a') {
+                            // 行首條件
+                            if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(0) != '\<' && Arr1[i].charAt(0) != '') {
+                                Arr1[i] = '<' + Accelon3Tag[k] + '>' + Arr1[i] + '</' + Accelon3Tag[k] + '>'
+                            }
+                            // 分層條件
+                            if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
+                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), '<' + Accelon3Tag[k + 1] + '>' + Arr1[i].charAt(k + 1)) + '</' + Accelon3Tag[k + 1] + '>'
+                                j++
+                            }
+                        } else {
+                            if (Arr1[i].charAt(k) == '\t' && Arr1[i].charAt(k + 1) != '\t') {
+                                Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
+                                j++
+                            }
+                        }
+                    }
+                    // 歸零，下一層才會從1開始
+                    j = 1
+                }
+                overCopy()
+            }
+            function TabToNumEveryFunction(tab4p) {
+                // 大綱編號多層：tab、四個空白…，整合為一個函數
+                zzUp()
+                // 號碼的變量
+                var j = 1
+                var m = 1
+                // 可自訂分層數量
+                if (myValue.value > 0) {
+                    AA = myValue.value
+                } else {
+                    AA = 8
+                }
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 刪除空行，及行尾空白
+                    Arr1[i] = Arr1[i].replace(/\s+$/, '')
+                    // 大綱編號多層：tab、四個空白…，整合為一個函數
+                    // 行首條件
+                    if (tab4p == 't') {
+                        if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
+                            Arr1[i] = m + '. ' + Arr1[i]
+                            m++
+                        }
+                    } else if (tab4p == 't1') {
+                        if (myValue.value) {
+                            if (Arr1[i].charAt(0) != '\t' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　') {
+                                Arr1[i] = myValue.value + Arr1[i]
+                                // m++
+                            }
+                        }
+                    } else if (tab4p == '4') {
+                        if (Arr1[i].substr(0, 4) != '    ' && Arr1[i].charAt(1) != '.' && Arr1[i] != '' && Arr1[i].charAt(0) != '　' && Arr1[i].charAt(0) != '\t') {
+                            Arr1[i] = m + '. ' + Arr1[i]
+                            m++
+                        }
+                    }
+                }
+                for (var k = 0; k < AA; k++) {
+                    for (var i = 0; i < Arr1.length; i++) {
+                        // 大綱編號多層：tab、四個空白…，整合為一個函數
+                        // 層級的條件(倒算)
+                        if (tab4p == 't' || tab4p == 't1') {
+                            if (Arr1[i].charAt(k + 1) != '\t' && Arr1[i].charAt(k + 1) != '　') {
+                                if (Arr1[i].charAt(k) == '\t') {
+                                    Arr1[i] = Arr1[i].replace(Arr1[i].charAt(k + 1), j + '. ' + Arr1[i].charAt(k + 1))
+                                    j++
+                                }
+                                // 新行歸零條件
+                                if (Arr1[i].charAt(k) != '\t' && Arr1[i].charAt(k) != ' ' && Arr1[i].charAt(k) != '　' && Arr1[i].charAt(k) != '\n' && Arr1[i].charAt(k) != '') {
+                                    j = 1
+                                }
+                            }
+                        } else if (tab4p == '4') {
+                            // 層級的條件(倒算)
+                            if (Arr1[i].substr(((k + 1) * 4), 4) != '    ' && Arr1[i].substr(((k + 1) * 4), 1) != '　') {
+                                if (Arr1[i].substr((k * 4), 4) == '    ') {
+                                    Arr1[i] = Arr1[i].replace(Arr1[i].substr(((k + 1) * 4), 4), j + '. ' + Arr1[i].substr(((k + 1) * 4), 4))
+                                    j++
+                                }
+                                // 新行歸零條件
+                                if (Arr1[i].substr((k * 4), 4) != '    ' && Arr1[i].substr((k * 4), 1) != ' ' && Arr1[i].substr((k * 4), 1) != '　' && Arr1[i].substr((k * 4), 1) != '\n' && Arr1[i].substr((k * 4), 1) != '') {
+                                    j = 1
+                                }
+                            }
+                        }
+                    }
+                    // 歸零，下一層才會從1開始
+                    j = 1
+                }
+                overCopy()
+            }
+
+            NumView.onclick = function () {
+                // 檢查是否有輸入資料
+                if (myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
+                    // 導入陣列
+                    zzUp()
+                    // 值1中的字，轉為空白，以便排列。用這方法，就不必用循環
+                    var w = myValue.value.replace(/./g, '　')
+                    // 刪除行首空行，會出問題，不知何因？。後來用正規式，就不必用陣列了
+                    // for(var k of Arr1){
+                    //     if(!k){
+                    //         Arr1.shift()
+                    //     }else{break}
+                    // }
+                    // 刪除末尾的空行。反向循環。後來用正規式，就不必用陣列了
+                    // for (var j = (Arr1.length - 1); j > -1; j--) {
+                    //     if (!Arr1[j]) {
+                    //         Arr1.pop()
+                    //     } else { break }
+                    // }
+                    // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
+                    var q = Arr1.length
+                    var q2 = Math.floor(q / 2)
+                    // 為了前幾行若有空白，作運算時用
+                    var r = 0
+                    // 加入圖表
+                    for (var i = 0; i < q; i++) {
+                        // 文字行，而且行首是文字
+                        if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                            // 如果只有1行
+                            if (q == 1) {
+                                // 試用加入HTML樣式，暫時代替D3.js
+                                // Arr2要在前面，不然Arr1會重複
+                                // 為配合主題色，先把class加上「9」，讓它失效，以後需要時可以再恢復
+                                Arr2[0] = '<span class="9i">' + myValue.value + '</span>─<span class="9b">' + Arr1[0] + '</span>'
+                                Arr1[0] = myValue.value + '─' + Arr1[0]
+                                break
+                                // 如果只有2行
+                            } else if (q == 2) {
+                                Arr2[0] = '<span class="9i">' + myValue.value + '</span>┬<span class="9b">' + Arr1[0] + '</span>'
+                                Arr2[1] = w + '</span>└<span class="9b">' + Arr1[1]
+                                Arr1[0] = myValue.value + '┬' + Arr1[0]
+                                Arr1[1] = w + '└' + Arr1[1]
+                                break
+                                // 如果多行
+                            } else {
+                                // 行首
+                                if (i == 0 && r == 0) {
+                                    Arr2[i] = w + '┌' + '<span class="9b">' + Arr1[i] + '</span>'
+                                    Arr1[i] = w + '┌' + Arr1[i]
+                                    r = 1
+                                    // 行末
+                                } else if (i == (q - 1)) {
+                                    Arr2[i] = w + '└' + '<span class="9b">' + Arr1[i] + '</span>'
+                                    Arr1[i] = w + '└' + Arr1[i]
+                                } else {
+                                    // 前有空行的行首
+                                    if (r == 0) {
+                                        Arr2[i] = w + '┌' + '<span class="9b">' + Arr1[i] + '</span>'
+                                        Arr1[i] = w + '┌' + Arr1[i]
+                                        r = 1
+                                    } else {
+                                        // 中間行
+                                        Arr2[i] = w + '├' + '<span class="9b">' + Arr1[i] + '</span>'
+                                        Arr1[i] = w + '├' + Arr1[i]
+                                    }
+                                }
+                            }
+                            // 空行的圖表
+                        } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                            // 前面都是空行的空行
+                            if (/[^　]/.test(Arr1[i]) && r == 0) {
+                                Arr2[i] = w + '　' + '<span class="9b">' + Arr1[i] + '</span>'
+                                Arr1[i] = w + '　' + Arr1[i]
+                                // 前面有文字行的空行
+                            } else if (r == 1) {
+                                Arr2[i] = w + '│' + '<span class="9b">' + Arr1[i] + '</span>'
+                                Arr1[i] = w + '│' + Arr1[i]
+                            }
+                        }
+                        // 計算大綱的題目位置，並修正符號
+                        // 偶數行
+                        if (i == (q2 - 1) && q % 2 == 0) {
+                            Arr1[q2 - 1] = Arr1[q2 - 1].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                            // 題目要另外加樣式
+                            Arr2[q2 - 1] = Arr2[q2 - 1].replace(w, '<span class="9i">' + myValue.value + '</span>').replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                        }
+                        // 奇數行
+                        if (i == q2 && q % 2 != 0) {
+                            Arr1[q2] = Arr1[q2].replace(w, myValue.value).replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                            Arr2[q2] = Arr2[q2].replace(w, '<span class="9i">' + myValue.value + '</span>').replace(/├/, '┼').replace(/│/, '┤').replace(/┌/, '┬')
+                        }
+                    }
+                    // 加入HTML
+                    div1.innerHTML = Arr2.join('\n')
+                    overCopy()
+                    //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
+                    // 後來直接在zzUp()清空所有預設的陣列
+                    // Arr2.length = 0
+                    // 無題目的圖表
+                } else if (!myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
+                    zzUp()
+                    // 重新計算陣列長度，否則會以之前的長度來運算
+                    var q = Arr1.length
+                    // 為了前幾行若有空白，作運算時用
+                    var t = 0
+                    // 加入圖表
+                    for (var i = 0; i < q; i++) {
+                        // 文字行，而且行首是文字
+                        if (Arr1[i] && !/^　/.test(Arr1[i])) {
+                            // 如果只有1行
+                            if (q == 1) {
+                                break
+                                // 如果只有2行
+                            } else if (q == 2) {
+                                Arr1[0] = '┌' + Arr1[0]
+                                Arr1[1] = '└' + Arr1[1]
+                                break
+                                // 如果多行
+                            } else {
+                                // 行首
+                                if (i == 0 && t == 0) {
+                                    Arr1[i] = '┌' + Arr1[i]
+                                    t = 1
+                                    // 行末
+                                } else if (i == (q - 1)) {
+                                    Arr1[i] = '└' + Arr1[i]
+                                } else {
+                                    // 前有空行的行首
+                                    if (t == 0) {
+                                        Arr1[i] = '┌' + Arr1[i]
+                                        t = 1
+                                    } else {
+                                        // 中間行
+                                        Arr1[i] = '├' + Arr1[i]
+                                    }
+                                }
+                            }
+                            // 空行的圖表
+                        } else if (!Arr1[i] || /^　/.test(Arr1[i])) {
+                            // 前面都是空行的空行
+                            if (/[^　]/.test(Arr1[i]) && t == 0) {
+                                Arr1[i] = '　' + Arr1[i]
+                                // 前面有文字行的空行
+                            } else if (t == 1) {
+                                Arr1[i] = '│' + Arr1[i]
+                            }
+                        }
+                    }
+                    // 加入HTML
+                    div1.innerHTML = Arr1.join('\n')
+                    overCopy()
+                    //要清空陣列，不然HTML會重複呈現。清空要在overCopy()之後！
+                    // 後來直接在zzUp()清空所有預設的陣列
+                    // Arr1.length = 0
+                    // 跳出警示框
+                } else { alert('請在 值1 及 文本框 中輸入文字') }
+            }
+            NumViewEnd.onclick = function () {
+                // 檢查是否有輸入資料
+                if (myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
+                    // 導入陣列
+                    zzUp()
+                    // 重新計算陣列長度，及中間數，否則會以之前的長度來運算
+                    var q = Arr1.length
+                    var q2 = Math.floor(q / 2)
+                    // 為了前幾行若有空白，作運算時用
+                    var r = 0, w = 0
+                    // 取出各行文字的長度
+                    for (var i = 0; i < q; i++) {
+                        Arr2[i] = Arr1[i].length
+                    }
+                    // 取出最長一行的文字的長度
+                    for (var i = 0; i < Arr2.length; i++) {
+                        if (w < Arr2[i])
+                            w = Arr2[i]
+                    }
+                    // 加入圖表
+                    for (var i = 0; i < q; i++) {
+                        // 循環增加末尾空白
+                        var v = String(Arr1[i]).length
+                        for (var j = 0; j < (w - v); j++) {
+                            Arr1[i] = Arr1[i] + '　'
+                        }
+                        // 文字行，而且行首是文字
+                        if (Arr1[i] && !/^[　\s]+$/.test(Arr1[i])) {
+                            // 如果只有1行
+                            if (q == 1) {
+                                Arr1[0] = Arr1[0] + '─' + myValue.value
+                                break
+                                // 如果只有2行
+                            } else if (q == 2) {
+                                Arr1[0] = Arr1[0] + '┐'
+                                Arr1[1] = Arr1[1] + '┴' + myValue.value
+                                break
+                                // 如果多行
+                            } else {
+                                // 行首
+                                if (i == 0 && r == 0) {
+                                    Arr1[i] = Arr1[i] + '┐'
+                                    r = 1
+                                    // 行末
+                                } else if (i == (q - 1)) {
+                                    Arr1[i] = Arr1[i] + '┘'
+                                } else {
+                                    // 前有空行的行首
+                                    if (r == 0) {
+                                        Arr1[i] = Arr1[i] + '┐'
+                                        r = 1
+                                    } else {
+                                        // 中間行
+                                        Arr1[i] = Arr1[i] + '┤'
+                                    }
+                                }
+                            }
+                            // 空行的圖表
+                        } else if (!Arr1[i] || /^[　\s]+$/.test(Arr1[i])) {
+                            // 前面都是空行的空行
+                            if (/[^　]/.test(Arr1[i]) && r == 0) {
+                                Arr1[i] = Arr1[i] + '│'
+                                // 前面有文字行的空行
+                            } else if (r == 1) {
+                                Arr1[i] = Arr1[i] + '│'
+                            }
+                        }
+                    }
+                    // 計算大綱的題目位置，並修正符號，記得跳出循環
+                    // 偶數行奇數行位置都一樣，因為視覺上題目在末尾，最好低一行
+                    Arr1[q2] = Arr1[q2].replace(/┤/, '┼').replace(/│/, '├').replace(/┘/, '┴') + myValue.value
+                    // 加入HTML
+                    div1.innerHTML = Arr1.join('\n')
+                    overCopy()
+                    // 無題目的圖表
+                } else if (!myValue.value && txt1.value) {
+                    // 刪除行首、行末的空行
+                    txt1.value = txt1.value.replace(/^\n+/, '').replace(/\n+$/, '')
+                    zzUp()
+                    // 重新計算陣列長度，否則會以之前的長度來運算
+                    var q = Arr1.length
+                    // 為了前幾行若有空白，作運算時用
+                    var t = 0, w = 0
+                    // 取出各行文字的長度
+                    for (var i = 0; i < q; i++) {
+                        Arr2[i] = Arr1[i].length
+                    }
+                    // 取出最長一行的文字的長度
+                    for (var i = 0; i < Arr2.length; i++) {
+                        if (w < Arr2[i])
+                            w = Arr2[i]
+                    }
+                    // 加入圖表
+                    for (var i = 0; i < q; i++) {
+                        // 循環增加末尾空白
+                        var v = String(Arr1[i]).length
+                        for (var j = 0; j < (w - v); j++) {
+                            Arr1[i] = Arr1[i] + '　'
+                        }
+                        // 文字行，而且行首是文字
+                        if (Arr1[i] && !/^[　\s]+$/.test(Arr1[i])) {
+                            // 如果只有1行
+                            if (q == 1) {
+                                break
+                                // 如果只有2行
+                            } else if (q == 2) {
+                                Arr1[0] = Arr1[0] + '┐'
+                                Arr1[1] = Arr1[1] + '┘'
+                                break
+                                // 如果多行
+                            } else {
+                                // 行首
+                                if (i == 0 && t == 0) {
+                                    Arr1[i] = Arr1[i] + '┐'
+                                    t = 1
+                                    // 行末
+                                } else if (i == (q - 1)) {
+                                    Arr1[i] = Arr1[i] + '┘'
+                                } else {
+                                    // 前有空行的行首
+                                    if (t == 0) {
+                                        Arr1[i] = Arr1[i] + '┐'
+                                        t = 1
+                                    } else {
+                                        // 中間行
+                                        Arr1[i] = Arr1[i] + '┤'
+                                    }
+                                }
+                            }
+                            // 空行的圖表
+                        } else if (!Arr1[i] || /^[　\s]+$/.test(Arr1[i])) {
+                            // 前面都是空行的空行
+                            if (/[^　]/.test(Arr1[i]) && t == 0) {
+                                Arr1[i] = Arr1[i] + '│'
+                                // 前面有文字行的空行
+                            } else if (t == 1) {
+                                Arr1[i] = Arr1[i] + '│'
+                            }
+                        }
+                    }
+                    // 加入HTML
+                    div1.innerHTML = Arr1.join('\n')
+                    overCopy()
+                    // 跳出警示框
+                } else { alert('請在 值1 及 文本框 中輸入文字') }
+            }
+
+            NumViewShow.onclick = function () {
+                // 因為不常用，先隱藏HTML樹狀圖
+                if (div1.style.display == 'block') {
+                    div1.style.display = 'none'
+                } else {
+                    div1.style.display = 'block'
+                }
+            }
+
+            k.onclick = function () {
+                zzUp()
+                // 陣列轉回文字
+                txt1.value = txt1.value.replace(/\s*['|"]\s*\,\s*['|"]\s*/g, '\n').replace(/^\s*\[?\s*['"]/, '').replace(/['"]\,?\s*\]?\s*$/, '')
+                Copy()
+            }
+            NameToArr.onclick = function () {
+                zzUp()
+                // 刪除陣列中的空元素、無效值
+                Arr1 = Arr1.filter(item => item)
+                // 陣列中的逗號轉為冒號+逗號，前後再各補一冒號
+                // txt1.value = "'" + Arr1.join("','") + "'"
+                txt1.value = '"' + Arr1.join('","') + '"'
+                Copy()
+            }
+            // 加上頭尾''冒號，就變成陣列
+            NameToArr2.onclick = function () {
+                zzUp();
+                // 刪除陣列中的空元素、無效值
+                Arr1 = Arr1.filter(item => item)
+                txt1.value = '"' + Arr1.join('",\n"') + '"'
+                // addAB('"', '",')
+                // addAB("'", "',")
+                Copy()
+            }
+            btn13.onclick = function () { zzUp(); reAB('釋', '') }
+            btn14.onclick = function () { zzUp(); reAB('', '法師') }
+            btn15.onclick = function () { zzUp(); reAB('釋', '法師') }
+            btn16.onclick = function () { zzUp(); reAB('', '') }
+            // 自訂頭尾符號
+            myBA.onclick = function () { zzUp(); addAB(myValue.value, myValue2.value) }
+            tagBA.onclick = function () {
+                zzUp();
+                txt1.value = '<' + myValue2.value + ' class="' + myValue3.value + '">' + myValue.value + '</' + myValue2.value + ' class="' + myValue3.value + '">'
+                Copy()
+            }
+
+            toHref.onclick = function () {
+                zzUp()
+                // 導入陣列
+                Arr1 = txt1.value.split('\n')
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 判斷是否網址開頭
+                    if (Arr1[i].substr(0, 4) == 'http') {
+                        // 導入自訂連結名稱
+                        if (myValue.value) {
+                            Arr1[i] = '<a href="' + Arr1[i] + '" target="_blank">' + myValue.value + '</a>'
+                        } else {
+                            Arr1[i] = '<a href="' + Arr1[i] + '" target="_blank">' + Arr1[i] + '</a>'
+                        }
+                    }
+                }
+                // 刪除重複
+                txt1.value = Arr1.join('\n').replace(/( target="_blank")+/gi, '$1').replace(/(\<\/a\>)+/gi, '$1')
+                Copy()
+            }
+            toHrefXML.onclick = function () {
+                zzUp()
+                // 導入陣列
+                Arr1 = txt1.value.split('\n')
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 判斷是否網址開頭
+                    if (Arr1[i].substr(0, 4) == 'http') {
+                        // 導入自訂連結名稱
+                        if (myValue.value) {
+                            Arr1[i] = '<聯 l="' + Arr1[i] + '">' + myValue.value + '</聯>'
+                        } else {
+                            Arr1[i] = '<聯 l="' + Arr1[i] + '">' + Arr1[i] + '</聯>'
+                        }
+                    }
+                }
+                // 刪除重複
+                txt1.value = Arr1.join('\n').replace(/( target="_blank")+/gi, '$1').replace(/(\<\/聯\>)+/g, '$1')
+                Copy()
+            }
+            alltoHref.onclick = function () {
+                zzUp()
+                // 以正規搜尋網址列，請注意$1語法
+                txt1.value = txt1.value.replace(/(https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)/gi, '<a href="$1" target="_blank">$1</a>').replace(/( target="_blank")+/gi, '$1').replace(/(\<\/a\>)+/gi, '$1')
+                Copy()
+            }
+            alltoHrefXML.onclick = function () {
+                zzUp()
+                // 以正規搜尋網址列，轉Accelon3的XML，請注意$1語法
+                txt1.value = txt1.value.replace(/(https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)/gi, '<聯 l="$1">$1</聯>').replace(/( target="_blank")+/gi, '$1').replace(/(\<\/聯\>)+/gi, '$1')
+                Copy()
+            }
+            DelHref.onclick = function () {
+                zzUp()
+                // 以正規搜尋網址列，再刪除HTML標記，並保留中文標題
+                txt1.value = txt1.value.replace(/\<a\shref\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>(https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)\<\/a\>/gi, ' $1').replace(/\<a\shref\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>([^\<\>]+)\<\/a\>/gi, '$2  $1')
+                Copy()
+            }
+            DelHrefXML.onclick = function () {
+                zzUp()
+                // 以正規搜尋網址列，再刪除XML標記，並保留中文標題
+                txt1.value = txt1.value.replace(/\<聯\sl\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>(https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)\<\/聯\>/gi, ' $1').replace(/\<聯\sl\=["'](https?:\/\/[a-zA-Z0-9\.\/_\=\-\?\:\;\&\%\#\@\+]+)["'][^\>]*\>([^\<\>]+)\<\/聯\>/gi, '$2  $1')
+                Copy()
+            }
+
+            htmlTojsN.onclick = function () {
+                // 將html文檔變成不分段的一整行，加入v4search的node.js，以便直接生成html檔。保留原分段樣式
+                zzUp()
+                // 刪除行首行末的空白，以節省空間
+                // for (var i = 0; i < Arr1.length; i++) {
+                //     Arr1[i] = Arr1[i].replace(/^\s*(\S*)/, '$1').replace(/(\S*)\s*$/, '$1')
+                // }
+                txt1.value = Arr1.join('\\n')
+                Copy()
+            }
+
+            htmlTojs.onclick = function () {
+                // 將html文檔變成不分段的一整行，加入v4search的node.js，以便直接生成html檔。無\n
+                zzUp()
+                txt1.value = Arr1.join('').replace(/\s+/g, ' ')
+                Copy()
+            }
+
+            myRe.onclick = function () {
+                zzUp()
+                // 這二行是錯誤語法
+                // if(myValue.value){BB='/'+myValue.value+'/gi'}
+                // if(myValue2.value){CC='"'+myValue2.value+'"'}
+                // 導入自訂正規式
+                if (myValue.value) { BB = new RegExp(myValue.value, 'g') }
+                else { BB = '' }
+                if (myValue2.value) {
+                    CC = myValue2.value
+                    // var flags = myValue2.value.replace(/.*\/([gimy]*)$/, '$1');
+                    // var pattern = myValue2.value.replace(new RegExp('^/(.*?)/'+flags+'$'), '$1');
+                    // CC = new RegExp(pattern, flags);
+                }
+                else { CC = '' }
+                txt1.value = txt1.value.replace(BB, CC)
+                Copy()
+            }
+            ReVinayaBook.onclick = function () {
+                if (txt1.value) {
+                    zzUp()
+                    // 編輯成講義需要的分段與《、「
+                    txt1.value = txt1.value.replace(/\n/g, '')
+                    txt1.value = txt1.value.replace(/(《[^》]+》卷?\d*：「)/g, '\n\n$1\n')
+                    // 冊除開頭的1空行，保留1空行
+                    Arr1 = txt1.value.split('\n')
+                    if (Arr1[0] == '' && Arr1[1] == '') {
+                        Arr1.shift()
+                        txt1.value = Arr1.join('\n')
+                    }
+                    Copy()
+                }
+            }
+            ReVinayaNum.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留雙行'\n\n'
+                txt1.value = txt1.value.replace(/\n\n/g, '♂※※♂').replace(/\n/g, '').replace(/♂※※♂/g, '\n\n')
+                // 讓《律學彙集》中的數字標題分段
+                txt1.value = txt1.value.replace(/([^》〉\w])(\d+)/g, '$1\n$2').replace(/([：。])([A-Za-z]\W)/g, '$1\n$2')
+                Copy()
+            }
+            ReToN5.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'《'
+                txt1.value = txt1.value.replace(/《/g, '\n《')
+                Copy()
+            }
+            ReToN4.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'；'
+                txt1.value = txt1.value.replace(/；/g, '；\n')
+                Copy()
+            }
+            ReToN3.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'、'
+                txt1.value = txt1.value.replace(/、/g, '、\n')
+                Copy()
+            }
+            ReToN6.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'，'
+                txt1.value = txt1.value.replace(/，/g, '，\n')
+                Copy()
+            }
+            ReToN2.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'。'
+                txt1.value = txt1.value.replace(/。/g, '。\n')
+                Copy()
+            }
+            ReToN2more.onclick = function () {
+                zzUp()
+                // 文章轉換行符，留'。'
+                txt1.value = txt1.value.replace(/。([^』」])/g, '。\n$1').replace(/([』|」]+)/g, '$1\n')
+                Copy()
+            }
+            ReToN1.onclick = function () {
+                zzUp()
+                // 文章轉換行符，刪'。'
+                txt1.value = txt1.value.replace(/。/g, '\n')
+                Copy()
+            }
+            ReToN.onclick = function () {
+                zzUp()
+                // 文章轉換行符
+                if (myValue.value) {
+                    Arr1 = txt1.value.split(myValue.value)
+                    txt1.value = Arr1.join(myValue.value + '\n')
+                    // var AA = new RegExp(myValue.value, 'gi')
+                    // txt1.value = txt1.value.replace(AA, myValue.value + '\n')
+                    Copy()
+                }
+            }
+            ReToT.onclick = function () {
+                zzUp()
+                // 文章轉Tab
+                if (myValue.value) {
+                    Arr1 = txt1.value.split(myValue.value)
+                    txt1.value = Arr1.join(myValue.value + '\t')
+                    Copy()
+                }
+            }
+            ReABCToabc.onclick = function () {
+                zzUp()
+                // 文章全部轉小寫
+                txt1.value = txt1.value.toLowerCase()
+                Copy()
+            }
+            ReabcToABC.onclick = function () {
+                zzUp()
+                // 文章全部轉大寫
+                txt1.value = txt1.value.toUpperCase()
+                Copy()
+            }
+
+            // 這數字轉換，是從網路上抓下來，現成的程式碼
+            function toZhDigit(digit) {
+                digit = typeof digit === 'number' ? String(digit) : digit;
+                const zh = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+                const unit = ['千', '百', '十', ''];
+                const quot = ['萬', '億', '兆', '京', '垓', '秭', '穰', '溝', '澗', '正', '載', '極', '恒河沙', '阿僧祗', '那由他', '不可思議', '無量', '大數'];
+
+                let breakLen = Math.ceil(digit.length / 4);
+                let notBreakSegment = digit.length % 4 || 4;
+                let segment;
+                let zeroFlag = [], allZeroFlag = [];
+                let result = '';
+
+                while (breakLen > 0) {
+                    if (!result) { // 第一次執行
+                        segment = digit.slice(0, notBreakSegment);
+                        let segmentLen = segment.length;
+                        for (let i = 0; i < segmentLen; i++) {
+                            if (segment[i] != 0) {
+                                if (zeroFlag.length > 0) {
+                                    result += '零' + zh[segment[i]] + unit[4 - segmentLen + i];
+                                    // 判斷是否需要加上 quot 單位
+                                    if (i === segmentLen - 1 && breakLen > 1) {
+                                        result += quot[breakLen - 2];
+                                    }
+                                    zeroFlag.length = 0;
+                                } else {
+                                    result += zh[segment[i]] + unit[4 - segmentLen + i];
+                                    if (i === segmentLen - 1 && breakLen > 1) {
+                                        result += quot[breakLen - 2];
+                                    }
+                                }
+                            } else {
+                                // 處理為 0 的情形
+                                if (segmentLen == 1) {
+                                    result += zh[segment[i]];
+                                    break;
+                                }
+                                zeroFlag.push(segment[i]);
+                                continue;
+                            }
+                        }
+                    } else {
+                        segment = digit.slice(notBreakSegment, notBreakSegment + 4);
+                        notBreakSegment += 4;
+
+                        for (let j = 0; j < segment.length; j++) {
+                            if (segment[j] != 0) {
+                                if (zeroFlag.length > 0) {
+                                    // 第一次執行zeroFlag長度不為0，說明上一個分區最後有0待處理
+                                    if (j === 0) {
+                                        result += quot[breakLen - 1] + zh[segment[j]] + unit[j];
+                                    } else {
+                                        result += '零' + zh[segment[j]] + unit[j];
+                                    }
+                                    zeroFlag.length = 0;
+                                } else {
+                                    result += zh[segment[j]] + unit[j];
+                                }
+                                // 判斷是否需要加上 quot 單位
+                                if (j === segment.length - 1 && breakLen > 1) {
+                                    result += quot[breakLen - 2];
+                                }
+                            } else {
+                                // 第一次執行如果zeroFlag長度不為0, 且上一劃分不全為0
+                                if (j === 0 && zeroFlag.length > 0 && allZeroFlag.length === 0) {
+                                    result += quot[breakLen - 1];
+                                    zeroFlag.length = 0;
+                                    zeroFlag.push(segment[j]);
+                                } else if (allZeroFlag.length > 0) {
+                                    // 執行到最後
+                                    if (breakLen == 1) {
+                                        result += '';
+                                    } else {
+                                        zeroFlag.length = 0;
+                                    }
+                                } else {
+                                    zeroFlag.push(segment[j]);
+                                }
+                                if (j === segment.length - 1 && zeroFlag.length === 4 && breakLen !== 1) {
+                                    // 如果執行到末尾
+                                    if (breakLen === 1) {
+                                        allZeroFlag.length = 0;
+                                        zeroFlag.length = 0;
+                                        result += quot[breakLen - 1];
+                                    } else {
+                                        allZeroFlag.push(segment[j]);
+                                    }
+                                }
+                                continue;
+                            }
+                        }
+                    }
+                    --breakLen;
+                }
+                return result;
+            }
+
+            MathToChinese.onclick = function () {
+                zzUp()
+                // 這一段是另一人的程式碼，是從網路上抓下來，現成的程式碼，專為銀行支票而寫
+                // substr省略提取字串的長度，將提取到字串結束
+                function $(id) { return document.getElementById(id.substr(1)); }
+                // $('#myValue2').onmouseover = function() {
+                //     $('#myValue2').select();
+                // };
+                var chnum = "零壹貳參肆伍陸柒捌玖";
+                var chunit = "拾佰仟";
+                var chunits = "\r萬億兆京垓秭穰溝澗正載極";
+                var num = $('#myValue').value ? $('#myValue').value : "";
+                var output = "";
+                var is_zero = true;
+                for (var i = 0; i < num.length; i++) {
+                    var n = parseInt(num.charAt(i));
+                    if (isNaN(n)) {
+                        $('#myValue2').value = "Error";
+                        return;
+                    }
+                    if ((num.length - i - 1) % 4 == 0) {
+                        if (n == 0) {
+                            if (!is_zero)
+                                output += chunits.charAt((num.length - i - 1) / 4);
+                            is_zero = true;
+                        } else {
+                            output += chnum.charAt(n) + chunits.charAt((num.length - i - 1) / 4);
+                            is_zero = false;
+                        }
+                    } else if (n != 0) {
+                        output += chnum.charAt(n) + chunit.charAt((num.length - i - 1) % 4 - 1);
+                        is_zero = false;
+                    }
+                }
+                $('#myValue2').size = output.length * 2;
+                $('#myValue2').value = (output ? output : "零") + "元整";
+                // }
+
+                // 這數字轉換，是從網路上抓下來，現成的程式碼
+                txt1.value = toZhDigit(myValue.value)
+                Copy()
+            }
+            ChineseToMath.onclick = function () {
+                zzUp()
+                // 這數字轉換，是從網路上抓下來，現成的程式碼
+                function zhDigitToArabic(digit) {
+                    const zh = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+                    const unit = ['千', '百', '十'];
+                    const quot = ['萬', '億', '兆', '京', '垓', '秭', '穰', '溝', '澗', '正', '載', '極', '恒河沙', '阿僧祗', '那由他', '不可思議', '無量', '大數'];
+                    let result = 0, quotFlag;
+
+                    for (let i = digit.length - 1; i >= 0; i--) {
+                        if (zh.indexOf(digit[i]) > -1) { // 數字
+                            if (quotFlag) {
+                                result += quotFlag * getNumber(digit[i]);
+                            } else {
+                                result += getNumber(digit[i]);
+                            }
+                        } else if (unit.indexOf(digit[i]) > -1) { // 十分位
+                            if (quotFlag) {
+                                result += quotFlag * getUnit(digit[i]) * getNumber(digit[i - 1]);
+                            } else {
+                                result += getUnit(digit[i]) * getNumber(digit[i - 1]);
+                            }
+                            --i;
+                        } else if (quot.indexOf(digit[i]) > -1) { // 萬分位
+                            if (unit.indexOf(digit[i - 1]) > -1) {
+                                if (getNumber(digit[i - 1])) {
+                                    result += getQuot(digit[i]) * getNumber(digit[i - 1]);
+                                } else {
+                                    result += getQuot(digit[i]) * getUnit(digit[i - 1]) * getNumber(digit[i - 2]);
+                                    quotFlag = getQuot(digit[i]);
+                                    --i;
+                                }
+                            } else {
+                                result += getQuot(digit[i]) * getNumber(digit[i - 1]);
+                                quotFlag = getQuot(digit[i]);
+                            }
+                            --i;
+                        }
+                    }
+                    return result;
+
+                    // 返回中文大寫數字對應的阿拉伯數字
+                    function getNumber(num) {
+                        for (let i = 0; i < zh.length; i++) {
+                            if (zh[i] == num) {
+                                return i;
+                            }
+                        }
+                    }
+                    // 取單位
+                    function getUnit(num) {
+                        for (let i = unit.length; i > 0; i--) {
+                            if (num == unit[i - 1]) {
+                                return Math.pow(10, 4 - i);
+                            }
+                        }
+                    }
+                    // 取分段
+                    function getQuot(q) {
+                        for (var i = 0; i < quot.length; i++) {
+                            if (q == quot[i]) {
+                                return Math.pow(10, (i + 1) * 4);
+                            }
+                        }
+                    }
+                }
+
+                // 這數字轉換，是從網路上抓下來，現成的程式碼
+                txt1.value = zhDigitToArabic(myValue.value)
+                Copy()
+            }
+            allMathToChinese.onclick = function () {
+                zzUp()
+                // txt1.value=myValue.value+txt1.value.replace(/(\d+)/g,toZhDigit('$1'))+myValue2.value
+                // 因為無法直接用正規式，把整篇文章中的數字轉為中文，所以只好用陣列，把數字切出來，用一個不會被使用的符號'△☆△☆'，作為切出的基點
+                Arr1 = txt1.value.replace(/(\d+)/g, '△☆△☆$1△☆△☆').split('△☆△☆')
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 判斷：只有數字，才套用轉換函數，不然會轉出亂碼，小括號內，要用正規/號
+                    if (Arr1[i].match(/\d/)) {
+                        // 可再加上+前(值1)+後(值2)的符號
+                        Arr1[i] = myValue.value + toZhDigit(Arr1[i]) + myValue2.value
+                    }
+                }
+                // 還原文章，不必再用\n，只要保持空白''即可還原
+                txt1.value = Arr1.join('')
+                Copy()
+            }
+            DelTag.onclick = function () {
+                zzUp()
+                // 刪除所有標記語言的標記
+                txt1.value = txt1.value.replace(/\<[^\>]*\>/g, '')
+                Copy()
+            }
+            DelTagOlLi.onclick = function () {
+                zzUp()
+                // 刪除所有<ol><li>標記語言的標記
+                txt1.value = txt1.value.replace(/\<\/?ul\>|\<\/?ol\>|\<\/?li\>/g, '')
+                Copy()
+            }
+            DelTabToNum.onclick = function () {
+                zzUp()
+                // 刪除所有大綱編號
+                txt1.value = txt1.value.replace(/\d+\. /g, '').replace(/\d+◣/g, '')
+                Copy()
+            }
+            DelRdg.onclick = function () {
+                zzUp()
+                // 刪除校勘符號
+                txt1.value = txt1.value.replace(/\[＊\]/g, '').replace(/\[\w+\]/g, '').replace(/\( ?[CBETA|大正][^)]+\)/g, '')
+                Copy()
+            }
+            DelEnter.onclick = function () {
+                zzUp()
+                // 刪除空行
+                txt1.value = txt1.value.replace(/\n+/g, '\n')
+                Copy()
+            }
+            DelEnter1.onclick = function () {
+                zzUp()
+                // 刪除空行，段間空一行
+                txt1.value = txt1.value.replace(/\n+/g, '\n\n')
+                Copy()
+            }
+            DelAllEnter.onclick = function () {
+                zzUp()
+                // 刪除所有\n
+                txt1.value = txt1.value.replace(/\n/g, '')
+                Copy()
+            }
+            Toicon.onclick = function () {
+                zzUp()
+                // 取代'icon'成為'img src'，書籤就可以顯現小圖
+                txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
+                Copy()
+            }
+
+            qdb.onclick = function () {
+                // 內容預先導入陣列Arr1
+                zzUp()
+                // 取代表預先導入陣列Arr2
+                Arr2 = txt2.value.split('\n')
+                // 預備正規式用
+                var d1, d2, d3
+                // 循環取代表，不是循環內容
+                for (var k of Arr2) {
+                    // 錯誤語法
+                    // d1 = new RegExp(k.replace(/^([^=]+)=(.+)$/, '$1'), 'gi')
+                    // d2 = new RegExp(k.replace(/^([^=]+)=(.+)$/, '$2'), 'gi')
+                    // 處理反斜線\，不然會影響正規式。只處理取代表左側的反斜線。右側不必
+                    // 取出 取代表
+                    d1 = k.replace(/\\/g, '\\\\').replace(/^([^=]+)=(.+)$/, '$1')
+                    // 處理取代表右側的\n
+                    d2 = k.replace(/^([^=]+)=(.+)$/, '$2').replace(/\\n/g, '\n')
+                    // 用正規式的物件語法，否則無法重複取代
+                    d3 = new RegExp(d1, 'g')
+                    txt1.value = txt1.value.replace(d3, d2)
+                    // 怕被干擾，清除值
+                    d1 = null
+                    d2 = null
+                    d3 = null
+                }
+                Copy()
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div style="display: none;">
+        <input id="ReVinayaShowUl" type="button" class="t" value="講義+\n補』」+點標" />
+        <input id="ReVinayaShowOl" type="button" class="t" value="講義+\n補』」+數列" />
+        <input id="toUlLi" type="button" class="tan" value="加上點標<ul><li>" />
+        <input id="toOlLi" type="button" class="tan" value="加上數列<ol><li>" />
+        <input id="DelTagOlLi" type="button" class="tan" value="刪<ul><ol><li>" />
+        <input id="toJson" type="button" class="tan" value="轉json" />
+        <input id="open" type="file" onchange="handleFiles(this.files)" class="lb" />
+    </div>
+    <div id="divHidden" style="display: none;">
+        <input id="btn1" type="button" value="白色系主題">
+        <input id="btn3" type="button" value="黃色系主題">
+        <input id="btn5" type="button" value="茶色系主題">
+        <input id="btn4" type="button" value="綠色系主題">
+        <input id="btn2" type="button" value="黑色系主題">
+
+        <input id="btn8" type="button" value="16號字">
+        <input id="btn7" type="button" value="20號字">
+        <input id="btn9" type="button" value="28號字">
+        <input id="btn6" type="button" value="36號字">
+        <input id="youValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
+        <input id="youValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
+    </div>
+    <input id="qdb" type="button" class="r" value="取代表" /><br />
+    <div id="div0">
+<textarea id="txt2" placeholder="輸入打字取代表，用「=」分開，加上「\n」可斷行
+例：
+a/=釋迦牟尼佛
+w;=無上甚深微妙法\n百千萬劫難遭遇
+中英文都可以自由設定，除了「\」不可用！若一定要用，請以「\\」表達「\」"></textarea>
+<textarea id="txt1" placeholder="輸入要改轉的原始資料、或原始文章。
+轉換完畢後，會自動反白，並自動複製。
+再回到您要的檔案視窗、或程式視窗中，直接按「貼上」即可！
+
+所有運算結果都可以HTML呈現，請按「ShowHTML」顯示/隱藏
+
+也可托曳TXT檔到文本框中呈現，並以HTML呈現"></textarea><br />
+        <input id="myValue" type="text" placeholder='值1：輸入要改轉的值 or TagValue or 自訂大綱編號分層數量' /><br />
+        <input id="myValue2" type="text" placeholder='值2：輸入要改轉的值2 or TagName' /><br />
+        <input id="myValue3" type="text" placeholder='值3：輸入要改轉的值3 or ClassName' /><br />
+    </div>
+    <div>
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+        <input id="reValue" type="button" class="r" value="回復原始資料" />
+        <input id="reUp" type="button" class="r" value="回復上一步" />
+        <input id="NumView" type="button" class="lb" value="樹狀圖(值1為題目)" />
+        <input id="NumViewEnd" type="button" class="lb" value="樹狀圖(值1為尾註)" />
+        <input id="NumViewShow" type="button" class="lb" value="ShowHTML" />
+        <input id="ReToN4" type="button" class="o" value="；號+\n" />
+        <input id="ReToN3" type="button" class="o" value="、號+\n" />
+        <input id="ReToN6" type="button" class="o" value="，號+\n" />
+        <input id="ReToN2" type="button" class="o" value="。號+\n" />
+        <input id="ReToN2more" type="button" class="gy" value="。』號+\n" />
+        <input id="ReToN1" type="button" class="y" value="。號轉\n" />
+        <input id="ReVinayaNum" type="button" class="t" value="毗尼答問\n+數字" />
+        <input id="ReVinayaBook" type="button" class="t" value="講義編輯《「" />
+        <input id="ReToN5" type="button" class="y" value="\n+《號" />
+    </div>
+    <div>
+        <input id="DelTag" type="button" class="tan" value="刪標記<>" />
+        <input id="DelTabToNum" type="button" class="tan" value="刪大綱編號" />
+        <input id="DelRdg" type="button" class="tan" value="刪校勘" />
+        <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
+        <input id="DelEnter" type="button" class="gy" value="刪空行" />
+        <input id="DelEnter1" type="button" class="gy" value="段間空一行" />
+    </div>
+    <div class="name">
+        <input id="myRe" type="button" class="t" value="自訂取代正規式" />
+        <input id="ReToN" type="button" class="y" value="值1+\n" />
+        <input id="ReToT" type="button" class="y" value="值1+Tab" />
+        <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
+        <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" />
+        <input id="Toicon" type="button" class="gy" value="書籤轉icon" />
+        自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
+    </div>
+    <div>
+        <input id="addNumber" type="button" class="p" value="數列1-99" />
+        <input id="addNumberZero" type="button" class="p" value="數列補零001" />
+        <input id="ch1911" type="button" class="g" value="民國→西元年" />
+        <input id="ch1911x" type="button" class="g" value="民國←西元年" />
+        <input id="NameToArr" type="button" class="sb" value="轉陣列(橫)" />
+        <input id="NameToArr2" type="button" class="sb" value="轉陣列(直)" />
+        <input id="k" type="button" class="tan" value="刪陣列" />
+    </div>
+    <div id="div2">修飾法名
+        <input id="btn13" type="button" value="釋+名" />
+        <input id="btn14" type="button" value="名+法師" />
+        <input id="btn15" type="button" value="釋+名+法師" />
+        <input id="btn16" type="button" value="名-釋-法師" />
+        <input id="myBA" type="button" value="自訂+前(值1)+後(值2)的符號" />
+        <input id="tagBA" type="button" value="<值2 class=值3>值1" />
+        可托曳TXT檔到文本框中呈現
+    </div>
+    <div>
+        <input id="TabToNum" type="button" class="y" value="大綱編號(首層無)(以Tab分層級)" />
+        <input id="TabToNumEvery" type="button" class="pink" value="大綱編號多層(以Tab分層級)" />
+        <input id="SpaceToNumEvery" type="button" class="pink" value="大綱編號多層(以四個空白分層級)" />
+        <input id="TabToNumEvery2" type="button" class="y" value="大綱編號多層(首層為值1)(以Tab分層級)" />
+        <input id="TabToAccelon3Tag" type="button" class="lg" value="加Accelon3Tag(以Tab分層級)" />
+    </div>
+    <div>
+        <input id="toHref" type="button" class="p" value="整列網址加標記<a>值1自訂連結名稱" />
+        <input id="toHrefXML" type="button" class="p" value="整列網址加標記<聯>值1自訂連結名稱" />
+        <input id="alltoHref" type="button" class="o" value="網址加標記<a>" />
+        <input id="alltoHrefXML" type="button" class="o" value="網址加標記<聯>" />
+        <input id="DelHref" type="button" class="tan" value="刪標記<a>" />
+        <input id="DelHrefXML" type="button" class="tan" value="刪標記<聯>" />
+        <input id="htmlTojsN" type="button" class="lsg" value="html轉.js" />
+        <input id="htmlTojs" type="button" class="lsg" value="html轉.js無\n" />
+    </div>
+    <div>
+        <input id="MathToChinese" type="button" class="lc" value="值1的數字轉中文數字" />
+        <input id="ChineseToMath" type="button" class="lb" value="值1的中文數字轉數字(只正確運算16位數)" />
+        <input id="allMathToChinese" type="button" class="lsg" value="文章內的數字轉中文數字，可再加上+前(值1)+後(值2)的符號" />
+    </div>
+</body>
+<script>
+    // <script>放在HTML底端，就不用window.onload
+    // ======課堂投影用
+    var oBody = document.getElementsByTagName('body')
+
+    function changeColor(col, bg) {
+        div1.style.color = col
+        div1.style.background = bg
+        change.innerHTML += 'body {color:' + col + ';background:' + bg + ';}'
+        // tab1.style.color = col
+        // tab1.style.background = bg
+    }
+    function changeSize(sz) {
+        div1.style.fontSize = sz
+        change.innerHTML += '.ru {font-size:' + sz + ';}'
+        // tab1.style.fontSize = sz
+    }
+    function changeFamily(ff) {
+        div1.style.fontFamily = ff
+        change.innerHTML += '.ru {font-family:' + ff + ';}'
+        // tab1.style.fontFamily = ff
+    }
+    // <script>放在HTML底端，就不用window.onload
+    // ======課堂投影用
+    btn1.onclick = function () {
+        changeColor('black', 'beige')
+    }
+    btn2.onclick = function () {
+        changeColor('#ccb', '#000')
+    }
+    btn3.onclick = function () {
+        changeColor('darkslategray', 'khaki')
+    }
+    btn5.onclick = function () {
+        changeColor('darkblue', 'tan')
+    }
+    btn4.onclick = function () {
+        changeColor('maroon', '#aca')
+    }
+    btn6.onclick = function () {
+        changeSize('36pt')
+    }
+    btn7.onclick = function () {
+        changeSize('20pt')
+    }
+    btn8.onclick = function () {
+        changeSize('16pt')
+    }
+    btn9.onclick = function () {
+        changeSize('28pt')
+    }
+    youValue.onkeyup = function () {
+        changeSize(youValue.value + 'pt')
+    }
+    youValue2.onkeyup = function () {
+        changeFamily(youValue2.value)
+    }
+    // 讀取外部檔案，並以HTML呈現
+    function handleFiles(files) {
+        if (files.length) {
+            // 讀取單一檔案
+            let file = files[0]
+            // 讀取內容
+            let reader = new FileReader()
+            // 觸發後，呈現
+            reader.onload = function () {
+                // 運算結果以HTML呈現，教學投影用！
+                div1.innerHTML = ''
+                div1.innerHTML = txt1.value = this.result
+                // 清空div1為了<ol>的折行樣式pre-wrap
+                prewrap.innerHTML = ''
+                // 呈現HTML
+                div1.style.display = 'block'
+            }
+            // 設定以「純文字模式」呈現
+            reader.readAsText(file)
+        }
+    }
+    // 使用拖放来选择文件
+    // 第一步是创建一个drop区域
+    var open1 = document.getElementById("txt1");
+    open1.addEventListener("dragenter", dragenter, false);
+    open1.addEventListener("dragover", dragover, false);
+    open1.addEventListener("drop", drop, false);
+    // 禁止事件传播和阻止默认事件
+    function dragenter(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    function dragover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    // 从事件中获取到了dataTransfer 这个域，然后从中得到文件列表，再将它们传递给handleFiles()函数
+    function drop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        handleFiles(files);
+    }
+</script>
+<!-- 直接在純文字TXT檔頭，加上下面的標記。再把副檔名改為.HTML。就變成：教學投影
+<html>
+<style>
+    html {
+        background: black;
+        font-size: 3em;
+        color: yellow;
+        white-space: pre-wrap;
+        line-height: 1.3em;
+    }
+
+    ::selection {
+        background: darkred;
+        color: lime;
+    }
+</style> -->
+
+</html>
