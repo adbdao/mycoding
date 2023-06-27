@@ -8,7 +8,7 @@
     <base target="_blank">
 <style>
 @media (prefers-color-scheme: light) {
-#qdb{height: 50px;}
+#qdb,#ReToNby,#DelAllqdb{height: 50px;}
 /* *{border-radius: 8px;} */
 /* body{background: black;} */
 ::selection{background: darkred;color:yellow;}
@@ -72,7 +72,7 @@ li{margin-left:1em;}
 #youValue2{width:200px;}
 }
 @media (prefers-color-scheme: dark) {
-#qdb{height: 50px;}
+#qdb,#ReToNby,#DelAllqdb{height: 50px;}
 body{background: black;}
 ::selection{background: darkred;color:yellow;}
 ::-moz-selection{background: darkred;color:yellow;}
@@ -1009,6 +1009,21 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/([^》〉\w])(\d+)/g, '$1\n$2').replace(/([：。])([A-Za-z]\W)/g, '$1\n$2')
                 Copy()
             }
+            ReToNby.onclick = function () {
+                // 先處理一些內文
+                txt1.value = txt1.value.replace(/ --> /g, '').replace(/\d:|,\d/g, '')
+                zzUp()
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 《隨機羯磨筆錄》，有整行數字，要刪除
+                    Arr1[i] = Arr1[i].replace(/^\d+ $/g, '')
+                    // 截取有筆錄的行
+                    if (/\W/.test(Arr1[i])) {
+                        Arr2[i] = Arr1[i]
+                    }
+                }
+                txt1.value = Arr2.join('\n').replace(/\n+/g, '\n').replace(/<\/?.>/g, '')
+                Copy()
+            }
             ReToN5.onclick = function () {
                 zzUp()
                 // 文章轉換行符，留'《'
@@ -1359,7 +1374,12 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
                 Copy()
             }
-
+            DelAllqdb.onclick = function () {
+                zzUp()
+                // 刪除所有標點符號
+                txt1.value = txt1.value.replace(/，|。|、|：|；|？|！|-|\+|﹐|﹑|﹕/g, '\n')
+                Copy()
+            }
             qdb.onclick = function () {
                 // 內容預先導入陣列Arr1
                 zzUp()
@@ -1374,9 +1394,9 @@ li{margin-left:1em;}
                     // d2 = new RegExp(k.replace(/^([^=]+)=(.+)$/, '$2'), 'gi')
                     // 處理反斜線\，不然會影響正規式。只處理取代表左側的反斜線。右側不必
                     // 取出 取代表
-                    d1 = k.replace(/\\/g, '\\\\').replace(/^([^=]+)=(.+)$/, '$1')
+                    d1 = k.replace(/\\/g, '\\\\').replace(/^([^=]+)=(.*)$/, '$1')
                     // 處理取代表右側的\n
-                    d2 = k.replace(/^([^=]+)=(.+)$/, '$2').replace(/\\n/g, '\n')
+                    d2 = k.replace(/^([^=]+)=(.*)$/, '$2').replace(/\\n/g, '\n')
                     // 用正規式的物件語法，否則無法重複取代
                     d3 = new RegExp(d1, 'g')
                     txt1.value = txt1.value.replace(d3, d2)
@@ -1393,7 +1413,7 @@ li{margin-left:1em;}
 
 <body>
     <div id="div1"></div>
-    <div style="display: none;">
+    <div style="display: block;">
         <input id="ReVinayaShowUl" type="button" class="t" value="講義+\n補』」+點標" />
         <input id="ReVinayaShowOl" type="button" class="t" value="講義+\n補』」+數列" />
         <input id="toUlLi" type="button" class="tan" value="加上點標<ul><li>" />
@@ -1402,7 +1422,7 @@ li{margin-left:1em;}
         <input id="toJson" type="button" class="tan" value="轉json" />
         <input id="open" type="file" onchange="handleFiles(this.files)" class="lb" />
     </div>
-    <div id="divHidden" style="display: none;">
+    <div id="divHidden" style="display: block;">
         <input id="btn1" type="button" value="白色系主題">
         <input id="btn3" type="button" value="黃色系主題">
         <input id="btn5" type="button" value="茶色系主題">
@@ -1416,7 +1436,10 @@ li{margin-left:1em;}
         <input id="youValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="youValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
     </div>
-    <input id="qdb" type="button" class="r" value="取代表" /><br />
+    <input id="qdb" type="button" class="r" value="取代表" />
+    <input id="ReToNby" type="button" class="gy" value="本因法師" />
+    <input id="DelAllqdb" type="button" class="g" value="刪除所有標點符號" />
+        <br />
     <div id="div0">
 <textarea id="txt2" placeholder="輸入打字取代表，用「=」分開，加上「\n」可斷行
 例：
