@@ -176,6 +176,7 @@
         }
 
         #btnW,
+        #btnwunno,
         #btnwun {
             background: snow;
         }
@@ -186,6 +187,7 @@
         }
 
         #btnwun2,
+        #btnwunno2,
         #btnpink {
             background: pink;
         }
@@ -544,6 +546,16 @@ tr:hover{background: wheat;}*/
                 addLiveDead('wun', 'name2', '', '', 'none', 'block')
                 change.innerHTML = '#div1>div {width: 36mm;height: 135mm;font-family: 標楷體;border:0;}.address{margin: 38mm 1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 16mm;height: 65mm;margin: 28mm 3mm 0 0;}.son {font-size: 12pt;width: 5mm;height: 50mm;margin: 86mm 3mm 0 0;}'
             }
+            // 悟光精舍版牌位，無蓮座，一張A4中有10個牌位
+            btnwunno.onclick = function () {
+                addLiveDead('', 'name2', '', '', 'none', 'block')
+                change.innerHTML = '#div1>div {width: 41mm;height: 144mm;font-family: 標楷體;border:0;}.address{margin: 40mm -1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 18pt;width: 16mm;height: 65mm;margin: 30mm 1mm 0 0;}.son {font-size: 12pt;width: 6mm;height: 55mm;margin: 88mm 3mm 0 0;}#div1 {margin: 0 -5mm 0 -10mm;}'
+            }
+            // 悟光精舍版祿位，無蓮座，一張A4中有10個牌位
+            btnwunno2.onclick = function () {
+                addLiveDead('', 'name2', '', '', 'none', 'none')
+                change.innerHTML = '#div1>div {width: 41mm;height: 140mm;font-family: 標楷體;border:0;}.address{margin: 44mm -1mm 0 0;font-size: 12pt;width: 6mm;}.name2 {font-size: 16pt;width: 16mm;height: 60mm;margin: 30mm 3mm 0 0;}.son {font-size: 12pt;width: 6mm;height: 55mm;margin: 88mm 3mm 0 0;}#div1 {margin: 0 -5mm 0 -10mm;}'
+            }
 
             // 悟光精舍版祿位，一張A4中有10個牌位
             btnwun2.onclick = function () {
@@ -680,6 +692,9 @@ tr:hover{background: wheat;}*/
         <input type="button" id="btnwun" value="悟光精舍往生牌位" />
         <input type="button" id="btnht" value="慈悲僧伽會牌位" onclick="HtDead()" />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+        <hr />
+        <input type="button" id="btnwunno2" value="悟光精舍消災祿位，無蓮座" />
+        <input type="button" id="btnwunno" value="悟光精舍往生牌位，無蓮座" />
         <br />
         <textarea id="txt1" placeholder="在此輸入要迴向超渡的往生者姓名、要超渡的祖先姓氏、要消災的人名，
         輸入完畢後，鍵盤一停止，
