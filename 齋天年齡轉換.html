@@ -1099,11 +1099,14 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
           // 加上樣式，必須在行間加上，若在<style>會被覆蓋
           return '<div class="LittleNumClass" style="font-size:14pt;height:50mm;width:10mm;margin-top:252mm;padding-top:12mm"><span>' + m + ' ' + n + '</span></div>'
         }
+        // 刪除空行
         // 將資料導入陣列
-        Arr1 = txt5.value.split('\n')
+        Arr1 = txt5.value.replace(/\n+/g, '\n').split('\n')
         for (var i = 0; i < Arr1.length; i++) {
           // 刪除前後空白，將地址前加上♂號，與人名區別
-          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
+          // 新表格不必♂號
+          // .replace(/^([^男女釋])/, '♂\t$1')
           Arr2[i] = []
           Arr2[i] = Arr1[i].split('\t')
           for (var j = 0; j < Arr2[i].length; j++) {
@@ -1111,20 +1114,20 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
           }
           // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
-          if (/^..[縣市]/.test(Arr2[i][1])) {
-            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-              Arr2[i][1] = '中華民國' + Arr2[i][1]
+          if (/^..[縣市]/.test(Arr2[i][8])) {
+            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][8])) {
+              // Arr2[i][8] = '中華民國' + Arr2[i][8]
               Arr5[i] = 'T'
-            } else if (/^深圳市/.test(Arr2[i][1])) {
-              Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+            } else if (/^深圳市/.test(Arr2[i][8])) {
+              Arr2[i][8] = '中國廣東省' + Arr2[i][8]
               Arr5[i] = 'H'
             } else {
-              Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+              // Arr2[i][8] = '中華民國台灣省' + Arr2[i][8]
               Arr5[i] = 'T'
             }
           }
-          if (/^香港/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+          if (/^香港/.test(Arr2[i][8])) {
+            Arr2[i][8] = '中國香港特別行政區' + Arr2[i][8].replace(/^香港/, '')
             Arr5[i] = 'H'
           }
           if (!Arr5[i]) {
@@ -1140,12 +1143,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // Chrome每版更新，網頁元素好像都會變動，所以每年要調整！很麻煩！
             aDiv.innerHTML = '<p style="margin: 10mm 7mm 0 10mm;font-size:46pt;font-weight: bold;text-shadow: 0px 0px black;line-height: 18mm;font-family: 超世紀細毛楷;">供佛齋天消災植福延齡祈安吉祥文疏</p>'
             // 加上疏文流水編號
-            for (var k = 1; k < Arr1.length; k++) {
-              if (Arr2[i + k][0] == '♂') {
-                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-                break
-              }
-            }
+            // for (var k = 1; k < Arr1.length; k++) {
+            //   if (Arr2[i + k][0] == '♂') {
+                aDiv.innerHTML += LittleNum(Arr5[i], j)
+            //     break
+            //   }
+            // }
             // 流水編號自增，若用i，會跳號
             j++
             // 本來另加一div，但不好用，所以改用判斷地址
@@ -1153,18 +1156,29 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // 增加一空行，調整位置
             // 用em可複製「樣式」到word中編輯，用%有時候不行
             // aDiv.innerHTML += '<font style="font-size:0.3em;">　</font><br/>'
+            
             // 加入地址
-            for (var k = 1; k < Arr1.length; k++) {
-              // 地址若有多行，則繼續加入地址，否則中止循環
-              // Chrome 108版以後，好像行首的全形空白，也不顯示，所以要加上<b>，才能調整位置
-              if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                aDiv.innerHTML += '<b>　</b>' + Arr2[i + k][1]
-                break
+            // for (var k = 1; k < Arr1.length; k++) {
+            //   // 地址若有多行，則繼續加入地址，否則中止循環
+            //   // Chrome 108版以後，好像行首的全形空白，也不顯示，所以要加上<b>，才能調整位置
+            //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+            //     aDiv.innerHTML += '<b>　</b>' + Arr2[i + k][1]
+            //     break
+            //   }
+            //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+            //     aDiv.innerHTML += '<b>　</b>' + Arr2[i + k][1] + '　以及<br/>'
+            //   }
+            // }
+              if (Arr2[i][11]) {
+                aDiv.innerHTML += '<b>　</b>' +Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10] + '　以及<br/>' + Arr2[i][11] 
+              } else if (Arr2[i][10]) {
+                aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10] 
+              } else if (Arr2[i][9]) {
+                aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9] 
+              } else {
+                aDiv.innerHTML += Arr2[i][8] 
               }
-              if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                aDiv.innerHTML += '<b>　</b>' + Arr2[i + k][1] + '　以及<br/>'
-              }
-            }
+
             // 加入男女性別，及人名，出家沙門
             if (Arr2[i][0] == '釋') {
               aDiv.innerHTML += '<br/>　<sup>沙門</sup> ' + Arr2[i][1]
@@ -1269,11 +1283,14 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         var ChineseYear4 = []
         var addNum = 0
 
+        // 刪除空行
         // 將資料導入陣列
-        Arr1 = txt5.value.split('\n')
+        Arr1 = txt5.value.replace(/\n+/g, '\n').split('\n')
         for (var i = 0; i < Arr1.length; i++) {
           // 刪除前後空白，將地址前加上♂號，與人名區別
-          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+          Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
+          // 新表格不必♂號
+          // .replace(/^([^男女釋])/, '♂\t$1')
           Arr2[i] = []
           Arr2[i] = Arr1[i].split('\t')
           for (var j = 0; j < Arr2[i].length; j++) {
@@ -1281,20 +1298,20 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             Arr2[i][j] = Arr2[i][j].replace(/^\s+/, '').replace(/\s+$/, '')
           }
           // 先把地址加上國別，判斷國別：台灣、香港、深圳…。導入流水號的英文符號
-          if (/^..[縣市]/.test(Arr2[i][1])) {
-            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][1])) {
-              // Arr2[i][1] = '中華民國' + Arr2[i][1]
+          if (/^..[縣市]/.test(Arr2[i][8])) {
+            if (/^台北市|新北市|桃園市|台中市|台南市|高雄市/.test(Arr2[i][8])) {
+              // Arr2[i][8] = '中華民國' + Arr2[i][8]
               Arr5[i] = 'T'
-            } else if (/^深圳市/.test(Arr2[i][1])) {
-              Arr2[i][1] = '中國廣東省' + Arr2[i][1]
+            } else if (/^深圳市/.test(Arr2[i][8])) {
+              Arr2[i][8] = '中國廣東省' + Arr2[i][8]
               Arr5[i] = 'H'
             } else {
-              // Arr2[i][1] = '中華民國台灣省' + Arr2[i][1]
+              // Arr2[i][8] = '中華民國台灣省' + Arr2[i][8]
               Arr5[i] = 'T'
             }
           }
-          if (/^香港/.test(Arr2[i][1])) {
-            Arr2[i][1] = '中國香港特別行政區' + Arr2[i][1].replace(/^香港/, '')
+          if (/^香港/.test(Arr2[i][8])) {
+            Arr2[i][8] = '中國香港特別行政區' + Arr2[i][8].replace(/^香港/, '')
             Arr5[i] = 'H'
           }
           if (!Arr5[i]) {
@@ -1332,12 +1349,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
               return '<span style="font-size: 0.5em;">' + m + n + '</span>'
             }
             // 加上人名流水編號
-            for (var k = 1; k < Arr1.length; k++) {
-              if (Arr2[i + k][0] == '♂') {
-                aDiv.innerHTML += LittleNum(Arr5[i + k], j)
-                break
-              }
-            }
+            // for (var k = 1; k < Arr1.length; k++) {
+            //   if (Arr2[i + k][0] == '♂') {
+                aDiv.innerHTML += LittleNum(Arr5[i], j)
+            //     break
+            //   }
+            // }
             // 流水編號自增，若用i，會跳號
             j++
 
@@ -1434,41 +1451,59 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // j++
 
             // 判斷下一行是地址否？加入地址
-            if (Arr2[i + 1][0] == '♂') {
+            // if (Arr2[i + 1][0] == '♂') {
               // 統計名單中：同一地址有多少人
-              if (addNum > 0) {
-                aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>以上' + ChineseNumToMath(addNum + 1) + '人現住：'
-                for (var k = 1; k < Arr1.length; k++) {
-                  // 地址若有多行，則繼續加入地址，否則中止循環
-                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                    aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                    break
-                  }
-                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                    // 加入行首空格7個，以便排版
-                    aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
-                  }
-                }
+            if (DiZhi[i] > 1) {
+              aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>以上' + ChineseNumToMath(DiZhi[i]) + '人現住：'
+              if (Arr2[i][11]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　　　　　' + Arr2[i][9] + '<br/>　　　　　　　' + Arr2[i][10] + '<br/>　　　　　　　' + Arr2[i][11] + '<br/><br/>'
+              } else if (Arr2[i][10]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　　　　　' + Arr2[i][9] + '<br/>　　　　　　　' + Arr2[i][10] + '<br/><br/>'
+              } else if (Arr2[i][9]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　　　　　' + Arr2[i][9] + '<br/><br/>'
               } else {
-                aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>現住：'
-                for (var k = 1; k < Arr1.length; k++) {
-                  // 地址若有多行，則繼續加入地址，否則中止循環
-                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
-                    aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
-                    break
-                  }
-                  if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
-                    // 加入行首空格5個，以便排版
-                    aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
-                  }
-                }
+                aDiv.innerHTML += Arr2[i][8] + '<br/><br/>'
               }
-              // 統計名單歸零
-              addNum = 0
-            } else {
-              // 下一行若非地址，統計名單加一
-              addNum++
+              // for (var k = 1; k < Arr1.length; k++) {
+              //   // 地址若有多行，則繼續加入地址，否則中止循環
+              //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+              //     aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+              //     break
+              //   }
+              //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+              //     // 加入行首空格7個，以便排版
+              //     aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　　　　　'
+              //   }
+              // }
+            } else if (DiZhi[i] == 1) {
+              aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>現住：'
+              if (Arr2[i][11]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　' + Arr2[i][9] + '<br/>　　　' + Arr2[i][10] + '<br/>　　　' + Arr2[i][11] + '<br/><br/>'
+              } else if (Arr2[i][10]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　' + Arr2[i][9] + '<br/>　　　' + Arr2[i][10] + '<br/><br/>'
+              } else if (Arr2[i][9]) {
+                aDiv.innerHTML += Arr2[i][8] + '<br/>　　　' + Arr2[i][9] + '<br/><br/>'
+              } else {
+                aDiv.innerHTML += Arr2[i][8] + '<br/><br/>'
+              }
+              // for (var k = 1; k < Arr1.length; k++) {
+              //   // 地址若有多行，則繼續加入地址，否則中止循環
+              //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] != '♂') {
+              //     aDiv.innerHTML += Arr2[i + k][1] + '<br/><br/>'
+              //     break
+              //   }
+              //   if (Arr2[i + k][0] == '♂' && Arr2[i + k + 1][0] == '♂') {
+              //     // 加入行首空格5個，以便排版
+              //     aDiv.innerHTML += Arr2[i + k][1] + '<br/>　　　'
+              //   }
+              // }
             }
+            //   // 統計名單歸零
+            //   addNum = 0
+            // } else {
+            //   // 下一行若非地址，統計名單加一
+            //   addNum++
+            // }
             // 插入DIV
             div2.appendChild(aDiv)
           }
@@ -1480,6 +1515,9 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 
     // 檢測結果判斷用
     var NameTestAlert = 0
+    // 新表格地址，判斷用
+    var DiZhi = []
+    var DiZhiNum = 1
     // 名單檢測
     function NameTest() {
       // 先刪除舊表格，不然會一直增加
@@ -1495,12 +1533,15 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       var ChineseYear3 = []
       var ChineseYear4 = []
       var addNum = 0
-
+      
+      // 刪除空行！必須刪除空行，否則會出錯！在其他的JTNames()和JTNamesBig()中，也要刪除空行，資料才會匹配
       // 將資料導入陣列
-      Arr1 = txt5.value.split('\n')
+      Arr1 = txt5.value.replace(/\n+/g, '\n').split('\n')
       for (var i = 0; i < Arr1.length; i++) {
         // 刪除前後空白，將地址前加上♂號，與人名區別
-        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '').replace(/^([^男女釋])/, '♂\t$1')
+        Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
+        // 新表格不必♂號
+        // .replace(/^([^男女釋])/, '♂\t$1')
         Arr2[i] = []
         Arr2[i] = Arr1[i].split('\t')
         for (var j = 0; j < Arr2[i].length; j++) {
@@ -1547,6 +1588,45 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 
         }
       }
+
+      // 新表格中，找出地址重複的人，並算出幾人
+      for (var i = 0; i < Arr2.length; i++) {
+        if (Arr2[i][8] && Arr2[i + 1][8]) {
+          if (DiZhiNum == 1) {
+            if (Arr2[i][8] == Arr2[i + 1][8]) {
+              // 地址重複就+1
+              DiZhiNum++
+              DiZhi[i] = DiZhiNum
+            } else {
+              // 不然就是1
+              DiZhi[i] = DiZhiNum
+            }
+          }else if (DiZhiNum > 1) {
+            if (Arr2[i][8] == Arr2[i + 1][8]) {
+              // 這個再+1，上一個歸0
+              DiZhiNum++
+              DiZhi[i] = DiZhiNum
+              DiZhi[i - 1] = 0
+            } else {
+              DiZhi[i] = DiZhiNum
+              DiZhi[i - 1] = 0
+              // 完成找地址的運算，就歸1
+              DiZhiNum = 1
+            }
+          }
+        } else if (Arr2[i][8] && !Arr2[i + 1][8]) {
+          if (DiZhiNum == 1) {
+            DiZhi[i] = DiZhiNum
+          }
+          if (DiZhiNum > 1) {
+            DiZhi[i] = DiZhiNum
+            DiZhi[i - 1] = 0
+            // 完成找地址的運算，就歸1
+            DiZhiNum = 1
+          }
+        }
+      }
+
       // 只呈現有誤的
       if (Arr5 != '' || Arr4 != '') {
         txt5.value = Arr5.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n') + '\n' + Arr4.join('\n').replace(/,/g, '\t').replace(/\n+/g, '\n')
@@ -1554,7 +1634,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         alert('名單有誤，請先修訂')
       } else {
         // alert要在return上一行
-        // alert('OK  名單無誤，\n請繼續操作')
+        alert('OK  名單無誤，\n請繼續操作')
         // 若無誤就保持文本框中的資料
         return NameTestAlert = 1
       }
@@ -2556,45 +2636,29 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 1957/5/10
 1958+1+2
 2017*8*8">
-釋	釋士玹	六十六	十二	十九	卯	二	雞
-女	陳某潔 	一九七八	一	二十七	寅	四十	牛
-男	Deva Gomatam	一九七三	十	二十三	辰	四十六	牛
-塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia
-女	伍某	吉	十二	廿九	吉	吉	吉
-香港長沙灣李鄭屋邨和平樓六二二０室
-香港長沙灣李鄭屋邨和平樓777室
-女	陳某華	一九七三	六	初八	吉	四十六	狗
-香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室
-男	鄺某柏	一九五五	十一	十二	吉	六十四	羊
-香港新界屯門悅湖山莊某五座５Ｊ室
-男	黎某華	一九五八	四	廿八	子	六十一	狗
-女	黎某汶	一九八五	九	十三	丑	三十四	牛
-女	黎某欣	一九八八	七	廿九	申	三十一	龍
-女	黎某賢	一九九０	九	廿五	上午七時	二十九	馬
-香港新界粉嶺嘉盛苑嘉輝閣二某一二０室
-香港新界粉嶺嘉盛苑嘉輝閣199室
 
-釋	釋士玹	一0六	正	廿九	卯	二	雞
-新竹縣北屯區松竹北路1643號
-新竹縣北屯區松竹北路1453號
-男	余某宏	六十三	十	五	吉	四十五	虎
-釋	釋某音	六十三	十一	二十二	吉	四十五	虎
-苗栗市西屯區長安路二段a1號1樓
-台中市西屯區長安路二段a1號1樓
-苗栗縣西屯區長安路二段a1號1樓
-女	某宛諭	八十八	四	十一	寅	二十	兔
-台南市東區kk路50號
-男	某國華	四十二	九	初十	晚上十一時五十分	六十六	蛇
-新北市新店區3928巷四十三號四樓
-男	曹某興	四十七	五	廿八	申時	六十一	狗
-高雄市楠梓區樂群路一770號
-男 	某宇恩 	一0二	九	初九	申時	六	蛇
-深圳市芳安路3f6巷4號
-嘉義市芳安路3s9巷4號
-男	蕭堂某	四十二	十一	初三	吉	六十六	蛇
-女	黃素某	四十六	六	廿三	吉	六十二	雞
-新北市蘆洲區民族路二六三巷
-深圳市蘆洲區民族路二六三巷
+釋	釋士玹	六十六	十二	十九	卯	二	雞	塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia
+女	陳某潔 	一九七八	一	二十七	寅	四十	牛	塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia
+男	Deva Gomatam	一九七三	十	二十三	辰	四十六	牛	塞蒲路斯 Flat 402, 7 Verebikis Street, 2002 Nicosia
+女	伍某	吉	十二	廿九	吉	吉	吉	香港長沙灣李鄭屋邨和平樓六二二０室	香港長沙灣李鄭屋邨和平樓777室
+女	陳某華	一九七三	六	初八	吉	四十六	狗	香港英皇道六十七-七十一號啟禮閣某某一樓Ａ室
+男	鄺某柏	一九五五	十一	十二	吉	六十四	羊	香港新界屯門悅湖山莊某五座５Ｊ室
+男	黎某華	一九五八	四	廿八	子	六十一	狗	香港新界粉嶺嘉盛苑嘉輝閣二某一二０室	香港新界粉嶺嘉盛苑嘉輝閣199室
+
+
+女	黎某汶	一九八五	九	十三	丑	三十四	牛	香港新界粉嶺嘉盛苑嘉輝閣二某一二０室	香港新界粉嶺嘉盛苑嘉輝閣199室
+女	黎某欣	一九八八	七	廿九	申	三十一	龍	香港新界粉嶺嘉盛苑嘉輝閣二某一二０室	香港新界粉嶺嘉盛苑嘉輝閣199室
+
+女	黎某賢	一九九０	九	廿五	上午七時	二十九	馬	香港新界粉嶺嘉盛苑嘉輝閣二某一二０室	香港新界粉嶺嘉盛苑嘉輝閣199室
+釋	釋士玹	一0六	正	廿九	卯	二	雞	新竹縣北屯區松竹北路1643號
+釋	釋士玹	一0六	正	廿九	卯	二	雞	新竹縣北屯區松竹北路1643號
+女	某宛諭	八十八	四	十一	寅	二十	兔	台南市東區kk路50號	台南市東區kk路50號	台南市東區kk路50號
+男	某國華	四十二	九	初十	晚上十一時五十分	六十六	蛇	新北市新店區3928巷四十三號四樓
+男 	某宇恩 	一0二	九	初九	申時	六	蛇	深圳市芳安路3f6巷4號	嘉義市芳安路3s9巷4號
+男	蕭堂某	四十二	十一	初三	吉	六十六	蛇	新北市蘆洲區民族路二六三巷	深圳市蘆洲區民族路二六三巷
+女	黃素某	四十六	六	廿三	吉	六十二	雞	新北市蘆洲區民族路二六三巷	深圳市蘆洲區民族路二六三巷
+女	黃素某	四十六	六	廿三	吉	六十二	雞	新北市蘆民族路二六三巷	深圳市蘆洲區民族路二六三巷
+
 </textarea>
   <textarea id="txt6" placeholder="在此貼上「護法會名單」"></textarea>
   <script>
