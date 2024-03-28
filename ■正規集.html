@@ -1355,6 +1355,22 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
                 Copy()
             }
+            DelSpaceFirst.onclick = function () {
+                zzUp()
+                // 刪除行首空格
+                for (var i = 0; i < Arr1.length; i++) {
+                    Arr1[i] = Arr1[i].replace(/^[\s　]+/, '')
+                }
+                overCopy()
+            }
+            DelSpaceEnd.onclick = function () {
+                zzUp()
+                // 刪除行末空格
+                for (var i = 0; i < Arr1.length; i++) {
+                    Arr1[i] = Arr1[i].replace(/[\s　]+$/, '')
+                }
+                overCopy()
+            }
         }
     </script>
 </head>
@@ -1420,6 +1436,8 @@ li{margin-left:1em;}
         <input id="DelAllEnter" type="button" class="gy" value="刪\n" />
         <input id="DelEnter" type="button" class="gy" value="刪空行" />
         <input id="DelEnter1" type="button" class="gy" value="段間空一行" />
+        <input id="DelSpaceFirst" type="button" class="o" value="刪行首空格" />
+        <input id="DelSpaceEnd" type="button" class="o" value="刪行末空格" />
     </div>
     <div class="name">
         <input id="myRe" type="button" class="t" value="自訂取代正規式" />

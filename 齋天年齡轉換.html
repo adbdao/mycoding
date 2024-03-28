@@ -1105,7 +1105,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         for (var i = 0; i < Arr1.length; i++) {
           // 刪除前後空白，將地址前加上♂號，與人名區別
           Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
-          // 新表格不必♂號
+          // 2024新表格不必♂號
           // .replace(/^([^男女釋])/, '♂\t$1')
           Arr2[i] = []
           Arr2[i] = Arr1[i].split('\t')
@@ -1145,7 +1145,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // 加上疏文流水編號
             // for (var k = 1; k < Arr1.length; k++) {
             //   if (Arr2[i + k][0] == '♂') {
-                aDiv.innerHTML += LittleNum(Arr5[i], j)
+            aDiv.innerHTML += LittleNum(Arr5[i], j)
             //     break
             //   }
             // }
@@ -1156,7 +1156,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             // 增加一空行，調整位置
             // 用em可複製「樣式」到word中編輯，用%有時候不行
             // aDiv.innerHTML += '<font style="font-size:0.3em;">　</font><br/>'
-            
+
             // 加入地址
             // for (var k = 1; k < Arr1.length; k++) {
             //   // 地址若有多行，則繼續加入地址，否則中止循環
@@ -1169,15 +1169,16 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             //     aDiv.innerHTML += '<b>　</b>' + Arr2[i + k][1] + '　以及<br/>'
             //   }
             // }
-              if (Arr2[i][11]) {
-                aDiv.innerHTML += '<b>　</b>' +Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10] + '　以及<br/>' + Arr2[i][11] 
-              } else if (Arr2[i][10]) {
-                aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10] 
-              } else if (Arr2[i][9]) {
-                aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9] 
-              } else {
-                aDiv.innerHTML += Arr2[i][8] 
-              }
+            // 2024新表格的地址，預設最多4個地址[8]到[11]，先用if判斷即可。再多就要用循環了！
+            if (Arr2[i][11]) {
+              aDiv.innerHTML += '<b>　</b>' + Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10] + '　以及<br/>' + Arr2[i][11]
+            } else if (Arr2[i][10]) {
+              aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9] + '　以及<br/>' + Arr2[i][10]
+            } else if (Arr2[i][9]) {
+              aDiv.innerHTML += Arr2[i][8] + '　以及<br/>' + Arr2[i][9]
+            } else {
+              aDiv.innerHTML += Arr2[i][8]
+            }
 
             // 加入男女性別，及人名，出家沙門
             if (Arr2[i][0] == '釋') {
@@ -1289,7 +1290,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         for (var i = 0; i < Arr1.length; i++) {
           // 刪除前後空白，將地址前加上♂號，與人名區別
           Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
-          // 新表格不必♂號
+          // 2024新表格不必♂號
           // .replace(/^([^男女釋])/, '♂\t$1')
           Arr2[i] = []
           Arr2[i] = Arr1[i].split('\t')
@@ -1348,10 +1349,10 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
               // 用em可複製「樣式」到word中編輯，用%有時候不行
               return '<span style="font-size: 0.5em;">' + m + n + '</span>'
             }
-            // 加上人名流水編號
+            // 加上人名流水編號。2024新表格，地址列都改到同一行的最後，每個陣列開頭都是人名。所以不必循環找出地址列！
             // for (var k = 1; k < Arr1.length; k++) {
             //   if (Arr2[i + k][0] == '♂') {
-                aDiv.innerHTML += LittleNum(Arr5[i], j)
+            aDiv.innerHTML += LittleNum(Arr5[i], j)
             //     break
             //   }
             // }
@@ -1440,7 +1441,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             //   // 用em可複製「樣式」到word中編輯，用%有時候不行
             //   return '<span style="font-size: 0.5em;float: right;">　　　' + m + n + '</span>'
             // }
-            // // 加上人名流水編號
+            // // 加上人名流水編號。2024新表格，地址列都改到同一行的最後，每個陣列開頭都是人名。所以不必循環找出地址列！
             // for (var k = 1; k < Arr1.length; k++) {
             //   if (Arr2[i + k][0] == '♂') {
             //     aDiv.innerHTML += LittleNum(Arr5[i + k], j)
@@ -1452,9 +1453,10 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 
             // 判斷下一行是地址否？加入地址
             // if (Arr2[i + 1][0] == '♂') {
-              // 統計名單中：同一地址有多少人
+            // 統計名單中：同一地址有多少人
             if (DiZhi[i] > 1) {
               aDiv.innerHTML += '<br/><span style="font-size: 0.5em;">　　</span>以上' + ChineseNumToMath(DiZhi[i]) + '人現住：'
+              // 2024新表格的地址，預設最多4個地址[8]到[11]，先用if判斷即可。再多就要用循環了！
               if (Arr2[i][11]) {
                 aDiv.innerHTML += Arr2[i][8] + '<br/>　　　　　　　' + Arr2[i][9] + '<br/>　　　　　　　' + Arr2[i][10] + '<br/>　　　　　　　' + Arr2[i][11] + '<br/><br/>'
               } else if (Arr2[i][10]) {
@@ -1515,7 +1517,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
 
     // 檢測結果判斷用
     var NameTestAlert = 0
-    // 新表格地址，判斷用
+    // 2024新表格地址，判斷用
     var DiZhi = []
     var DiZhiNum = 1
     // 名單檢測
@@ -1534,13 +1536,13 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       var ChineseYear4 = []
       var addNum = 0
       
-      // 刪除空行！必須刪除空行，否則會出錯！在其他的JTNames()和JTNamesBig()中，也要刪除空行，資料才會匹配
       // 將資料導入陣列
+      // 刪除空行！2024新表格必須刪除空行，否則會出錯！在其他的JTNames()和JTNamesBig()中，也要刪除空行，資料才會匹配
       Arr1 = txt5.value.replace(/\n+/g, '\n').split('\n')
       for (var i = 0; i < Arr1.length; i++) {
         // 刪除前後空白，將地址前加上♂號，與人名區別
         Arr1[i] = Arr1[i].replace(/^\s+/, '').replace(/\s+$/, '')
-        // 新表格不必♂號
+        // 2024新表格不必♂號
         // .replace(/^([^男女釋])/, '♂\t$1')
         Arr2[i] = []
         Arr2[i] = Arr1[i].split('\t')
@@ -1589,8 +1591,9 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         }
       }
 
-      // 新表格中，找出地址重複的人，並算出幾人
+      // 2024新表格中，找出地址重複的人，並算出同一地址中，重複幾人
       for (var i = 0; i < Arr2.length; i++) {
+        // [i + 1]會超出陣列最後一個，所以要預先判斷
         if (Arr2[i][8] && Arr2[i + 1][8]) {
           if (DiZhiNum == 1) {
             if (Arr2[i][8] == Arr2[i + 1][8]) {
@@ -1614,6 +1617,7 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
               DiZhiNum = 1
             }
           }
+          // 陣列最後一個的情況
         } else if (Arr2[i][8] && !Arr2[i + 1][8]) {
           if (DiZhiNum == 1) {
             DiZhi[i] = DiZhiNum
