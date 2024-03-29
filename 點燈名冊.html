@@ -240,7 +240,7 @@
     <style id="change"></style>
     <script>
         // 變換字體及大小
-        var abody = document.getElementsByTagName('body')
+        // var abody = document.getElementsById('body')
         function changeSize(sz) {
             abody.style.fontSize = sz
         }
@@ -360,7 +360,7 @@
                                         // oTd.innerHTML = Arr3[i][j * 5 + k - 1]
                                         XZin += Arr3[i][j * 5 + k - 1] + '</td>'
                                     } else {
-                                        // 補上全形空白，表格比較好看
+                                        // 沒有人的空格，補上全形空白，表格比較好看
                                         // tab2.innerHTML = ' '
                                         XZin += '　　　</td>'
                                     }
@@ -401,7 +401,7 @@
                             // tab2.tBodies[0].appendChild(oTr)
                         }
                     }
-                    // 從字串，再加上製表日期
+                    // 用字串，再加上製表日期
                     tab1.innerHTML += '<tr><td colspan="6">' + addDate() + '</td></tr>'
                     XZin += '<tr><td colspan="6">' + addDate() + '</td></tr>'
                     tab2.innerHTML += XZin
@@ -411,7 +411,7 @@
                     alert('請在文本框中貼上《消災亡者點燈回向名單》')
                 }
             }
-            // 啟用函數
+            // 啟用函數，一打開網頁就運算
             addTableXZWS()
 
             // 隱藏下方所有按鈕
@@ -423,7 +423,7 @@
                 }
             }
 
-            // 輸入範例
+            // 測試按鈕的輸入範例
             btn.onclick = function btntest() {
                 var cs = ["郭某忠	楊某杏,郭某香,郭某廷,楊某祺,郭某逸,康某瓘,康某林,賴某,陳某欣,蔡某錡,郭某貝,楊某慧,黃某敏,黃某宇	楊某仁,楊某冊,郭某氣	高某市鼓某區某某路30號	07-123456", "曾某珍	吳某德 吳某一 吳某謙英 曾某爽 邱某尹 吳某諴 吳某昌 涂某嘉 吳某源 吳某平	吳某歷代某先 曾某發 吳某明 吳某興	高某市岡某區	07-123456 092315465213", "郭某忠	楊某杏,郭某香,郭某廷,楊某祺,郭某逸,康某瓘,康某林,賴某,陳某欣,蔡某錡,郭某貝,楊某慧,黃某敏,黃某宇	楊某仁,楊某冊,郭某氣	高某市鼓某區某某路30號	", "曾某珍	吳某德 吳某一 吳某謙英 曾某爽 邱某尹 吳某諴 吳某昌 涂某嘉 吳某源 吳某平	吳某歷代某先 曾某發 吳某明 吳某興	高某市岡某區	07-123456,092315465213"]
                 txt1.value = cs.join('\n')
@@ -455,12 +455,12 @@
                     tab.style.background = background
                 }
             }
-            addTable('手工輸入範例：', tab4, 'yellow', example1, ' ')
+            addTable('資料輸入範例：', tab4, 'yellow', example1, ' ')
         }
     </script>
 </head>
 
-<body>
+<body id="abody">
     <table id="tab1"></table>
     <hr>
     <table id="tab2"></table>
@@ -473,7 +473,7 @@
         <input id="btn" type="button" value="測試" onclick="btntest()" />
         <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
-        這欄是功能列，可變換字體及大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！<br />
+        這欄是功能列，可變換字體及大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！(若要美觀，用滑鼠選取表單後，貼到word編緝，再列印)<br />
         <textarea id="txt1" type="text" placeholder='貼上名單，立即運算'></textarea>
         <h3>請在excel，或Google表單…任何表單的程式中，輸入原始資料！輸入範例表單如下：<br>再將表單：全選、複製、貼到上面的文本框，貼上後，程式就會立即運算！</h3>
         <table id="tab4"></table>
