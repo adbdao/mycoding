@@ -14,6 +14,8 @@
             /* color: gold;
             background: black; */
             font-size: 18pt;
+            font-family: 新細明體;
+
         }
 
         ::selection {
@@ -43,7 +45,7 @@
         #tab1,
         #tab2,
         #tab3 {
-            border: 3px solid darkgoldenrod;
+            /* border: 3px solid darkgoldenrod; */
             border-collapse: collapse;
             margin: auto;
         }
@@ -70,7 +72,7 @@
 
         #tab1 td:nth-child(2),
         .date {
-            font-size: 0.8em;
+            font-size: 0.6em;
         }
 
         #tab1 td:nth-child(4),
@@ -92,6 +94,32 @@
             font-weight: bold;
             text-align: center;} */
         /*td:nth-of-type(even){ background: lightblue; }*/
+
+        .HXclass {
+            /*配合A6紙大小*/
+            width: 86mm;
+            height: 130mm;
+            font-size: 16pt;
+            font-family: 標楷體;
+            /* 設定文字行距 */
+            line-height: 1.2em;
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            /* 向右橫排 */
+            display: inline-block;
+            border: 1px solid black;
+            padding: 0.5em 0.5em;
+        }
+
+        .HXLclass {
+            margin: 4em -1em 0 0.5em;
+        }
+
+        .datedown {
+            text-align: right;
+            margin: 0 0.5em 0 0;
+        }
 
         input {
             height: 30px;
@@ -269,16 +297,25 @@
             var ty = (oDate.getFullYear() - 1911)
             function addDate() {
                 var htr = toDon(oDate.getHours()) + ':' + toDon(oDate.getMinutes()) + ':' + toDon(oDate.getSeconds())
-                var dtr = oDate.getFullYear() + '/' + toDon((oDate.getMonth() + 1)) + '/' + toDon(oDate.getDate())
+                var dtr = oDate.getFullYear() + '年' + toDon((oDate.getMonth() + 1)) + '月' + toDon(oDate.getDate())
 
                 return '<font class="date">製表日期： ' + dtr + '_' + htr
                 // 焦點移至最頂端(x軸,y軸)
                 // window.scrollTo(0, 0)
             }
 
+            function delTab(a) {
+                var oObj = document.getElementById(a)
+                while (oObj.firstChild) {
+                    oObj.removeChild(oObj.firstChild)
+                }
+            }
+
             // 所有圖表一次運算
             function addTableXZWS() {
-                // 如果存在才運算，不然會有undefined
+                // 先刪除舊的Div，不然會一直增加
+                delTab('HX')
+                // 如果文本框內容存在才運算，不然會有undefined
                 if (txt1) {
                     var Arr1 = []
                     // 預先導入陣列
@@ -296,6 +333,7 @@
                     tab1.innerHTML = '<tbody><tr><td colspan="5">' + ty + '年 點燈名冊</td></tr>'
                     tab2.innerHTML = '<tbody><tr><td colspan="6">' + ty + '年 消災點燈迴向名單</td></tr>'
                     tab3.innerHTML = '<tbody><tr><td colspan="6">' + ty + '年 往生者點燈迴向名單</td></tr>'
+                    // HX.innerHTML = ty + '年 點燈各戶迴向單'
 
                     for (var i = 0; i < Arr1.length; i++) {
                         Arr2[i] = Arr1[i].split('\t')
@@ -332,7 +370,7 @@
 
                         tab1.tBodies[0].appendChild(oTr)
 
-
+                        // ====================
                         // 消災點燈迴向名單
                         Arr3[i] = Arr2[i][1].split(/\,| /)
                         // 加上聯絡人
@@ -371,6 +409,7 @@
                         }
 
 
+                        // ====================
                         // 往生者點燈迴向名單
                         Arr4[i] = Arr2[i][2].split(/\,| /)
                         num1 = (Math.ceil(Arr4[i].length / 5))
@@ -400,6 +439,37 @@
                             }
                             // tab2.tBodies[0].appendChild(oTr)
                         }
+
+
+                        // ====================
+                        // 點燈各戶迴向單
+                        var aDiv = document.createElement('div')
+                        aDiv.className = 'HXclass'
+
+                        // 編號、聯絡人、陽上人
+                        var XDiv = document.createElement('div')
+                        XDiv.innerHTML = '<b>' + (i + 1) + '<br> 消災：</b>'
+
+                        var XNDiv = document.createElement('div')
+                        XNDiv.innerHTML = Arr2[i][0] + '、' + Arr2[i][1].replace(/\,|，| /g, '、')
+                        XNDiv.className = 'HXLclass'
+                        XDiv.appendChild(XNDiv)
+
+                        aDiv.appendChild(XDiv)
+
+                        // 編號、亡者
+                        var WDiv = document.createElement('div')
+                        // WDiv.innerHTML = '<b>' + (i + 1) + ' 亡者：</b>'
+                        WDiv.innerHTML = '<b>' + ' 亡者：</b>'
+
+                        var WNDiv = document.createElement('div')
+                        WNDiv.innerHTML = Arr2[i][2].replace(/\,|，| /g, '、') + '<div class="datedown">' + addDate() + '</div>'
+                        WNDiv.className = 'HXLclass'
+                        WDiv.appendChild(WNDiv)
+
+                        aDiv.appendChild(WDiv)
+
+                        HX.appendChild(aDiv)
                     }
                     // 用字串，再加上製表日期
                     tab1.innerHTML += '<tr><td colspan="6">' + addDate() + '</td></tr>'
@@ -456,26 +526,46 @@
                 }
             }
             addTable('資料輸入範例：', tab4, 'yellow', example1, ' ')
+
+            // 循環顯示div
+            function showdiv(divID) {
+                var divNone = document.getElementsByClassName('divShow')
+                for (var i = 0; i < divNone.length; i++) {
+                    divNone[i].style.display = 'none'
+                }
+                divID.style.display = 'block'
+            }
+            // 循環顯示div，套用在按鈕上
+            btn1.onclick = () => { showdiv(tab1) }
+            btn2.onclick = () => { showdiv(tab2) }
+            btn3.onclick = () => { showdiv(tab3) }
+            btn4.onclick = () => { showdiv(HX) }
         }
     </script>
 </head>
 
 <body id="abody">
-    <table id="tab1"></table>
+    <table id="tab1" class="divShow"></table>
     <hr>
-    <table id="tab2"></table>
+    <table id="tab2" class="divShow"></table>
     <hr>
-    <table id="tab3"></table>
+    <table id="tab3" class="divShow"></table>
     <hr>
+    <div id="HX" class="divShow"></div>
     <input type="button" id="btnHidden" value="隱藏多餘按鈕" />
     <div id="divHidden" style="display: block;">
+        <input id="btn1" type="button" value="點燈名冊" />
+        <input id="btn2" type="button" value="消災迴向名單" />
+        <input id="btn3" type="button" value="往生迴向名單" />
+        <input id="btn4" type="button" value="各戶迴向單" />
+        <br />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="btn" type="button" value="測試" onclick="btntest()" />
         <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
         這欄是功能列，可變換字體及大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！(若要美觀，用滑鼠選取表單後，貼到word編緝，再列印)<br />
         <textarea id="txt1" type="text" placeholder='貼上名單，立即運算'></textarea>
-        <h3>請在excel，或Google表單…任何表單的程式中，輸入原始資料！輸入範例表單如下：<br>再將表單：全選、複製、貼到上面的文本框，貼上後，程式就會立即運算！</h3>
+        <h3>請在excel，或Google表單…任何表單的程式中，輸入原始資料！輸入範例表單如下：<br />再將表單：全選、複製、貼到上面的文本框，貼上後，程式就會立即運算！</h3>
         <table id="tab4"></table>
     </div>
 </body>
