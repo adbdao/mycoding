@@ -15,7 +15,6 @@
             background: black; */
             font-size: 18pt;
             font-family: 新細明體;
-
         }
 
         ::selection {
@@ -352,7 +351,7 @@
 
                         // 電話、地址
                         var oTd = document.createElement('td')
-                        oTd.innerHTML = Arr2[i][4].replace(/\,| /g, '<br/>') + '<br/>' + Arr2[i][3]
+                        oTd.innerHTML = Arr2[i][4].replace(/\,|，| /g, '<br/>') + '<br/>' + Arr2[i][3]
                         oTr.appendChild(oTd)
 
                         // 陽上人、亡者
@@ -372,7 +371,7 @@
 
                         // ====================
                         // 消災點燈迴向名單
-                        Arr3[i] = Arr2[i][1].split(/\,| /)
+                        Arr3[i] = Arr2[i][1].split(/\,|，| /)
                         // 加上聯絡人
                         Arr3[i].unshift(Arr2[i][0])
                         // 一行5人，除出有幾行
@@ -408,10 +407,9 @@
                             // tab2.tBodies[0].appendChild(oTr)
                         }
 
-
                         // ====================
                         // 往生者點燈迴向名單
-                        Arr4[i] = Arr2[i][2].split(/\,| /)
+                        Arr4[i] = Arr2[i][2].split(/\,|，| /)
                         num1 = (Math.ceil(Arr4[i].length / 5))
 
                         for (var j = 0; j < num1; j++) {
@@ -440,9 +438,8 @@
                             // tab2.tBodies[0].appendChild(oTr)
                         }
 
-
                         // ====================
-                        // 點燈各戶迴向單
+                        // 點燈各戶迴向單，用div
                         var aDiv = document.createElement('div')
                         aDiv.className = 'HXclass'
 
@@ -557,15 +554,16 @@
         <input id="btn1" type="button" value="點燈名冊" />
         <input id="btn2" type="button" value="消災迴向名單" />
         <input id="btn3" type="button" value="往生迴向名單" />
-        <input id="btn4" type="button" value="各戶迴向單" />
+        <input id="btn4" type="button" value="各戶迴向單" />這欄按鈕，可單獨呈現各類表單
         <br />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="btn" type="button" value="測試" onclick="btntest()" />
         <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
-        這欄是功能列，可變換字體及大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！(若要美觀，用滑鼠選取表單後，貼到word編緝，再列印)<br />
+        這欄是功能列，可變換字型及字體大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！若要美觀，用滑鼠選取表單後，貼到word編緝，再列印<br />
         <textarea id="txt1" type="text" placeholder='貼上名單，立即運算'></textarea>
-        <h3>請在excel，或Google表單…任何表單的程式中，輸入原始資料！輸入範例表單如下：<br />再將表單：全選、複製、貼到上面的文本框，貼上後，程式就會立即運算！</h3>
+        <h3>請在excel，或Google表單…任何表單的程式中，輸入原始資料！。每一格中的名字，可用中英文逗號、空白，作分隔。<br />※輸入範例表單如下：<br />再將表單：全選、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原來狀態。
+        </h3>
         <table id="tab4"></table>
     </div>
 </body>
