@@ -337,11 +337,11 @@
                     for (var i = 0; i < Arr1.length; i++) {
                         Arr2[i] = Arr1[i].split('\t')
                         // 如果存在才運算，改為空白字元，不然會有undefined
-                        if (!Arr2[i][0]) { Arr2[i][0] = ' ' }
-                        if (!Arr2[i][1]) { Arr2[i][1] = ' ' }
-                        if (!Arr2[i][2]) { Arr2[i][2] = ' ' }
-                        if (!Arr2[i][3]) { Arr2[i][3] = ' ' }
-                        if (!Arr2[i][4]) { Arr2[i][4] = ' ' }
+                        if (!Arr2[i][0]) { Arr2[i][0] = '　' }
+                        if (!Arr2[i][1]) { Arr2[i][1] = '　' }
+                        if (!Arr2[i][2]) { Arr2[i][2] = '　' }
+                        if (!Arr2[i][3]) { Arr2[i][3] = '　' }
+                        if (!Arr2[i][4]) { Arr2[i][4] = '　' }
 
                         var oTr = document.createElement('tr')
                         // 編號、聯絡人
@@ -351,7 +351,7 @@
 
                         // 電話、地址
                         var oTd = document.createElement('td')
-                        oTd.innerHTML = Arr2[i][4].replace(/\,|，| /g, '<br/>') + '<br/>' + Arr2[i][3]
+                        oTd.innerHTML = Arr2[i][4].replace(/\,|，| /g, '<br/>') + '<br/>' + Arr2[i][3].replace(/\,|，| /g, '<br/>')
                         oTr.appendChild(oTd)
 
                         // 陽上人、亡者

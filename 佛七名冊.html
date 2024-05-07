@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>佛七名冊</title>
+    <base target="_blank">
+    <style>
+        /* * {
+            border-radius: 15px;
+        } */
+
+        body {
+            /* color: gold;
+            background: black; */
+            /* font-size: 18pt; */
+            font-family: 新細明體;
+        }
+
+        ::selection {
+            background: darkred;
+            color: yellow;
+        }
+
+        ::-moz-selection {
+            background: darkred;
+            color: yellow;
+        }
+
+        input:hover,
+        textarea:hover {
+            border: 2px solid fuchsia;
+            box-shadow: 5px 5px 20px darkorchid;
+        }
+
+        input:active,
+        textarea:active {
+            border-color: indigo #f3f #f6f indigo;
+            border-width: 5px;
+            border-style: solid;
+            box-shadow: 5px -5px 20px darkorchid;
+        }
+
+        #DaDianUp {
+            display: inline-flex;
+            border: 2px solid yellowgreen;
+            height: 190mm;
+            width: 280mm;
+        }
+
+        #DaDianLeft {
+            /* border-right: 1px solid white; */
+            flex-shrink: 1;
+            /*配合A4紙大小一半，橫向*/
+            height: 190mm;
+            width: 140mm;
+            padding: 20mm 5mm 0 0;
+            text-align: right;
+            /* float: left; */
+        }
+
+        #DaDianRight {
+            /* border: 1px solid tomato; */
+            /* display: flex; */
+            flex-shrink: 1;
+            /* flex-direction: row; */
+            /* flex-wrap: wrap-reverse; */
+            /*配合A4紙大小一半，橫向*/
+            height: 190mm;
+            width: 140mm;
+            padding: 45mm 0 0 5mm;
+            text-align: left;
+        }
+
+        #DaDianLeft div,
+        #DaDianRight div {
+            /* 向右橫排 */
+            display: inline-block;
+            border: 2px inset green;
+            font-size: 12pt;
+            line-height: 2.2em;
+            width: 3.1em;
+            height: 2em;
+            text-align: center;
+            white-space: nowrap;
+            /* vertical-align: middle; */
+            /*轉直排語法*/
+            /* -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl; */
+        }
+
+        .noborder {
+            border: 0px inset white;
+            position: relative;
+            top: 3mm;
+            right: 42mm;
+            border-color: white;
+        }
+
+        .noborder1 {
+            border: 0px inset white;
+            position: relative;
+            top: 3mm;
+            left: 42mm;
+            border-color: white;
+        }
+
+        #tab1,
+        #tab2,
+        #tab3 {
+            /* border: 3px solid darkgoldenrod; */
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        tr:hover {
+            background: #fdf;
+        }
+
+        /* tr:nth-child(1) {
+            font-weight: bold;
+            text-align: center;
+        } */
+
+        td {
+            border: 1px solid black;
+            padding: 2px 5px;
+        }
+
+        #tab1 td:nth-child(1) {
+            width: 10%;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        #tab1 td:nth-child(2),
+        .date {
+            font-size: 0.6em;
+        }
+
+        #tab1 td:nth-child(4),
+        #tab1 td:nth-child(5) {
+            width: 10%;
+            text-align: center;
+            font-size: 0.6em;
+            vertical-align: text-top;
+        }
+
+        #tab2 td:nth-child(1),
+        #tab3 td:nth-child(1) {
+            text-align: center;
+        }
+
+        /* td:nth-of-type(odd) {
+            background: lightgreen;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;} */
+        /*td:nth-of-type(even){ background: lightblue; }*/
+
+        .HXclass {
+            /*配合A6紙大小*/
+            width: 86mm;
+            height: 130mm;
+            font-size: 16pt;
+            font-family: 標楷體;
+            /* 設定文字行距 */
+            line-height: 1.2em;
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            /* 向右橫排 */
+            display: inline-block;
+            border: 1px solid black;
+            padding: 0.5em 0.5em;
+        }
+
+        .HXLclass {
+            margin: 4em -1em 0 0.5em;
+        }
+
+        .datedown {
+            text-align: right;
+            margin: 0 0.5em 0 0;
+        }
+
+        input {
+            height: 30px;
+            background: pink;
+            color: navy;
+            border-radius: 15px;
+        }
+
+        #div0 {
+            background: #ccc;
+        }
+
+        #div1 {
+            font-size: 18pt;
+            color: orange;
+            white-space: pre-wrap;
+            /*margin: 0 0 0 3cm;*/
+        }
+
+        #div1 input {
+            background: #fec;
+        }
+
+        #div2 input {
+            background: #aea;
+        }
+
+        #div3 input {
+            background: #ff8;
+        }
+
+        #div4 input {
+            background: #f99;
+        }
+
+        .name {
+            background: tan;
+            color: crimson;
+        }
+
+        #txt1,
+        #txtz1 {
+            width: 45vw;
+            height: 30vh;
+            border: 3px solid red;
+        }
+
+        #myValue {
+            width: 250px;
+            background: #aca;
+        }
+
+        #myValue2 {
+            width: 250px;
+            background: beige;
+        }
+
+        .g {
+            color: gold;
+        }
+
+        .t {
+            color: tomato;
+        }
+
+        r,
+        .r {
+            color: red;
+        }
+
+        .sb {
+            color: skyblue;
+        }
+
+        .ky {
+            color: khaki;
+        }
+
+        .pink {
+            color: pink;
+        }
+
+        .y {
+            color: yellow;
+        }
+
+        .o {
+            color: orange;
+        }
+
+        .yg {
+            color: yellowgreen;
+        }
+
+        .b {
+            color: lightblue;
+        }
+
+        .p {
+            color: mediumpurple;
+        }
+
+        .lg {
+            color: limegreen;
+            font-size: 0.9em;
+        }
+
+        .lsg {
+            color: lightseagreen;
+        }
+
+        .lc {
+            color: lightcyan;
+        }
+
+        .gy {
+            color: greenyellow;
+        }
+
+        .tan {
+            color: tan;
+        }
+
+        .magenta {
+            /*字體加到最粗是900*/
+            font-weight: 900;
+            /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
+            text-shadow: 1px 1px magenta;
+            color: magenta;
+        }
+
+        #reload {
+            background: yellowgreen;
+        }
+
+        #btnHidden {
+            height: 8px;
+            width: 8px;
+            background: white;
+        }
+
+        #btnHidden:hover {
+            height: 35px;
+            width: 5cm;
+            background: white;
+        }
+    </style>
+    <style id="change"></style>
+    <script>
+        // 變換字體及大小
+        function changeSize(sz) {
+            abody.style.fontSize = sz
+        }
+        function changeFamily(ff) {
+            abody.style.fontFamily = ff
+        }
+
+        window.onload = function () {
+            myValue.onkeyup = function () {
+                changeSize(myValue.value + 'pt')
+            }
+            myValue2.onkeyup = function () {
+                changeFamily(myValue2.value)
+            }
+            // 貼上資料即啟動函數
+            txt1.onkeyup = function () {
+                addTableF7()
+            }
+
+            // 製表日期
+            function toDon(n) {
+                if (n < 10) { return '0' + n }
+                else { return '' + n }
+            }
+            var oDate = new Date()
+            var ty = (oDate.getFullYear() - 1911)
+            function addDate() {
+                var htr = toDon(oDate.getHours()) + ':' + toDon(oDate.getMinutes()) + ':' + toDon(oDate.getSeconds())
+                var dtr = oDate.getFullYear() + '年' + toDon((oDate.getMonth() + 1)) + '月' + toDon(oDate.getDate())
+
+                return '<font class="date">製表日期： ' + dtr + '_' + htr
+                // 焦點移至最頂端(x軸,y軸)
+                // window.scrollTo(0, 0)
+            }
+
+            // 刪除圖表
+            function delTab(a) {
+                var oObj = document.getElementById(a)
+                while (oObj.firstChild) {
+                    oObj.removeChild(oObj.firstChild)
+                }
+            }
+
+            // 所有圖表一次運算
+            function addTableF7() {
+                // 先刪除舊的Div，不然會一直增加
+                // delTab('HX')
+                // 如果文本框內容存在才運算，不然會有undefined
+                // if (txt1 || txtz1) {
+
+                // 預先導入陣列
+                var Arr1 = []
+                Arr1 = txt1.value.split('\n')
+                // z表示「在家眾」
+                var Arrz1 = []
+                Arrz1 = txtz1.value.split('\n')
+                // 二維陣列
+                var Arr2 = []
+                var Arr3 = []
+                var Arr4 = []
+                var Arr5 = []
+                var Arrz2 = []
+                var Arrz3 = []
+                var Arrz4 = []
+                var Arrz5 = []
+                var Arrz6 = []
+                var Arrz7 = []
+                var Arrz8 = []
+
+                // 加上Div
+                function addDiv(num, inner) {
+                    var aDiv = ''
+                    if (!num) { num = 1 }
+                    if (!inner) { inner = '　　　' }
+                    for (var i = 0; i < num; i++) {
+                        aDiv += '<div>' + inner + '</div>'
+                    }
+                    return aDiv
+                }
+                // 加上<br>
+                function addBr(num) {
+                    var abr = ''
+                    if (!num) { num = 1 }
+                    for (var i = 0; i < num; i++) {
+                        abr += '<br>'
+                    }
+                    return abr
+                }
+
+                // 出家眾名冊
+                for (var i = 0; i < Arr1.length; i++) {
+                    Arr2[i] = Arr1[i].split('\t')
+                    Arr2[i].unshift(i + 1)
+                    // 本來想用「物件」來運算，但太麻煩，還是用陣列即可。把日期+姓名，合成陣列，以※分開
+                    // 受戒日期
+                    Arr3[i] = Arr2[i][16] + '※' + Arr2[i][8]
+                    // 報名編號
+                    Arr4[i] = Arr2[i][0] + '※' + Arr2[i][8]
+                    // 生日年齡
+                    Arr5[i] = Arr2[i][9] + '※' + Arr2[i][8]
+                }
+
+                // 預設人數不足時，先補上足夠的人數，補上最大值的人數，才能倒轉陣列來運算。
+                function addSpace(arrNum, big, txt, YY) {
+                    for (var k = 0; k < big; k++) {
+                        arrNum.push(txt)
+                    }
+                    if (YY == 'y') {
+                        arrNum.sort()
+                    }
+                }
+                addSpace(Arr3, 24, '3333/3/3', 'y')
+                addSpace(Arr4, 24, '25')
+                addSpace(Arr5, 24, '3333/3/3', 'y')
+
+                // 在家眾名冊
+                for (var i = 0, j = 1, k = 1; i < Arrz1.length; i++) {
+                    Arrz2[i] = Arrz1[i].split('\t')
+                    // 區分男女，到不同的陣列中
+                    if (Arrz2[i][8] == '男') {
+                        Arrz2[i].unshift(j)
+                        Arrz3.push(Arrz2[i])
+                        j++
+                    } else {
+                        Arrz2[i].unshift(k)
+                        Arrz4.push(Arrz2[i])
+                        k++
+                    }
+                }
+                for (var i = 0; i < Arrz4.length; i++) {
+                    // 女眾
+                    if (Arrz4[i]) {
+                        // 報名編號
+                        Arrz6[i] = Arrz4[i][0] + '※' + Arrz4[i][8]
+                        // 生日年齡
+                        Arrz5[i] = Arrz4[i][10] + '※' + Arrz4[i][8]
+                    }
+                    // 男眾，人數少，所以要判斷有無
+                    if (Arrz3[i]) {
+                        // 報名編號
+                        Arrz8[i] = Arrz3[i][0] + '※' + Arrz3[i][8]
+                        // 生日年齡
+                        Arrz7[i] = Arrz3[i][10] + '※' + Arrz3[i][8]
+                    }
+                }
+                addSpace(Arrz6, 88, '89')
+                addSpace(Arrz5, 88, '3333/3/3', 'y')
+                addSpace(Arrz8, 8, '9')
+                addSpace(Arrz7, 8, '3333/3/3', 'y')
+
+                // 建立大殿排班表，從西班開始
+                // 上2排，空列
+                DaDianLeft.innerHTML = addDiv(4) + addDiv(1, '西側') + addBr(1) + addDiv(6) + addBr(2)
+
+                // 第3排，數字列
+                for (var i = 0; i < 9; i++) {
+                    if (i == 8) {
+                        DaDianLeft.innerHTML += addDiv(1) + '<br>'
+                    } else {
+                        DaDianLeft.innerHTML += addDiv(1, (8 - i))
+                    }
+                }
+
+                // 西班比丘尼，3列
+                var str = []
+                for (var j = 1; j < 4; j++) {
+                    // 從Arr3取出8人，Arr3會減少8人
+                    str = Arr3.splice(0, 8)
+                    // 倒轉陣列
+                    str.reverse()
+                    for (var i = 0; i < 9; i++) {
+                        // 必須判斷，否則會出錯
+                        if (!str[i]) { str[i] = '　　　' }
+                        // 除去※與補上的最大值
+                        str[i] = str[i].replace(/^[^※]+※(.+)/, '$1')
+                            .replace('3333/3/3', '　　　')
+                        if (i == 8) {
+                            // 加上「西一」
+                            DaDianLeft.innerHTML += addDiv(1, '西' + j) + '<br>'
+                        } else {
+                            DaDianLeft.innerHTML += addDiv(1, str[i])
+                        }
+                    }
+                    // str要重複使用，必須清空歸0
+                    str.length = 0
+                }
+
+                // 西班女眾居士
+                // 因為每行Div不一定，所以做成函數，手動增加Div
+                function addWeman(ArrName, lonNum, NS, firstNum) {
+                    // 從陣列取出人數
+                    str = ArrName.splice(0, lonNum)
+                    // 倒轉陣列
+                    str.reverse()
+                    for (var i = 0; i < (lonNum + 1); i++) {
+                        // 必須判斷，否則會出錯
+                        if (!str[i]) { str[i] = '　　　' }
+                        // 除去※與補上的最大值
+                        str[i] = str[i].replace(/^[^※]+※(.+)/, '$1')
+                            .replace('89', '　　　')
+                        if (i == lonNum) {
+                            // 加上「西一」
+                            DaDianLeft.innerHTML += addDiv(1, NS + firstNum) + '<br>'
+                        } else {
+                            DaDianLeft.innerHTML += addDiv(1, str[i])
+                        }
+                    }
+                    // str要重複使用，必須清空歸0
+                    str.length = 0
+                }
+                // 手動加上5排
+                addWeman(Arrz6, 8, '西', 4)
+                addWeman(Arrz6, 8, '西', 5)
+                addWeman(Arrz6, 7, '西', 6)
+                addWeman(Arrz6, 6, '西', 7)
+                addWeman(Arrz6, 7, '西', 8)
+
+                // 手動加上糾察1排
+                DaDianLeft.innerHTML += addDiv(3)
+                DaDianLeft.innerHTML += addDiv(1, '糾察')
+                DaDianLeft.innerHTML += addDiv(1, '西9') + addBr(2)
+                // 手動加上下方靠左的1排，另立樣式，才能靠左
+                DaDianLeft.innerHTML += '<div class="noborder"></div><div class="noborder"></div><div class="noborder"></div><div class="noborder"></div><div class="noborder"></div><div class="noborder"></div>'
+
+                // 東班
+                // 第1排，數字列
+                for (var i = 0; i < 9; i++) {
+                    if (i == 0) {
+                        DaDianRight.innerHTML = addDiv(1)
+                    } else {
+                        DaDianRight.innerHTML += addDiv(1, i)
+                    }
+                }
+                DaDianRight.innerHTML += '<br>'
+
+                // 因為每行Div不一定，所以做成函數，手動增加Div
+                function addMan(ArrName, lonNum, NS, firstNum) {
+                    // 從陣列取出人數
+                    str = ArrName.splice(0, lonNum)
+                    // 不必倒轉陣列
+                    for (var i = 0; i < (lonNum + 1); i++) {
+                        // 必須判斷，否則會出錯
+                        if (!str[i]) { str[i] = '　　　' }
+                        // 除去※與補上的最大值
+                        str[i] = str[i].replace(/^[^※]+※(.+)/, '$1')
+                            .replace('89', '　　　')
+                            .replace('9', '　　　')
+                        if (i == 0) {
+                            // 東一」
+                            DaDianRight.innerHTML += addDiv(1, NS + firstNum)
+                        } else {
+                            DaDianRight.innerHTML += addDiv(1, str[i - 1])
+                        }
+                    }
+                    // str要重複使用，必須清空歸0
+                    str.length = 0
+                    DaDianRight.innerHTML += '<br>'
+                }
+                // 手動加上男居士1排
+                addMan(Arrz8, 8, '東', 1)
+                // 手動加上女居士7排
+                addMan(Arrz6, 8, '東', 2)
+                addMan(Arrz6, 8, '東', 3)
+                addMan(Arrz6, 8, '東', 4)
+                addMan(Arrz6, 8, '東', 5)
+                addMan(Arrz6, 7, '東', 6)
+                addMan(Arrz6, 6, '東', 7)
+                addMan(Arrz6, 7, '東', 8)
+                // 手動加上糾察1排，與下方靠右的1排，另立樣式，才能靠右
+                DaDianRight.innerHTML += addDiv(1, '東9') + addDiv(1, '糾察') + addDiv(3) + addBr(2) + '<div class="noborder1"></div><div class="noborder1"></div><div class="noborder1"></div><div class="noborder1"></div><div class="noborder1"></div><div class="noborder1"></div>'
+
+                // 如果存在才運算，改為空白字元，不然會有undefined
+                // // if (!Arr2[i][0]) { Arr2[i][0] = '　' }
+                // // if (!Arr2[i][1]) { Arr2[i][1] = '　' }
+                // // if (!Arr2[i][2]) { Arr2[i][2] = '　' }
+                // // if (!Arr2[i][3]) { Arr2[i][3] = '　' }
+                // // if (!Arr2[i][4]) { Arr2[i][4] = '　' }
+
+                // var oTr = document.createElement('tr')
+                // // 編號、聯絡人
+                // var oTd = document.createElement('td')
+                // oTd.innerHTML = '<b>' + (i + 1) + '</b><br/><b>' + Arr2[i][0] + '</b>'
+                // oTr.appendChild(oTd)
+
+                // // 電話、地址
+                // var oTd = document.createElement('td')
+                // oTd.innerHTML = Arr2[i][4].replace(/\,|，| /g, '<br/>') + '<br/>' + Arr2[i][3].replace(/\,|，| /g, '<br/>')
+                // oTr.appendChild(oTd)
+
+                // // 陽上人、亡者
+                // var oTd = document.createElement('td')
+                // oTd.innerHTML = Arr2[i][1].replace(/\,|，| /g, '、') + '<br/><r>亡者：' + Arr2[i][2].replace(/\,|，| /g, '、') + '</r>'
+                // oTr.appendChild(oTd)
+
+                // var oTd = document.createElement('td')
+                // oTd.innerHTML = '繳費日期'
+                // oTr.appendChild(oTd)
+
+                // var oTd = document.createElement('td')
+                // // oTd.innerHTML = '<br/>'
+                // oTr.appendChild(oTd)
+
+                // tab1.tBodies[0].appendChild(oTr)
+
+                // // ====================
+                // // 消災點燈迴向名單
+                // Arr3[i] = Arr2[i][1].split(/\,|，| /)
+                // // 加上聯絡人
+                // Arr3[i].unshift(Arr2[i][0])
+                // 一行5人，除出有幾行
+                //     num = (Math.ceil(Arr3[i].length / 5))
+
+                //     for (var j = 0; j < num; j++) {
+                //         // 用createElement會重複覆蓋前面資料，所以用字串，就不會出問題
+                //         // var oTr = document.createElement('tr')
+                //         XZin += '<tr>'
+                //         for (var k = 0; k < 6; k++) {
+                //             // var oTd = document.createElement('td')
+                //             XZin += '<td>'
+                //             if (j == 0 && k == 0) {
+                //                 // 編號
+                //                 // oTd.innerHTML = (i + 1)
+                //                 XZin += (i + 1) + '</td>'
+                //             } else if (k == 0) {
+                //                 // oTd.innerHTML = ' '
+                //                 XZin += '　' + '</td>'
+                //             } else {
+                //                 // 人名，5人一行
+                //                 if (Arr3[i][j * 5 + k - 1]) {
+                //                     // oTd.innerHTML = Arr3[i][j * 5 + k - 1]
+                //                     XZin += Arr3[i][j * 5 + k - 1] + '</td>'
+                //                 } else {
+                //                     // 沒有人的空格，補上全形空白，表格比較好看
+                //                     // tab2.innerHTML = ' '
+                //                     XZin += '　　　</td>'
+                //                 }
+                //             }
+                //             // oTr.appendChild(oTd)
+                //         }
+                //         // tab2.tBodies[0].appendChild(oTr)
+                //     }
+
+                //     // ====================
+                //     // 往生者點燈迴向名單
+                //     Arr4[i] = Arr2[i][2].split(/\,|，| /)
+                //     num1 = (Math.ceil(Arr4[i].length / 5))
+
+                //     for (var j = 0; j < num1; j++) {
+                //         // var oTr = document.createElement('tr')
+                //         WSin += '<tr>'
+                //         for (var k = 0; k < 6; k++) {
+                //             // var oTd = document.createElement('td')
+                //             WSin += '<td>'
+                //             if (j == 0 && k == 0) {
+                //                 // oTd.innerHTML = (i + 1)
+                //                 WSin += (i + 1) + '</td>'
+                //             } else if (k == 0) {
+                //                 // oTd.innerHTML = ' '
+                //                 WSin += '　' + '</td>'
+                //             } else {
+                //                 if (Arr4[i][j * 5 + k - 1]) {
+                //                     // oTd.innerHTML = Arr4[i][j * 5 + k - 1]
+                //                     WSin += Arr4[i][j * 5 + k - 1] + '</td>'
+                //                 } else {
+                //                     // tab2.innerHTML = ' '
+                //                     WSin += '　　　</td>'
+                //                 }
+                //             }
+                //             // oTr.appendChild(oTd)
+                //         }
+                //         // tab2.tBodies[0].appendChild(oTr)
+                //     }
+
+                //     // ====================
+                //     // 點燈各戶迴向單，用div
+                //     var aDiv = document.createElement('div')
+                //     aDiv.className = 'HXclass'
+
+                //     // 編號、聯絡人、陽上人
+                //     var XDiv = document.createElement('div')
+                //     XDiv.innerHTML = '<b>' + (i + 1) + '<br> 消災：</b>'
+
+                //     var XNDiv = document.createElement('div')
+                //     XNDiv.innerHTML = Arr2[i][0] + '、' + Arr2[i][1].replace(/\,|，| /g, '、')
+                //     XNDiv.className = 'HXLclass'
+                //     XDiv.appendChild(XNDiv)
+
+                //     aDiv.appendChild(XDiv)
+
+                //     // 編號、亡者
+                //     var WDiv = document.createElement('div')
+                //     // WDiv.innerHTML = '<b>' + (i + 1) + ' 亡者：</b>'
+                //     WDiv.innerHTML = '<b>' + ' 亡者：</b>'
+
+                //     var WNDiv = document.createElement('div')
+                //     WNDiv.innerHTML = Arr2[i][2].replace(/\,|，| /g, '、') + '<div class="datedown">' + addDate() + '</div>'
+                //     WNDiv.className = 'HXLclass'
+                //     WDiv.appendChild(WNDiv)
+
+                //     aDiv.appendChild(WDiv)
+
+                //     HX.appendChild(aDiv)
+                // }
+                // // 用字串，再加上製表日期
+                // tab1.innerHTML += '<tr><td colspan="6">' + addDate() + '</td></tr>'
+                // XZin += '<tr><td colspan="6">' + addDate() + '</td></tr>'
+                // tab2.innerHTML += XZin
+                // WSin += '<tr><td colspan="6">' + addDate() + '</td></tr>'
+                // tab3.innerHTML += WSin
+                // } else {
+                //     alert('請在文本框中貼上《消災亡者點燈回向名單》')
+                // }
+            }
+            // 啟用函數，一打開網頁就運算
+            addTableF7()
+
+            // 隱藏下方所有按鈕
+            btnHidden.onclick = function () {
+                if (divHidden.style.display == 'block') {
+                    divHidden.style.display = 'none'
+                } else {
+                    divHidden.style.display = 'block'
+                }
+            }
+
+            // 測試按鈕的輸入範例
+            btn.onclick = function btntest() {
+                var cs = []
+                txt1.value = cs.join('\n')
+                txtz1.value = cs.join('\n')
+                addTableF7()
+            }
+
+            // 範例：
+            var example1 = [
+            ]
+
+            // 範例圖表
+            function addTable(ps, tab, background, Arr, nt) {
+                // 二維陣列
+                var Arr2 = []
+                // 必須加入tbody，否則無法插入td
+                tab.innerHTML = ps + '<tbody></tbody>'
+                for (var i = 0; i < Arr.length; i++) {
+                    Arr2[i] = Arr[i].split(nt)
+                    var oTr = document.createElement('tr')
+                    // 記得用[i]
+                    for (var j of Arr2[i]) {
+                        var oTd = document.createElement('td')
+                        oTd.innerHTML = j
+                        oTr.appendChild(oTd)
+                    }
+                    tab.tBodies[0].appendChild(oTr)
+                    tab.style.background = background
+                }
+            }
+            // addTable('資料輸入範例：', tab4, 'yellow', example1, ' ')
+
+            // 循環顯示div
+            function showdiv(divID) {
+                var divNone = document.getElementsByClassName('divShow')
+                // for (var i = 0; i < divNone.length; i++) {
+                //     divNone[i].style.display = 'none'
+                // }
+                for (var k of divNone) {
+                    k.style.display = 'none'
+                }
+                divID.style.display = 'block'
+            }
+            // 循環顯示div，套用在按鈕上
+            // 大殿的必須加上inline-flex，才不會Div跑位
+            PaiBan.onclick = () => { showdiv(DaDianUp); DaDianUp.style.display = 'inline-flex' }
+            ChangWe.onclick = () => { showdiv(ChangWeUp) }
+            JinYu.onclick = () => { showdiv(JinYuUp) }
+            CeLi.onclick = () => { showdiv(CeLiUp) }
+        }
+    </script>
+</head>
+
+<body id="abody">
+    <div id="DaDianUp" class="divShow">
+        <div id="DaDianLeft"></div>
+        <div id="DaDianRight"></div>
+    </div><br>
+    <div id="ChangWeUp" class="divShow">
+
+    </div><br>
+    <div id="JinYuUp" class="divShow">
+
+    </div><br>
+    <div id="CeLiUp" class="divShow">
+
+    </div><br>
+    <input type="button" id="btnHidden" value="隱藏多餘按鈕" />
+    <div id="divHidden" style="display: block;">
+        <input id="PaiBan" type="button" value="大殿排班表" />
+        <input id="ChangWe" type="button" value="掛單之床位" />
+        <input id="JinYu" type="button" value="禁語牌" />
+        <input id="CeLi" type="button" value="佛七策勵表" />這欄按鈕，可單獨呈現各類表單
+        <br />
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+        <input id="btn" type="button" value="測試" onclick="btntest()" />
+        <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
+        <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
+        這欄是功能列，可變換字型及字體大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！若要美觀，用滑鼠選取表單後，貼到word編緝，再列印<br />
+        <textarea id="txt1" type="text"
+            placeholder='貼上〈出家眾〉報名表單，立即運算'>2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	法師01	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	1924/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+            2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	法師02	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	1925/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+            2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	法師03	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	1926/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	法師2	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	法師3	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	上座	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	上座	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	上座	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	上座	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	上座	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2020/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	法師21	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2024/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	下座	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2027/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no
+2024/4/10 下午 7:40:04	abb@gmail.com	精進佛七	2024/4/26	2024/5/3	悟光精舍客堂	悟光精舍客堂	法師23	2004/7/13	0912345678	悟光精舍客堂	A	悟光精舍客堂	A123456789	比丘尼戒	2028/3/10	悟光精舍客堂	2024/1/10	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912334455	no	no
+2024/4/13 下午 3:00:53	adbdao3@gmail.com	精進佛七, 菩薩戒	2024/4/30	2024/5/10	丁一一	丁一一	法師24	2024/4/12	0912345678	台北一○一	A	台北一○一	A123456789	比丘尼戒	2120/8/13	台北一○一	2024/2/8	asd	台北一○一	we	sd	dsfd台北一○一	0912334455	no	no</textarea>
+        <textarea id="txtz1" type="text"
+            placeholder='貼上〈在家眾〉報名表單，立即運算'>2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男01	男	1906/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+            2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女01	女	1918/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+            2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男02	男	2000/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女02	女	2000/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	B8	男	2016/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女03	女	2002/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	男居士	男	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士1	女	2000/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	女居士	女	2018/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/10 下午 7:35:14	adb@gmail.com	精進佛七	是	163cm	2024/4/27	2024/5/4	老居士	女	2006/7/19	0912345678	悟光精舍客堂	A		A123456789	五戒	2013/1/23	悟光精舍客堂	2024/4/19	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	悟光精舍客堂	0912345678	no	no			
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一
+2024/4/13 下午 3:05:14	adbdao3@gmail.com	精進佛七, 五戒, 菩薩戒	是	180	2024/4/5	2024/5/7	年輕人	女	2019/7/13	0912334455	台北一○一	B	台北一○一	s1233445566	五戒	2024/3/7	台北一○一	2024/1/4	foo	台北一○一	台北一○一	nsdjfk	091233445566	no	no	do	asdo	台北一○一</textarea>
+        <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原來狀態。
+        </h4>
+        <!-- <table id="tab4"></table> -->
+    </div>
+</body>
+
+</html>

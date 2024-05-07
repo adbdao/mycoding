@@ -39,7 +39,13 @@ function addDir(IndexName) {
         if (/var ArrLi\s?\=/.test(k[i])) {
             k[i] = 'var ArrLi = ["' + d.join('","') + '"]'
             // 刪除不需要的檔
-            k[i] = k[i].replace(',"debug.log"', '').replace(',".git"', '').replace(',"pic"', '').replace(',".vscode"', '').replace(/\,?\"\.gitignore\"/, '').replace(',"icons"', '')
+            k[i] = k[i].replace(',"debug.log"', '')
+            .replace(',".git"', '')
+            .replace(',"pic"', '')
+            .replace(',".vscode"', '')
+            .replace(/\,?\"\.gitignore\"/, '')
+            .replace(',"icons"', '')
+            .replace(',"僧俗.txt"', '')
         }
     }
 
