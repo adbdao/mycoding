@@ -43,6 +43,7 @@
             border: 2px solid yellowgreen;
             height: 190mm;
             width: 280mm;
+            /* margin: 0 auto; */
         }
 
         #DaDianLeft {
@@ -132,7 +133,7 @@
         #JinYuUp {
             margin: 0 auto;
             /*配合A4紙大小*/
-            /* width: 197mm; */
+            width: 197mm;
             /* height: 280mm; */
         }
 
@@ -160,6 +161,13 @@
             font-weight: 900;
         }
 
+        #CeLiUp {
+            margin: 0 auto;
+            /*配合A4紙大小*/
+            width: 197mm;
+            /* height: 280mm; */
+        }
+
         .CeLi {
             font-size: 1.2em;
             letter-spacing: 0.5em;
@@ -178,7 +186,7 @@
             margin: auto;
             font-family: 標楷體;
             text-align: center;
-            font-size: 0.85em;
+            font-size: 0.9em;
             width: 100%;
         }
 
@@ -196,6 +204,10 @@
             /* padding: 2px 5px; */
         }
 
+        x {
+            letter-spacing: 3px;
+        }
+
         .date {
             font-size: 0.6em;
         }
@@ -205,6 +217,10 @@
             background: pink;
             color: navy;
             border-radius: 15px;
+        }
+
+        button {
+            background: lightcyan;
         }
 
         #div0 {
@@ -364,7 +380,7 @@
                 changeFamily(myValue2.value)
             }
             // 貼上資料即啟動函數
-            txt1.onkeyup = function () {
+            txtz1.onkeyup = txt1.onkeyup = function () {
                 addTableF7()
             }
 
@@ -710,7 +726,7 @@
                     for (var i = 0; i < Arr.length; i++) {
                         if (i == 0 || i == CeLiNum) {
                             // 要加<table><tbody>
-                            tab1.innerHTML += '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + oDate.getFullYear() + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br>※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr><tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                            tab1.innerHTML += '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + oDate.getFullYear() + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br><x>　　※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></x></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr><tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
                             // 每次增加13列
                             CeLiNum = i + 13
                         } else {
@@ -723,7 +739,7 @@
                 addCeLi(Arrz8j)
             }
             // 啟用函數，一打開網頁就運算
-            addTableF7()
+            // addTableF7()
 
             // 隱藏下方所有按鈕
             btnHidden.onclick = function () {
@@ -732,7 +748,7 @@
                 } else {
                     divHidden.style.display = 'block'
                 }
-                // 大殿排班表，轉90度
+                // 大殿排班表，轉90度，用絕對定位，列印排版才好看
                 change.innerHTML = '#DaDianUp{transform: rotate(90deg);position: absolute;top:60mm;}#ChangWeUp{margin-top:350mm;}'
             }
 
@@ -806,17 +822,27 @@
         <input id="ChangWe" type="button" value="掛單之床位" />
         <input id="JinYu" type="button" value="禁語牌" />
         <input id="CeLi" type="button" value="佛七策勵表" />
-        <input type="button" id="btnHidden" value="列印排版" />這欄按鈕，可單獨呈現各類表單
+        <input type="button" id="btnHidden" value="列印排版" />這列按鈕，可單獨呈現各類表單
         <br />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
         <input id="btn" type="button" value="測試" onclick="btntest()" />
         <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
-        這欄是功能列，可變換字型及字體大小，也可測試！。「重整頁面」按鈕上方，有一個小小的「隱藏多餘按鈕」的小按鈕，※滑鼠滑上去時才會顯現出來！，可先按鈕隱藏下方說明文字後，再列印。就不會印出按鈕！若要美觀，用滑鼠選取表單後，貼到word編緝，再列印<br />
+        這列是功能列，可變換字型及字體大小，也可測試！可先按「列印排版」，隱藏下方說明文字與按鈕後，再列印！若要增加美觀，用滑鼠選取表單後，貼到word編緝，再列印<br />
         <textarea id="txt1" type="text" placeholder='貼上〈出家眾〉報名表單，立即運算'></textarea>
         <textarea id="txtz1" type="text" placeholder='貼上〈在家眾〉報名表單，立即運算'></textarea>
-        <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原來狀態。
+        <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原始狀態。
         </h4>
+        <hr><a href="https://forms.gle/A75CkwwVbNbyzyXT6" target="_blank"><button>出家眾佛七報名表
+                https://forms.gle/A75CkwwVbNbyzyXT6</button></a>
+        <hr><a href="https://forms.gle/en6kpC2oHPhXaswg9" target="_blank"><button>在家眾佛七報名表
+                https://forms.gle/en6kpC2oHPhXaswg9</button></a>
+        <hr><a href="https://docs.google.com/forms/d/1MX2_cei24e-D0FEXgrzrRkCj2Loiz_w7RIDVjwCR-kA/edit"
+            target="_blank"><button>編輯：出家眾佛七報名表
+                https://docs.google.com/forms/d/1MX2_cei24e-D0FEXgrzrRkCj2Loiz_w7RIDVjwCR-kA/edit</button></a>
+        <hr><a href="https://docs.google.com/forms/d/1HxrvD0iwUZi8tWZd11WCBqHHhdfXxAKG99hKpMrvXtw/edit"
+            target="_blank"><button>編輯：在家眾佛七報名表
+                https://docs.google.com/forms/d/1HxrvD0iwUZi8tWZd11WCBqHHhdfXxAKG99hKpMrvXtw/edit</button></a>
     </div>
 </body>
 
