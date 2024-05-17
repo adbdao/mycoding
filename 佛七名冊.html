@@ -212,6 +212,40 @@
             font-size: 0.6em;
         }
 
+        /* #BaoMingUp {
+            margin: -30mm auto;
+            配合A4紙大小 width: 197mm;
+            height: 280mm;
+        } */
+
+        #BaoMingUp div {
+            margin: 0 auto;
+            padding: 1.5cm 1.5cm;
+            border: 2px solid plum;
+            /*配合A4紙大小*/
+            width: 197mm;
+            height: 280mm;
+            line-height: 1.4em;
+            white-space: pre-wrap;
+            /* -webkit-column-count: 2; */
+            /* Firefox */
+            /* -moz-column-count: 2; */
+            /* Safari and Chrome */
+            /* column-count: 2; */
+        }
+
+        .img {
+            /* 2吋照片尺寸 */
+            width: 35mm;
+            height: 45mm;
+            background-size: 100% 100%;
+            border: 2px outset lightgray;
+        }
+
+        z {
+            font-weight: 900;
+        }
+
         input {
             height: 30px;
             background: pink;
@@ -351,7 +385,7 @@
         }
 
         #btnHidden {
-            height: 35px;
+            height: 40px;
             /* width: 8px; */
             background: yellow;
         }
@@ -737,6 +771,167 @@
                 addCeLi(Arr4j)
                 addCeLi(Arrz6j)
                 addCeLi(Arrz8j)
+
+                // ===============
+                // 建立報名表
+                BaoMingUp.innerHTML = ''
+                // 出家眾欄位
+                var Arr2b = [
+                    "報名順序編號",
+                    "報名時間戳記",
+                    "電子郵件地址",
+                    "參加項目",
+                    "來寺日期",
+                    "回去日期",
+                    "身份證的姓名",
+                    "法名(內號)",
+                    "字號(外號)",
+                    "生日",
+                    "電話",
+                    "住址",
+                    "血型",
+                    "籍貫",
+                    "身份證號碼(外籍人士填寫護照號碼)",
+                    "已受戒別",
+                    "受戒日期",
+                    "受戒寺院(請寫上某縣某市)",
+                    "剃度日期",
+                    "剃度師長",
+                    "剃度寺院(請寫上某縣某市)",
+                    "世俗學歷",
+                    "佛法學歷、出家經歷",
+                    "緊急聯絡人(請寫上彼此的關係)",
+                    "緊急聯絡人電話",
+                    "重大疾病(若無病，請寫：無)",
+                    "慢性疾病(若無病，請寫：無)",
+                    "分數",
+                    "緊急聯絡人住址"
+                ]
+
+                // 出家眾欄位順序
+                var Arr2bNum = [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "28",
+                    "25",
+                    "26",
+                    "27"
+                    // 不能刪除無用的"27""分數"
+                ]
+
+                // 在家眾欄位
+                var Arrz3b = [
+                    "報名順序編號",
+                    "報名時間戳記",
+                    "電子郵件地址",
+                    "參加項目",
+                    "要戒牒",
+                    "若要縵衣，請寫身高、體重",
+                    "來寺日期",
+                    "回去日期",
+                    "姓名",
+                    "性別",
+                    "生日",
+                    "電話",
+                    "住址",
+                    "血型",
+                    "籍貫",
+                    "身份證號碼(外籍人士填寫護照號碼)",
+                    "已受戒別",
+                    "受戒日期",
+                    "受戒寺院(請寫上某縣某市)",
+                    "皈依日期",
+                    "皈依師長",
+                    "皈依寺院(請寫上某縣某市)",
+                    "學歷",
+                    "緊急聯絡人(請寫上彼此的關係)",
+                    "緊急聯絡人電話",
+                    "重大疾病(若無病，請寫：無)",
+                    "慢性疾病(若無病，請寫：無)",
+                    "皈依法名",
+                    "受戒師長",
+                    "現職",
+                    "緊急聯絡人住址"
+                ]
+
+                // 在家眾欄位順序
+                var Arrz3bNum = [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "28",
+                    "18",
+                    "27",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "29",
+                    "23",
+                    "24",
+                    "30",
+                    "25",
+                    "26"
+                ]
+
+                // 出家眾、在家眾欄位不同，所以作成函數，再一一套入
+                function addBaoMing(Arr, name, ArrHead, ArrNum) {
+                    for (var i = 0; i < Arr.length; i++) {
+                        var aDiv = document.createElement('div')
+                        // 插入照片。照片檔名：姓名.jpg
+                        aDiv.innerHTML = '<img class="img" src="pic/' + Arr[i][name] + '.jpg" /><hr>'
+                        for (var j = 0; j < ArrHead.length; j++) {
+                            // 欄位+欄位順序。順序由陣列決定，以後調整陣列順序，即可調整欄位順序
+                            if (ArrHead[ArrNum[j]] == '分數') {
+                                continue
+                            } else {
+                                aDiv.innerHTML += '<z>〔' + ArrHead[ArrNum[j]] + '〕：</z>' + Arr[i][ArrNum[j]] + '<br>'
+                            }
+                        }
+                        BaoMingUp.appendChild(aDiv)
+                    }
+                }
+                addBaoMing(Arr2, 8, Arr2b, Arr2bNum)
+                addBaoMing(Arrz3, 8, Arrz3b, Arrz3bNum)
+                addBaoMing(Arrz4, 8, Arrz3b, Arrz3bNum)
             }
             // 啟用函數，一打開網頁就運算
             // addTableF7()
@@ -797,8 +992,9 @@
             // 大殿的必須加上inline-flex，才不會Div跑位
             PaiBan.onclick = () => { showdiv(DaDianUp); DaDianUp.style.display = 'inline-flex' }
             ChangWe.onclick = () => { showdiv(ChangWeUp) }
-            JinYu.onclick = () => { showdiv(JinYuUp) }
+            JinYu.onclick = () => { showdiv(JinYuUp); JinYuUp.style.marginTop = '-16mm' }
             CeLi.onclick = () => { showdiv(CeLiUp); CeLiUp.style.marginTop = '-18mm' }
+            BaoMing.onclick = () => { showdiv(BaoMingUp); BaoMingUp.style.marginTop = '-20mm' }
         }
     </script>
 </head>
@@ -817,11 +1013,15 @@
     <div id="CeLiUp" class="divShow">
         <table id="tab1"></table>
     </div><br>
+    <div id="BaoMingUp" class="divShow">
+
+    </div><br>
     <div id="divHidden" style="display: block;">
         <input id="PaiBan" type="button" value="大殿排班表" />
         <input id="ChangWe" type="button" value="掛單之床位" />
         <input id="JinYu" type="button" value="禁語牌" />
         <input id="CeLi" type="button" value="佛七策勵表" />
+        <input id="BaoMing" type="button" value="報名表" />
         <input type="button" id="btnHidden" value="列印排版" />這列按鈕，可單獨呈現各類表單
         <br />
         <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
@@ -831,7 +1031,7 @@
         這列是功能列，可變換字型及字體大小，也可測試！可先按「列印排版」，隱藏下方說明文字與按鈕後，再列印！若要增加美觀，用滑鼠選取表單後，貼到word編緝，再列印<br />
         <textarea id="txt1" type="text" placeholder='貼上〈出家眾〉報名表單，立即運算'></textarea>
         <textarea id="txtz1" type="text" placeholder='貼上〈在家眾〉報名表單，立即運算'></textarea>
-        <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原始狀態。
+        <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原始狀態。<br />※報名表的照片：請將此網頁「另存新檔」，在同一目錄中，建立pic資料夾，將照片放入，照片檔名為「姓名.jpg」
         </h4>
         <hr><a href="https://forms.gle/A75CkwwVbNbyzyXT6" target="_blank"><button>出家眾佛七報名表
                 https://forms.gle/A75CkwwVbNbyzyXT6</button></a>
