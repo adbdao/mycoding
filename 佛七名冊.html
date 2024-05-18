@@ -240,6 +240,7 @@
             height: 45mm;
             background-size: 100% 100%;
             border: 2px outset lightgray;
+            /* margin-left: 15mm; */
         }
 
         z {
@@ -922,6 +923,8 @@
                             // 欄位+欄位順序。順序由陣列決定，以後調整陣列順序，即可調整欄位順序
                             if (ArrHead[ArrNum[j]] == '分數') {
                                 continue
+                            } else if (ArrHead[ArrNum[j]] == '生日') {
+                                aDiv.innerHTML += '<z>〔' + ArrHead[ArrNum[j]] + '〕：</z>' + Arr[i][ArrNum[j]] + '<br>' + '<z>〔年齡〕：</z>' + (oDate.getFullYear() - Number(Arr[i][ArrNum[j]].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '歲<br>'
                             } else {
                                 aDiv.innerHTML += '<z>〔' + ArrHead[ArrNum[j]] + '〕：</z>' + Arr[i][ArrNum[j]] + '<br>'
                             }
@@ -1033,16 +1036,17 @@
         <textarea id="txtz1" type="text" placeholder='貼上〈在家眾〉報名表單，立即運算'></textarea>
         <h4>請將Google表單的報名資料：全選(或選取一部分)、複製、貼到上面的文本框，貼上後，程式就會立即運算！<br />※〈出家眾〉和〈在家眾〉的文本框不同！<br />※此程式出現問題時，別擔心！按下「重整頁面」按鈕，就可回復原始狀態。<br />※報名表的照片：請將此網頁「另存新檔」，在同一目錄中，建立pic資料夾，將照片放入，照片檔名為「姓名.jpg」
         </h4>
-        <hr><a href="https://forms.gle/A75CkwwVbNbyzyXT6" target="_blank"><button>出家眾佛七報名表
+        <a href="https://forms.gle/A75CkwwVbNbyzyXT6" target="_blank"><button>出家眾佛七報名表
                 https://forms.gle/A75CkwwVbNbyzyXT6</button></a>
-        <hr><a href="https://forms.gle/en6kpC2oHPhXaswg9" target="_blank"><button>在家眾佛七報名表
+        <br><br><a href="https://forms.gle/en6kpC2oHPhXaswg9" target="_blank"><button>在家眾佛七報名表
                 https://forms.gle/en6kpC2oHPhXaswg9</button></a>
-        <hr><a href="https://docs.google.com/forms/d/1MX2_cei24e-D0FEXgrzrRkCj2Loiz_w7RIDVjwCR-kA/edit"
+        <br><br><a href="https://docs.google.com/forms/d/1MX2_cei24e-D0FEXgrzrRkCj2Loiz_w7RIDVjwCR-kA/edit"
             target="_blank"><button>編輯：出家眾佛七報名表
                 https://docs.google.com/forms/d/1MX2_cei24e-D0FEXgrzrRkCj2Loiz_w7RIDVjwCR-kA/edit</button></a>
-        <hr><a href="https://docs.google.com/forms/d/1HxrvD0iwUZi8tWZd11WCBqHHhdfXxAKG99hKpMrvXtw/edit"
+        <br><br><a href="https://docs.google.com/forms/d/1HxrvD0iwUZi8tWZd11WCBqHHhdfXxAKG99hKpMrvXtw/edit"
             target="_blank"><button>編輯：在家眾佛七報名表
                 https://docs.google.com/forms/d/1HxrvD0iwUZi8tWZd11WCBqHHhdfXxAKG99hKpMrvXtw/edit</button></a>
+        <br><br>
     </div>
 </body>
 
