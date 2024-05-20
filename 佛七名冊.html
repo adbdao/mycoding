@@ -604,6 +604,7 @@
                         str[i] = str[i].replace(/^[^※]+※(.+)/, '$1')
                             // 刪除女眾的補號
                             .replace('89', '　　　')
+                            .replace('undefined', '　　　')
                         if (i == lonNum) {
                             // 加上「西一」
                             DaDianLeft.innerHTML += addDiv(1, NS + firstNum) + '<br>'
@@ -719,36 +720,42 @@
                 // ===============
                 // 建立禁語牌
                 JinYuUp.innerHTML = ''
-                // 建立出家眾禁語牌
-                for (var i = 0; i < Arr4j.length; i++) {
-                    // 必須判斷是否存在，否則會出錯
-                    if (Arr4j[i]) {
-                        // 用indexOf找出床位號
-                        JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + (Arr4j[i].replace(/^([^※]+)※(.+)/, '$1')) + '<br><span class="s">禁語</span></b><br>姓名：' + Arr4j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：')
+                // 必須判斷是否有輸入資料，否則會出錯
+                if (txt1.value) {
+                    // 建立出家眾禁語牌
+                    for (var i = 0; i < Arr4j.length; i++) {
+                        // 必須判斷是否存在，否則會出錯
+                        if (Arr4j[i]) {
+                            // 用indexOf找出床位號
+                            JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + (Arr4j[i].replace(/^([^※]+)※(.+)/, '$1')) + '<br><span class="s">禁語</span></b><br>姓名：' + Arr4j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：')
+                        }
                     }
+                    JinYuUp.innerHTML += '<hr>'
                 }
-                JinYuUp.innerHTML += '<hr>'
-                // 建立在家男眾禁語牌
-                for (var i = 0; i < Arrz8j.length; i++) {
-                    // 必須判斷是否存在，否則會出錯
-                    if (Arrz8j[i]) {
-                        // 用indexOf找出床位號
-                        JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + (Arrz8j[i].replace(/^([^※]+)※(.+)/, '$1')) + '<br><span class="s">禁語</span></b><br>姓名：' + Arrz8j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：')
+                // 必須判斷是否有輸入資料，否則會出錯
+                if (txtz1.value) {
+                    // 建立在家男眾禁語牌
+                    for (var i = 0; i < Arrz8j.length; i++) {
+                        // 必須判斷是否存在，否則會出錯
+                        if (Arrz8j[i]) {
+                            // 用indexOf找出床位號
+                            JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + (Arrz8j[i].replace(/^([^※]+)※(.+)/, '$1')) + '<br><span class="s">禁語</span></b><br>姓名：' + Arrz8j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：')
+                        }
                     }
-                }
-                JinYuUp.innerHTML += '<hr>'
-                // 建立在家女眾禁語牌
-                // 用Arrz6j，因為Arrz6已經擷取完畢
-                // Arrz5j先取出純名字，才能用indexOf找出床位號
-                for (var i = 0; i < Arrz5j.length; i++) {
-                    Arrz5j[i] = Arrz5j[i].replace(/^[^※]+※(.+)/, '$1')
-                }
-                // 建立在家女眾禁語牌
-                for (var i = 0; i < Arrz6j.length; i++) {
-                    // 必須判斷是否存在，否則會出錯
-                    if (Arrz6j[i]) {
-                        // 用indexOf找出床位號
-                        JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + Arrz6j[i].replace(/^([^※]+)※(.+)/, '$1') + '<br><span class="s">禁語</span></b><br>姓名：' + Arrz6j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：' + ArrzChangWe[Arrz5j.indexOf(Arrz6j[i].replace(/^[^※]+※(.+)/, '$1'))])
+                    JinYuUp.innerHTML += '<hr>'
+                    // 建立在家女眾禁語牌
+                    // 用Arrz6j，因為Arrz6已經擷取完畢
+                    // Arrz5j先取出純名字，才能用indexOf找出床位號
+                    for (var i = 0; i < Arrz5j.length; i++) {
+                        Arrz5j[i] = Arrz5j[i].replace(/^[^※]+※(.+)/, '$1')
+                    }
+                    // 建立在家女眾禁語牌
+                    for (var i = 0; i < Arrz6j.length; i++) {
+                        // 必須判斷是否存在，否則會出錯
+                        if (Arrz6j[i]) {
+                            // 用indexOf找出床位號
+                            JinYuUp.innerHTML += addDiv(1, '<b>精進佛七　　　　NO：' + Arrz6j[i].replace(/^([^※]+)※(.+)/, '$1') + '<br><span class="s">禁語</span></b><br>姓名：' + Arrz6j[i].replace(/^[^※]+※(.+)/, '$1') + '　　　寮房：' + ArrzChangWe[Arrz5j.indexOf(Arrz6j[i].replace(/^[^※]+※(.+)/, '$1'))])
+                        }
                     }
                 }
 
@@ -769,9 +776,14 @@
                         }
                     }
                 }
-                addCeLi(Arr4j)
-                addCeLi(Arrz6j)
-                addCeLi(Arrz8j)
+                // 必須判斷是否有輸入資料，否則會出錯
+                if (txt1.value) {
+                    addCeLi(Arr4j)
+                }
+                if (txtz1.value) {
+                    addCeLi(Arrz8j)
+                    addCeLi(Arrz6j)
+                }
 
                 // ===============
                 // 建立報名表
@@ -932,9 +944,14 @@
                         BaoMingUp.appendChild(aDiv)
                     }
                 }
-                addBaoMing(Arr2, 8, Arr2b, Arr2bNum)
-                addBaoMing(Arrz3, 8, Arrz3b, Arrz3bNum)
-                addBaoMing(Arrz4, 8, Arrz3b, Arrz3bNum)
+                // 必須判斷是否有輸入資料，否則會出錯
+                if (txt1.value) {
+                    addBaoMing(Arr2, 8, Arr2b, Arr2bNum)
+                }
+                if (txtz1.value) {
+                    addBaoMing(Arrz3, 8, Arrz3b, Arrz3bNum)
+                    addBaoMing(Arrz4, 8, Arrz3b, Arrz3bNum)
+                }
             }
             // 啟用函數，一打開網頁就運算
             // addTableF7()
