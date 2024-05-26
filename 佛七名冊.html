@@ -161,6 +161,75 @@
             font-weight: 900;
         }
 
+        #MingDanUp {
+            margin: 0 auto;
+            /*配合A4紙大小*/
+            width: 197mm;
+        }
+
+        #tab2 td {
+            font-family: 新細明體;
+        }
+
+        #tab2 td:nth-child(1),
+        #tab2 td:nth-child(7) {
+            width: 2em;
+        }
+
+        #tab2 td:nth-child(6),
+        #tab2 td:nth-child(12) {
+            width: 3em;
+        }
+
+        .MingDanOut,
+        #tab2 tbody,
+        #tab1 tbody {
+            margin: 0 auto;
+            border: 2px solid olive;
+            /*配合A4紙大小*/
+            width: 197mm;
+            height: 280mm;
+            text-align: center;
+        }
+
+        .MingDanOut p {
+            font-size: 2em;
+            line-height: 1.2em;
+        }
+
+        .MingDanDown {
+            /* padding: 1cm 1cm; */
+            width: 100%;
+
+            -webkit-column-count: 2;
+            /* Firefox */
+            -moz-column-count: 2;
+            /* Safari and Chrome */
+            column-count: 2;
+        }
+
+        .MingDanIn {
+            width: 4em;
+            height: 2em;
+            /* font-size: 1.5em; */
+            line-height: 2.2em;
+            text-align: center;
+            white-space: nowrap;
+            display: inline-block;
+            border: 1px solid sienna;
+        }
+
+        .MingDanIn1 {
+            width: 2em;
+            height: 2em;
+            /* font-size: 1.5em; */
+            line-height: 2.2em;
+            text-align: center;
+            white-space: nowrap;
+            display: inline-block;
+            border: 1px solid sienna;
+        }
+
         #CeLiUp {
             margin: 0 auto;
             /*配合A4紙大小*/
@@ -468,6 +537,16 @@
                 var Arrz8 = []
                 var Arrz8j = []
                 var ArrzChangWe = []
+                var ArrM1 = []
+                var ArrM2 = []
+                var ArrzM1 = []
+                var ArrzM2 = []
+                var ArrzM3 = []
+                var ArrzM4 = []
+                var ArrzMW1 = []
+                var ArrzMW2 = []
+                var ArrzMW3 = []
+                var ArrzMW4 = []
 
                 // 加上Div
                 function addDiv(num, inner) {
@@ -500,6 +579,20 @@
                     Arr4j[i] = Arr4[i] = Arr2[i][0] + '※' + Arr2[i][8]
                     // 生日年齡
                     Arr5[i] = Arr2[i][9] + '※' + Arr2[i][8]
+                    // 精進佛七名單
+                    if (/精進佛七/.test(Arr2[i][3])) {
+                        ArrM1[i] = []
+                        ArrM1[i][0] = Arr2[i][8]
+                        ArrM1[i][1] = Arr2[i][7]
+                        ArrM1[i][2] = Arr2[i][9]
+                    }
+                    // 菩薩戒名單
+                    if (/[增益]?菩薩戒/.test(Arr2[i][3])) {
+                        ArrM2[i] = []
+                        ArrM2[i][0] = Arr2[i][8]
+                        ArrM2[i][1] = Arr2[i][7]
+                        ArrM2[i][2] = Arr2[i][9]
+                    }
                 }
 
                 // 預設人數不足時，先補上足夠的人數，補上最大值的人數，才能倒轉陣列來運算。
@@ -536,6 +629,38 @@
                         Arrz6j[i] = Arrz6[i] = Arrz4[i][0] + '※' + Arrz4[i][8]
                         // 生日年齡
                         Arrz5j[i] = Arrz5[i] = Arrz4[i][10] + '※' + Arrz4[i][8]
+                        // 精進佛七名單
+                        if (/精進佛七/.test(Arrz4[i][3])) {
+                            ArrzMW1[i] = []
+                            ArrzMW1[i][0] = Arrz4[i][8]
+                            ArrzMW1[i][1] = Arrz4[i][27]
+                            ArrzMW1[i][2] = Arrz4[i][10]
+                            ArrzMW1[i][3] = Arrz4[i][9]
+                        }
+                        // 圓滿義工名單
+                        if (/圓滿義工/.test(Arrz4[i][3])) {
+                            ArrzMW2[i] = []
+                            ArrzMW2[i][0] = Arrz4[i][8]
+                            ArrzMW2[i][1] = Arrz4[i][27]
+                            ArrzMW2[i][2] = Arrz4[i][10]
+                            ArrzMW2[i][3] = Arrz4[i][9]
+                        }
+                        // 五戒名單
+                        if (/[增益]?五戒/.test(Arrz4[i][3])) {
+                            ArrzMW3[i] = []
+                            ArrzMW3[i][0] = Arrz4[i][8]
+                            ArrzMW3[i][1] = Arrz4[i][27]
+                            ArrzMW3[i][2] = Arrz4[i][10]
+                            ArrzMW3[i][3] = Arrz4[i][9]
+                        }
+                        // 菩薩戒名單
+                        if (/[增益]?菩薩戒/.test(Arrz4[i][3])) {
+                            ArrzMW4[i] = []
+                            ArrzMW4[i][0] = Arrz4[i][8]
+                            ArrzMW4[i][1] = Arrz4[i][27]
+                            ArrzMW4[i][2] = Arrz4[i][10]
+                            ArrzMW4[i][3] = Arrz4[i][9]
+                        }
                     }
                     // 男眾，人數少，所以要判斷有無
                     if (Arrz3[i]) {
@@ -543,6 +668,38 @@
                         Arrz8j[i] = Arrz8[i] = Arrz3[i][0] + '※' + Arrz3[i][8]
                         // 生日年齡
                         Arrz7[i] = Arrz3[i][10] + '※' + Arrz3[i][8]
+                        // 精進佛七名單
+                        if (/精進佛七/.test(Arrz3[i][3])) {
+                            ArrzM1[i] = []
+                            ArrzM1[i][0] = Arrz3[i][8]
+                            ArrzM1[i][1] = Arrz3[i][27]
+                            ArrzM1[i][2] = Arrz3[i][10]
+                            ArrzM1[i][3] = Arrz3[i][9]
+                        }
+                        // 圓滿義工名單
+                        if (/圓滿義工/.test(Arrz3[i][3])) {
+                            ArrzM2[i] = []
+                            ArrzM2[i][0] = Arrz3[i][8]
+                            ArrzM2[i][1] = Arrz3[i][27]
+                            ArrzM2[i][2] = Arrz3[i][10]
+                            ArrzM2[i][3] = Arrz3[i][9]
+                        }
+                        // 五戒名單
+                        if (/[增益]?五戒/.test(Arrz3[i][3])) {
+                            ArrzM3[i] = []
+                            ArrzM3[i][0] = Arrz3[i][8]
+                            ArrzM3[i][1] = Arrz3[i][27]
+                            ArrzM3[i][2] = Arrz3[i][10]
+                            ArrzM3[i][3] = Arrz3[i][9]
+                        }
+                        // 菩薩戒名單
+                        if (/[增益]?菩薩戒/.test(Arrz3[i][3])) {
+                            ArrzM4[i] = []
+                            ArrzM4[i][0] = Arrz3[i][8]
+                            ArrzM4[i][1] = Arrz3[i][27]
+                            ArrzM4[i][2] = Arrz3[i][10]
+                            ArrzM4[i][3] = Arrz3[i][9]
+                        }
                     }
                 }
                 addSpace(Arrz6, 88, '89')
@@ -760,21 +917,135 @@
                 }
 
                 // ===============
+                // 建立佛七五戒菩薩戒名單
+                tab2.innerHTML = ''
+                // 用表格呈現
+                function addMingDan(Arr, word, zz) {
+                    if (Arr.length != 0) {
+                        // 刪除陣列中的空元素、無效值
+                        Arr = Arr.filter(item => item)
+                        // 一個表格40人，所以除以40，才知道需要幾個表格
+                        var mm = Math.ceil(Arr.length / 40)
+                        for (var j = 0; j < mm; j++) {
+                            // 建立一個變量M，再放入<table><tbody>，Chrome運行時才不會自動加上很多<tbody>
+                            // 出家眾、在家眾的欄位不一樣
+                            // 要加<table><tbody>
+                            var M = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + (oDate.getFullYear() - 1911) + '年' + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td></tr>'
+                            var zM = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + oDate.getFullYear() + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td></tr>'
+                            for (var i = 0; i < 20; i++) {
+                                // 出家眾欄位
+                                if (zz != 'y') {
+                                    if (Arr[j * 40 + i] && Arr[j * 40 + i + 20]) {
+                                        M += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td>' + Arr[j * 40 + i + 20][0] + '</td><td>' + Arr[j * 40 + i + 20][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i + 20][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td></td><td></td></tr>'
+                                    } else if (Arr[j * 40 + i] && !Arr[j * 40 + i + 20]) {
+                                        M += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                    } else if (!Arr[j * 40 + i]) {
+                                        M += '<tr><td>' + (j * 40 + i + 1) + '</td><td></td><td></td><td></td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                    }
+                                    // 在家眾欄位
+                                } else if (zz == 'y') {
+                                    if (Arr[j * 40 + i] && Arr[j * 40 + i + 20]) {
+                                        zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td>' + Arr[j * 40 + i + 20][0] + '</td><td>' + Arr[j * 40 + i + 20][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i + 20][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td></tr>'
+                                    } else if (Arr[j * 40 + i] && !Arr[j * 40 + i + 20]) {
+                                        zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                    } else if (!Arr[j * 40 + i]) {
+                                        zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td></td><td></td><td></td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                    }
+                                }
+                            }
+                            if (zz != 'y') {
+                                tab2.innerHTML += M
+                                // 怕重複，所以清空M
+                                M = ''
+                            } else {
+                                tab2.innerHTML += zM
+                                zM = ''
+                            }
+                        }
+                    }
+                    // 沒有出現undefined
+                    // tab2.innerHTML = tab2.innerHTML.replace(/undefined/g, '')
+                }
+                // 用Div呈現，後來不采用
+                function addMingDan1(Arr, word, zz) {
+                    if (Arr.length != 0) {
+                        // 刪除陣列中的空元素、無效值
+                        Arr = Arr.filter(item => item)
+                        // 一個表格40人，所以除以40，才知道需要幾個表格
+                        var mm = Math.ceil(Arr.length / 40)
+                        // 標題欄
+                        var head
+                        if (zz == 'y') {
+                            head = '<div class="MingDanIn1">NO</div><div class="MingDanIn">姓名</div><div class="MingDanIn">法名</div><div class="MingDanIn1">年齡</div><div class="MingDanIn">性別<div><br>'
+                        } else {
+                            head = '<div class="MingDanIn1">NO</div><div class="MingDanIn">外號</div><div class="MingDanIn">內號</div><div class="MingDanIn1">年齡<div><br>'
+                        }
+
+                        for (var i = 0; i < mm; i++) {
+                            var bDiv = document.createElement('div')
+                            bDiv.innerHTML += '<p>' + (oDate.getFullYear() - 1911) + '年' + word + '</p>'
+                            bDiv.className = 'MingDanOut'
+
+                            var aDiv = document.createElement('div')
+                            aDiv.className = 'MingDanDown'
+
+                            for (var j = 0; j < Arr.length; j++) {
+                                if (j * 40 == 0 || j * 40 == 20) {
+                                    aDiv.innerHTML = head
+                                }
+                                for (var k = 0; k < Arr[j * 40].length; k++) {
+                                    if (k == 0) {
+                                        aDiv.innerHTML += '<div class="MingDanIn1">' + (j + 1) + '</div>' + '<div class="MingDanIn">' + Arr[j * 40][k] + '</div>'
+                                    } else if (k == 2) {
+                                        aDiv.innerHTML += '<div class="MingDanIn1">' + (oDate.getFullYear() - Number(Arr[j * 40][k].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</div>'
+                                    } else {
+                                        if (!Arr[j * 40][k]) { Arr[j * 40][k] = '　　　' }
+                                        aDiv.innerHTML += '<div class="MingDanIn">' + Arr[j * 40][k] + '</div>'
+                                    }
+                                }
+                                aDiv.innerHTML += addBr(1)
+                            }
+                            bDiv.appendChild(aDiv)
+                            MingDanUp.appendChild(bDiv)
+                        }
+                    }
+                }
+                // 必須判斷是否有輸入資料，否則會出錯
+                if (txt1.value) {
+                    addMingDan(ArrM1, '出家眾佛七名單')
+                    addMingDan(ArrM2, '出家眾受菩薩戒名單')
+                }
+                if (txtz1.value) {
+                    addMingDan(ArrzM1, '在家男眾佛七名單', 'y')
+                    addMingDan(ArrzM2, '在家男眾圓滿義工名單', 'y')
+                    addMingDan(ArrzM3, '在家男眾五戒名單', 'y')
+                    addMingDan(ArrzM4, '在家男眾菩薩戒名單', 'y')
+                    addMingDan(ArrzMW1, '在家女眾佛七名單', 'y')
+                    addMingDan(ArrzMW2, '在家女眾圓滿義工名單', 'y')
+                    addMingDan(ArrzMW3, '在家女眾五戒名單', 'y')
+                    addMingDan(ArrzMW4, '在家女眾菩薩戒名單', 'y')
+                }
+
+                // ===============
                 // 建立佛七策勵表
                 tab1.innerHTML = ''
                 // 每13列就分頁列印
                 var CeLiNum = 13
                 function addCeLi(Arr) {
+                    // 建立一個變量CC，再放入<table><tbody>，Chrome運行時才不會自動加上很多<tbody>
+                    var CC = ''
                     for (var i = 0; i < Arr.length; i++) {
                         if (i == 0 || i == CeLiNum) {
                             // 要加<table><tbody>
-                            tab1.innerHTML += '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + oDate.getFullYear() + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br><x>　　※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></x></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr><tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                            CC += '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + oDate.getFullYear() + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br><x>　　※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></x></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr><tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
                             // 每次增加13列
                             CeLiNum = i + 13
                         } else {
-                            tab1.innerHTML += '<tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                            CC += '<tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
                         }
                     }
+                    tab1.innerHTML += CC
+                    CC = ''
                 }
                 // 必須判斷是否有輸入資料，否則會出錯
                 if (txt1.value) {
@@ -1009,12 +1280,13 @@
                 divID.style.display = 'block'
             }
             // 循環顯示div，套用在按鈕上
-            // 大殿的必須加上inline-flex，才不會Div跑位
+            // 大殿的必須加上inline-flex，才不會Div跑位。其它的表格，要向上移位，才好列印
             PaiBan.onclick = () => { showdiv(DaDianUp); DaDianUp.style.display = 'inline-flex' }
             ChangWe.onclick = () => { showdiv(ChangWeUp) }
             JinYu.onclick = () => { showdiv(JinYuUp); JinYuUp.style.marginTop = '-16mm' }
-            CeLi.onclick = () => { showdiv(CeLiUp); CeLiUp.style.marginTop = '-18mm' }
-            BaoMing.onclick = () => { showdiv(BaoMingUp); BaoMingUp.style.marginTop = '-20mm' }
+            MingDan.onclick = () => { showdiv(MingDanUp); MingDanUp.style.marginTop = '-22mm' }
+            CeLi.onclick = () => { showdiv(CeLiUp); CeLiUp.style.marginTop = '-24mm' }
+            BaoMing.onclick = () => { showdiv(BaoMingUp); BaoMingUp.style.marginTop = '-26mm' }
         }
     </script>
 </head>
@@ -1030,6 +1302,9 @@
     <div id="JinYuUp" class="divShow">
 
     </div><br>
+    <div id="MingDanUp" class="divShow">
+        <table id="tab2"></table>
+    </div><br>
     <div id="CeLiUp" class="divShow">
         <table id="tab1"></table>
     </div><br>
@@ -1040,6 +1315,7 @@
         <input id="PaiBan" type="button" value="大殿排班表" />
         <input id="ChangWe" type="button" value="掛單之床位" />
         <input id="JinYu" type="button" value="禁語牌" />
+        <input id="MingDan" type="button" value="佛七五戒菩薩戒名單" />
         <input id="CeLi" type="button" value="佛七策勵表" />
         <input id="BaoMing" type="button" value="報名表" />
         <input type="button" id="btnHidden" value="列印排版" />這列按鈕，可單獨呈現各類表單
