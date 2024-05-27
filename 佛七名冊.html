@@ -185,7 +185,7 @@
         #tab2 tbody,
         #tab1 tbody {
             margin: 0 auto;
-            border: 2px solid olive;
+            border: 3px solid olive;
             /*配合A4紙大小*/
             width: 197mm;
             height: 280mm;
@@ -240,6 +240,7 @@
         .CeLi {
             font-size: 1.2em;
             letter-spacing: 0.5em;
+            font-family: 標楷體;
         }
 
         .little {
@@ -314,6 +315,8 @@
 
         z {
             font-weight: 900;
+            font-family: 標楷體;
+            font-size: 1.1em;
         }
 
         input {
@@ -494,10 +497,10 @@
                 else { return '' + n }
             }
             var oDate = new Date()
-            var ty = (oDate.getFullYear() - 1911)
+            var ty = oDate.getFullYear() - 1911
             function addDate() {
                 var htr = toDon(oDate.getHours()) + ':' + toDon(oDate.getMinutes()) + ':' + toDon(oDate.getSeconds())
-                var dtr = oDate.getFullYear() + '年' + toDon((oDate.getMonth() + 1)) + '月' + toDon(oDate.getDate())
+                var dtr = ty + '年' + toDon((oDate.getMonth() + 1)) + '月' + toDon(oDate.getDate())
 
                 return '<font class="date">製表日期： ' + dtr + '_' + htr
                 // 焦點移至最頂端(x軸,y軸)
@@ -930,24 +933,30 @@
                             // 建立一個變量M，再放入<table><tbody>，Chrome運行時才不會自動加上很多<tbody>
                             // 出家眾、在家眾的欄位不一樣
                             // 要加<table><tbody>
-                            var M = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + (oDate.getFullYear() - 1911) + '年' + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td></tr>'
-                            var zM = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + oDate.getFullYear() + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td></tr>'
+                            var M = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + ty + '年' + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td><td>NO</td><td>外號</td><td>內號</td><td>年齡</td><td></td><td></td></tr>'
+                            var zM = '<br><table><tbody><tr><td colspan="12"><b class="CeLi">' + ty + '年' + word + '</b>' + addBr(1) + addDate() + '</td></tr><tr><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td><td>NO</td><td>姓名</td><td>法名</td><td>年齡</td><td>性別</td><td></td></tr>'
                             for (var i = 0; i < 20; i++) {
                                 // 出家眾欄位
                                 if (zz != 'y') {
+                                    // 2欄都有人名
                                     if (Arr[j * 40 + i] && Arr[j * 40 + i + 20]) {
                                         M += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td>' + Arr[j * 40 + i + 20][0] + '</td><td>' + Arr[j * 40 + i + 20][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i + 20][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td></td><td></td></tr>'
+                                        // 只1欄有人名
                                     } else if (Arr[j * 40 + i] && !Arr[j * 40 + i + 20]) {
                                         M += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                        // 無人名，只有編號
                                     } else if (!Arr[j * 40 + i]) {
                                         M += '<tr><td>' + (j * 40 + i + 1) + '</td><td></td><td></td><td></td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
                                     }
                                     // 在家眾欄位
                                 } else if (zz == 'y') {
+                                    // 2欄都有人名
                                     if (Arr[j * 40 + i] && Arr[j * 40 + i + 20]) {
                                         zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td>' + Arr[j * 40 + i + 20][0] + '</td><td>' + Arr[j * 40 + i + 20][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i + 20][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td></tr>'
+                                        // 只1欄有人名
                                     } else if (Arr[j * 40 + i] && !Arr[j * 40 + i + 20]) {
                                         zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td>' + Arr[j * 40 + i][0] + '</td><td>' + Arr[j * 40 + i][1] + '</td><td>' + (oDate.getFullYear() - Number(Arr[j * 40 + i][2].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '</td><td>' + Arr[j * 40 + i][3] + '</td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                        // 無人名，只有編號
                                     } else if (!Arr[j * 40 + i]) {
                                         zM += '<tr><td>' + (j * 40 + i + 1) + '</td><td></td><td></td><td></td><td></td><td></td><td>' + (j * 40 + i + 21) + '</td><td></td><td></td><td></td><td></td><td></td></tr>'
                                     }
@@ -959,6 +968,7 @@
                                 M = ''
                             } else {
                                 tab2.innerHTML += zM
+                                // 怕重複，所以清空zM
                                 zM = ''
                             }
                         }
@@ -983,7 +993,7 @@
 
                         for (var i = 0; i < mm; i++) {
                             var bDiv = document.createElement('div')
-                            bDiv.innerHTML += '<p>' + (oDate.getFullYear() - 1911) + '年' + word + '</p>'
+                            bDiv.innerHTML += '<p>' + ty + '年' + word + '</p>'
                             bDiv.className = 'MingDanOut'
 
                             var aDiv = document.createElement('div')
@@ -1029,23 +1039,26 @@
                 // ===============
                 // 建立佛七策勵表
                 tab1.innerHTML = ''
-                // 每13列就分頁列印
-                var CeLiNum = 13
                 function addCeLi(Arr) {
-                    // 建立一個變量CC，再放入<table><tbody>，Chrome運行時才不會自動加上很多<tbody>
-                    var CC = ''
-                    for (var i = 0; i < Arr.length; i++) {
-                        if (i == 0 || i == CeLiNum) {
-                            // 要加<table><tbody>
-                            CC += '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + oDate.getFullYear() + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br><x>　　※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></x></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr><tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                            // 每次增加13列
-                            CeLiNum = i + 13
-                        } else {
-                            CC += '<tr><td rowspan="3">' + Arr[i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                    // 一個表格13人，所以除以13，才知道需要幾個表格
+                    var mm = Math.ceil(Arr.length / 13)
+                    for (var j = 0; j < mm; j++) {
+                        // 建立一個變量CC，再放入<table><tbody>，Chrome運行時才不會自動加上很多<tbody>
+                        var CC = '<br><table><tbody><tr><td colspan="10"><b class="CeLi">　　　　　　' + ty + '年佛七策勵表　　　</b><span class="little">每日安板前登記完畢</span><br><x>　　※每日：<r>念佛5000聲</r>或<r>拜佛300拜</r>或<r>大禮拜100拜</r>(註明<r>大</r>)或<r>靜坐1小時</r></x></td></tr><tr><td>NO</td><td>姓名</td><td>第一天</td><td>第二天</td><td>第三天</td><td>第四天</td><td>第五天</td><td>第六天</td><td>第七天</td><td>備註</td></tr>'
+                        // 一個表格13人
+                        for (var i = 0; i < 13; i++) {
+                            // 如果有人名
+                            if (Arr[j * 13 + i]) {
+                                CC += '<tr><td rowspan="3">' + Arr[j * 13 + i].replace(/^([^※]+)※(.+)/, '$1') + '</td><td rowspan="3">' + Arr[j * 13 + i].replace(/^[^※]+※(.+)/, '$1') + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                                // 如果無人名，只有編號
+                            } else {
+                                CC += '<tr><td rowspan="3">' + (j * 13 + i + 1) + '</td><td rowspan="3">' + '　　　' + '</td><td><span class="little">拜</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="3"></td></tr><tr><td><span class="little">念</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><span class="little">靜坐</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                            }
                         }
+                        tab1.innerHTML += CC
+                        // 怕重複，所以清空CC
+                        CC = ''
                     }
-                    tab1.innerHTML += CC
-                    CC = ''
                 }
                 // 必須判斷是否有輸入資料，否則會出錯
                 if (txt1.value) {
@@ -1207,11 +1220,12 @@
                             if (ArrHead[ArrNum[j]] == '分數') {
                                 continue
                             } else if (ArrHead[ArrNum[j]] == '生日') {
-                                aDiv.innerHTML += '<z>〔' + ArrHead[ArrNum[j]] + '〕：</z>' + Arr[i][ArrNum[j]] + '<br>' + '<z>〔年齡〕：</z>' + (oDate.getFullYear() - Number(Arr[i][ArrNum[j]].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '歲<br>'
+                                aDiv.innerHTML += '<z>' + ArrHead[ArrNum[j]] + '：</z>' + Arr[i][ArrNum[j]] + '<br>' + '<z>年齡：</z>' + (oDate.getFullYear() - Number(Arr[i][ArrNum[j]].replace(/(\d{4})\/\d+\/\d+/, '$1'))) + '歲<br>'
                             } else {
-                                aDiv.innerHTML += '<z>〔' + ArrHead[ArrNum[j]] + '〕：</z>' + Arr[i][ArrNum[j]] + '<br>'
+                                aDiv.innerHTML += '<z>' + ArrHead[ArrNum[j]] + '：</z>' + Arr[i][ArrNum[j]] + '<br>'
                             }
                         }
+                        aDiv.innerHTML += addDate()
                         BaoMingUp.appendChild(aDiv)
                     }
                 }
