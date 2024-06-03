@@ -196,8 +196,13 @@ li{margin-left:1em;}
                 // 運算結果以HTML呈現，教學投影用！
                 div1.innerHTML = ''
                 div1.innerHTML = txt1.value
-                // 清空div1為了<ol>的折行樣式pre-wrap
-                prewrap.innerHTML = ''
+                if (/<[o|u]l>/.test(txt1.value)) {
+                    // 如果有<ol><ul>，折行樣式pre-wrap就不變
+                    prewrap.innerHTML = '#div1{white-space:normal;}'
+                } else {
+                    // 清空div1為了<ol>的折行樣式pre-wrap
+                    prewrap.innerHTML = ''
+                }
             }
             addNumber.onclick = function () {
                 zzUp()
