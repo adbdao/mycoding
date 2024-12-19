@@ -2,15 +2,15 @@
 
 /*主要文件 
 用em可複製「樣式」到word中編輯，用%有時候不行*/
-body {background:#000; line-height:1.4em; color:yellow; font-size:3em;}
+body {background:#000; line-height:1.4em; color:yellow; font-size:2em;font-family:新細明體}
 .SearchWord1 {color:#ffc; background: #ffff66;}
 .SearchWord2 {color:#ffc; background: #a0ffff;}
 .SearchWord3 {color:#ffc; background: #99ff99;}
 .SearchWord4 {color:#ffc; background: #ff9999;}
 .SearchWord5 {color:#ffc; background: #ff66ff;}
 a.hover	{color:cyan;}
-a:visited 	{color:cyan;}
-a:link		{color:red; font-size:0.8em;}
+a:visited 	{color:hotpink; font-size:0.5em;}
+a:link		{color:cyan;}
 a:active	{color:purple;}
 /*經號 */
 .juannum {color:lime; font-size:1em;}

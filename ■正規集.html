@@ -1357,8 +1357,26 @@ li{margin-left:1em;}
             Toicon.onclick = function () {
                 zzUp()
                 // 取代'icon'成為'img src'，書籤就可以顯現小圖
-                txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
-                Copy()
+                // txt1.value = txt1.value.replace(/ icon=/ig, '><img src=')
+                // 加入data*名稱，才可動態查詢，有了這個屬性，可以用 CSS 來獲取
+                for (var i = 0; i < Arr1.length; i++) {
+                    // 無超連結的跳過
+                    if (/ HREF=/.test(Arr1[i])) {
+                        // 把data-title內容轉成小寫，方便以後查詢：無論大小寫都可查詢
+                        // 行首有空白字元，須跳過\s*，不然會多出很多空白字元
+                        var Sname = Arr1[i].replace(/\s*(\<DT)(\>\<A HREF=[^\>]+\>)([^\<]+)(\<.+)/, '$3').toLowerCase()
+                        // 有icon的
+                        if (/ ICON=/.test(Arr1[i])) {
+                            Arr1[i] = Arr1[i].replace(/(\<DT)(\>\<A.+)( ICON=)([^\>]+\>)([^\<]+)(\<.+)/ig, '$1 data-title="' + Sname + '"$2><img src=$4$5$6')
+                        } else {
+                            // 無icon的
+                            Arr1[i] = Arr1[i].replace(/(\<DT)(\>\<A[^\>]+\>)([^\<]+)(\<.+)/ig, '$1 data-title="' + Sname + '"$2$3$4')
+                        }
+                        // 清除data-title內容
+                        Sname = ''
+                    } else { continue }
+                }
+                overCopy()
             }
             DelSpaceFirst.onclick = function () {
                 zzUp()
