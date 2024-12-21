@@ -8,47 +8,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base target="_blank">
 <style>
-    /**{border-radius: 22px;}*/
-
     body {
         background: black;
     }
 
-     ::selection {
+    ::selection {
         background: darkred;
         color: yellow;
     }
 
-     ::-moz-selection {
+    ::-moz-selection {
         background: darkred;
         color: yellow;
     }
+
     /*暗色主題*/
 
-    h3,h1 {
-        background: darkslategray;
+    h3,
+    h1 {
+        /* background: darkslategray; */
         color: tomato;
-        font-size: 1.1em;
+        font-size: 1.5em;
         font-family: '標楷體';
-        border: 2px solid darkgreen;
-        border-color: lightgreen forestgreen forestgreen lightgreen;
+        /* border: 2px solid darkgreen;
+            border-color: lightgreen forestgreen forestgreen lightgreen; */
         /* line-height: 3em; */
     }
 
     a {
         color: yellow;
-        font-size: 1.1em;
-        line-height: 1.5em;
+        font-size: 1.2em;
+        /* line-height: 1.5em; */
         text-decoration: none;
     }
 
     DT {
-        width: 80%;
+        text-align: center;
+        width: 90%;
+        border-radius: 15px;
         margin: 0 auto;
         /*line-height: 22pt;*/
         border: 1px solid #000;
         background: -webkit-linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
         background: linear-gradient(top, #888 0%, #555 15%, #333 85%, #111 100%);
+    }
+
+    DT DT {
+        width: 95%;
+        padding: 2px;
     }
 
     a:hover {
@@ -65,17 +72,21 @@
         background: darkslateblue;
     }
 
-    DT DT{display: none;}
-    DT:hover DT{display: block}
-    /* DL>DT{display: none;}
-    DL:hover>DT{display: block} */
+    DT DT {
+        display: none;
+    }
+
+    DT:hover DT {
+        display: block
+    }
 </style>
 <script>
     window.onload=function(){
         // 淺色主題
         nocolor.onclick = function () {
             if (!color.innerHTML) {
-                color.innerHTML = "h3,h1 { background: tan; color: brown; font-size: 1.1em; font-family: '標楷體'; line-height: 1.2em;border: 2px solid gold;border-color: wheat sienna sienna wheat;}a { color: black; font-size: 1.2em; text-decoration: none;}DT { line-height: 1.5em; border: 2px solid peru; background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%); background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);}a:hover { border-color: green lime lime green; border-width: 2px; border-style: solid; background: greenyellow;}a:active { border-color: indigo #f3f #f6f indigo; border-width: 3px; border-style: solid; background: pink;} body {background: -webkit-linear-gradient(left, peru 0.00%, gold 90.00%);background: linear-gradient(left, peru 0.00%, gold 90.00%);}"
+                // color.innerHTML = "h3,h1 { background: tan; color: brown; font-size: 1.1em; font-family: '標楷體'; line-height: 1.2em;border: 2px solid gold;border-color: wheat sienna sienna wheat;}a { color: black; font-size: 1.2em; text-decoration: none;}DT { line-height: 1.5em; border: 2px solid peru; background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%); background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);}a:hover { border-color: green lime lime green; border-width: 2px; border-style: solid; background: greenyellow;}a:active { border-color: indigo #f3f #f6f indigo; border-width: 3px; border-style: solid; background: pink;} body {background: -webkit-linear-gradient(left, peru 0.00%, gold 90.00%);background: linear-gradient(left, peru 0.00%, gold 90.00%);}"
+                color.innerHTML = "h3,h1 {color: brown; font-size: 1.5em; font-family: '標楷體';}a { color: black; font-size: 1.2em; text-decoration: none;}DT { line-height: 1.5em; border: 2px solid peru; background: -webkit-linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%); background: linear-gradient(top, #ffe 0%, #ddd 15%, #bbb 85%, #777 100%);}a:hover { border-color: green lime lime green; border-width: 2px; border-style: solid; background: greenyellow;}a:active { border-color: indigo #f3f #f6f indigo; border-width: 3px; border-style: solid; background: pink;} body {background: -webkit-linear-gradient(left, peru 0.00%, gold 90.00%);background: linear-gradient(left, peru 0.00%, gold 90.00%);}"
             } else {
                 color.innerHTML = ''
             }
