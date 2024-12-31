@@ -1361,12 +1361,12 @@ li{margin-left:1em;}
                 // 加入data*名稱，才可動態查詢，有了這個屬性，可以用 CSS 來獲取
                 for (var i = 0; i < Arr1.length; i++) {
                     // 無超連結的跳過
-                    if (/ HREF=/.test(Arr1[i])) {
+                    if (/ HREF=/i.test(Arr1[i])) {
                         // 把data-title內容轉成小寫，方便以後查詢：無論大小寫都可查詢
                         // 行首有空白字元，須跳過\s*，不然會多出很多空白字元
                         var Sname = Arr1[i].replace(/\s*(\<DT)(\>\<A HREF=[^\>]+\>)([^\<]+)(\<.+)/, '$3').toLowerCase()
                         // 有icon的
-                        if (/ ICON=/.test(Arr1[i])) {
+                        if (/ ICON=/i.test(Arr1[i])) {
                             Arr1[i] = Arr1[i].replace(/(\<DT)(\>\<A.+)( ICON=)([^\>]+\>)([^\<]+)(\<.+)/ig, '$1 data-title="' + Sname + '"$2><img src=$4$5$6')
                         } else {
                             // 無icon的
@@ -1377,6 +1377,7 @@ li{margin-left:1em;}
                     } else { continue }
                 }
                 overCopy()
+                // 但是轉換以後，其它瀏覽器中，無法匯入書籤，所以改用js動態轉換
             }
             DelSpaceFirst.onclick = function () {
                 zzUp()
