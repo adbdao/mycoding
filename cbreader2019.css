@@ -9,9 +9,9 @@ body {background:#000; line-height:1.4em; color:yellow; font-size:2em;font-famil
 .SearchWord4 {color:#ffc; background: #ff9999;}
 .SearchWord5 {color:#ffc; background: #ff66ff;}
 a.hover	{color:cyan;}
-a:visited 	{color:hotpink; font-size:0.5em;}
-a:link		{color:cyan;}
-a:active	{color:purple;}
+a:visited 	{color:red;font-weight: bold;font-size:0.5em;}
+a:link		{color:maroon;font-weight: bold;}
+a:active	{color:blue;}
 /*經號 */
 .juannum {color:lime; font-size:1em;}
 /*卷標題*/
@@ -49,36 +49,8 @@ a:active	{color:purple;}
 /*滑鼠反白顏色*/
 ::selection {background: darkred;color: yellow;}
 /* 校勘背景 */
-#div_notearea_box {
-    position: fixed;
-    border: 1px;
-    margin: 10px;
-    padding: 10px;
-    background-color: #333;
-    right: 0px;
-    bottom: 0px;
-    width: 655px;
-    height: 150px;
-    writing-mode: lr-tb;
-    display: none;
-    z-index: 1000;
-}
-#div_toolbar {
-    background-color: blue;
-}
 #div_notearea {
-    position: fixed;
-    border: 1px;
-    margin: 10px;
-    padding: 10px;
-    background-color: black;
-    right: 2px;
-    bottom: 2px;
-    width: 600px;
-    height: 146px;
-    overflow: auto;
     color: black;
     font-size: 0.8em;
-    font-weight: 700;
-    z-index: 1000;
+    font-weight: 900;
 }
