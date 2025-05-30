@@ -46,6 +46,7 @@ function addDir(IndexName) {
             .replace(/\,?\"\.gitignore\"/, '')
             .replace(',"icons"', '')
             .replace(',"僧俗.txt"', '')
+            .replace(',"mp.cmd"', '')
         }
     }
 
