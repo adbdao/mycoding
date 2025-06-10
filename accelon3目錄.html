@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>Accelon3說明檔</title>
+    <base target="_blank">
+    <style>
+        input,textarea {
+            border-radius: 15px;
+        }
+
+        ::selection {
+            background: darkred;
+            color: yellow;
+        }
+
+        ::-moz-selection {
+            background: darkred;
+            color: yellow;
+        }
+
+        input:hover,
+        textarea:hover {
+            border: 2px solid fuchsia;
+            box-shadow: 5px 5px 20px darkorchid;
+        }
+
+        input:active,
+        textarea:active {
+            border-color: indigo #f3f #f6f indigo;
+            border-width: 5px;
+            border-style: solid;
+            box-shadow: 5px -5px 20px darkorchid;
+        }
+
+        #tab1 {
+            /* border: 3px solid darkgoldenrod; */
+            border-collapse: collapse;
+        }
+
+        tr:hover {
+            /* border: 2px solid cyan; */
+            background: tomato;
+            /* box-shadow: 5px 5px 20px cyan; */
+        }
+
+        tr:nth-child(1) {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid gray;
+        }
+
+        td:nth-child(1) {
+            width: 8vw;
+            text-align: center;
+        }
+
+        td:nth-child(2) {
+            width: 7vw;
+        }
+
+        td:nth-child(3) {
+            width: 15vw;
+        }
+
+        td:nth-child(4) {
+            width: 28vw;
+        }
+
+        td:nth-child(n+5) {
+            width: 6vw;
+            text-align: center;
+        }
+
+        /* td:nth-of-type(odd) {
+            background: lightgreen;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;        } */
+        /*td:nth-of-type(even){ background: lightblue; }*/
+
+        input {
+            height: 30px;
+            background: pink;
+            /* color: navy; */
+        }
+
+        #div0 {
+            background: #ccc;
+        }
+
+        #div1 {
+            font-size: 76pt;
+            color: #ccb;
+            font-family: c;
+            /*margin: 0 0 0 3cm;*/
+        }
+
+        #div1 input {
+            background: #fec;
+        }
+
+        #div2 input {
+            background: #aea;
+        }
+
+        #div3 input {
+            background: #ff8;
+        }
+
+        #div4 input {
+            background: #f99;
+        }
+
+        .name {
+            background: tan;
+            color: crimson;
+        }
+
+        #txt1 {
+            width: 130px;
+            height: 30px;
+        }
+
+        #myValue {
+            width: 200px;
+            background: #aca;
+        }
+
+        #myValue2 {
+            width: 200px;
+            background: snow;
+        }
+
+        .g {
+            color: gold;
+        }
+
+        .t {
+            color: tomato;
+        }
+
+        .r {
+            color: red;
+        }
+
+        .sb {
+            color: skyblue;
+        }
+
+        .ky {
+            color: khaki;
+        }
+
+        .pink {
+            color: pink;
+        }
+
+        .y {
+            color: yellow;
+        }
+
+        .o {
+            color: orange;
+        }
+
+        .yg {
+            color: yellowgreen;
+        }
+
+        .b {
+            color: lightblue;
+        }
+
+        .p {
+            color: mediumpurple;
+        }
+
+        .lg {
+            color: limegreen;
+            font-size: 0.9em;
+        }
+
+        .lsg {
+            color: lightseagreen;
+        }
+
+        .lc {
+            color: lightcyan;
+        }
+
+        .gy {
+            color: greenyellow;
+        }
+
+        .tan {
+            color: tan;
+        }
+
+        .magenta {
+            /*字體加到最粗是900*/
+            font-weight: 900;
+            /*再加陰影，就更粗，注意X軸Y軸，直排時會對調*/
+            text-shadow: 1px 1px magenta;
+            color: magenta;
+        }
+
+        #reload {
+            background: yellowgreen;
+        }
+
+        #btnHidden {
+            height: 8px;
+            width: 8px;
+            background: white;
+        }
+
+        #btnHidden:hover {
+            height: 35px;
+            width: 5cm;
+            background: white;
+        }
+    </style>
+    <style id="change"></style>
+    <script>
+        var oBody = document.getElementsByTagName('body')
+
+        function changeColor(col, bg) {
+            div1.style.color = col
+            div1.style.background = bg
+            change.innerHTML += 'body {color:' + col + ';background:' + bg + ';}'
+            tab1.style.color = col
+            tab1.style.background = bg
+        }
+        function changeSize(sz) {
+            div1.style.fontSize = sz
+            change.innerHTML += '.ru {font-size:' + sz + ';}'
+            tab1.style.fontSize = sz
+        }
+        function changeFamily(ff) {
+            div1.style.fontFamily = ff
+            change.innerHTML += '.ru {font-family:' + ff + ';}'
+            tab1.style.fontFamily = ff
+        }
+        window.onload = function () {
+            btn1.onclick = function () {
+                changeColor('black', 'beige')
+            }
+            btn2.onclick = function () {
+                changeColor('yellow', 'black')
+            }
+            btn3.onclick = function () {
+                changeColor('darkslategray', 'khaki')
+            }
+            btn5.onclick = function () {
+                changeColor('darkblue', 'tan')
+            }
+            btn4.onclick = function () {
+                changeColor('maroon', '#aca')
+            }
+            btn6.onclick = function () {
+                changeSize('76pt')
+            }
+            btn7.onclick = function () {
+                changeSize('20pt')
+            }
+            btn8.onclick = function () {
+                changeSize('16pt')
+            }
+            btn9.onclick = function () {
+                changeSize('48pt')
+            }
+            myValue.onkeyup = function () {
+                changeSize(myValue.value + 'pt')
+            }
+            myValue2.onkeyup = function () {
+                changeFamily(myValue2.value)
+            }
+
+            txt1.onkeyup = function () {
+                div1.innerHTML = txt1.value
+            }
+
+            var acc = [
+                '標記或轉檔者	adb檔名	名稱	備註	版權有無	可流通否	佛教資料	辭典功能	第1版收錄	第2版收錄	第3版新增',
+                '中華佛教百科全書編輯委員會	ency	中華佛教百科全書		Y	N	Y	Y		Y	',
+                '印順文教基金會	taixu	太虛大師全集		Y	Y	Y		Y	Y	',
+                '印順文教基金會	yinshun	印順法師佛學著作集		Y	Y	Y		Y	Y	',
+                '李清順	dzdl	大智度論辭典		N	Y	Y	Y		Y	',
+                '李清順	miuking	玅境長老說法筆錄集	(美國法雲寺授權流通，2023年版，最新資料請到法雲資訊網)	Y	Y	Y		Y	Y	Y',
+                '李清順	yogacara	瑜伽師地論科句披尋記100卷講記	(瑜伽蘭若電子筆錄校對編輯小組<a href="http://mahabodhi.org/yoga/cb/index.htm" target="_blank">http://mahabodhi.org/yoga/cb/index.htm</a>)	Y	Y	Y				Y',
+                '慈濟功德會	40years	慈濟法髓		Y	N	Y			Y	',
+                '慈濟功德會	tzuchi_monthly	慈濟月刊檢索光碟	(2010年版)	Y	Y	Y		Y	Y	',
+                '釋成榮	newest article	般若文海2006	(部份)	N	Y	Y		Y	Y	',
+                '釋祥因	ShinMing	顯明法師全集	(已錄在《近代大師全集書畾》中)	N	Y	Y		Y		',
+                '釋祥因	ts lin	叢林規約		N	Y	Y			Y	',
+                '釋祥因	vinaya2	佛教律學彙集	(新修訂半形符號、頁碼標記、每40字分段)	N	Y	Y		Y	Y	Y',
+                '釋祥因	vinaya2np	佛教律學彙集np	(無圖像版，圖像要另下載，放到同一目錄中才可連結呈現圖檔！為放上網站故縮小至50MB以下)	N	Y	Y			Y	',
+                '釋道中	age	中國歷代帝王年號紀元表		N	Y	N	Y	Y	Y	',
+                '釋道中	ajm	阿姜曼正傳	(網路上取得)	Y	Y	Y				Y',
+                '釋道中	aodbs	總目錄及說明	(整合《accelon3目錄資料庫.odb》《影音教學tutorial.exe》《說明檔.htm》都包進來)	N	Y	Y				Y',
+                '釋道中	bhd	巴漢辭典Ba-Han		N	Y	Y	Y			Y',
+                '釋道中	cbeta-other2011	CBETA藏外文獻補遺	(CBETA的《藏外佛教文獻》中非佛經而不錄入經文區的資料)	Y	Y	Y				Y',
+                '釋道中	cbeta2011	CBETA 電子佛典集成 April 2011		Y	Y	Y			Y	',
+                '釋道中	cbeta2014	CBETA 電子佛典集成 April 2014		Y	Y	Y				Y',
+                '釋道中	ced	漢英佛學詞彙		N	Y	Y	Y			Y',
+                '釋道中	chm	chm電子書製作	(由CHM中的HTML原檔轉檔)	Y	N	N				Y',
+                '釋道中	color	標記(tag)的顏色大小示範檔		N	Y	N			Y	Y',
+                '釋道中	combdict	漢韓日英辭典	(由CHM中的HTML原檔轉檔)	Y	Y	Y	Y			Y',
+                '釋道中	cpi	漢巴名詞索引	(清淨道論等書末後的索引)	N	Y	Y	Y			Y',
+                '釋道中	dic-china	佛學大詞典 3.7版	(中華佛典寶庫版)(轉為繁體)	N	Y	Y	Y		Y	Y',
+                '釋道中	dic4v33np	佛學辭典V4.33np	(無圖像版，圖像要另下載，放到同一目錄中才可連結呈現圖檔！為放上網站故縮小至50MB以下)	N	Y	Y	Y	Y	Y	',
+                '釋道中	dic5v33	佛學辭典V5.33	(13萬詞條)	N	Y	Y	Y	Y	Y	Y',
+                '釋道中	ebst	藏經閣2005年版(美國佛教會電腦資訊庫功德會製)	(只將本文轉檔，沒有進行標記)	N	Y	Y				Y',
+                '釋道中	gaya	佛教圖書館館刊	(1～51期)	Y	Y	Y			Y	Y',
+                '釋道中	gh	全球通史	(原資料夾名為《世界文明史》)(錯字很多)	Y	Y	N				Y',
+                '釋道中	ght	全球通史(轉為繁體)	(原資料夾名為《世界文明史》)(錯字很多)	Y	Y	N				Y',
+                '釋道中	kt	高麗大藏經	(標記有47冊1513經5790卷8144品；本有1519經，其中經名跨冊重出：大般若波羅蜜多經重出3次，中阿含經重出1次，阿毗達磨大毗婆沙論重出1次，一切經音義重出1次)	Y	Y	Y		Y	Y	',
+                '釋道中	lbm	當代南傳佛教大師	(由DOC檔轉檔)	Y	N	Y				Y',
+                '釋道中	lbss	現代佛教學術叢刊	(部份)	N	Y	Y		Y	Y	',
+                '釋道中	lbss-more	現代佛教學術叢刊	(更完整的版本)	N	Y	Y				Y',
+                '釋道中	library	近代大師全集書畾		N	Y	Y		Y	Y	',
+                '釋道中	lt	龍藏目錄	(可連結開啟pdf檔)	N	Y	Y			Y	',
+                '釋道中	minlun	明倫月刊	(轉載自明倫月刊資訊網，由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	npt1	南普陀寺五十週年特刊	(成戒師留下的原檔不完整，只能做出一部分)	N	Y	Y				Y',
+                '釋道中	osed	梵英辭典	線上查詢<a href="http://sanskrit.gde.to/" target="_blank">http://sanskrit.gde.to/</a>	N	Y	Y	Y		Y	',
+                '釋道中	other	other	(雜類資料，已合併至《通入資料盋》)	N	Y	Y				Y',
+                '釋道中	other2021	other2021	(起自2014年，從緬甸回來後；直到2021年12月。別人給的、自己寫的、網路流傳的……比較有用的雜類資料)	Y	Y	Y				Y',
+                '釋道中	paauk	帕奧禪林文摘		Y	Y	Y		Y	Y	Y',
+                '釋道中	panna	般若文海2011年版		N	Y	Y			Y	Y',
+                '釋道中	pcd	巴漢辭典	(大馬比丘等著)	N	Y	Y	Y			Y',
+                '釋道中	rdg2011	CBETA2011大正藏校勘版	(僅供參考，正確校勘內容請使用CBReader)	Y	Y	Y				Y',
+                '釋道中	samgha_picture	釋門集僧軌度圖經	(義德寺圓觀比丘尼，從日本〈京都大學〉館藏中找到的，中國宋朝就失傳，各大藏經皆無)	Y	Y	Y				Y',
+                '釋道中	santagavesaka	覓寂尊者譯著	(覓寂尊者2014年初之前修訂的譯著，之後還有很多修訂，所以不流通)	N	N	Y				Y',
+                '釋道中	scd	梵汉词典		N	Y	Y	Y			Y',
+                '釋道中	scdt	梵漢詞典(轉為繁體)		N	Y	Y	Y			Y',
+                '釋道中	sila	律藏會集		Y	Y	Y		Y	Y	',
+                '釋道中	Sutanta	嘉興大藏經	(CBETA 2009年版)	Y	Y	Y			Y	',
+                '釋道中	TextProV6使用說明	TextProV6使用說明	(由CHM中的HTML原檔轉檔)		Y	N				Y',
+                '釋道中	thonzu	通入資料盋	(梵唄、規約、大正藏和龍藏定位點比對、Accelon3製作方法)	N	Y	Y		Y	Y	Y',
+                '釋道中	thonzu-s	通入資料盋(精簡版)	(精簡版，除去大正藏和龍藏定位點比對正文)	N	Y	Y			Y	Y',
+                '釋道中	ttctk	漢譯南傳大藏經		Y	Y	Y			Y	',
+                '釋道中	TXJW	四藏合一	(2009年版)	Y	Y	Y		Y		',
+                '釋道中	v4search	四分律綱目	(連結到大正藏及校勘版)(已整合五分律綱目)	N	Y	Y				Y',
+                '釋道中	v5search	五分律綱目	(連結到大正藏及校勘版)	N	Y	Y				Y',
+                '釋道中	verse	中華詩詞2001年版		Y	Y	N		Y	Y	',
+                '釋道中	VN	越譯大正藏	(淨行長老翻譯的靈山法寶大藏經)(淨行長老交代：版權屬公眾領域)	N	Y	Y				Y',
+                '釋道中	wiki1	維基百科1_20110521	(7億字，86萬詞條。太大分成5檔)	N	Y	N	Y		Y	',
+                '釋道中	wiki2	維基百科2_20110521		N	Y	N	Y		Y	',
+                '釋道中	wiki3	維基百科3_20110521		N	Y	N	Y		Y	',
+                '釋道中	wiki4	維基百科4_20110521		N	Y	N	Y		Y	',
+                '釋道中	wiki5	維基百科5_20110521		N	Y	N	Y		Y	',
+                '釋道中	yugasidi	瑜伽師地論科文	(美國法雲寺禪學院編輯)	N	Y	Y			Y	Y',
+                '釋道中	yugasidi1	瑜伽師地論科文	(美國法雲寺禪學院編輯)(標記增明版)	N	Y	Y			Y	',
+                '釋道中	yugasidi4	瑜伽師地論科文	(美國法雲寺禪學院編輯)(樹狀目錄只留30層)	N	Y	Y				Y',
+                '釋道中	zhimin	智敏大師全集		Y	Y	Y				Y',
+                '釋道中	ziyu	智瑜法師全集		Y	Y	Y				Y',
+                '釋道中	上座部現代譯著	上座部現代譯著	(主要是帕奧禪林的比丘們的譯著)	Y	Y	Y				Y',
+                '釋道中	土觀宗派源流	土觀宗派源流	(重新反編譯CHM，再以HTML原檔轉檔，之前由人工複製CHM中的文字)	Y	N	Y				Y',
+                '釋道中	土觀宗派源流(轉為繁體)	土觀宗派源流(轉為繁體)	(由人工複製CHM中的文字)	Y	N	Y				Y',
+                '釋道中	大史—斯里蘭卡佛教史	大史—斯里蘭卡佛教史		Y	N	Y				Y',
+                '釋道中	中華佛學研究	中華佛學研究	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	中華佛學學報	中華佛學學報	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	中國古典醫學大全	中國古典醫學大全	(從簡體CHM電子書轉檔，因為怕轉為繁體中文會有亂碼，故保留簡體)	Y	Y	N				Y',
+                '釋道中	中國佛教	中國佛教	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	中藥小常識	中藥小常識	(由CHM中的HTML原檔轉檔)	Y	N	N				Y',
+                '釋道中	中醫書畾	中醫書畾	(從簡體CHM電子書轉檔，因為怕轉為繁體中文會有亂碼，故保留簡體)	Y	Y	N				Y',
+                '釋道中	中醫書畾1	中醫書畾1	(從簡體CHM電子書轉檔，因為怕轉為繁體中文會有亂碼，故保留簡體)	Y	Y	N				Y',
+                '釋道中	五明佛學院淨土	五明佛學院藏傳淨土傳講集	(由CHM中的HTML原檔轉檔)	N	Y	Y				Y',
+                '釋道中	水野弘元著作選集	水野弘元著作選集		Y	N	Y				Y',
+                '釋道中	卡耐基口才學	卡耐基口才學	(由人工複製CHM中的文字)	Y	Y	N				Y',
+                '釋道中	印度佛教史(上冊)(平川彰著)	印度佛教史(上冊)(平川彰著)	(由DOC檔轉檔)	Y	N	Y				Y',
+                '釋道中	史念原始佛法	史念原始佛法	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	弘法大師——空海	弘法大師——空海	(非《弘法大師空海全集(8冊)》，而是小本的)(重新反編譯CHM，再以HTML原檔轉檔，之前由人工複製CHM中的文字)本的)	Y	Y	Y				Y',
+                '釋道中	朱邦復文選	朱邦復文選	(由網路複製)	Y	Y	N				Y',
+                '釋道中	死亡無懼	死亡無懼		N	Y	Y				Y',
+                '釋道中	西藏生死書	西藏生死書	(此書原檔是簡體，轉為繁體)	Y	N	Y				Y',
+                '釋道中	佛門必備課蓄本	佛門必備課備本	(部份)	N	Y	Y				Y',
+                '釋道中	戒律書畾	戒律書畾	(《佛教律學彙集》的新編，但內容較少)	N	Y	Y				Y',
+                '釋道中	和尚與哲學家_佛教與西方思想的對話	和尚與哲學家_佛教與西方思想的對話	(由人工複製CHM中的文字)	Y	N	Y				Y',
+                '釋道中	松下幸之助用人之道	松下幸之助用人之道	(由人工複製CHM中的文字)	Y	Y	N				Y',
+                '釋道中	法苑談叢	法苑談叢	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	法音叢書	法音叢書	(由人工複製CHM中的文字)	Y	Y	Y				Y',
+                '釋道中	空海大師傳	空海大师传	(非《弘法大師空海全集(8冊)》，而是小本的)(由人工複製CHM中的文字)	Y	Y	Y				Y',
+                '釋道中	空海大師傳(轉為繁體)	空海大師傳(轉為繁體)	(非《弘法大師空海全集(8冊)》，而是小本的)(由人工複製CHM中的文字)	Y	Y	Y				Y',
+                '釋道中	念死無常	念死無常			Y	Y				Y',
+                '釋道中	念住呼吸	念住呼吸	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	南傳課誦本性恩編	南傳課誦本性恩編		N	Y	Y				Y',
+                '釋道中	清淨道論及涅槃的北二高	清淨道論及涅槃的北二高	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	菩提道次第書畾	菩提道次第書畾	(日常法師著作重複，但因無法校對，所以兩份皆保留)	Y	Y	Y				Y',
+                '釋道中	尊者阿迦曼傳	尊者阿迦曼傳	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	道證法師全集	道證法師全集	(只做成連結至《般若文海》)	N	Y	Y				Y',
+                '釋道中	達摩易筋經	達摩易筋經	(由人工複製CHM中的文字)		Y	N				Y',
+                '釋道中	滅苦之道	滅苦之道	(由CHM中的HTML原檔轉檔)	Y	Y	Y				Y',
+                '釋道中	瑜伽師地論(福嚴授課講義)	瑜伽師地論(福嚴授課講義)	(由CHM中的HTML原檔轉檔)	N	Y	Y				Y',
+                '釋道中	當代南傳佛教大師	當代南傳佛教大師	(由CHM中的HTML原檔轉檔)	Y	N	Y				Y',
+                '釋道中	漢藏佛法百科光碟第二版文摘	漢藏佛法百科光碟第二版文摘	(自《漢藏佛法百科光碟第二版》中選出。有些已錄在《通入資料盋》中)	N	Y	Y				Y',
+                '釋道中	網路讀書會	網路讀書會		N	Y	N				Y',
+                '釋道中	劉墉文選	劉墉文選	(由CHM中的HTML原檔轉檔加上由人工複製CHM中的文字)	Y	Y	N				Y',
+                '釋道中	學佛箴言	學佛箴言		N	Y	Y				Y',
+                '釋道中	禪話禪畫	禪話禪畫	(由CHM中的HTML原檔轉檔)	Y	N	Y				Y',
+                '釋道中	藏族英雄格薩爾大王	藏族英雄格薩爾大王		Y	N	Y				Y',
+                '釋道中	藏傳佛教概說(洛本仁波切)	藏傳佛教概說(洛本仁波切)	(由人工複製CHM中的文字)	N	Y	Y				Y',
+                '釋道中	攝阿毗達摩義論	攝阿毗達摩義論	(由CHM中的HTML原檔轉檔)	N	Y	Y				Y',
+                '釋道中	by	本因法師講戒筆錄	(義德寺打筆錄)	N	Y	Y				Y',
+                '釋道中	cixingchao	資行鈔	(義德寺圓觀比丘尼委託製作)	N	Y	Y				Y',
+                '釋道中	fezhengqing	費正清文集		Y	N	N				Y',
+                '釋道中	india_buddhism_history	印度佛教史-渥德爾1987第二版		Y	N	Y				Y',
+                '釋善那	cihang	慈航法師全集	(死亡超過50年，已無版權)(網路下載<a href="https://www.putixia.net/big5/wenku/list_517.html" target="_blank">https://www.putixia.net/big5/wenku/list_517.html</a>)	N	Y	Y				Y',
+                '釋善那	csdszh	機譯巴利三藏	(AI deepseek譯)	N	Y	Y				Y',
+                '	BDB2015	南山八大部	(簡體字)	Y	Y	Y				Y',
+                '	BDB2015all	南山八大部	(簡體字)(增加二本手冊)	Y	Y	Y				Y',
+                '	四律五論	四律五論	(繁體字，有校勘)	Y	Y	Y				Y',
+                '	FaYin2015	法音雜誌	(簡體字)	Y	Y	Y				Y',
+                '	現代佛學	现代佛学	(簡體字)(1964年停刊)	N	Y	Y				Y',
+                '	jc	中醫笈成		Y	Y	N				Y',
+                '	jc-sim	中医笈成(繁简通检)		Y	Y	N				Y',
+                '	殆知阁-医藏	殆知阁-医藏		Y	Y	N				Y',
+                '	1839	南傳阿含	(漢譯南傳大藏經的擷錄)	Y	Y	Y			Y	',
+                '	13j	十三經		N	Y	N		Y	Y	',
+                '	amtb_fulltext	淨空法師專集		N	Y	Y		Y	Y	',
+                '	bible	天主教聖經	(新舊約和合本)	Y	N	N				Y',
+                '	Buddhist Tibetan Terms	漢藏佛教名相對照				Y	Y			Y',
+                '	chmes	法雲詞典	(中華大百科佛教部分的擷錄)	Y	N	Y	Y		Y	',
+                '	chuxueji	初學記	(出自四庫全書)	N	Y	N				Y',
+                '	cm	中醫古籍	(與doctor《中醫古籍》完全相同，故不錄)	N	Y	N			Y	',
+                '	ddm	法鼓全集	可線上使用	Y	Online	Y			Y	Y',
+                '	dfb	丁福保佛學大辭典	(3萬詞條)	N	Y	Y	Y	Y	Y	',
+                '	doctor	中醫古籍		N	Y	N		Y	Y	',
+                '	ernantang	二南堂		Y	N	N	Y			Y',
+                '	famousart	世界歷史名畫研究				N				Y',
+                '	fangyian	方言	(出自四庫全書)	N	Y	N	Y			Y',
+                '	fgdict	佛光大辭典	可線上使用	Y	Online	Y	Y		Y	',
+                '	GuangLun	菩提道次第廣論		Y	Y	Y				Y',
+                '	gjts	古今圖書集成	可線上使用	Y	Online	N			Y	',
+                '	hanyu	漢語大詞典	可線上使用	Y	Online	N	Y	Y	Y	Y',
+                '	his26	二十六史		N	Y	N		Y	Y	',
+                '	jinyong	金庸武俠全集	(在網路上已公開下載，但亂人心智，故不錄)	Y	Y	N				Y',
+                '	jouhan	說一切有部修行道論研究		Y		Y				Y',
+                '	js dic	教乘法數		Y	Y	Y				Y',
+                '	kangxi	康熙字典		N	Y	N	Y	Y	Y	',
+                '	liao	李敖全集	(在網路上已公開下載，但亂人心智，故不錄)	Y	N	N				Y',
+                '	lksj	新修龍龕手鑑	(出自四庫全書)	N	Y	N				Y',
+                '	manual	Accelon3操作手冊		N	Y	N			Y	',
+                '	newdict	丁德先新創字典		N	Y	N	Y	Y	Y	',
+                '	nikuang	倪匡全集	(在網路上已公開下載，但亂人心智，故不錄)	Y	Y	N				Y',
+                '	openlit	開放文學		N	Y	N		Y	Y	',
+                '	ped	巴英辭典	線上查詢<a href="http://dsal.uchicago.edu/dictionaries/pali/" target="_blank">http://dsal.uchicago.edu/dictionaries/pali/</a>	N	Y	Y	Y		Y	',
+                '	qts	全唐詩		N	Y	N		Y	Y	',
+                '	sbck	四部叢刊	可線上使用	Y	Online	N			Y	',
+                '	sbqs-02.shi	四庫全書史部		N	Y	N		Y	Y	',
+                '	sbqs-03.zi	四庫全書子部		N	Y	N		Y	Y	',
+                '	sbqs-04.ji	四庫全書集部	(共7.7億字)	N	Y	N		Y	Y	',
+                '	shiji-v092	淮陰侯列傳第三十二	(出自無版權的青空文庫)	N	Y	N				Y',
+                '	shiji-v130	太史公自序第七十	(出自無版權的青空文庫)	N	Y	N				Y',
+                '	shouwen	說文解字	(已錄在《佛學辭典V4.33》中)	N	Y	N	Y	Y	Y	',
+                '	sinorama	光華雜誌	可線上使用	Y	Online	N			Y	',
+                '	skqs-01.jing	四庫全書經部	(共7.7億字)	N	Y	N		Y	Y	Y',
+                '	skqs-02.shi	四庫全書史部	(內容與sbqs相同，只檔名換skqs，修改日期只差一日)	N	Y	N		Y	Y	Y',
+                '	skqs-03.zi	四庫全書子部	(內容與sbqs相同，只檔名換skqs，修改日期只差一日)	N	Y	N		Y	Y	Y',
+                '	skqs-04.ji	四庫全書集部	(內容與sbqs相同，只檔名換skqs，修改日期只差一日)	N	Y	N		Y	Y	Y',
+                '	skqs-05.fu	四庫全書	(目錄)	N	Y	N				Y',
+                '	swjz	說文解字注		Y	Y	N	Y		Y	',
+                '	taisho	大正新脩大藏經	(2008年版，此版有反連結印順導師全集)	Y	Y	Y			Y	',
+                '	taixuan	太玄經	(出自四庫全書)	N	Y	N				Y',
+                '	theravada	南北傳阿含經	(含佛光山佛教教科書)	Y	N	Y				Y',
+                '	tianguon	天工開物	(出自四庫全書)	N	Y	N				Y',
+                '	tibetan	藏文大藏經	(需安裝Himalaya.ttf字型，好像Vista以上版本才能呈現藏文)	N	Y	Y		Y	Y	',
+                '	tipitaka	巴利三藏		N	Y	Y		Y	Y	',
+                '	tts_lecture-ebook	霍普金斯教授演講合集		N	Y	Y		Y	Y	',
+                '	wordpedia	中國大百科全書智慧藏	可線上使用	Y	Online	N			Y	',
+                '	worldpaper	世界日報	(非現今各國的《世界日報》，而是民國初年的報紙，版權已過期)	N	Y	N			Y	',
+                '	wxzj	卍新篡續藏經	(2008年版，此版有反連結印順導師全集)	Y	Y	Y			Y	',
+                '	xiaolin	笑林廣記	(已錄在《開放文學》中，故不錄)	N	Y	N				Y',
+                '	yulinpo	于凌波居士論著	(含民國佛教高僧傳)	Y	N	Y				Y'
+            ]
+
+            // 範例圖表
+            function addTable(ps, tab, background, Arr, nt) {
+                // 二維陣列
+                var Arr2 = []
+                // 必須加入tbody，否則無法插入td
+                tab.innerHTML = ps + '<tbody></tbody>'
+                for (var i = 0; i < Arr.length; i++) {
+                    Arr2[i] = Arr[i].split(nt)
+                    var oTr = document.createElement('tr')
+                    // 記得用[i]
+                    for (var j of Arr2[i]) {
+                        var oTd = document.createElement('td')
+                        oTd.innerHTML = j
+                        oTr.appendChild(oTd)
+                    }
+                    tab.tBodies[0].appendChild(oTr)
+                    tab.style.background = background
+                }
+            }
+            addTable(' ', tab1, '#ccc', acc, '\t')
+
+            // 隱藏下方所有按鈕
+            btnHidden.onclick = function () {
+                if (divHidden.style.display == 'block') {
+                    divHidden.style.display = 'none'
+                } else {
+                    divHidden.style.display = 'block'
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="divHidden" style="display: block;">
+        <input id="reload" type="button" value="重整頁面" onclick="javascript:window.location.reload()" />
+        <input id="btn1" type="button" value="白色系主題">
+        <input id="btn3" type="button" value="黃色系主題">
+        <input id="btn5" type="button" value="茶色系主題">
+        <input id="btn4" type="button" value="綠色系主題">
+        <input id="btn2" type="button" value="黑色系主題">
+
+        <input id="btn8" type="button" value="16號字">
+        <input id="btn7" type="button" value="20號字">
+        <input id="btn9" type="button" value="48號字">
+        <input id="btn6" type="button" value="76號字">
+        <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
+        <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
+        <textarea id="txt1" type="text" placeholder='可打字'></textarea>
+        <br />
+        <div id="div1"></div>
+    </div>
+    <input type="button" id="btnHidden" value="隱藏多餘按鈕" />
+    <table id="tab1"></table>
+</body>
+
+</html>
