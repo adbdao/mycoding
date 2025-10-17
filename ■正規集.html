@@ -1342,6 +1342,15 @@ li{margin-left:1em;}
                 txt1.value = txt1.value.replace(/\n+/g, '\n')
                 Copy()
             }
+            ReDiary.onclick = function () {
+                zzUp()
+                // 刪除空行。再把oppo手機的日誌7，轉為之前的日誌6樣式
+                txt1.value = txt1.value.replace(/\n+/g, '')
+                    .replace(/(20\d{2}\-\d{2})/g, '\n$1')
+                    //第一行，會多出空行，所以再重新刪除「第一個」空行
+                    .replace(/\n+/, '')
+                Copy()
+            }
             DelEnter1.onclick = function () {
                 zzUp()
                 // 刪除空行，段間空一行
@@ -1470,6 +1479,7 @@ li{margin-left:1em;}
         <input id="ReABCToabc" type="button" class="yg" value="英文轉小寫" />
         <input id="ReabcToABC" type="button" class="yg" value="英文轉大寫" />
         <input id="Toicon" type="button" class="gy" value="書籤轉icon" />
+        <input id="ReDiary" type="button" class="y" value="轉日誌格式" />
         自訂取代正規式：值1中輸入要搜尋的正規式，值2中輸入要取代的值
     </div>
     <div>
@@ -1622,7 +1632,7 @@ li{margin-left:1em;}
 <style>
     html {
         background: black;
-        font-size: 3em;
+        font-size: 3em;z
         color: yellow;
         white-space: pre-wrap;
         line-height: 1.3em;
