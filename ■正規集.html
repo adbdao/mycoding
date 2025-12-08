@@ -1345,10 +1345,18 @@ li{margin-left:1em;}
             ReDiary.onclick = function () {
                 zzUp()
                 // 刪除空行。再把oppo手機的日誌7，轉為之前的日誌6樣式
-                txt1.value = txt1.value.replace(/\n+/g, '')
-                    .replace(/(20\d{2}\-\d{2})/g, '\n$1')
+                txt1.value = txt1.value
+                    .replace(/(20\d{2}年[^\,]+\,).+\n/g, '$1')
+                    .replace(/\n+/g, '')
+                    .replace(/(20\d{2}年)/g, '\n$1')
                     //第一行，會多出空行，所以再重新刪除「第一個」空行
                     .replace(/\n+/, '')
+                    // 日期補0，本來用(i+1)<10?'0'+(i+1):''+(i+1)，但是太麻煩，又出錯，還是用正規式簡單又方便
+                    .replace(/(\d{4})年(\d{1})月/g, '$1年0$2月')
+                    .replace(/(\d{4})年(\d+)月(\d{1})日/g, '$1年$2月0$3日')
+                    .replace(/(\d{4})年(\d+)月(\d+)日(\,.+)/g, '$1-$2-$3$4')
+                    // AI大寫
+                    .replace(/(\W)ai(\W)/g, '$1AI$2')
                 Copy()
             }
             DelEnter1.onclick = function () {

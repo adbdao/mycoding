@@ -47,6 +47,7 @@ function addDir(IndexName) {
             .replace(',"icons"', '')
             .replace(',"僧俗.txt"', '')
             .replace(',"mp.cmd"', '')
+            .replace(',"mc.cmd"', '')
         }
     }
 
