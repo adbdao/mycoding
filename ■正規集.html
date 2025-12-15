@@ -1356,7 +1356,7 @@ li{margin-left:1em;}
                     .replace(/(\d{4})年(\d+)月(\d{1})日/g, '$1年$2月0$3日')
                     .replace(/(\d{4})年(\d+)月(\d+)日(\,.+)/g, '$1-$2-$3$4')
                     // AI大寫
-                    .replace(/(\W)ai(\W)/g, '$1AI$2')
+                    .replace(/(\W)ai(\W)/ig, '$1AI$2')
                 Copy()
             }
             DelEnter1.onclick = function () {
