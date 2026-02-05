@@ -37,6 +37,7 @@
         #tab1 {
             /* border: 3px solid darkgoldenrod; */
             border-collapse: collapse;
+            font-size: 12pt;
         }
 
         tr:hover {
@@ -55,20 +56,20 @@
         }
 
         td:nth-child(1) {
-            width: 8vw;
+            width: 12vw;
             text-align: center;
         }
-
+        
         td:nth-child(2) {
-            width: 7vw;
+            width: 6vw;
         }
 
         td:nth-child(3) {
-            width: 15vw;
+            width: 20vw;
         }
 
         td:nth-child(4) {
-            width: 28vw;
+            width: 20vw;
         }
 
         td:nth-child(n+5) {
@@ -263,7 +264,7 @@
                 changeColor('maroon', '#aca')
             }
             btn6.onclick = function () {
-                changeSize('76pt')
+                changeSize('8pt')
             }
             btn7.onclick = function () {
                 changeSize('20pt')
@@ -522,10 +523,10 @@
         <input id="btn4" type="button" value="綠色系主題">
         <input id="btn2" type="button" value="黑色系主題">
 
+        <input id="btn6" type="button" value="8號字">
         <input id="btn8" type="button" value="16號字">
         <input id="btn7" type="button" value="20號字">
         <input id="btn9" type="button" value="48號字">
-        <input id="btn6" type="button" value="76號字">
         <input id="myValue" type="number" placeholder='輸入數字，立刻變換字體大小' />
         <input id="myValue2" type="text" placeholder='輸入字型名稱，立刻變換字型' />
         <textarea id="txt1" type="text" placeholder='可打字'></textarea>
