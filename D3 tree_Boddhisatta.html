@@ -733,7 +733,7 @@
             ]
         }
 
-        var titleTxt = '<span class="g">菩薩戒受隨綱要表</span><br/>(龍集乙亥十月一日於惠安淨峯寺集錄　　沙門一音)<br/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」'
+        var titleTxt = '<span class="g">菩薩戒受隨綱要表</span><br/>(龍集乙亥十月一日於惠安淨峯寺集錄　　沙門一音)<hr/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」'
 
         window.onload = function () {
             function d3Example(myKinds, xyRotate, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myLevel, myDepth, myRectHeight, myRectWidth) {
@@ -1227,6 +1227,32 @@
                 }
             }
 
+            // 折疊直書/橫書
+            toVertical2.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(1, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 1, 220, 30, 150)
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(1, 1, titleTxt, div1, 60, 10, 10, 60, 2400, 2400, 1, 120, 30, 120)
+                }
+            }
+
+            // 折疊另類樣式
+            toKinds2.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(0, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 1, 220, '', '')
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(0, 1, titleTxt, div1, 60, 10, 10, 60, 2400, 2400, 1, 120, '', '')
+                }
+            }
+
         }
     </script>
 </head>
@@ -1234,6 +1260,8 @@
 <body>
     <input id="toVertical" type="button" class="o" value="直書/橫書" />
     <input id="toKinds" type="button" class="gy" value="另類樣式" />
+    <input id="toVertical2" type="button" class="p" value="折疊直書/橫書" />
+    <input id="toKinds2" type="button" class="lsg" value="折疊另類樣式" />
     <h2 id="h2"></h2>
     <div id="div1"></div>
     <textarea id='txt1' placeholder='輸入要轉json的原始資料、或原始文章。
