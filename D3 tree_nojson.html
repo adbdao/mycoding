@@ -1,0 +1,800 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>菩薩戒受隨綱要表</title>
+    <base target="_blank">
+    <style>
+        input {
+            /*position: absolute;*/
+            float: left;
+            height: 60px;
+            border-radius: 50%;
+            /*margin: 0 0 0 50vw;*/
+        }
+
+        #toJson {
+            position: absolute;
+            /*float: left;*/
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+
+        .node rect {
+            stroke-width: 3px;
+        }
+
+        .node text {
+            /*font: 14px sans-serif;*/
+            font-size: 1.1em;
+            fill: black;
+            /* 無法自動換行
+            white-space: pre-wrap; */
+        }
+
+        .node {
+            fill: lightblue;
+            /*word-wrap:break-word;
+        white-space:pre;*/
+        }
+
+        .rectBody {
+            transform: rotate(90deg);
+        }
+
+        .body {
+            /*轉直排語法*/
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+        }
+
+        .head {
+            /*text-align: center;*/
+            /*D3語法*/
+            text-anchor: middle;
+        }
+
+        .link {
+            fill: none;
+            stroke: #cac;
+            stroke-width: 2px;
+        }
+
+        #txt1 {
+            width: 60vw;
+            height: 30vh;
+        }
+
+        #myValue {
+            width: 60vw;
+            background: #aca;
+        }
+
+        #myValue2 {
+            width: 60vw;
+            background: snow;
+        }
+
+        #myValue3 {
+            width: 60vw;
+            background: bisque;
+        }
+
+        .g {
+            background: gold;
+        }
+
+        .t {
+            background: tomato;
+        }
+
+        .r {
+            background: red;
+        }
+
+        .sb {
+            background: skyblue;
+        }
+
+        .ky {
+            background: khaki;
+        }
+
+        .pink {
+            background: pink;
+        }
+
+        .y {
+            background: yellow;
+        }
+
+        .o {
+            background: orange;
+        }
+
+        .yg {
+            background: yellowgreen;
+        }
+
+        .b {
+            background: lightblue;
+        }
+
+        .p {
+            background: plum;
+        }
+
+        .lg {
+            background: limegreen;
+        }
+
+        .lsg {
+            background: lightseagreen;
+        }
+
+        .lc {
+            background: lightcyan;
+        }
+
+        .gy {
+            background: greenyellow;
+        }
+
+        .tan {
+            background: tan;
+        }
+    </style>
+    <!-- load the d3.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <script>
+        var treeData = {}
+        var titleTxt = '<span class="g">菩薩戒受隨綱要表</span><br/>(龍集乙亥十月一日於惠安淨峯寺集錄　　沙門一音)<hr/>點擊節點，開始動畫，按鈕可切換「直書/橫書」「另類樣式」'
+
+        window.onload = function () {
+            function d3Example(myKinds, xyRotate, myH2, myId, myTop, myRight, myBottom, myLeft, myWidth, myHeight, myLevel, myDepth, myRectHeight, myRectWidth) {
+                h2.innerHTML = myH2
+
+                // Set the dimensions and margins of the diagram
+                // 設置圖的尺寸和邊距
+                var margin = { top: myTop, right: myRight, bottom: myBottom, left: myLeft },
+                    width = myWidth - margin.left - margin.right,
+                    height = myHeight - margin.top - margin.bottom;
+
+                // append the svg object to the body of the page
+                // appends a 'group' element to 'svg'
+                // moves the 'group' element to the top left margin
+                var svg = d3.select(myId).append("svg")
+                    .attr("width", width + margin.right + margin.left)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate("
+                        + margin.left + "," + margin.top + ")");
+
+                var i = 0,
+                    duration = 750,
+                    root;
+
+                // declares a tree layout and assigns the size
+                // 聲明樹形佈局並分配大小
+                var treemap = d3.tree().size([height, width]);
+
+                // Assigns parent, children, height, depth
+                // 分配父項，子項，高度，深度
+                root = d3.hierarchy(treeData, function (d) { return d.children; });
+                root.x0 = height / 2;
+                root.y0 = 0;
+
+                // Collapse after the second level
+                // 在第二級之後折疊
+                if (myLevel == 1) {
+                    root.children.forEach(collapse);
+                }
+
+                update(root);
+
+                // Collapse the node and all it's children
+                // 折疊節點及其所有子節點
+                function collapse(d) {
+                    if (d.children) {
+                        d._children = d.children
+                        d._children.forEach(collapse)
+                        d.children = null
+                    }
+                }
+
+                function update(source) {
+
+                    // Assigns the x and y position for the nodes
+                    // 為節點分配x和y位置
+                    var treeData = treemap(root);
+
+                    // Compute the new tree layout.
+                    // 計算新的樹佈局。
+                    var nodes = treeData.descendants(),
+                        links = treeData.descendants().slice(1);
+
+                    // Normalize for fixed-depth.
+                    // 歸一化為固定深度。
+                    nodes.forEach(function (d) { d.y = d.depth * myDepth });
+
+                    // ****************** Nodes section ***************************
+
+                    // Update the nodes...
+                    // 更新節點...
+                    var node = svg.selectAll('g.node')
+                        .data(nodes, function (d) { return d.id || (d.id = ++i); });
+
+                    // Enter any new modes at the parent's previous position.
+                    // 在父級的上一個位置輸入任何新模式。
+                    var nodeEnter = node.enter().append('g')
+                        .attr('class', 'node')
+                        .attr("transform", function (d) {
+                            // 直排X軸Y軸對調
+                            if (xyRotate != 1) {
+                                // 橫排
+                                return "translate(" + source.y0 + "," + source.x0 + ")";
+                            } else {
+                                return "translate(" + source.x0 + "," + source.y0 + ")";
+                            }
+                        })
+                        .on('click', click);
+
+                    // 區分兩種樣式
+                    if (myKinds != 1) {
+                        // 原始樣式
+                        // Add Circle for the nodes
+                        nodeEnter.append('circle')
+                            .attr('class', 'node')
+                            .attr('r', 1e-6)
+                            .style("fill", function (d) {
+                                return d._children ? "lightsteelblue" : "#fff";
+                            });
+
+                        // Add labels for the nodes
+                        // 為節點添加標籤
+                        if (xyRotate != 1) {
+                            // 橫排
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                .attr("x", function (d) {
+                                    // 文字向左向右
+                                    return d.children || d._children ? -13 : 13;
+                                    // return 13
+                                })
+                                .attr("text-anchor", function (d) {
+                                    return d.children || d._children ? "end" : "start";
+                                    // return "start";
+                                })
+                                .text(function (d) { return d.data.name; });
+                        } else {
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 直排X軸Y軸對調
+                                .attr("y", function (d) {
+                                    // 文字向左向右
+                                    return d.children || d._children ? -20 : 8;
+                                })
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "head" : "body"
+                                })
+                                .text(function (d) { return d.data.name; });
+                        }
+
+                        // add number of children to node circle
+                        //  將節點數添加到節點圈
+                        nodeEnter.append('text')
+                            .attr('x', -4)
+                            .attr('y', 4)
+                            .attr('cursor', 'pointer')
+                            .style('font-size', '12px')
+                            .text(function (d) {
+                                if (d.children) return d.children.length;
+                                else if (d._children) return d._children.length;
+                            });
+
+                    } else {
+                        // 顏色樣式
+                        var rectHeight = myRectHeight, rectWidth = myRectWidth;
+
+                        if (xyRotate != 1) {
+                            // 橫排
+                            nodeEnter.append('rect')
+                                .attr('class', 'node')
+                                .attr("width", rectWidth)
+                                .attr("height", rectHeight)
+                                .attr("x", 0)
+                                .attr("y", (rectHeight / 2) * -1)
+                                .attr("rx", "5")
+                                .style("fill", function (d) {
+                                    return d.data.fill;
+                                });
+
+                            // Add labels for the nodes
+                            // 為節點添加標籤
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 無法自動換行
+                                // .attr("style", "white-space: pre-wrap")
+                                // 雙行小名
+                                // .attr("dy", "-.35em")
+                                .attr("x", function (d) {
+                                    return 13;
+                                })
+                                .attr("text-anchor", function (d) {
+                                    return "start";
+                                })
+                                .text(function (d) { return d.data.name; })
+                            // 雙行小名
+                            // .append("tspan")
+                            // .attr("dy", "1.75em")
+                            // .attr("x", function (d) {
+                            //    return 13;
+                            // })
+                            // .text(function (d) { return d.data.subname; });
+
+                        } else {
+                            nodeEnter.append('rect')
+                                // .attr('class', 'node')
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "rectHead" : "rectBody"
+                                })
+                                .attr("width", rectWidth)
+                                .attr("height", rectHeight)
+                                .attr("x", function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? (rectWidth / 2) * -1 : 0
+                                })
+                                .attr("y", function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? (rectHeight - 4) * -1 : (rectHeight / 2) * -1
+                                })
+                                .attr("rx", "5")
+                                .style("fill", function (d) {
+                                    return d.data.fill;
+                                });
+
+                            // Add labels for the nodes
+                            // 為節點添加標籤
+                            nodeEnter.append('text')
+                                .attr("dy", ".35em")
+                                // 直排X軸Y軸對調
+                                .attr("y", function (d) {
+                                    // 文字向左向右
+                                    return d.children || d._children ? -8 : 8;
+                                })
+                                .attr('class', function (d) {
+                                    // 區分子節點直排，父節點不直排
+                                    return d.children || d._children ? "head" : "body"
+                                })
+                                // // 雙行小名
+                                // // .attr("dy", "-.35em")
+                                // .attr("x", function (d) {
+                                //     return 13;
+                                // })
+                                // .attr("text-anchor", function (d) {
+                                //     return "start";
+                                // })
+                                .text(function (d) { return d.data.name; })
+                            // 雙行小名
+                            // .append("tspan")
+                            // .attr("dy", "1.75em")
+                            // .attr("x", function (d) {
+                            //    return 13;
+                            // })
+                            // .text(function (d) { return d.data.subname; });
+                        }
+                    }
+
+                    // UPDATE
+                    var nodeUpdate = nodeEnter.merge(node);
+
+                    // Transition to the proper position for the node
+                    // 過渡到節點的正確位置
+                    nodeUpdate.transition()
+                        .duration(duration)
+                        .attr("transform", function (d) {
+                            // 直排X軸Y軸對調
+                            if (xyRotate != 1) {
+                                // 橫排
+                                return "translate(" + d.y + "," + d.x + ")";
+                            } else {
+                                return "translate(" + d.x + "," + d.y + ")";
+                            }
+                        });
+
+                    // Update the node attributes and style
+                    // 更新節點屬性和样式
+                    nodeUpdate.select('circle.node')
+                        .attr('r', 10)
+                        .style("fill", function (d) {
+                            return d._children ? "red" : "yellow";
+                        })
+                        .attr('cursor', 'pointer');
+
+
+                    // Remove any exiting nodes
+                    // 刪除所有現有節點
+                    var nodeExit = node.exit().transition()
+                        .duration(duration)
+                        .attr("transform", function (d) {
+                            // 直排X軸Y軸對調
+                            if (xyRotate != 1) {
+                                // 橫排
+                                return "translate(" + source.y + "," + source.x + ")";
+                            } else {
+                                return "translate(" + source.x + "," + source.y + ")";
+                            }
+                        })
+                        .remove();
+
+                    // On exit reduce the node circles size to 0
+                    // 在退出時，將節點圓圈的大小減小為0
+                    nodeExit.select('circle')
+                        .attr('r', 1e-6);
+
+                    // On exit reduce the opacity of text labels
+                    // 在退出時減少文本標籤的不透明度
+                    nodeExit.select('text')
+                        .style('fill-opacity', 1e-6);
+
+                    // ****************** links section ***************************
+
+                    // Update the links...
+                    var link = svg.selectAll('path.link')
+                        .data(links, function (d) { return d.id; });
+
+                    // Enter any new links at the parent's previous position.
+                    // 在父級的上一個位置輸入任何新鏈接。
+                    var linkEnter = link.enter().insert('path', "g")
+                        .attr("class", "link")
+                        .attr('d', function (d) {
+                            var o = { x: source.x0, y: source.y0 }
+                            return diagonal(o, o)
+                        });
+
+                    // UPDATE
+                    var linkUpdate = linkEnter.merge(link);
+
+                    // Transition back to the parent element position
+                    // 過渡回父元素位置
+                    linkUpdate.transition()
+                        .duration(duration)
+                        .attr('d', function (d) { return diagonal(d, d.parent) });
+
+                    // Remove any exiting links
+                    // 刪除所有現有鏈接
+                    var linkExit = link.exit().transition()
+                        .duration(duration)
+                        .attr('d', function (d) {
+                            var o = { x: source.x, y: source.y }
+                            return diagonal(o, o)
+                        })
+                        .remove();
+
+                    // Store the old positions for transition.
+                    // 存儲舊職位以進行過渡。
+                    nodes.forEach(function (d) {
+                        d.x0 = d.x;
+                        d.y0 = d.y;
+                    });
+
+                    // Creates a curved (diagonal) path from parent to the child nodes
+                    // 創建從父節點到子節點的彎曲（對角線）路徑
+                    function diagonal(s, d) {
+                        // 直排X軸Y軸對調
+                        if (xyRotate != 1) {
+                            // 橫排
+                            path = `M ${s.y} ${s.x}
+                        C ${(s.y + d.y) / 2} ${s.x},
+                          ${(s.y + d.y) / 2} ${d.x},
+                          ${d.y} ${d.x}`
+                            return path
+                        } else {
+                            // 可以調整角度
+                            path = `M ${s.x} ${s.y}
+                         C ${(s.x + s.x) / 2} ${s.y},
+                           ${(s.x + d.x) / 2} ${d.y},
+                           ${d.x} ${d.y}`
+
+                            return path
+                        }
+                    }
+
+                    // Toggle children on click.
+                    // 在點擊時切換孩子。
+                    function click(d) {
+                        if (d.children) {
+                            d._children = d.children;
+                            d.children = null;
+                        } else {
+                            d.children = d._children;
+                            d._children = null;
+                        }
+                        update(d);
+                    }
+                }
+            }
+
+            function MaketreeData() {
+                var Arr1 = txt1.value
+                // 將輸入文字依行拆分，並過濾掉完全空白的行
+                const lines = Arr1.split('\n').filter(line => line.trim() !== '');
+
+                if (lines.length === 0) return "treeData = {};";
+
+                // 1. 自動抓取「第一行」作為最外層的根節點
+                const firstLineContent = lines[0].trim();
+                const root = {
+                    name: firstLineContent,
+                    subname: "",
+                    fill: "magenta",
+                    children: []
+                };
+
+                // 用來追蹤各個層級當前最後一個被加入的節點
+                // 因為文字的第一行被我們抽出來當 root 了，所以 levels[0] 就是 root
+                const levels = [root];
+
+                // 2. 從「第二行」（索引 1）開始跑迴圈處理子節點
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+
+                    // 自動計算層級：支援 Tab (\t) 或 每 4 個空格 作為一個層級
+                    const tabMatch = line.match(/^\t*/)[0].length;
+                    const spaceMatch = line.match(/^ */)[0].length;
+                    const depth = tabMatch > 0 ? tabMatch : Math.floor(spaceMatch / 4);
+
+                    // 取得純文字內容
+                    const content = line.trim();
+
+                    // 根據特定節點名稱，自動判斷 fill 欄位的顏色
+                    let fillColor = "";
+                    if (content === "正受" || content.endsWith("受")) {
+                        fillColor = "gold";
+                    } else if (content.endsWith("障")) {
+                        fillColor = "cyan";
+                    } else if (content === "根本") {
+                        fillColor = "lime";
+                    } else if (content === "懺悔" || content.startsWith("懺")) {
+                        fillColor = "pink";
+                    }
+
+                    // 建立符合要求的物件結構
+                    const newNode = {
+                        name: content,
+                        subname: "",
+                        fill: fillColor,
+                        children: []
+                    };
+
+                    // 找到上一層的父節點並推入（此時文字縮排 1 個 Tab 的 depth 是 1，剛好會配對到 levels[0] 也就是 root）
+                    const parentNode = levels[depth - 1];
+                    if (parentNode) {
+                        parentNode.children.push(newNode);
+                    } else {
+                        // 防呆機制：若結構有跳層，就塞給最接近的父層
+                        root.children.push(newNode);
+                    }
+
+                    // 記錄當前層級的最新節點
+                    levels[depth] = newNode;
+                }
+
+                // 3. 遞迴清理：若該節點沒有子節點，則拔除 children 屬性
+                function cleanEmptyChildren(node) {
+                    if (node.children && node.children.length === 0) {
+                        delete node.children;
+                    } else if (node.children) {
+                        node.children.forEach(child => cleanEmptyChildren(child));
+                    }
+                }
+
+                cleanEmptyChildren(root);
+
+                // 4. 格式化輸出為 treeData = { ... }
+                // txt1.value = "treeData = " + JSON.stringify(root, null, 4) + ";";
+
+                // txt1.value = JSON.stringify(root, null, 4)
+                
+                // JSON.parse要轉成js物件
+                treeData = JSON.parse(JSON.stringify(root, null, 4))
+
+                // 結束時選取並複製文本框中的內容
+                // txt1.select()
+                // document.execCommand('Copy')
+
+                // 重整頁面
+                d3.select('div svg').remove()
+                // 調用D3參數
+                d3Example(1, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 0, 220, 30, 150)
+            }
+            // 調用函數，轉換資料成json
+            MaketreeData()
+            // 按鈕toJson調用函數
+            toJson.onclick = function () { MaketreeData() }
+
+            function Kinds(k1, k2) {
+                var k = k1, v = k2
+            }
+
+            // 直書/橫書
+            toVertical.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(1, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 0, 220, 30, 150)
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(1, 1, titleTxt, div1, 60, 10, 10, 60, 2500, 2400, 0, 120, 30, 120)
+                }
+            }
+
+            // 另類樣式
+            toKinds.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(0, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 0, 220, '', '')
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(0, 1, titleTxt, div1, 60, 10, 10, 60, 2500, 2400, 0, 120, '', '')
+                }
+            }
+
+            // 折疊直書/橫書
+            toVertical2.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(1, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 1, 220, 30, 150)
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(1, 1, titleTxt, div1, 60, 10, 10, 60, 2500, 2400, 1, 120, 30, 120)
+                }
+            }
+
+            // 折疊另類樣式
+            toKinds2.onclick = function () {
+                // 直書的元素
+                var tsvg = document.getElementsByClassName('head')[0]
+                if (tsvg) {
+                    d3.select('div svg').remove()
+                    d3Example(0, 0, titleTxt, div1, 10, 10, 10, 30, 2200, 3000, 1, 220, '', '')
+                } else {
+                    d3.select('div svg').remove()
+                    d3Example(0, 1, titleTxt, div1, 60, 10, 10, 60, 2500, 2400, 1, 120, '', '')
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <input id="toVertical" type="button" class="o" value="直書/橫書" />
+    <input id="toKinds" type="button" class="gy" value="另類樣式" />
+    <input id="toVertical2" type="button" class="p" value="折疊直書/橫書" />
+    <input id="toKinds2" type="button" class="lsg" value="折疊另類樣式" />
+    <h2 id="h2"></h2>
+    <div id="div1"></div>
+    <textarea id='txt1' placeholder='輸入要轉D3的原始資料、或原始文章。
+用「空白鍵」或「tab鍵」在前面作層級的區分，
+
+第二代程式，可以直接轉成圖表，
+但只有一次，若想長久使用，需寫入本網頁檔'>
+菩薩戒
+    受
+        得受
+            資器
+                有感戒之善
+                    菩薩種姓
+                    發菩提心
+                無障戒之惡
+                    煩惱障
+                        受法中不問者、不決定故。
+                    業障
+                        七逆
+                        十重
+                            如下懺法中廣說。
+                    報障
+            師德
+                如瑜伽師地論等廣明。
+            受法
+                對緣
+                    諸佛菩薩現在前受
+                    依先受菩薩戒法師前受
+                    於佛菩薩形像前自誓受
+                        瑜伽論云、自受
+                        從他、
+                        若等心受、亦如是持、福德無別。是約心也。
+                隨分
+                    全分受
+                    一分受
+                        菩薩瓔珞本業經云、若受一戒、名一分菩薩。
+                        乃至具受、名具分菩薩。
+                        梵網古迹記中、廣明此義。
+                        彼云、隨其受者意樂所堪、或受一戒、或多、皆得成戒、名為菩薩。
+                        不同聲聞必總受持、若其一分、不名比丘。
+                        菩薩不爾。隨分戒故。
+                正受
+                    依法師受
+                        諸師所立儀軌不同。
+                        宋靈芝律師所撰、最為美備。載芝苑遺編中。
+                    自誓受
+                        自誓受戒文、見瑜伽師地論。
+                        梵網須見好相。
+                        若依占察經本業經
+                        及瑜伽論、則可直受。
+        失受
+            故捨大菩提心
+                於人前故意發起棄捨語言亦爾。
+            犯重戒
+                破
+                    若以上品纏犯、隨所犯支失之。
+                        問、上依瑜伽論云、二緣失受。
+                        若依本業經云、菩薩戒有受法而無捨法、有犯不失、盡未來際。
+                        二說互異、豈不相違。
+                        答、不相違也。若論種體、一熏永在。
+                        若言功能、或違緣失。以體從功、
+                        故論云捨戒。以能從體、故經云不失。
+                汙
+                    若中下纏、唯汙不失。
+    隨
+        受興於前、持心後起、順本所受、令戒光潔、故名為隨。
+        依位制別
+            凡位
+                諸師所判罪相亦有緩急、種種不同、如別表例。宜各隨力奉持。
+            聖位
+                制
+                    文殊問經云、若受出世間菩薩戒而不起慈悲心、是菩薩犯波羅夷。
+                    若以心起盜想、犯波羅夷。
+                    若以心分別男女非男非女等、犯波羅夷。
+                    若起妄語心、犯波羅夷。
+                    又涅槃經云、雖不交女、壁外遙聞女瓔珞聲、心生愛著、成欲破戒。
+                    優婆塞戒經云、菩薩想女人身上瓔珞等、皆波羅夷。
+                    當知此皆依地上制也。
+                開
+                    瑜伽戒本開殺生等七支。
+                    攝大乘論通開殺生等十惡。
+                    無性釋論云、悲願相應後得妙智行殺生等十種作業。
+                    南山云、淨心地菩薩得無分別智、行殺生等。地前不合。
+                    準此等說、但局地上、不通地前、況外凡乎。
+        懺悔方法
+            懺重
+                根本
+                    以上品纏犯十重
+                        即已失戒。
+                            對十方佛方等懺、若見好相、舊戒還全、更不須受。
+                            若不得好相、懺滿一年應再受戒。此依賢首義寂諸家所判。
+                    以中品下品纏犯十重戒
+                        仍未失戒。
+                            應對四菩薩懺。懺法如後所列。
+                方便
+                    犯十重下重方便
+                        對首懺
+                    犯十重下輕方便
+                        責心懺
+            懺輕
+                根本
+                    對首懺
+                方便　重輕同
+                    責心懺
+</textarea>
+    <input id="toJson" type="button" class="tan" value="轉json及圖表" />
+</body>
+
+</html>
