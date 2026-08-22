@@ -537,8 +537,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     var solarTermIdx = '0123415341536789:;<9:=<>:=1>?012@015@015@015AB78CDE8CD=1FD01GH01GH01IH01IJ0KLMN;LMBEOPDQRST0RUH0RVH0RWH0RWM0XYMNZ[MB\\]PT^_ST`_WH`_WH`_WM`_WM`aYMbc[Mde]Sfe]gfh_gih_Wih_WjhaWjka[jkl[jmn]ope]qph_qrh_sth_W';
     var solarTermOS = '211122112122112121222211221122122222212222222221222122222232222222222222222233223232223232222222322222112122112121222211222122222222222222222222322222112122112121222111211122122222212221222221221122122222222222222222222223222232222232222222222222112122112121122111211122122122212221222221221122122222222222222221211122112122212221222211222122222232222232222222222222112122112121111111222222112121112121111111222222111121112121111111211122112122112121122111222212111121111121111111111122112122112121122111211122112122212221222221222211111121111121111111222111111121111111111111111122112121112121111111222111111111111111111111111122111121112121111111221122122222212221222221222111011111111111111111111122111121111121111111211122112122112121122211221111011111101111111111111112111121111121111111211122112122112221222211221111011111101111111110111111111121111111111111111122112121112121122111111011111121111111111111111011111111112111111111111011111111111111111111221111011111101110111110111011011111111111111111221111011011101110111110111011011111101111111111211111001011101110111110110011011111101111111111211111001011001010111110110011011111101111111110211111001011001010111100110011011011101110111110211111001011001010011100110011001011101110111110211111001010001010011000100011001011001010111110111111001010001010011000111111111111111111111111100011001011001010111100111111001010001010000000111111000010000010000000100011001011001010011100110011001011001110111110100011001010001010011000110011001011001010111110111100000010000000000000000011001010001010011000111100000000000000000000000011001010001010000000111000000000000000000000000011001010000010000000';
 
+    // 1. 修正 sTerm 防呆
     function sTerm(y, n) {
-      return (solarTermBase[n] + Math.floor(solarTermOS.charAt((Math.floor(solarTermIdx.charCodeAt(y - 1900)) - 48) * 24 + n)));
+      var idx = y - 1900;
+      if (idx < 0 || idx >= solarTermIdx.length) return 0;
+      var off = (solarTermIdx.charCodeAt(idx) - 48) * 24 + n;
+      return solarTermBase[n] + Math.floor(solarTermOS.charAt(off));
     }
 
 
@@ -707,28 +711,22 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     }
 
     //====================== 中文日期
+    // 2. 清理 cDay 冗餘 break
     function cDay(d) {
-      var s;
-
       switch (d) {
-        case 10:
-          s = '初十'; break;
-        case 20:
-          s = '二十'; break;
-          break;
-        case 30:
-          s = '三十'; break;
-          break;
-        default:
-          s = nStr2[Math.floor(d / 10)];
-          s += nStr1[d % 10];
+        case 10: return '初十';
+        case 20: return '二十';
+        case 30: return '三十';
+        default: return nStr2[Math.floor(d / 10)] + nStr1[d % 10];
       }
-      return (s);
     }
-    function overCopy() {
-      // 結束時選取並複製文本框中的內容
-      txt5.select()
-      document.execCommand('Copy')
+    // 結束時選取並複製文本框中的內容
+    // 3. 現代剪貼簿複製
+    async function overCopy() {
+      if (txt5) {
+        txt5.select();
+        await navigator.clipboard.writeText(txt5.value);
+      }
     }
     // 月份日期轉中文字
     var NumString = "一二三四五六七八九十";
@@ -1069,61 +1067,69 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       return (d2);
     }
 
-    //傳入某時間值, 日光節約字串 傳回是否節約 true 或 false
+    // 傳入某時間值, 日光節約字串 傳回是否節約 true 或 false
     function isDaylightSaving(d, strDS) {
+      if (!strDS || strDS.length < 11) return false;
 
-      if (strDS == '') return (false);
+      // 格式："04F02|10L02" 
+      // [0..1]月份 [2]規則 [3]星期 [4]小時 | [6..7]月份 [8]規則 [9]星期 [10]小時
+      var m1 = parseInt(strDS.substr(0, 2), 10) - 1; // 04 -> 月份 3 (即 4月)
+      var x1 = strDS.substr(2, 1);                    // F
+      var w1 = parseInt(strDS.substr(3, 1), 10);     // 0
+      var t1 = parseInt(strDS.substr(4, 1), 10);     // 2
 
-      var m1, n1, w1, t1;
-      var m2, n2, w2, t2;
+      var m2 = parseInt(strDS.substr(6, 2), 10) - 1; // 10 -> 月份 9 (即 10月)
+      var x2 = strDS.substr(8, 1);                    // L
+      var w2 = parseInt(strDS.substr(9, 1), 10);     // 0
+      var t2 = parseInt(strDS.substr(10, 1), 10);    // 2
 
-      //"04F02|10L02"
-      // 01234567890
-
-      with (Math) {
-        m1 = floor(strDS.substr(0, 2)) - 1; //月
-        w1 = floor(strDS.substr(3, 1));   //星
-        t1 = floor(strDS.substr(4, 1));   //時
-        m2 = floor(strDS.substr(6, 2)) - 1;
-        w2 = floor(strDS.substr(9, 1));
-        t2 = floor(strDS.substr(10, 1));
+      // 解析規則 F:第1個, S:第2個, L:最後1個, 數字/其他:固定日期
+      function getRule(type) {
+        switch (type) {
+          case 'F': return 1;
+          case 'S': return 2;
+          case 'L': return -1;
+          default: return 0;
+        }
       }
 
-      switch (strDS.substr(2, 1)) { //F L 頭或尾
-        case 'F': n1 = 1; break; //第一個
-        case 'S': n1 = 2; break; //第二個
-        case 'L': n1 = -1; break; //到數第一個
-        default: n1 = 0; break;
+      var n1 = getRule(x1);
+      var n2 = getRule(x2);
+
+      var yr = d.getUTCFullYear();
+      var d1, d2;
+
+      // 解析開始時間 d1
+      if (n1 === 0) {
+        // 固定日期時，提取第 2、3 位數字
+        var day1 = parseInt(strDS.substr(2, 2), 10);
+        if (isNaN(day1)) return false; // 安全防護
+        d1 = new Date(Date.UTC(yr, m1, day1, t1));
+      } else {
+        d1 = getWeekDay(yr, m1, n1, w1, t1);
       }
 
-      switch (strDS.substr(8, 1)) {
-        case 'F': n2 = 1; break;
-        case 'S': n2 = 2; break;
-        case 'L': n2 = -1; break;
-        default: n2 = 0; break;
+      // 解析結束時間 d2
+      if (n2 === 0) {
+        var day2 = parseInt(strDS.substr(8, 2), 10);
+        if (isNaN(day2)) return false; // 安全防護
+        d2 = new Date(Date.UTC(yr, m2, day2, t2));
+      } else {
+        d2 = getWeekDay(yr, m2, n2, w2, t2);
       }
 
+      // 若 getWeekDay 計算失敗回傳無效日期，防護避免卡死
+      if (!d1 || isNaN(d1.getTime()) || !d2 || isNaN(d2.getTime())) {
+        return false;
+      }
 
-      var d1, d2, re;
-
-      if (n1 == 0)
-        d1 = new Date(Date.UTC(d.getUTCFullYear(), m1, Math.floor(strDS.substr(2, 2)), t1));
-      else
-        d1 = getWeekDay(d.getUTCFullYear(), m1, n1, w1, t1);
-
-      if (n2 == 0)
-        d2 = new Date(Date.UTC(d.getUTCFullYear(), m2, Math.floor(strDS.substr(8, 2)), t2));
-      else
-        d2 = getWeekDay(d.getUTCFullYear(), m2, n2, w2, t2);
-
-      if (d2 > d1)
-        re = (d > d1 && d < d2) ? true : false;
-      else
-        re = (d > d1 || d < d2) ? true : false;
-
-      return (re);
+      // 判斷是否位於日光節約時間範圍內
+      if (d2 > d1) {
+        return d > d1 && d < d2;
+      } else {
+        return d > d1 || d < d2;
+      }
     }
-
     var isDS = false;
 
     //計算全球時間
@@ -1262,24 +1268,24 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
     }
 
 
-//-->
+    //-->
   </SCRIPT>
 
   <STYLE>
-     ::selection {
+    ::selection {
       background: darkred;
       color: yellow
     }
-    
-     ::-moz-selection {
+
+    ::-moz-selection {
       background: darkred;
       color: yellow
     }
-    
+
     html {
       background: olive;
     }
-    
+
     .todayColor {
       BORDER-BOTTOM: blue 2px ridge;
       BORDER-LEFT: blue 2px ridge;
@@ -1287,54 +1293,54 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       BORDER-TOP: blue 2px ridge;
       BORDER-RIGHT: blue 2px ridge
     }
-    
+
     .my {
       BACKGROUND-COLOR: pink;
     }
-    
+
     .font-blue {
       font-size: 16px;
       color: #0000FF;
     }
-    
+
     td {
       color: black;
     }
-    
+
     input {
       height: 30px;
       background: pink;
       color: navy;
     }
-    
+
     button {
       FONT-SIZE: 8pt
     }
-    
+
     #GX {
       font-size: 14pt;
       /* color: lightyellow */
     }
-    
+
     .num {
       background: lightgreen;
       height: 30px;
     }
-    
+
     #p {
       color: darkred;
     }
     /** {
       border-radius: 8px;
     }*/
-    
+
     input:hover,
     textarea:hover,
     button:hover {
       border: 2px solid fuchsia;
       box-shadow: 5px 5px 20px darkorchid
     }
-    
+
     input:active,
     textarea:active,
     button:active {
@@ -1343,12 +1349,12 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
       border-style: solid;
       box-shadow: 5px -5px 20px darkorchid
     }
-    
+
     td:hover {
       border: 1px solid fuchsia;
       box-shadow: 3px 3px 20px darkorchid
     }
-    
+
     @media all and (max-width:500px) {
       #detail {
         display: none
@@ -1404,17 +1410,17 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         <TD bgColor=paleturquoise colSpan=7 align=right>
           <FONT style="FONT-SIZE: 10pt" color=#000 size=2>
             西元
-            <SELECT style="FONT-SIZE: 9pt;color:darkred" onchange=changeCld() name=SY> 
+            <SELECT style="FONT-SIZE: 9pt;color:darkred" onchange=changeCld() name=SY>
               <SCRIPT language=Javascript>
                 // <!--我修改
                 for (i = 1900; i < 2101; i++) document.write('<option>' + i)
-          //--></SCRIPT>
+                //--></SCRIPT>
             </SELECT>年
-            <SELECT style="FONT-SIZE: 9pt;color:darkred" onchange=changeCld() name=SM> 
+            <SELECT style="FONT-SIZE: 9pt;color:darkred" onchange=changeCld() name=SM>
               <SCRIPT language=JavaScript>
                 // <!--我修改
                 for (i = 1; i < 13; i++) document.write('<option>' + i)
-          //--></SCRIPT>
+                //--></SCRIPT>
             </SELECT>月</FONT> <br/>
           <FONT id=GZ></FONT><br/></TD>
       </TR>
@@ -1452,44 +1458,44 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         <TD width=85>六</TD>
       </TR>
       <SCRIPT language=JavaScript>
-                // <!--我修改
-                var gNum, color1, color2;
+        // <!--我修改
+        var gNum, color1, color2;
 
-                // 星期六顏色
-                switch (conWeekend) {
-                  case 1:
-                    color1 = 'black';
-                    color2 = color1;
-                    break;
-                  case 2:
-                    color1 = 'green';
-                    color2 = color1;
-                    break;
-                  case 3:
-                    color1 = '#333';
-                    color2 = color1;
-                    break;
-                  default:
-                    color1 = 'green';
-                    color2 = 'red';
-                }
+        // 星期六顏色
+        switch (conWeekend) {
+          case 1:
+            color1 = 'black';
+            color2 = color1;
+            break;
+          case 2:
+            color1 = 'green';
+            color2 = color1;
+            break;
+          case 3:
+            color1 = '#333';
+            color2 = color1;
+            break;
+          default:
+            color1 = 'green';
+            color2 = 'red';
+        }
 
-                for (i = 0; i < 6; i++) {
-                  document.write('<tr align=middle bgColor=#fed>')
-                  for (j = 0; j < 7; j++) {
-                    gNum = i * 7 + j
-                    document.write('<td id="GD' + gNum + '" onMouseOver="mOvr(' + gNum + ')" onMouseOut="mOut()"><font id="SD' + gNum + '" size=6')
-                    if (j == 6) document.write(' color=#06e')
-                    if (j == 0) document.write(' color=#f0a')
-                    if (j == 6) {
-                      if (i % 2 == 1) document.write(' color=' + color2)
-                      else document.write(' color=' + color1)
-                    }
-                    document.write(' TITLE=""> </font><br/><font id="LD' + gNum + '" size=2 style="font-size:9pt"> </font></td>')
-                  }
-                  document.write('</tr>')
-                }
-          //-->
+        for (i = 0; i < 6; i++) {
+          document.write('<tr align=middle bgColor=#fed>')
+          for (j = 0; j < 7; j++) {
+            gNum = i * 7 + j
+            document.write('<td id="GD' + gNum + '" onMouseOver="mOvr(' + gNum + ')" onMouseOut="mOut()"><font id="SD' + gNum + '" size=6')
+            if (j == 6) document.write(' color=#06e')
+            if (j == 0) document.write(' color=#f0a')
+            if (j == 6) {
+              if (i % 2 == 1) document.write(' color=' + color2)
+              else document.write(' color=' + color1)
+            }
+            document.write(' TITLE=""> </font><br/><font id="LD' + gNum + '" size=2 style="font-size:9pt"> </font></td>')
+          }
+          document.write('</tr>')
+        }
+        //-->
       </SCRIPT>
       <!--</TBODY></TABLE>-->
     </TABLE>
@@ -1506,133 +1512,176 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
             <SPAN style="WIDTH: 150px; FONT-FAMILY: '新細明體'; FONT-SIZE: 9pt" id=City>台灣</SPAN> <br/>
             <SPAN style="FONT-FAMILY: Arial; COLOR: #000080; FONT-SIZE: 11pt" id=GlobeTime>0000年0月0日 (　) 　午 00:00:00</SPAN><br/>
 
-            <TABLE>
-              <TBODY>
-                <TR>
-                  <TD align=left>
-                    <DIV id=map style="display:none">
-                      <DIV style="POSITION: relative; WIDTH: 500px" id=world>
-                        <IMG id=world1>
-                        <IMG id=world2>
-                      </DIV>
+          <TABLE>
+            <TBODY>
+              <TR>
+                <TD align=left>
+                  <DIV id=map style="display:none">
+                    <DIV style="POSITION: relative; WIDTH: 500px" id=world>
+                      <IMG id=world1>
+                      <IMG id=world2>
                     </DIV>
-                  </TD>
-                </TR>
-              </TBODY>
-            </TABLE>
+                  </DIV>
+                </TD>
+              </TR>
+            </TBODY>
+          </TABLE>
 
             <br/>
             <SELECT style="WIDTH: 240px; FONT: 9pt '細明體'" onchange=chContinent() name=continentMenu></SELECT><br/>
-            <SELECT style="WIDTH: 240px; FONT: 9pt '細明體'" onchange=chCountry() name=countryMenu></SELECT>
+          <SELECT style="WIDTH: 240px; FONT: 9pt '細明體'" onchange=chCountry() name=countryMenu></SELECT>
           </P>
         </TD>
       </FORM>
     </TBODY>
   </TABLE>
-   <div id="mytime" style="width: 80vw;color: maroon;padding: 10px 10px 10px 10px;"></div>
+  <div id="mytime" style="width: 80vw;color: maroon;padding: 10px 10px 10px 10px;"></div>
 
 </BODY>
 <script>
- /**
- * 取得當前定位與地名，並將日出日中資訊寫入 <div id="mytime"></div>
- */
-async function updateSunTimesToDiv() {
-  const targetDiv = document.getElementById("mytime");
-  if (!targetDiv) {
-    console.error("找不到 id 為 mytime 的 div 元素");
-    return;
-  }
+  // 用Google的AI寫的函數，算出我所在的本地定位+城市名+日出日中時間
 
-  try {
-    // 1. 使用 HTML5 地理定位 API 獲取使用者座標
-    const position = await new Promise((resolve, reject) => {
-      if (!navigator.geolocation) {
-        reject(new Error("您的瀏覽器不支援地理定位 API 功能"));
-      }
-      navigator.geolocation.getCurrentPosition(resolve, reject, {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-      });
-    });
-
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-    const now = new Date();
-
-    // 2. 調用 Reverse Geocoding API 取得城市/地區名稱
-    let cityName = "未知地區";
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=zh-TW`
-      );
-      if (response.ok) {
-        const geoData = await response.json();
-        const addr = geoData.address || {};
-        cityName = addr.city || addr.town || addr.county || addr.village || addr.state || "未知地區";
-      }
-    } catch (e) {
-      console.warn("無法取得城市名稱:", e);
+  /**
+  * 取得當前定位與地名，並將日出日中資訊寫入 <div id="mytime"></div>
+  */
+  async function updateSunTimesToDiv() {
+    const targetDiv = document.getElementById("mytime");
+    if (!targetDiv) {
+      console.error("找不到 id 為 mytime 的 div 元素");
+      return;
     }
 
-    // 3. 日期天文計算
-    const startOfYear = new Date(now.getFullYear(), 0, 0);
-    const diff = now - startOfYear;
-    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+    try {
+      // 1. 使用 HTML5 地理定位 API 獲取使用者座標
+      const position = await new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("您的瀏覽器不支援地理定位 API 功能"));
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 30000,          // 將超時時間延長至 30 秒（給純 GPS 搜尋的時間）
+          maximumAge: 3600000       // 允許使用 1 小時內的快取位置（離線時極為實用）
+        });
+      });
 
-    // 均時差 Equation of Time (分鐘)
-    const B = (2 * Math.PI * (dayOfYear - 81)) / 364;
-    const eqTime = 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      const now = new Date();
 
-    // 太陽赤緯 Solar Declination (弧度)
-    const declination = 23.45 * Math.sin((2 * Math.PI * (284 + dayOfYear)) / 365) * (Math.PI / 180);
+      // 2. 調用 Reverse Geocoding API 取得城市/地區名稱 查詢與容錯處理
+      let cityName = "未知地區";
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=zh-TW`,
+          {
+            headers: {
+              // Nominatim 要求必須提供 User-Agent，否則可能回傳 403 錯誤
+              'User-Agent': 'SunTimesApp/1.0'
+            }
+          }
+        );
 
-    // 當地時區偏移 (小時)
-    const timeZoneOffsetHours = -now.getTimezoneOffset() / 60;
+        if (response.ok) {
+          const geoData = await response.json();
+          const addr = geoData.address || {};
+          // 優先抓取精確市鎮，若無則抓取較大的行政區，最後以 display_name 的第一段做底
+          // 動態降級（Fallback）機制：涵蓋各國行政區劃，若無特定欄位則抓 display_name 第一段
+          cityName = addr.city || addr.town || addr.municipality || addr.county ||
+            addr.district || addr.suburb || addr.village || addr.state || addr.country ||
+            (geoData.display_name ? geoData.display_name.split(',')[0] : "未知地區");
+        } else if (response.status === 429) {
+          console.warn("地理定位 API 請求過於頻繁 (429)");
+          cityName = "查詢過頻";
+        } else {
+          console.warn(`地理定位伺服器錯誤，狀態碼：${response.status}`);
+          cityName = "定位服務暫時無法使用";
+        }
+      } catch (e) {
+        console.warn("網路連線失敗或無法取得城市名稱:", e);
+        cityName = "網路連線異常";
+      }
 
-    // 4. 計算「日中」時間 (Solar Noon)
-    const solarNoonMinutes = 720 - 4 * lng - eqTime + timeZoneOffsetHours * 60;
+      // 3. 高精度天文計算 (NOAA 簡化近似演算法)
+      const year = now.getFullYear();
+      const startOfYear = new Date(Date.UTC(year, 0, 1));
+      const todayUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      const dayOfYear = Math.floor((todayUTC - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
 
-    // 5. 計算「日出」時間 (Sunrise)
-    const latRad = lat * (Math.PI / 180);
-    const cosHourAngle = -Math.tan(latRad) * Math.tan(declination);
+      const degToRad = Math.PI / 180;
+      const radToDeg = 180 / Math.PI;
 
-    if (cosHourAngle > 1) throw new Error("該地區今日為極夜（無日出）");
-    if (cosHourAngle < -1) throw new Error("該地區今日為極晝（無日落）");
+      // 太陽平黃經 (Mean Longitude) 與 平近點角 (Mean Anomaly)
+      const L0 = 280.466 + 0.9856474 * dayOfYear;
+      const M = (357.529 + 0.9856003 * dayOfYear) * degToRad;
 
-    const hourAngle = Math.acos(cosHourAngle) * (180 / Math.PI);
-    const sunriseMinutes = solarNoonMinutes - hourAngle * 4;
+      // 黃道經度 (Ecliptic Longitude)
+      const C = (1.9148 * Math.sin(M) + 0.02 * Math.sin(2 * M)) * degToRad;
+      const sunTrueLong = (L0 + C * radToDeg) * degToRad;
 
-    // 格式化時間為 HH:mm:ss
-    const formatTime = (totalMinutes) => {
-      const hrs = String(Math.floor(totalMinutes / 60) % 24).padStart(2, '0');
-      const mins = String(Math.floor(totalMinutes % 60)).padStart(2, '0');
-      const secs = String(Math.floor((totalMinutes % 1) * 60)).padStart(2, '0');
-      return `${hrs}:${mins}:${secs}`;
-    };
+      // 太陽赤緯 (Solar Declination)
+      const declination = Math.asin(Math.sin(23.44 * degToRad) * Math.sin(sunTrueLong));
 
-    // 轉換經緯度標示
-    const latStr = lat >= 0 ? `北緯${lat.toFixed(2)}` : `南緯${Math.abs(lat).toFixed(2)}`;
-    const lngStr = lng >= 0 ? `東經${lng.toFixed(2)}` : `西經${Math.abs(lng).toFixed(2)}`;
+      // 均時差 Equation of Time (分鐘)
+      const y = Math.tan((23.44 / 2) * degToRad) ** 2;
+      const L0Rad = L0 * degToRad;
+      const eqTimeRad = y * Math.sin(2 * L0Rad) - 2 * 0.0167 * Math.sin(M) +
+        4 * 0.0167 * y * Math.sin(M) * Math.cos(2 * L0Rad) -
+        0.5 * (y ** 2) * Math.sin(4 * L0Rad);
+      const eqTime = eqTimeRad * radToDeg * 4; // 弧度轉為分鐘
 
-    // 6. 將結果寫入 DOM 的 innerHTML（使用 <br> 進行換行）
-    targetDiv.innerHTML = 
-      `當前位置：${lngStr} ${latStr}<br>` +
-      `城市：${cityName}<br>` +
-      `今日日出時間：${formatTime(sunriseMinutes)}<br>` +
-      `今日日中時間：${formatTime(solarNoonMinutes)}`;
+      // 4. 時區與經度修正
+      const timeZoneOffsetHours = -now.getTimezoneOffset() / 60; // 例如台灣為 +8
+      const standardMeridian = timeZoneOffsetHours * 15;        // UTC+8 中央經線為 120°
+      const longitudeCorrection = (lng - standardMeridian) * 4;   // 偏東為正 (提早過中天)
 
-  } catch (err) {
-    targetDiv.innerHTML = `計算失敗：${err.message}`;
+      // 計算「日中」時間 (Solar Noon，標準時的分鐘數)
+      const solarNoonMinutes = 720 - longitudeCorrection - eqTime;
+
+      // 5. 計算「日出」時間 (Sunrise)
+      // 考慮大氣折射 (-0.533°) 與太陽上緣邊界 (-0.3°)，標準天頂角為 90.833°
+      const zenith = 90.833 * degToRad;
+      const latRad = lat * degToRad;
+
+      const cosHourAngle = (Math.cos(zenith) - Math.sin(latRad) * Math.sin(declination)) /
+        (Math.cos(latRad) * Math.cos(declination));
+
+      if (cosHourAngle > 1) throw new Error("該地區今日為極夜（無日出）");
+      if (cosHourAngle < -1) throw new Error("該地區今日為極晝（無日落）");
+
+      const hourAngle = Math.acos(cosHourAngle) * radToDeg;
+      const sunriseMinutes = solarNoonMinutes - hourAngle * 4;
+
+      // 6. 時間格式化 (HH:mm:ss)
+      const formatTime = (totalMinutes) => {
+        const normalizedMinutes = (totalMinutes + 1440) % 1440; // 確保數值維持在 0~1440 之內
+        const hrs = String(Math.floor(normalizedMinutes / 60)).padStart(2, '0');
+        const mins = String(Math.floor(normalizedMinutes % 60)).padStart(2, '0');
+        const secs = String(Math.floor((normalizedMinutes % 1) * 60)).padStart(2, '0');
+        return `${hrs}:${mins}:${secs}`;
+      };
+
+      // 轉換經緯度標示
+      const latStr = lat >= 0 ? `北緯${lat.toFixed(2)}` : `南緯${Math.abs(lat).toFixed(2)}`;
+      const lngStr = lng >= 0 ? `東經${lng.toFixed(2)}` : `西經${Math.abs(lng).toFixed(2)}`;
+
+      // 6. 將結果寫入 DOM 的 innerHTML（使用 <br> 進行換行）
+      targetDiv.innerHTML =
+        `當前位置：${lngStr} ${latStr}<br>` +
+        `城市：${cityName}<br>` +
+        `今日日出時間：${formatTime(sunriseMinutes)}<br>` +
+        `今日日中時間：${formatTime(solarNoonMinutes)}`;
+
+    } catch (err) {
+      targetDiv.innerHTML = `計算失敗：${err.message}`;
+    }
   }
-}
 
-// === 執行函數 ===
-updateSunTimesToDiv();
+  // 執行函數
+  updateSunTimesToDiv();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 <script>
-	// 亮色暗色模式切換的套件
+  // 亮色暗色模式切換的套件
   function addDarkmodeWidget() {
     new Darkmode().showWidget();
   }
