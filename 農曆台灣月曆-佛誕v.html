@@ -630,9 +630,13 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         var solarTermIdx = '0123415341536789:;<9:=<>:=1>?012@015@015@015AB78CDE8CD=1FD01GH01GH01IH01IJ0KLMN;LMBEOPDQRST0RUH0RVH0RWH0RWM0XYMNZ[MB\\]PT^_ST`_WH`_WH`_WM`_WM`aYMbc[Mde]Sfe]gfh_gih_Wih_WjhaWjka[jkl[jmn]ope]qph_qrh_sth_W';
         var solarTermOS = '211122112122112121222211221122122222212222222221222122222232222222222222222233223232223232222222322222112122112121222211222122222222222222222222322222112122112121222111211122122222212221222221221122122222222222222222222223222232222232222222222222112122112121122111211122122122212221222221221122122222222222222221211122112122212221222211222122222232222232222222222222112122112121111111222222112121112121111111222222111121112121111111211122112122112121122111222212111121111121111111111122112122112121122111211122112122212221222221222211111121111121111111222111111121111111111111111122112121112121111111222111111111111111111111111122111121112121111111221122122222212221222221222111011111111111111111111122111121111121111111211122112122112121122211221111011111101111111111111112111121111121111111211122112122112221222211221111011111101111111110111111111121111111111111111122112121112121122111111011111121111111111111111011111111112111111111111011111111111111111111221111011111101110111110111011011111111111111111221111011011101110111110111011011111101111111111211111001011101110111110110011011111101111111111211111001011001010111110110011011111101111111110211111001011001010111100110011011011101110111110211111001011001010011100110011001011101110111110211111001010001010011000100011001011001010111110111111001010001010011000111111111111111111111111100011001011001010111100111111001010001010000000111111000010000010000000100011001011001010011100110011001011001110111110100011001010001010011000110011001011001010111110111100000010000000000000000011001010001010011000111100000000000000000000000011001010001010000000111000000000000000000000000011001010000010000000';
 
-        function sTerm(y, n) {
-            return (solarTermBase[n] + Math.floor(solarTermOS.charAt((Math.floor(solarTermIdx.charCodeAt(y - 1900)) - 48) * 24 + n)));
-        }
+    // 1. 修正 sTerm 防呆
+    function sTerm(y, n) {
+      var idx = y - 1900;
+      if (idx < 0 || idx >= solarTermIdx.length) return 0;
+      var off = (solarTermIdx.charCodeAt(idx) - 48) * 24 + n;
+      return solarTermBase[n] + Math.floor(solarTermOS.charAt(off));
+    }
 
 
 
@@ -881,23 +885,14 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
         }
 
         //====================== 中文日期
+        // 2. 清理 cDay 冗餘 break
         function cDay(d) {
-            var s;
-
             switch (d) {
-                case 10:
-                    s = '初十'; break;
-                case 20:
-                    s = '二十'; break;
-                    break;
-                case 30:
-                    s = '三十'; break;
-                    break;
-                default:
-                    s = nStr2[Math.floor(d / 10)];
-                    s += nStr1[d % 10];
+                case 10: return '初十';
+                case 20: return '二十';
+                case 30: return '三十';
+                default: return nStr2[Math.floor(d / 10)] + nStr1[d % 10];
             }
-            return (s);
         }
         function overCopy() {
             // 結束時選取並複製文本框中的內容
@@ -1373,62 +1368,70 @@ https://www.youtube.com/watch?v=ek4z6uVulKQ&list=PLi5orj2TlTGwfZfZFhxDrYzhUy_dGm
             return (d2);
         }
 
-        //傳入某時間值, 日光節約字串 傳回是否節約 true 或 false
-        function isDaylightSaving(d, strDS) {
+    // 傳入某時間值, 日光節約字串 傳回是否節約 true 或 false
+    function isDaylightSaving(d, strDS) {
+      if (!strDS || strDS.length < 11) return false;
 
-            if (strDS == '') return (false);
+      // 格式："04F02|10L02" 
+      // [0..1]月份 [2]規則 [3]星期 [4]小時 | [6..7]月份 [8]規則 [9]星期 [10]小時
+      var m1 = parseInt(strDS.substr(0, 2), 10) - 1; // 04 -> 月份 3 (即 4月)
+      var x1 = strDS.substr(2, 1);                    // F
+      var w1 = parseInt(strDS.substr(3, 1), 10);     // 0
+      var t1 = parseInt(strDS.substr(4, 1), 10);     // 2
 
-            var m1, n1, w1, t1;
-            var m2, n2, w2, t2;
+      var m2 = parseInt(strDS.substr(6, 2), 10) - 1; // 10 -> 月份 9 (即 10月)
+      var x2 = strDS.substr(8, 1);                    // L
+      var w2 = parseInt(strDS.substr(9, 1), 10);     // 0
+      var t2 = parseInt(strDS.substr(10, 1), 10);    // 2
 
-            //"04F02|10L02"
-            // 01234567890
-
-            with (Math) {
-                m1 = floor(strDS.substr(0, 2)) - 1; //月
-                w1 = floor(strDS.substr(3, 1));   //星
-                t1 = floor(strDS.substr(4, 1));   //時
-                m2 = floor(strDS.substr(6, 2)) - 1;
-                w2 = floor(strDS.substr(9, 1));
-                t2 = floor(strDS.substr(10, 1));
-            }
-
-            switch (strDS.substr(2, 1)) { //F L 頭或尾
-                case 'F': n1 = 1; break; //第一個
-                case 'S': n1 = 2; break; //第二個
-                case 'L': n1 = -1; break; //到數第一個
-                default: n1 = 0; break;
-            }
-
-            switch (strDS.substr(8, 1)) {
-                case 'F': n2 = 1; break;
-                case 'S': n2 = 2; break;
-                case 'L': n2 = -1; break;
-                default: n2 = 0; break;
-            }
-
-
-            var d1, d2, re;
-
-            if (n1 == 0)
-                d1 = new Date(Date.UTC(d.getUTCFullYear(), m1, Math.floor(strDS.substr(2, 2)), t1));
-            else
-                d1 = getWeekDay(d.getUTCFullYear(), m1, n1, w1, t1);
-
-            if (n2 == 0)
-                d2 = new Date(Date.UTC(d.getUTCFullYear(), m2, Math.floor(strDS.substr(8, 2)), t2));
-            else
-                d2 = getWeekDay(d.getUTCFullYear(), m2, n2, w2, t2);
-
-            if (d2 > d1)
-                re = (d > d1 && d < d2) ? true : false;
-            else
-                re = (d > d1 || d < d2) ? true : false;
-
-            return (re);
+      // 解析規則 F:第1個, S:第2個, L:最後1個, 數字/其他:固定日期
+      function getRule(type) {
+        switch (type) {
+          case 'F': return 1;
+          case 'S': return 2;
+          case 'L': return -1;
+          default: return 0;
         }
+      }
 
-        var isDS = false;
+      var n1 = getRule(x1);
+      var n2 = getRule(x2);
+
+      var yr = d.getUTCFullYear();
+      var d1, d2;
+
+      // 解析開始時間 d1
+      if (n1 === 0) {
+        // 固定日期時，提取第 2、3 位數字
+        var day1 = parseInt(strDS.substr(2, 2), 10);
+        if (isNaN(day1)) return false; // 安全防護
+        d1 = new Date(Date.UTC(yr, m1, day1, t1));
+      } else {
+        d1 = getWeekDay(yr, m1, n1, w1, t1);
+      }
+
+      // 解析結束時間 d2
+      if (n2 === 0) {
+        var day2 = parseInt(strDS.substr(8, 2), 10);
+        if (isNaN(day2)) return false; // 安全防護
+        d2 = new Date(Date.UTC(yr, m2, day2, t2));
+      } else {
+        d2 = getWeekDay(yr, m2, n2, w2, t2);
+      }
+
+      // 若 getWeekDay 計算失敗回傳無效日期，防護避免卡死
+      if (!d1 || isNaN(d1.getTime()) || !d2 || isNaN(d2.getTime())) {
+        return false;
+      }
+
+      // 判斷是否位於日光節約時間範圍內
+      if (d2 > d1) {
+        return d > d1 && d < d2;
+      } else {
+        return d > d1 || d < d2;
+      }
+    }
+    var isDS = false;
 
         //計算全球時間
         function getGlobeTime() {

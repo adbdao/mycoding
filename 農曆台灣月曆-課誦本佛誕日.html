@@ -720,13 +720,10 @@ Open Source 不代表放棄著作權，任何形式之引用或轉載前請來�
         default: return nStr2[Math.floor(d / 10)] + nStr1[d % 10];
       }
     }
-    // 結束時選取並複製文本框中的內容
-    // 3. 現代剪貼簿複製
-    async function overCopy() {
-      if (txt5) {
-        txt5.select();
-        await navigator.clipboard.writeText(txt5.value);
-      }
+    function overCopy() {
+        // 結束時選取並複製文本框中的內容
+        txt5.select()
+        document.execCommand('Copy')
     }
     // 月份日期轉中文字
     var NumString = "一二三四五六七八九十";
